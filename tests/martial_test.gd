@@ -32,9 +32,9 @@ func run() -> void:
 	check(w.act(1, "裝備", "武當心法") and p.inner == "武當心法" and p.equipped == "太極劍法", "Inner art uses separate slot")
 	check(w.act(1, "裝備", "梯雲縱") and p.movement == "梯雲縱" and p.equipped == "太極劍法", "Lightness uses separate slot")
 	check(not w.act(1, "裝備", "俠義"), "Sect virtue cannot become attack art")
-	var defended := Rules.defense(p)
+	var defended := Rules.Combat.hit_chance(p, p, Rules.active_art(p))
 	w.act(1, "卸下", "movement")
-	check(Rules.defense(p) < defended, "Lightness provides defensive benefit")
+	check(Rules.Combat.hit_chance(p, p, Rules.active_art(p)) > defended, "Lightness lowers the chance of being hit")
 	check(w.act(1, "裝備", "木刀") and p.equipped == "基本刀法", "Blade switches external art without overwriting inner slot")
 	check(p.inner == "武當心法", "Weapon switching preserves inner art")
 	check(w.act(1, "裝備", "竹棒") and p.equipped == "打狗棒法", "Staff uses staff art")
@@ -49,7 +49,7 @@ func run() -> void:
 	check(Rules.active_art(p) == "太極劍法", "Combat revalidates incompatible selection")
 	var sword_attack := Rules.attack(p)
 	p.weapon = "青鋒劍"
-	check(Rules.attack(p) - sword_attack == 11, "Compatible weapon attack contributes actual item stat")
+	check(Rules.attack(p) > sword_attack, "Compatible weapon strength multiplies martial power")
 	p.weapon = "不存在的兵器"
 	check(Rules.attack(p) < sword_attack, "Unknown weapon never receives weapon attack or sword skill")
 	p.skills["紫霞神功"] = 65

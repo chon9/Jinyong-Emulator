@@ -5,7 +5,7 @@ signal message(channel: String, text: String)
 const Rules = preload("res://scripts/world.gd")
 const SAVE := "user://youxia_save.json"
 const PORT := 24780
-const PROTOCOL := 3
+const PROTOCOL := 4
 var world = Rules.new()
 var state: Dictionary = {}
 var mode := "單機"
@@ -93,10 +93,17 @@ func _restore(id: int, data: Dictionary) -> void:
 	p.fight = 0
 	p.pk_enabled = false
 	p.auto = "停止"
+	p.travel_target = ""
+	p.travel_route = []
+	p.study_ticks = 0
+	p.quest_restore = {}
 	p.cooldown = -1
 	p.session_kills = 0
 	p.session_silver = 0
 	Rules.normalize_martial(p)
+	p.rules_version = int(data.get("rules_version", 0))
+	if not data.has("combat_xp"): p.combat_xp = int(p.exp) + 35 * int(p.level) * (int(p.level) - 1)
+	Rules.Training.normalize(p)
 	if not preload("res://scripts/content.gd").PLACES.has(p.place): p.place = "揚州城"
 
 func save_game() -> bool:

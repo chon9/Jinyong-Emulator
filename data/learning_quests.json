@@ -1,0 +1,6995 @@
+{
+  "q_rabbit": {
+    "id": "q_rabbit",
+    "name": "狩獵事件：大兔皮",
+    "giver": "n_wujieshan",
+    "conditions": [],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "交給武介山 1 張大兔皮",
+        "log": "交給武介山 1 張大兔皮",
+        "place": "西夏・西夏廣場",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_wujieshan",
+            "item": "大兔皮",
+            "count": 1,
+            "text": "交給武介山 1 張大兔皮",
+            "id": "o_0",
+            "npc": "n_wujieshan",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成狩獵事件：大兔皮",
+        "rewards": {
+          "money": 100,
+          "combat_xp": 0,
+          "learn_points": 25,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_rice": {
+    "id": "q_rice",
+    "name": "種稻",
+    "giver": "n_taoyun",
+    "conditions": [],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "交給陶耘 5 份米",
+        "log": "交給陶耘 5 份米",
+        "place": "大理郊外・陶耘稻田",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_taoyun",
+            "item": "米",
+            "count": 5,
+            "text": "交給陶耘 5 份米",
+            "id": "o_0",
+            "npc": "n_taoyun",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成種稻",
+        "rewards": {
+          "money": 100,
+          "combat_xp": 10,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_letter": {
+    "id": "q_letter",
+    "name": "驛站送信",
+    "giver": "n_xx_station",
+    "conditions": [],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "把信函交給大理驛站管事",
+        "log": "把信函交給大理驛站管事",
+        "place": "大理・大理驛站",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_dl_station",
+            "item": "驛站信函",
+            "count": 1,
+            "text": "把信函交給大理驛站管事",
+            "id": "o_0",
+            "npc": "n_dl_station",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "驛站信函",
+        "n": 1
+      }
+    ],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成驛站送信",
+        "rewards": {
+          "money": 100,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 2,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_letter_dl": {
+    "id": "q_letter_dl",
+    "name": "驛站送信（大理）",
+    "giver": "n_dl_station",
+    "conditions": [],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "把信函交給西夏驛站管事",
+        "log": "把信函交給西夏驛站管事",
+        "place": "西夏・西夏驛站",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_xx_station",
+            "item": "驛站信函",
+            "count": 1,
+            "text": "把信函交給西夏驛站管事",
+            "id": "o_0",
+            "npc": "n_xx_station",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "驛站信函",
+        "n": 1
+      }
+    ],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成驛站送信（大理）",
+        "rewards": {
+          "money": 100,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 2,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_bandit": {
+    "id": "q_bandit",
+    "name": "剿滅山賊",
+    "giver": "n_dl_bukuai",
+    "conditions": [],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "剿滅山賊",
+        "log": "剿滅山賊",
+        "place": "大理郊外・蒼山林道",
+        "objectives": [
+          {
+            "type": "FIGHT",
+            "target": "m_bandit",
+            "item": "",
+            "count": 3,
+            "text": "剿滅山賊",
+            "id": "o_0",
+            "source_monsters": [
+              "m_bandit"
+            ],
+            "requires": [],
+            "enemies": [
+              "山賊"
+            ]
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      },
+      {
+        "id": "s_1",
+        "title": "回衙門向捕快覆命",
+        "log": "回衙門向捕快覆命",
+        "place": "大理・大理衙門",
+        "objectives": [
+          {
+            "type": "TALK",
+            "target": "n_dl_bukuai",
+            "item": "",
+            "count": 1,
+            "text": "回衙門向捕快覆命",
+            "id": "o_1",
+            "npc": "n_dl_bukuai",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成剿滅山賊",
+        "rewards": {
+          "money": 200,
+          "combat_xp": 0,
+          "learn_points": 30,
+          "fame": 0,
+          "morality": 10,
+          "items": [],
+          "flags": [],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "proposal",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_hs_kaoyan": {
+    "id": "q_hs_kaoyan",
+    "name": "岳不群的考驗",
+    "giver": "n_yuebuqun",
+    "conditions": [
+      {
+        "type": "no_sect"
+      },
+      {
+        "type": "skill_min",
+        "skill": "基本內功",
+        "value": 5
+      },
+      {
+        "type": "skill_min",
+        "skill": "讀書識字",
+        "value": 5
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "與陸大有切磋，勝過華山弟子",
+        "log": "與陸大有切磋，勝過華山弟子",
+        "place": "恆山山麓・恆山岔路",
+        "objectives": [
+          {
+            "type": "FIGHT",
+            "target": "m_hs_trainee",
+            "item": "",
+            "count": 1,
+            "text": "與陸大有切磋，勝過華山弟子",
+            "id": "o_0",
+            "source_monsters": [
+              "m_hs_trainee"
+            ],
+            "requires": [],
+            "enemies": [
+              "華山弟子"
+            ]
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      },
+      {
+        "id": "s_1",
+        "title": "回報岳不群",
+        "log": "回報岳不群",
+        "place": "華山・玉女峰練武場",
+        "objectives": [
+          {
+            "type": "TALK",
+            "target": "n_yuebuqun",
+            "item": "",
+            "count": 1,
+            "text": "回報岳不群",
+            "id": "o_1",
+            "npc": "n_yuebuqun",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成岳不群的考驗",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [
+            "hs_trial_passed"
+          ],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "proposal",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_em_xin": {
+    "id": "q_em_xin",
+    "name": "貝綿儀的信",
+    "giver": "n_em_beimianyi",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "峨嵋"
+      },
+      {
+        "type": "skill_min",
+        "skill": "峨嵋心法",
+        "value": 20
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "把信交給易理房的靜照師太",
+        "log": "把信交給易理房的靜照師太",
+        "place": "峨嵋派・易理房",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_em_jingzhao",
+            "item": "貝綿儀的信",
+            "count": 1,
+            "text": "把信交給易理房的靜照師太",
+            "id": "o_0",
+            "npc": "n_em_jingzhao",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "貝綿儀的信",
+        "n": 1
+      }
+    ],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成貝綿儀的信",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 20,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [
+            "em_bmy_letter"
+          ],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_em_jiancheng": {
+    "id": "q_em_jiancheng",
+    "name": "殲逞盜賊令",
+    "giver": "n_em_jingzhao",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "峨嵋"
+      },
+      {
+        "type": "quest_flag",
+        "flag": "em_bmy_letter"
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "到峨嵋山下剿滅盜賊",
+        "log": "到峨嵋山下剿滅盜賊",
+        "place": "大理郊外・蒼山林道",
+        "objectives": [
+          {
+            "type": "FIGHT",
+            "target": "m_bandit",
+            "item": "",
+            "count": 3,
+            "text": "到峨嵋山下剿滅盜賊",
+            "id": "o_0",
+            "source_monsters": [
+              "m_bandit"
+            ],
+            "requires": [],
+            "enemies": [
+              "山賊"
+            ]
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      },
+      {
+        "id": "s_1",
+        "title": "把殲逞盜賊令繳回靜照師太",
+        "log": "把殲逞盜賊令繳回靜照師太",
+        "place": "峨嵋派・易理房",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_em_jingzhao",
+            "item": "殲逞盜賊令",
+            "count": 1,
+            "text": "把殲逞盜賊令繳回靜照師太",
+            "id": "o_1",
+            "npc": "n_em_jingzhao",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "殲逞盜賊令",
+        "n": 1
+      }
+    ],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成殲逞盜賊令",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 10,
+          "items": [],
+          "flags": [],
+          "skill_prof": {
+            "斷惡": 50
+          },
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_hg_zaowanke": {
+    "id": "q_hg_zaowanke",
+    "name": "恆山早晚課",
+    "giver": "n_hg_yizhi",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "恆山"
+      },
+      {
+        "type": "hour_in",
+        "hours": [
+          "卯",
+          "酉"
+        ]
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "隨儀質做完早晚課",
+        "log": "隨儀質做完早晚課",
+        "place": "恆山派・恆山大殿",
+        "objectives": [
+          {
+            "type": "TALK",
+            "target": "n_hg_yizhi",
+            "item": "",
+            "count": 1,
+            "text": "隨儀質做完早晚課",
+            "id": "o_0",
+            "npc": "n_hg_yizhi",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成恆山早晚課",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {
+            "慈悲": 15
+          },
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_yinjian": {
+    "id": "q_wd_yinjian",
+    "name": "武當引薦",
+    "giver": "n_wd_yinjian",
+    "conditions": [
+      {
+        "type": "gender",
+        "value": "M"
+      },
+      {
+        "type": "morality_min",
+        "value": 50
+      },
+      {
+        "type": "no_sect"
+      },
+      {
+        "type": "not_enemy_of",
+        "sect": "武當"
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "把引薦書交給內堂的張三丰",
+        "log": "把引薦書交給內堂的張三丰",
+        "place": "武當派・內堂",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_wd_zhangsanfeng",
+            "item": "引薦書",
+            "count": 1,
+            "text": "把引薦書交給內堂的張三丰",
+            "id": "o_0",
+            "npc": "n_wd_zhangsanfeng",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "引薦書",
+        "n": 1
+      }
+    ],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成武當引薦",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [
+            "wd_recommended"
+          ],
+          "skill_prof": {},
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_jiaofei": {
+    "id": "q_wd_jiaofei",
+    "name": "剿滅盜匪",
+    "giver": "n_wd_songyuanqiao",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      },
+      {
+        "type": "skill_min",
+        "skill": "玄虛刀法",
+        "value": 15
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "剿滅山賊",
+        "log": "剿滅山賊",
+        "place": "大理郊外・蒼山林道",
+        "objectives": [
+          {
+            "type": "FIGHT",
+            "target": "m_bandit",
+            "item": "",
+            "count": 3,
+            "text": "剿滅山賊",
+            "id": "o_0",
+            "source_monsters": [
+              "m_bandit"
+            ],
+            "requires": [],
+            "enemies": [
+              "山賊"
+            ]
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      },
+      {
+        "id": "s_1",
+        "title": "回大殿向宋遠橋覆命",
+        "log": "回大殿向宋遠橋覆命",
+        "place": "武當派・大殿",
+        "objectives": [
+          {
+            "type": "TALK",
+            "target": "n_wd_songyuanqiao",
+            "item": "",
+            "count": 1,
+            "text": "回大殿向宋遠橋覆命",
+            "id": "o_1",
+            "npc": "n_wd_songyuanqiao",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成剿滅盜匪",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {
+            "俠義": 50
+          },
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_jiashu": {
+    "id": "q_wd_jiashu",
+    "name": "好心有好報",
+    "giver": "n_wd_dl_oldman",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "把家書交給三清宮的東超",
+        "log": "把家書交給三清宮的東超",
+        "place": "武當派・三清宮",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_wd_dongchao",
+            "item": "家書",
+            "count": 1,
+            "text": "把家書交給三清宮的東超",
+            "id": "o_0",
+            "npc": "n_wd_dongchao",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "家書",
+        "n": 1
+      }
+    ],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成好心有好報",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 0,
+          "fame": 0,
+          "morality": 0,
+          "items": [],
+          "flags": [],
+          "skill_prof": {
+            "俠義": 25
+          },
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_xh_maipi": {
+    "id": "q_xh_maipi",
+    "name": "馬屁研習",
+    "giver": "n_xh_shihouzi",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "星宿"
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "到大殿吹捧星宿老仙",
+        "log": "到大殿吹捧星宿老仙",
+        "place": "星宿派・星宿大殿",
+        "objectives": [
+          {
+            "type": "TALK",
+            "target": "n_xh_dingchunqiu",
+            "item": "",
+            "count": 1,
+            "text": "到大殿吹捧星宿老仙",
+            "id": "o_0",
+            "npc": "n_xh_dingchunqiu",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      },
+      {
+        "id": "s_1",
+        "title": "回左房向獅吼子覆命",
+        "log": "回左房向獅吼子覆命",
+        "place": "星宿派・左房",
+        "objectives": [
+          {
+            "type": "TALK",
+            "target": "n_xh_shihouzi",
+            "item": "",
+            "count": 1,
+            "text": "回左房向獅吼子覆命",
+            "id": "o_1",
+            "npc": "n_xh_shihouzi",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成馬屁研習",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 5,
+          "fame": 0,
+          "morality": -5,
+          "items": [],
+          "flags": [],
+          "skill_prof": {
+            "諂媚": 20
+          },
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "later",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_xh_liandu": {
+    "id": "q_xh_liandu",
+    "name": "邪惡的練毒",
+    "giver": "n_xh_chuchenzi",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "星宿"
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_0",
+        "title": "交給出塵子 3 顆蛇膽",
+        "log": "交給出塵子 3 顆蛇膽",
+        "place": "星宿派・右房",
+        "objectives": [
+          {
+            "type": "DELIVER",
+            "target": "n_xh_chuchenzi",
+            "item": "蛇膽",
+            "count": 3,
+            "text": "交給出塵子 3 顆蛇膽",
+            "id": "o_0",
+            "npc": "n_xh_chuchenzi",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {},
+    "outcomes": {
+      "default": {
+        "label": "完成邪惡的練毒",
+        "rewards": {
+          "money": 0,
+          "combat_xp": 0,
+          "learn_points": 10,
+          "fame": 0,
+          "morality": -10,
+          "items": [],
+          "flags": [],
+          "skill_prof": {
+            "基本毒術": 30
+          },
+          "learn": {},
+          "learn_add": {}
+        }
+      }
+    },
+    "source_status": "later",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_guhongzi": {
+    "id": "q_guhongzi",
+    "name": "孤鴻子師伯的死因",
+    "giver": "n_em_jingguan",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "峨嵋"
+      },
+      {
+        "type": "skill_min",
+        "skill": "峨嵋心法",
+        "value": 5
+      },
+      {
+        "type": "combat_xp_min",
+        "value": 1000
+      },
+      {
+        "type": "fame_min",
+        "value": 100
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_letter",
+        "title": "送家書到西夏",
+        "log": "把靜觀師姐的家書送到西夏，交給她俗家的妹妹雲兒。出峨嵋山門往南到峨嵋山腳，往西經峨嵋西林、清音閣山道、峨嵋茶棚、竹林山徑，過崆峒橋到崆峒道口，再往西穿過東邊樹林、陶耘稻田到大理北門外大道。\n從北門外大道往北到城北河畔，過石橋，沿河川古道經綠洲、大漠邊緣、南坡，順著小溪走到荒草坡，往西就是西夏東門。\n雲兒住在東門進城左手邊（往南）第一間民房。",
+        "place": "西夏・民房",
+        "objectives": [
+          {
+            "id": "o_yuner",
+            "type": "TALK",
+            "npc": "n_xx_yuner",
+            "dialogue": "d_yuner",
+            "text": "把家書交給西夏民房的雲兒",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_reveal",
+        "on_enter": []
+      },
+      {
+        "id": "s_reveal",
+        "title": "雲兒的回信",
+        "log": "雲兒託你把回信帶回峨嵋，交給金頂大殿的靜觀師姐。從西夏東門出城到荒草坡，往南順著小溪經南坡、溪口淺灘、沙丘邊緣、大漠邊緣到綠洲，沿河川古道過石橋到大理城北河畔，往南到北門外大道，再往東經陶耘稻田、東邊樹林到崆峒道口，往東北過崆峒橋、竹林山徑、峨嵋茶棚、清音閣山道、峨嵋西林回到峨嵋山腳，往北進山門，穿過練武場就是大殿。",
+        "place": "峨嵋派・金頂大殿",
+        "objectives": [
+          {
+            "id": "o_reveal",
+            "type": "TALK",
+            "npc": "n_em_jingguan",
+            "dialogue": "d_reveal",
+            "text": "把雲兒的信交給靜觀師姐",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_villager",
+        "on_enter": []
+      },
+      {
+        "id": "s_villager",
+        "title": "大理打聽消息",
+        "log": "靜觀師姐要你到大理查探明教的動靜。照原路下山到崆峒道口，往西經東邊樹林、陶耘稻田到北門外大道，往南進大理北門，在五華樓前的廣場向村民打聽。",
+        "place": "大理・五華樓前",
+        "objectives": [
+          {
+            "id": "o_cunmin",
+            "type": "TALK",
+            "npc": "n_dl_cunmin",
+            "dialogue": "d_cunmin",
+            "text": "在五華樓前向大理村民打聽",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_official",
+        "on_enter": []
+      },
+      {
+        "id": "s_official",
+        "title": "再問一個人",
+        "log": "村民說大理城西的沙漠洞窟常有白袍怪人出入。再找個消息靈通的人問問：五華樓前廣場往東是大理客棧，王大富人在那兒喝酒；往東南是雜貨鋪，李裁縫在裡頭做針線。問其中一個就行。",
+        "place": "大理・大理客棧",
+        "objectives": [
+          {
+            "id": "o_wangdafu",
+            "type": "TALK",
+            "npc": "n_dl_wangdafu",
+            "dialogue": "d_wangdafu",
+            "text": "向客棧裡的王大富人打聽沙漠洞窟",
+            "src": "verified",
+            "src_note": "人名：2001-9-1 n959_875542；位置【設計提案】",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_licaifeng",
+            "type": "TALK",
+            "npc": "n_dl_licaifeng",
+            "dialogue": "d_licaifeng",
+            "text": "或者向雜貨鋪的李裁縫打聽沙漠洞窟",
+            "src": "verified",
+            "src_note": "人名：2001-9-1 n959_875542；位置【設計提案】",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_cave",
+        "on_enter": []
+      },
+      {
+        "id": "s_cave",
+        "title": "沙漠洞窟裡的人",
+        "log": "出大理北門到北門外大道，往西到洱海岸，再一直往西走到底，就是大理西邊的沙漠洞窟。洞裡有野狼和山賊出沒，帶夠金創藥。找到洞窟深處那個詭異的人。",
+        "place": "大理郊外・大理西沙漠洞窟",
+        "objectives": [
+          {
+            "id": "o_meet",
+            "type": "TALK",
+            "npc": "n_dlw_guiyi",
+            "dialogue": "d_guiyi_1",
+            "text": "到大理西沙漠洞窟找詭異的人",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_fight",
+        "on_enter": []
+      },
+      {
+        "id": "s_fight",
+        "title": "明教分舵主",
+        "log": "詭異的人原來是明教的分舵主。在大理西沙漠洞窟裡打敗他。打輸了就回城養好傷，再回洞窟找他動手。",
+        "place": "大理郊外・大理西沙漠洞窟",
+        "objectives": [
+          {
+            "id": "o_fight",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "打敗明教分舵主",
+            "requires": [],
+            "enemies": [
+              "明教分舵主"
+            ]
+          }
+        ],
+        "next": "s_after",
+        "on_enter": []
+      },
+      {
+        "id": "s_after",
+        "title": "他並不壞？",
+        "log": "明教分舵主落敗，似乎還有話要說。在沙漠洞窟裡再跟詭異的人談一談。",
+        "place": "大理郊外・大理西沙漠洞窟",
+        "objectives": [
+          {
+            "id": "o_after",
+            "type": "TALK",
+            "npc": "n_dlw_guiyi",
+            "dialogue": "d_guiyi_2",
+            "text": "再跟詭異的人談一談",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_report",
+        "on_enter": []
+      },
+      {
+        "id": "s_report",
+        "title": "回報靜觀師姐",
+        "log": "回峨嵋金頂大殿，把大理的經過告訴靜觀師姐。從洱海岸往東到北門外大道，經陶耘稻田、東邊樹林到崆峒道口，往東北過崆峒橋、竹林山徑、峨嵋茶棚、清音閣山道、峨嵋西林，回到峨嵋山腳往北上山。",
+        "place": "峨嵋派・金頂大殿",
+        "objectives": [
+          {
+            "id": "o_report",
+            "type": "TALK",
+            "npc": "n_em_jingguan",
+            "dialogue": "d_report",
+            "text": "向靜觀師姐回報",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_miejue",
+        "on_enter": []
+      },
+      {
+        "id": "s_miejue",
+        "title": "稟報師父",
+        "log": "靜觀師姐要你親自向師父稟報。金頂大殿往北就是滅絕師太的居所。",
+        "place": "峨嵋派・滅絕師太居所",
+        "objectives": [
+          {
+            "id": "o_miejue",
+            "type": "TALK",
+            "npc": "n_em_miejue",
+            "dialogue": "d_miejue",
+            "text": "向滅絕師太稟報",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": [
+          {
+            "if": [
+              {
+                "type": "quest_var",
+                "quest": "q_guhongzi",
+                "var": "report",
+                "value": "truth"
+              }
+            ],
+            "goto": "END:truth"
+          },
+          {
+            "goto": "END:silent"
+          }
+        ],
+        "on_enter": []
+      }
+    ],
+    "give_items": [
+      {
+        "item": "靜觀的家書",
+        "n": 1
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（靜觀放下手中的念珠）師妹，你來得正好。貧尼俗家捎來口信，說家裡出了些事。我身在佛門，不便下山，你可願替我把一封家書送回西夏？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "師姐家裡出了什麼事？",
+                "goto": "n1",
+                "hide_if_locked": true,
+                "requires": [
+                  {
+                    "type": "quest_not_done",
+                    "quest": "q_yuner"
+                  }
+                ]
+              },
+              {
+                "id": "c_ask_wed",
+                "label": "師姐家裡出了什麼事？",
+                "goto": "n1w",
+                "hide_if_locked": true,
+                "requires": [
+                  {
+                    "type": "quest_done",
+                    "quest": "q_yuner"
+                  }
+                ]
+              },
+              {
+                "id": "c_help",
+                "label": "師姐放心，這封家書我替你送到。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_accept"
+              },
+              {
+                "id": "c_no",
+                "label": "師妹還有事在身，改日吧。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "說來也不是什麼大事。我那俗家妹子雲兒到了出閣的年紀，爹娘拿不定主意，來信問我的意思。只是信裡還提了一句，近來西夏、大理一帶，常有些來路不明的人走動……",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "師姐放心，這封家書我替你送到。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_accept"
+              },
+              {
+                "id": "c_no",
+                "label": "師妹還有事在身，改日吧。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_accept": {
+            "speaker": "npc",
+            "text": "阿彌陀佛，有勞師妹了。雲兒住在西夏東門進城左手邊第一間民房。路途遙遠，從大理北門往北過石橋，沿河川古道一路往西北走就到西夏。一路小心。",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "也罷，這事原也不急。師妹得空了再來找我。",
+            "goto": "END"
+          },
+          "n1w": {
+            "speaker": "npc",
+            "text": "說來倒是喜事。我那俗家妹子雲兒前些日子定了親，爹娘來信報喜，要我寫封家書給她。只是信裡還提了一句，近來西夏、大理一帶，常有些來路不明的人走動……",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "師姐放心，這封家書我替你送到。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_accept"
+              },
+              {
+                "id": "c_no",
+                "label": "師妹還有事在身，改日吧。",
+                "goto": "n_no"
+              }
+            ]
+          }
+        }
+      },
+      "d_yuner": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（雲兒聽見叩門聲，探出頭來）你是……峨嵋派的師姐？莫不是我姐姐託你來的？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "靜觀師姐託我送家書來。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "靜觀的家書",
+                    "n": 1
+                  },
+                  {
+                    "do": "give",
+                    "item": "雲兒的信",
+                    "n": 1
+                  },
+                  {
+                    "do": "give",
+                    "item": "清水",
+                    "n": 3
+                  },
+                  {
+                    "do": "give",
+                    "item": "牛肉餅",
+                    "n": 5
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_yuner"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "對不住，我走錯門了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（雲兒拆開家書，看著看著眼眶就紅了）姐姐出家這麼多年，心裡還記掛著我……我這就寫封回信，勞煩你帶回峨嵋。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "還有一件事，要請姐姐留心。前些日子有大理來的客商說，大理城西那片沙地的洞窟裡，常有穿白袍的怪人進出，胸前繡著一團火，自稱是什麼『明教』的人。我想姐姐她們峨嵋派，該知道這些人的來歷。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "路上風沙大，這幾囊清水和牛肉餅你帶著，餓了渴了也好墊墊肚子。替我問姐姐好。",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "多謝雲兒姑娘，回信我一定送到。",
+                "goto": "END"
+              },
+              {
+                "id": "c_wed_abao",
+                "label": "聽說姑娘許了阿寶，恭喜。",
+                "goto": "n_abao",
+                "hide_if_locked": true,
+                "requires": [
+                  {
+                    "type": "quest_outcome",
+                    "quest": "q_yuner",
+                    "outcome": "abao"
+                  }
+                ]
+              },
+              {
+                "id": "c_wed_li",
+                "label": "聽說姑娘許了李家，恭喜。",
+                "goto": "n_li",
+                "hide_if_locked": true,
+                "requires": [
+                  {
+                    "type": "quest_outcome",
+                    "quest": "q_yuner",
+                    "outcome": "li"
+                  }
+                ]
+              },
+              {
+                "id": "c_undecided",
+                "label": "姑娘的親事，可拿定主意了？",
+                "goto": "n_undecided",
+                "hide_if_locked": true,
+                "requires": [
+                  {
+                    "type": "quest_not_done",
+                    "quest": "q_yuner"
+                  }
+                ]
+              }
+            ]
+          },
+          "n_abao": {
+            "speaker": "npc",
+            "text": "（雲兒臉一紅。）還不是多虧了你。阿寶那個傻子，如今天天記得回家的路了。姐姐知道了，也會替我高興的。"
+          },
+          "n_li": {
+            "speaker": "npc",
+            "text": "（雲兒低頭理了理衣角。）李家下個月就來迎親。他人老實，又有一門手藝……姐姐知道了，該放心了。"
+          },
+          "n_undecided": {
+            "speaker": "npc",
+            "text": "（雲兒咬著嘴唇搖搖頭。）一個是藥鋪的李台安，一個是阿寶……我到現在還拿不定主意。你若得空，替我去看看他們吧。"
+          }
+        }
+      },
+      "d_reveal": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "你回來了。雲兒那丫頭……可還好？",
+            "choices": [
+              {
+                "id": "c_letter",
+                "label": "雲兒姑娘很好，這是她的回信。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "雲兒的信",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_reveal"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "我待會兒再來。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（靜觀讀著讀著，臉色忽然一變）白袍、胸前繡火……明教？竟在大理城西的沙漠洞窟出沒？",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "師妹，你可知道孤鴻子師伯是怎麼死的？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "師妹不知，請師姐明示。",
+                "goto": "n3"
+              },
+              {
+                "id": "c_rumor",
+                "label": "聽說……是給人活活氣死的？",
+                "goto": "n2b"
+              }
+            ]
+          },
+          "n2b": {
+            "speaker": "npc",
+            "text": "江湖上都這麼傳，話說得難聽，卻也相去不遠。你坐下，我從頭說給你聽。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "孤鴻子師伯是師父的師兄。當年明教光明左使楊逍目中無人，師伯向師父借了本門的倚天劍，前去找他較量。哪知道……劍還沒出鞘，便讓楊逍奪了去。",
+            "goto": "n4"
+          },
+          "n4": {
+            "speaker": "npc",
+            "text": "楊逍把那劍看了幾眼，冷笑幾聲，當作廢銅爛鐵似的往地下一擲，揚長而去。師伯一生心高氣傲，哪受得了這等羞辱？歸途中便一病不起，就此去了。連那倚天劍，也落到了官府手裡。",
+            "goto": "n5"
+          },
+          "n5": {
+            "speaker": "npc",
+            "text": "師父自此恨明教入骨。如今明教的人竟在大理出沒，不知又有什麼圖謀。師妹，你到大理去打聽打聽，查清這些人的底細。明教中人武功詭異，千萬小心，莫要逞強。",
+            "choices": [
+              {
+                "id": "c_go",
+                "label": "師妹這就動身去大理。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_cunmin": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（一個挑著扁擔的村民停下腳步）外地來的姑娘？想打聽什麼？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "老鄉，近來城外可有什麼怪事？",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_cunmin"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "沒什麼，打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "怪事？嘿，可多啦。城西洱海過去那片沙地，有個沙漠洞窟，從前只有野狼在裡頭做窩。這幾個月常有穿白袍的人進進出出，半夜裡還看得見洞口有火光。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "上回我家小子到洞口撿柴，給一個怪模怪樣的人趕了出來，那人說話忽高忽低、陰陽怪氣，聽得人渾身發毛。你真要打聽，去問問城裡消息靈通的人：客棧裡喝酒的王大富人走南闖北，雜貨鋪的李裁縫天天聽客人閒聊。",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "多謝老鄉。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_guiyi_1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（洞窟深處，一個白袍人背對著你，聲音忽高忽低，在石壁間嗡嗡迴響）嘿嘿……峨嵋派的女娃兒，也敢闖到這裡來？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "你們明教的人在大理鬼鬼祟祟，究竟有何圖謀？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（悄悄退出洞窟）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（白袍人緩緩轉過身來，胸前一團火焰繡得殷紅）圖謀？滅絕老尼的徒子徒孫，開口閉口就是「魔教」。想問話，先問過我手裡這口彎刀！",
+            "choices": [
+              {
+                "id": "c_fight",
+                "label": "那就得罪了！",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_meet"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_dl_mingjiao"
+                    ],
+                    "obj": "o_fight",
+                    "npc": "n_dlw_guiyi"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_wait",
+                "label": "（還是先回去準備準備）",
+                "goto": "n_back"
+              }
+            ]
+          },
+          "n_back": {
+            "speaker": "npc",
+            "text": "（白袍人冷笑一聲，又轉過身去）怕了？想清楚了再來。本座就在這兒，哪兒也不去。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_guiyi_2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（白袍人按著胸口喘了幾口氣，竟然笑了）好，好身手。峨嵋派總算出了個像樣的人物。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "你輸了。說吧，明教在大理做什麼？",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "heard",
+                    "value": true
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_after"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_scorn",
+                "label": "魔教妖人，還有什麼好說的！",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "heard",
+                    "value": false
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_after"
+                  }
+                ],
+                "goto": "n1b"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "本座在此，不過是替教中兄弟打探些消息，從沒動過大理一草一木。……孤鴻子的事，我也聽說過。",
+            "goto": "n2"
+          },
+          "n1b": {
+            "speaker": "npc",
+            "text": "（他也不惱）要殺我，容易得很。只是你回去問問你師父，孤鴻子當年是怎麼死的——是死在楊左使手上，還是死在他自己那口氣上？",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "楊左使當年連他一根頭髮也沒傷。說到底，是他自己咽不下那口氣。你們峨嵋恨了我們這麼多年，可曾想過這一層？",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "回去告訴你師父：明教的人，並不壞。信不信，由她。",
+            "choices": [
+              {
+                "id": "c_go",
+                "label": "……我會把話帶到。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_report": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "師妹，你回來了！大理那邊怎麼樣？",
+            "choices": [
+              {
+                "id": "c_tell",
+                "label": "師妹在沙漠洞窟打敗了明教分舵主。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_report"
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（靜觀聽你說完，默然良久）他說……明教的人，並不壞？",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "這話你在我面前說說也就罷了。此事干係重大，你須親自向師父稟報。師父就在大殿後面的居所。至於怎麼說……你自己斟酌。",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "是，師妹這就去見師父。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_miejue": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（滅絕師太抬起眼來，目光如電）靜觀說你去了大理一趟，有話要稟報？",
+            "choices": [
+              {
+                "id": "c_truth",
+                "label": "弟子打敗了明教分舵主。他要弟子轉告師父：明教的人並不壞。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "report",
+                    "value": "truth"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_miejue"
+                  }
+                ],
+                "goto": "n_truth"
+              },
+              {
+                "id": "c_silent",
+                "label": "弟子已將明教妖人擊退，大理一帶暫時無事。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "report",
+                    "value": "silent"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_miejue"
+                  }
+                ],
+                "goto": "n_silent"
+              }
+            ]
+          },
+          "n_truth": {
+            "speaker": "npc",
+            "text": "（滅絕師太臉色鐵青，冷冷地道）魔教妖人花言巧語，你也信？孤鴻子師兄的仇，峨嵋派一日也不會忘。這話我記下了。往後再讓我聽見，門規處置！",
+            "goto": "n_reward"
+          },
+          "n_silent": {
+            "speaker": "npc",
+            "text": "（滅絕師太微微點頭）嗯。魔教妖人，除惡務盡。你做得很好。",
+            "goto": "n_reward"
+          },
+          "n_reward": {
+            "speaker": "npc",
+            "text": "你孤身闖洞，勝了魔教的分舵主，這份膽識倒還不錯。以後就可以跟我學劍了——但要你的功夫練到了火候，我才會教你。",
+            "choices": [
+              {
+                "id": "c_bow",
+                "label": "多謝師父！",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_wangdafu": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "src": "proposal",
+            "text": "（一個挺著肚子的富戶獨占一張桌子，桌上擺滿了酒菜。）峨嵋派的小師父？坐坐坐，王某走南闖北，什麼消息沒聽過？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "王員外，城西沙漠洞窟裡住著什麼人？",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_wangdafu"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "嘘——（他左右看了看。）那洞裡的人一身白袍，胸口繡著一團火。王某的駝隊打那兒經過，貨一件沒少，可領頭的夥計說，那人站在洞口看著他們，眼神比大漠的狼還冷。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "出北門到北門外大道，往西到洱海岸，再往西走到底就是。洞裡還有野狼、山賊，小師父可得多帶幾個人。",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "多謝王員外。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_licaifeng": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "src": "proposal",
+            "text": "（李裁縫嘴裡咬著線頭，手上的針沒停。）姑娘要做衣裳？還是想打聽事兒？我這兒一天到晚人來人往，什麼話都聽得著。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "李師傅，城西沙漠洞窟裡住著什麼人？",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_licaifeng"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "我改天再來做衣裳。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "那洞裡的人啊……上個月還來我這兒訂過一件白袍，要在胸口繡一團火，針腳要細，不許歪。我做了三十年衣裳，頭一回見人要繡這個。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "取衣裳那天他說了一句「教中兄弟穿得體面些」。姑娘，那洞在洱海岸往西走到底，你可千萬當心。",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "多謝李師傅。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "truth": {
+        "label": "把「明教並不壞」的話帶給了滅絕師太",
+        "rewards": {
+          "learn_points": 50,
+          "fame": 10,
+          "lilian": 15,
+          "flags": [
+            "em_juejian_ok",
+            "em_gh_rebuked"
+          ],
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      },
+      "silent": {
+        "label": "對滅絕師太隱瞞了分舵主的話",
+        "rewards": {
+          "learn_points": 50,
+          "fame": 10,
+          "lilian": 10,
+          "flags": [
+            "em_juejian_ok"
+          ],
+          "skill_prof": {
+            "斷惡": 40
+          },
+          "learn": {},
+          "learn_add": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_hs_jianqi": {
+    "id": "q_hs_jianqi",
+    "name": "劍氣宗之別",
+    "giver": "n_hs_chengbuyou",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "華山"
+      },
+      {
+        "type": "skill_min",
+        "skill": "華山劍法",
+        "value": 35
+      },
+      {
+        "type": "skill_min",
+        "skill": "華山心法",
+        "value": 30
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_choose",
+        "title": "劍宗還是氣宗",
+        "log": "回思過崖破劍洞（華山山門往北，經玉女峰練武場、正氣堂再往北）答覆成不憂：改投劍宗，或婉拒堅守氣宗。一旦選定便不能更改。",
+        "place": "華山・思過崖破劍洞",
+        "objectives": [
+          {
+            "id": "o_choose",
+            "type": "TALK",
+            "npc": "n_hs_chengbuyou",
+            "dialogue": "d_choose",
+            "text": "答覆成不憂：入劍宗或婉拒",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": [
+          {
+            "if": [
+              {
+                "type": "quest_var",
+                "quest": "q_hs_jianqi",
+                "var": "pick",
+                "value": "jian"
+              }
+            ],
+            "goto": "END:jianzong"
+          },
+          {
+            "goto": "END:qizong"
+          }
+        ],
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（一個面容枯瘦的老者盤坐在洞中，聽見腳步聲，霍地睜開雙眼）又是岳不群那偽君子的徒弟？嘿，劍法倒還練得有幾分樣子。",
+            "choices": [
+              {
+                "id": "c_bow",
+                "label": "弟子見過前輩。前輩也是華山派的？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（悄悄退出洞去）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "我問你——你可知劍宗？",
+            "choices": [
+              {
+                "id": "c_know",
+                "label": "知道。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n2"
+              },
+              {
+                "id": "c_dont",
+                "label": "劍宗？弟子從沒聽師父提過。",
+                "goto": "n_dont"
+              }
+            ]
+          },
+          "n_dont": {
+            "speaker": "npc",
+            "text": "哼，岳不群連本門的往事都不敢跟徒弟說，果然是個偽君子。等你弄明白了再來見我！",
+            "goto": "END"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "知道就好！二十五年前玉女峰上，劍宗、氣宗兩派比劍，劍宗一時失手，從此被逐出華山。岳不群那一派練氣不練劍，練到老也不過如此！",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "你根骨不壞，跟著岳不群可惜了。回去好好想想，想清楚了再來答覆我。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_choose": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "華山武功，以劍為主，以氣為輔，這才是正途！我劍宗一脈，劍法上的造詣遠勝氣宗。你若肯改投劍宗，我便將劍宗的心得傳你。怎麼樣？",
+            "choices": [
+              {
+                "id": "c_jian",
+                "label": "弟子願入劍宗。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "pick",
+                    "value": "jian"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_choose"
+                  }
+                ],
+                "goto": "n_j1"
+              },
+              {
+                "id": "c_qi",
+                "label": "弟子既拜在岳掌門門下，不敢改投他宗。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "pick",
+                    "value": "qi"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_choose"
+                  }
+                ],
+                "goto": "n_q1"
+              },
+              {
+                "id": "c_wait",
+                "label": "此事重大，容弟子再想想。",
+                "goto": "n_wait"
+              }
+            ]
+          },
+          "n_wait": {
+            "speaker": "npc",
+            "text": "想？好，你慢慢想。不過我成不憂的耐性可不多。",
+            "goto": "END"
+          },
+          "n_j1": {
+            "speaker": "npc",
+            "text": "好！有骨氣！從今往後，你便是劍宗的人。練劍要快、要狠，別學岳不群那套磨磨蹭蹭的吐納功夫。",
+            "goto": "n_j2"
+          },
+          "n_j2": {
+            "speaker": "npc",
+            "text": "這事暫且別讓岳不群知道。等劍宗重回華山那一天，自有你的好處。",
+            "goto": "END"
+          },
+          "n_q1": {
+            "speaker": "npc",
+            "text": "（臉色一沉）哼，又是一個被岳不群灌了迷湯的！氣宗、氣宗，練一輩子氣，碰上真正的快劍，還不是一樣送命？",
+            "goto": "n_q2"
+          },
+          "n_q2": {
+            "speaker": "npc",
+            "text": "罷了，人各有志。你走吧——從今往後，劍宗的門再也不會為你開。",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "jianzong": {
+        "label": "改投劍宗",
+        "rewards": {
+          "flags": [
+            "hs_jianzong"
+          ],
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      },
+      "qizong": {
+        "label": "堅守氣宗",
+        "rewards": {
+          "flags": [
+            "hs_qizong"
+          ],
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_hs_spy": {
+    "id": "q_hs_spy",
+    "name": "華山內奸",
+    "giver": "n_xx_laodenuo",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "華山"
+      },
+      {
+        "type": "quest_flag",
+        "flag": "hs_qizong"
+      },
+      {
+        "type": "skill_min",
+        "skill": "華山心法",
+        "value": 50
+      },
+      {
+        "type": "skill_min",
+        "skill": "讀書識字",
+        "value": 30
+      },
+      {
+        "type": "attr_min",
+        "attr": "wit",
+        "value": 30
+      },
+      {
+        "type": "skill_min",
+        "skill": "儒風",
+        "value": 30
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_lhc1",
+        "title": "大師兄的疑心",
+        "log": "到華山水池找大師兄令狐沖，他只在巳、午、未三個時辰在池邊練劍。走法：出西夏東門往東北官道，經礦區、黑龍潭、潭東河岸、恆山外稻田、路邊茶棚、恆山岸邊到恆山岔路，往東南走華陰道到華山腳下，再往東就是華山水池。",
+        "place": "華陰道・華山水池",
+        "objectives": [
+          {
+            "id": "o_lhc1",
+            "type": "TALK",
+            "npc": "n_hs_linghuchong",
+            "dialogue": "d_lhc1",
+            "text": "巳、午、未時到華山水池找令狐沖",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_ldn2",
+        "on_enter": []
+      },
+      {
+        "id": "s_ldn2",
+        "title": "敷衍一下",
+        "log": "回西夏客棧（西夏廣場往北）找勞德諾，順著他的話敷衍一下，套出他背後的人。",
+        "place": "西夏・西夏客棧",
+        "objectives": [
+          {
+            "id": "o_ldn2",
+            "type": "TALK",
+            "npc": "n_xx_laodenuo",
+            "dialogue": "d_ldn2",
+            "text": "回西夏客棧跟勞德諾敷衍一下",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_lhc2",
+        "on_enter": []
+      },
+      {
+        "id": "s_lhc2",
+        "title": "華山密函",
+        "log": "回華山水池（只在巳、午、未時）把勞德諾的話告訴令狐沖。",
+        "place": "華陰道・華山水池",
+        "objectives": [
+          {
+            "id": "o_lhc2",
+            "type": "TALK",
+            "npc": "n_hs_linghuchong",
+            "dialogue": "d_lhc2",
+            "text": "巳、午、未時回華山水池稟告令狐沖",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_ybq1",
+        "on_enter": []
+      },
+      {
+        "id": "s_ybq1",
+        "title": "稟報掌門",
+        "log": "把華山密函親手交給掌門岳不群。從華山水池往西回華山腳下，往北上華山山門，再往北就是玉女峰練武場。",
+        "place": "華山・玉女峰練武場",
+        "objectives": [
+          {
+            "id": "o_ybq1",
+            "type": "TALK",
+            "npc": "n_yuebuqun",
+            "dialogue": "d_ybq1",
+            "text": "把華山密函交給玉女峰練武場的岳不群",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_fight",
+        "on_enter": []
+      },
+      {
+        "id": "s_fight",
+        "title": "清理門戶",
+        "log": "持追擊令回西夏客棧（西夏廣場往北），在客棧裡攔下勞德諾，打贏他。打輸或逃走了，就再找他一次。",
+        "place": "西夏・西夏客棧",
+        "objectives": [
+          {
+            "id": "o_fight",
+            "type": "FIGHT",
+            "npc": "n_xx_laodenuo",
+            "dialogue": "d_fight",
+            "win": "WIN",
+            "text": "在西夏客棧擊敗勞德諾",
+            "requires": [],
+            "enemies": [
+              "勞德諾"
+            ]
+          }
+        ],
+        "next": "s_ybq2",
+        "on_enter": []
+      },
+      {
+        "id": "s_ybq2",
+        "title": "繳回武譜",
+        "log": "帶著氣宗武譜回華山（西夏東門出城，照原路經恆山岔路、華陰道到華山腳下，往北上山門），到玉女峰練武場向岳不群覆命。",
+        "place": "華山・玉女峰練武場",
+        "objectives": [
+          {
+            "id": "o_ybq2",
+            "type": "TALK",
+            "npc": "n_yuebuqun",
+            "dialogue": "d_ybq2",
+            "text": "把氣宗武譜交給岳不群",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:default",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（勞德諾獨坐角落，正低頭寫著什麼；一見你走近，連忙把信紙折起塞進袖中）啊……是{shidi}啊。怎麼也到西夏來了？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "二師兄在寫信？寫給師父的嗎？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_greet",
+                "label": "師兄好，我只是路過。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "是、是啊，給師父報個平安。（他眼神閃爍，一隻手始終按著袖口）{shidi}一路辛苦，坐下喝杯酒吧。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "player",
+            "text": "（二師兄向來老成持重，今天卻神色慌張。聽說大師兄令狐沖對他起疑已久，不如先去找大師兄商量。）",
+            "choices": [
+              {
+                "id": "c_accept",
+                "label": "（不動聲色，先去找大師兄令狐沖）",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_ignore",
+                "label": "（大概是自己多心了）",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_lhc1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（令狐沖收劍入鞘，拎起酒葫蘆咧嘴一笑）{shidi}，你怎麼找到這兒來了？要不要喝一口？",
+            "choices": [
+              {
+                "id": "c_tell",
+                "label": "大師兄，我在西夏客棧見到二師兄，他鬼鬼祟祟地在寫信。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "路過，來看看大師兄。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（笑容收了起來）果然……不瞞你說，我疑心他很久了。勞師弟是帶藝投師，入門之前就有一身功夫，偏偏對本門的事打聽得比誰都勤。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "可他是師父的弟子，沒有真憑實據，我也不好在師父面前說他的不是。{shidi}，你替我回西夏客棧，跟他敷衍一下，探探他背後到底是什麼人。",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "大師兄放心，我這就去。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_lhc1"
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "這……讓我再想想。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "千萬別打草驚蛇。他要是說什麼，你就順著他的話說。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_ldn2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "{shidi}又來了？（他斟了兩杯酒）來，陪師兄喝一杯。唉，在師父門下熬了這些年，大師兄整天喝酒胡鬧，師父卻偏偏把他當寶……",
+            "choices": [
+              {
+                "id": "c_fuyan",
+                "label": "（敷衍一下）師兄說得是，師父也太偏心了。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_direct",
+                "label": "二師兄，你袖子裡那封信，到底是寫給誰的？",
+                "goto": "n_w"
+              }
+            ]
+          },
+          "n_w": {
+            "speaker": "npc",
+            "text": "（臉色一變，乾笑兩聲）{shidi}說笑了。天色不早，我先回房歇息。",
+            "goto": "END"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（壓低聲音）{shidi}果然是明白人。我跟你說，岳不群這點能耐，五嶽劍派裡有誰看得上？將來執掌五嶽的，只有一個人。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "衡山左冷蟬左盟主雄才大略，早晚要將五嶽併成一派。到那時候，跟對了人，比什麼都強……{shidi}，你若有心，師兄替你引見引見。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "player",
+            "text": "（你心中一凜，臉上卻不動聲色，陪他乾了一杯。原來二師兄是左冷蟬派來的人！）",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_ldn2"
+              }
+            ],
+            "goto": "END"
+          }
+        }
+      },
+      "d_lhc2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "怎麼樣？套出什麼來了？",
+            "choices": [
+              {
+                "id": "c_tell",
+                "label": "二師兄親口說了，他是替衡山左冷蟬左盟主辦事的。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "還沒有，我再去探探。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（一拳捶在柳樹上，震得柳葉簌簌而落）果然是他！這些年本門的劍譜心法，只怕早被他抄了個遍。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "事關重大，我寫一封密函，你親手交給師父，千萬別經他人之手。",
+            "do": [
+              {
+                "do": "give",
+                "item": "華山密函",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_lhc2"
+              }
+            ],
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "師父在華山玉女峰練武場。快去吧——對了，這事先別讓小師妹知道，免得她擔心。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_ybq1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（岳不群負手而立）你不在外頭歷練，回山來有什麼事？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "大師兄有一封密函，要弟子親手呈給師父。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "華山密函",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "弟子回山看看師父。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（拆信細讀，臉上那股儒雅之氣漸漸化作一片鐵青）……德諾，德諾，為師待你不薄。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "此事你辦得穩妥。勾結外人、出賣師門，罪無可恕。這是追擊令，你持令到西夏客棧拿下勞德諾。",
+            "do": [
+              {
+                "do": "give",
+                "item": "追擊令",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_ybq1"
+              }
+            ],
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "他入門之前便有一身武功，你須小心應付。若他束手就擒便罷；若敢反抗，就地拿下，不必留情。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_fight": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（勞德諾瞥見你腰間的令牌，握著酒杯的手微微一顫）{shidi}……你這是什麼意思？",
+            "choices": [
+              {
+                "id": "c_fight",
+                "label": "勞德諾！師父有令，拿你回華山發落！",
+                "goto": "n1"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先不動聲色，養足精神再來）",
+                "goto": "n_wait"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（勞德諾臉色大變，一腳踢翻酒桌，拔劍而起）好，好……既然撕破了臉，那就手底下見真章！",
+            "do": [
+              {
+                "do": "fight",
+                "monsters": [
+                  "m_xx_laodenuo"
+                ],
+                "obj": "o_fight",
+                "npc": "n_xx_laodenuo",
+                "no_flee": false,
+                "solo": false
+              }
+            ],
+            "goto": "END"
+          },
+          "n_wait": {
+            "speaker": "npc",
+            "text": "（勞德諾盯著你的背影，慢慢把手按上了劍柄。）",
+            "goto": "END"
+          }
+        }
+      },
+      "d_ybq2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "人拿下了？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "勞德諾已經伏法。這是從他身上搜出來的氣宗武譜。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "氣宗武譜",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "弟子還沒辦妥。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（翻了翻武譜，長嘆一聲）這是本門氣宗的心法要訣……他抄得倒是工整。若流到外人手裡，華山派還有什麼臉面立足五嶽？",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "你出身氣宗，劍宗的誘惑也未曾動心，又替本門除去了內奸。為師便將本門鎮派內功「紫霞神功」的入門口訣傳你。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "紫霞神功是華山氣宗的根本，練到深處，紫氣自生，百脈俱通。為師只能領你入門，往後的功夫，全靠你自己苦練。切記：以氣御劍，方是正道。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_ybq2"
+              }
+            ],
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "習得紫霞神功",
+        "rewards": {
+          "flags": [
+            "hs_zixia_ok"
+          ],
+          "learn": {
+            "紫霞神功": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_yinliu": {
+    "id": "q_wd_yinliu",
+    "name": "殷六俠的迷思",
+    "giver": "n_wd_yinliting",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      },
+      {
+        "type": "skill_min",
+        "skill": "武當身法",
+        "value": 40
+      },
+      {
+        "type": "attr_min",
+        "attr": "cal",
+        "value": 22
+      },
+      {
+        "type": "attr_min",
+        "attr": "con",
+        "value": 22
+      },
+      {
+        "type": "skill_min",
+        "skill": "俠義",
+        "value": 40,
+        "src": "later",
+        "src_note": "後期攻略：俠義 ≥ 40 才給信（研究 殷六俠的迷思 line 113）"
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_letter",
+        "title": "峨嵋西林的紀姑娘",
+        "log": "殷梨亭的信要親手交給紀曉芙。出武當山門往北到武當山下，往西南經終南東麓、終南山腳、終南山麓、終南山道口，往西過峨嵋山腳就是峨嵋西林，紀曉芙一個人待在林子裡。",
+        "place": "峨嵋道・峨嵋西林",
+        "objectives": [
+          {
+            "id": "o_ji",
+            "type": "TALK",
+            "npc": "n_em_jixiaofu",
+            "dialogue": "d_ji",
+            "text": "把殷梨亭的信交給峨嵋西林的紀曉芙",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "on_enter": []
+      },
+      {
+        "id": "s_back",
+        "title": "回覆殷六俠",
+        "log": "帶著紀曉芙的回信，循原路回武當：峨嵋山腳往東經終南山一帶到武當山下，上山穿過練武場、大殿、大殿後屋，殷梨亭在後山松林。",
+        "place": "武當派・後山松林",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_wd_yinliting",
+            "dialogue": "d_back",
+            "text": "把回信交給後山松林的殷梨亭",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": [
+          {
+            "if": [
+              {
+                "type": "quest_var",
+                "quest": "q_wd_yinliu",
+                "var": "told",
+                "value": "truth"
+              }
+            ],
+            "goto": "END:truth"
+          },
+          {
+            "goto": "END:comfort"
+          }
+        ],
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（殷梨亭握著一封信，在松樹下站了很久，才轉過身來。）你來得正好……我有一件私事，想託人走一趟峨嵋。",
+            "choices": [
+              {
+                "id": "c_what",
+                "label": "六師叔請吩咐。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "峨嵋派的紀曉芙紀姑娘，與我自幼訂親。可這一年多來，她一封信也沒回過。我……我只想知道她平安。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "這封信，弟子一定親手交到紀姑娘手上。",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "殷梨亭的信",
+                    "n": 1
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子功夫未成，還不敢遠行。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "多謝。峨嵋山門外往西的林子裡，常有人看見她獨自一人。你……替我看看她過得好不好。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "也好，也好。路上不太平，等你練好了身法再說。"
+          }
+        }
+      },
+      "d_ji": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（林中的女子聽見腳步聲，急忙拭了拭眼角。）你是……武當派的人？",
+            "choices": [
+              {
+                "id": "c_letter",
+                "label": "殷六俠託我送信給紀姑娘。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "殷梨亭的信",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "（還是改天再來吧。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（她拆開信，看著看著，手指便微微發抖。）殷六哥……他還記著我。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "我對不起他。有些事，我不能說，也說不出口。你就替我把這封信帶回去，告訴他……紀曉芙不值得他再等。",
+            "choices": [
+              {
+                "id": "c_why",
+                "label": "紀姑娘，究竟發生了什麼事？",
+                "goto": "n3"
+              },
+              {
+                "id": "c_take",
+                "label": "我會把信帶到。",
+                "goto": "n_end"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "（她搖搖頭，把懷裡的一個小女孩的布偶塞回包袱。）別問了。求你，別問了。",
+            "goto": "n_end"
+          },
+          "n_end": {
+            "speaker": "npc",
+            "text": "（紀曉芙把回信交給你，轉身走進了林子深處。）",
+            "do": [
+              {
+                "do": "give",
+                "item": "紀曉芙的回信",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_ji"
+              }
+            ]
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "你回來了！她……她可好？有沒有回信？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "這是紀姑娘的回信。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "紀曉芙的回信",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（殷梨亭讀完回信，臉色一下子白了。）「不值得再等」……她只寫了這幾個字。她到底遇上了什麼事？",
+            "choices": [
+              {
+                "id": "c_truth",
+                "label": "紀姑娘神色憔悴，似有難言之隱，她親口說不要六師叔再等了。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "told",
+                    "value": "truth"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "goto": "n_truth"
+              },
+              {
+                "id": "c_comfort",
+                "label": "紀姑娘說她一切安好，只是身不由己，請六師叔保重。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "told",
+                    "value": "comfort"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "goto": "n_comfort"
+              }
+            ]
+          },
+          "n_truth": {
+            "speaker": "npc",
+            "text": "（他沉默良久，長長吐出一口氣。）多謝你說了實話。人生在世，有些事不能強求……心裡放下了，腳下才輕得起來。",
+            "goto": "n_teach"
+          },
+          "n_comfort": {
+            "speaker": "npc",
+            "text": "（他望著松林，勉強笑了笑。）她平安就好……多謝你了。我心裡亂得很，練功去吧，練功的時候，什麼都不必想。",
+            "goto": "n_teach"
+          },
+          "n_teach": {
+            "speaker": "npc",
+            "text": "你這趟跑得不容易。我把本門的梯雲縱教你：左腳踏右腳，借力上縱，心無掛礙，身子自然就輕了。"
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "truth": {
+        "label": "把紀曉芙的話照實告訴了殷梨亭",
+        "rewards": {
+          "flags": [
+            "wd_q_yinliu"
+          ],
+          "learn": {
+            "梯雲縱": 1
+          },
+          "skill_prof": {
+            "武當身法": 60
+          },
+          "learn_add": {},
+          "items": []
+        }
+      },
+      "comfort": {
+        "label": "用寬慰的話安慰了殷梨亭",
+        "rewards": {
+          "flags": [
+            "wd_q_yinliu"
+          ],
+          "learn": {
+            "梯雲縱": 1
+          },
+          "skill_prof": {
+            "俠義": 60
+          },
+          "learn_add": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_heiyu": {
+    "id": "q_wd_heiyu",
+    "name": "真假黑玉斷續膏之謎",
+    "giver": "n_wd_zhangsanfeng",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      },
+      {
+        "type": "skill_min",
+        "skill": "武當心法",
+        "value": 40
+      },
+      {
+        "type": "attr_min",
+        "attr": "wit",
+        "value": 28
+      },
+      {
+        "type": "attr_min",
+        "attr": "con",
+        "value": 25
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_ada1",
+        "title": "皇宮門口的阿大",
+        "log": "帶著委託信去西夏皇宮門口找阿大討黑玉斷續膏。出武當山門往北經武當山下、古道南岔到武當岔路，往西走東行古道到華山水池，再往西經華山腳下、華陰道到恆山岔路，往西經恆山岸邊、路邊茶棚、恆山外稻田、潭東河岸、黑龍潭、礦區、東北官道，進西夏東門，經廣場往西到西大街，皇宮門口在西大街西北。阿大不好惹，帶足金創藥。",
+        "place": "西夏・皇宮門口",
+        "objectives": [
+          {
+            "id": "o_ada1",
+            "type": "TALK",
+            "npc": "n_xx_ada",
+            "dialogue": "d_ada1",
+            "text": "向皇宮門口的阿大討藥",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_fight1",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "打贏阿大",
+            "requires": [],
+            "enemies": [
+              "阿大"
+            ]
+          }
+        ],
+        "next": "s_yu1",
+        "on_enter": []
+      },
+      {
+        "id": "s_yu1",
+        "title": "給俞三俠敷藥",
+        "log": "把黑玉斷續膏帶回武當。原路回到武當山門，往南進練武場，俞岱巖在練武場。",
+        "place": "武當派・練武場",
+        "objectives": [
+          {
+            "id": "o_yu1",
+            "type": "TALK",
+            "npc": "n_wd_yudaiyan",
+            "dialogue": "d_yu1",
+            "text": "把藥膏交給練武場的俞岱巖",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_zsf1",
+        "on_enter": []
+      },
+      {
+        "id": "s_zsf1",
+        "title": "藥是假的",
+        "log": "俞三俠敷了藥，傷勢反而轉劇。快到三清宮後面的內堂稟告張三丰真人（練武場往南到大殿，往東三清宮，再往南就是內堂）。",
+        "place": "武當派・內堂",
+        "objectives": [
+          {
+            "id": "o_zsf1",
+            "type": "TALK",
+            "npc": "n_wd_zhangsanfeng",
+            "dialogue": "d_zsf1",
+            "text": "到內堂稟告張三丰",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_ada2",
+        "on_enter": []
+      },
+      {
+        "id": "s_ada2",
+        "title": "再闖皇宮門口",
+        "log": "帶著病危令再去西夏皇宮門口，這回非要阿大交出真藥不可。路線同前：武當山下往北，經華山、恆山岔路一帶往西進西夏東門，皇宮門口在西大街西北。",
+        "place": "西夏・皇宮門口",
+        "objectives": [
+          {
+            "id": "o_ada2",
+            "type": "TALK",
+            "npc": "n_xx_ada",
+            "dialogue": "d_ada2",
+            "text": "持病危令再找阿大",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_fight2",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "再次打贏阿大",
+            "requires": [],
+            "enemies": [
+              "阿大"
+            ]
+          }
+        ],
+        "next": "s_zhaomin",
+        "on_enter": []
+      },
+      {
+        "id": "s_zhaomin",
+        "title": "胡楊林裡的郡主",
+        "log": "阿大說：要用真藥，得先見過郡主。出西夏東門到東門外官道，往東到荒草坡，再往北進胡楊林，一位搖著摺扇的公子在等你。",
+        "place": "西夏郊外・胡楊林",
+        "objectives": [
+          {
+            "id": "o_zhaomin",
+            "type": "TALK",
+            "npc": "n_wd_zhaomin",
+            "dialogue": "d_zhaomin",
+            "text": "把郡主手令交給胡楊林的趙敏",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_wuji1",
+        "on_enter": []
+      },
+      {
+        "id": "s_wuji1",
+        "title": "客棧樓上的大夫",
+        "log": "趙敏要你把思慕函送給「那位大夫」。回西夏東門，經廣場往北進客棧，上二樓找張無忌。",
+        "place": "西夏・客棧二樓",
+        "objectives": [
+          {
+            "id": "o_wuji1",
+            "type": "TALK",
+            "npc": "n_zhangwuji",
+            "dialogue": "d_wuji1",
+            "text": "把思慕函交給客棧二樓的張無忌",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_seven",
+        "on_enter": []
+      },
+      {
+        "id": "s_seven",
+        "title": "七蟲七花",
+        "log": "張無忌要七蟲七花做藥引。七種毒蟲各捕一隻（到了地點按「捕捉」）：黑龍潭的斑蟾（西夏東門外往東北經礦區往東）、星宿毒沼的赤蠍（荒草坡往南經小溪邊、南坡、溪口淺灘到沙丘邊緣，往西蛇骨小徑再往南）、城北山坡的蜈蚣（荒草坡往北經胡楊林）、大理城北河畔的青蛇、武當山下樹林的黑蛛（古道南岔往西）、雪原小徑的蜂蟻（城北山坡往北到雪地再往西）、恆山岔路的彩蛾。\n七花在大理城北河畔往東的蒼山林道採。",
+        "place": "",
+        "objectives": [
+          {
+            "id": "o_banchan",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲黑龍潭的斑蟾",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_chixie",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲星宿毒沼的赤蠍",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_wugong",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲西夏城北山坡的蜈蚣",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_qingshe",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲大理城北河畔的青蛇",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_heizhu",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲武當山下樹林的黑蛛",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_fengyi",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲雪原小徑的蜂蟻",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_caie",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "捕獲恆山岔路的彩蛾",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_hua",
+            "type": "COLLECT",
+            "item": "七色奇花",
+            "count": 1,
+            "text": "在蒼山林道採齊七色奇花",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_wuji2",
+        "on_enter": []
+      },
+      {
+        "id": "s_wuji2",
+        "title": "調製藥引",
+        "log": "七蟲七花都齊了，回西夏客棧二樓找張無忌調藥。",
+        "place": "西夏・客棧二樓",
+        "objectives": [
+          {
+            "id": "o_wuji2",
+            "type": "TALK",
+            "npc": "n_zhangwuji",
+            "dialogue": "d_wuji2",
+            "text": "請張無忌調製藥引",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_yu2",
+        "on_enter": []
+      },
+      {
+        "id": "s_yu2",
+        "title": "續骨",
+        "log": "帶著黑玉斷續膏和藥引回武當，到練武場替俞岱巖敷藥。",
+        "place": "武當派・練武場",
+        "objectives": [
+          {
+            "id": "o_yu2",
+            "type": "TALK",
+            "npc": "n_wd_yudaiyan",
+            "dialogue": "d_yu2",
+            "text": "替俞岱巖敷上真藥",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_zsf2",
+        "on_enter": []
+      },
+      {
+        "id": "s_zsf2",
+        "title": "回稟真人",
+        "log": "把俞岱巖的感謝函呈給內堂的張三丰（練武場往南大殿，往東三清宮，再往南內堂）。",
+        "place": "武當派・內堂",
+        "objectives": [
+          {
+            "id": "o_zsf2",
+            "type": "TALK",
+            "npc": "n_wd_zhangsanfeng",
+            "dialogue": "d_zsf2",
+            "text": "把感謝函呈給張三丰",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張三丰撫著長鬚，嘆了一口氣。）岱巖癱在床上二十年了。老道這把年紀，別的都看得開，就這件事放不下。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "太師父有何吩咐？",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "江湖傳言，汝陽王府有一種黑玉斷續膏，能續接斷骨。王府的人在西夏皇宮門口出入，有個叫阿大的老家人管著這藥。你拿我的信去，好言相求；求不來……也不必傷他性命。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子這就動身。",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "張三丰的委託信",
+                    "n": 1
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子武功低微，怕誤了大事。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好孩子。路上小心，汝陽王府的人，個個都不簡單。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "嗯，量力而為，也是武當弟子的本分。"
+          }
+        }
+      },
+      "d_ada1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（一個枯瘦的老者靠在宮門石獅旁，眼皮也不抬。）武當派的？這裡不是你們撒野的地方。",
+            "choices": [
+              {
+                "id": "c_letter",
+                "label": "（遞上委託信）張真人請貴府賜藥，救俞三俠一命。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（還是先離開。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "黑玉斷續膏？哼，張三丰的面子是不小，可王府的東西，也不是一封信就能拿走的。想要，先過我這一關。",
+            "choices": [
+              {
+                "id": "c_fight",
+                "label": "得罪了！",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_ada1"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_wd_ada"
+                    ],
+                    "obj": "o_fight1",
+                    "npc": "n_xx_ada"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先退下準備一下。）",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_yu1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（俞岱巖躺在竹榻上，四肢軟軟地垂著。）你……真把黑玉斷續膏討來了？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "三師伯，藥在這裡，弟子替您敷上。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "假黑玉斷續膏",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（藥膏一抹上去，俞岱巖就悶哼一聲，額上冷汗直冒，手腳的舊傷處泛起一片青黑。）這……這藥不對……",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（旁邊的武當弟子慌了手腳。）快、快去內堂請太師父！",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_yu1"
+              }
+            ]
+          }
+        }
+      },
+      "d_zsf1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張三丰聽完，臉色一沉。）是假藥。王府的人好狠的心思，給了藥，卻要人命。",
+            "choices": [
+              {
+                "id": "c_sorry",
+                "label": "都怪弟子大意。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_angry",
+                "label": "弟子這就回去找阿大算帳！",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "不怪你。老道寫一道病危令給你：岱巖傷勢轉危，王府若還有半點江湖道義，就該交出真藥。去吧，這一趟，不必再客氣。",
+            "do": [
+              {
+                "do": "give",
+                "item": "病危令",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_zsf1"
+              }
+            ]
+          }
+        }
+      },
+      "d_ada2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（阿大一見你，眼角抽了抽。）又是你。藥都給你了，還來做什麼？",
+            "choices": [
+              {
+                "id": "c_ling",
+                "label": "（亮出病危令）你給的是假藥！真藥交出來。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（先離開。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "嘿嘿，假的？那是郡主的意思，不關老頭子的事。真藥嘛……還在我身上。你再贏我一次，我就給你。",
+            "choices": [
+              {
+                "id": "c_fight",
+                "label": "這次你可別再耍花樣。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_ada2"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_wd_ada"
+                    ],
+                    "obj": "o_fight2",
+                    "npc": "n_xx_ada"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先退下準備一下。）",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_zhaomin": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（那公子收起摺扇，笑吟吟地打量你。）阿大說有個武當弟子打了他兩回，就是你？",
+            "choices": [
+              {
+                "id": "c_ling",
+                "label": "（交出郡主手令）阿大要我來見郡主。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "郡主手令",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "我就是。那盒假藥是我叫人換的——誰叫武當派的人老是跟王府作對？不過你肯為師伯兩度拚命，倒是條漢子。",
+            "choices": [
+              {
+                "id": "c_why",
+                "label": "郡主既然肯見我，想必另有吩咐。",
+                "goto": "n2"
+              },
+              {
+                "id": "c_angry",
+                "label": "拿人性命開玩笑，郡主好狠的心。",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "哼，你罵得也不錯。黑玉斷續膏是真的，可俞三俠的骨頭斷了二十年，單用這膏也接不回去。西夏客棧樓上住著一位大夫，醫術天下第一……你替我把這封信交給他，他自然會幫你。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "（她把一封灑了香粉的信塞到你手裡，臉上微微一紅。）不許拆開看！",
+            "do": [
+              {
+                "do": "give",
+                "item": "思慕函",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_zhaomin"
+              }
+            ]
+          }
+        }
+      },
+      "d_wuji1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（一個衣著樸素的年輕大夫正在搗藥，抬頭看了你一眼。）這位朋友，可是哪裡不舒服？",
+            "choices": [
+              {
+                "id": "c_letter",
+                "label": "有位姑娘託我把這封信交給您。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "思慕函",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（他拆開信，看了兩行，苦笑著搖頭。）這丫頭……又在胡鬧。俞三俠的事，她都在信裡說了。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "大夫能救俞三俠嗎？",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "能。黑玉斷續膏是真的，可二十年的舊傷，骨頭早已長歪，得先用七蟲七花做成藥引，以毒攻毒，化開淤結，膏藥才接得上。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "七蟲是斑蟾、赤蠍、蜈蚣、青蛇、黑蛛、蜂蟻、彩蛾，各要一隻活的；七花在大理北邊的蒼山林道能採齊。辛苦你了。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_wuji1"
+              }
+            ]
+          }
+        }
+      },
+      "d_wuji2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "七蟲七花都帶來了？讓我看看。",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "都在這裡了。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "七色奇花",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（他把毒蟲一隻隻放進藥罐，加上七花細細研磨，一股古怪的氣味瀰漫開來。過了好半晌，才倒出一小瓶黑褐色的藥汁。）",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "先塗藥引，再敷黑玉斷續膏，每日一次。告訴俞三俠，好好將養，三個月後就能下地了。……還有，別跟那位姑娘說我收了她的信。",
+            "do": [
+              {
+                "do": "give",
+                "item": "續骨藥引",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_wuji2"
+              }
+            ]
+          }
+        }
+      },
+      "d_yu2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "你又回來了……這回的藥，可別再是假的了。（俞岱巖苦笑。）",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "三師伯放心，這回是真藥，還有張大夫調的藥引。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "黑玉斷續膏",
+                    "n": 1
+                  },
+                  {
+                    "do": "take",
+                    "item": "續骨藥引",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（藥引一塗上去，只覺一陣冰涼滲入骨中；再敷上黑玉斷續膏，俞岱巖的右手手指竟輕輕動了一下。）",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "動了……真的動了！（他眼眶通紅。）好孩子，我口不能言謝，請人寫了這封感謝函，你替我呈給師父。",
+            "do": [
+              {
+                "do": "give",
+                "item": "感謝函",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_yu2"
+              }
+            ]
+          }
+        }
+      },
+      "d_zsf2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張三丰讀著感謝函，雪白的鬍子微微顫動。）二十年了……岱巖的手，終於能動了。",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "這都是太師父洪福。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "感謝函",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "你為同門奔走千里，不貪功、不記仇，這份心性難得。老道的純陽無極功，講究的就是一個「正」字，今日傳你入門的法子，往後要自己勤練。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_zsf2"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "俞岱巖的手又能動了",
+        "rewards": {
+          "flags": [
+            "wd_q_heiyu"
+          ],
+          "learn": {
+            "純陽無極功": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "later",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_longmen": {
+    "id": "q_wd_longmen",
+    "name": "龍門遺案",
+    "giver": "n_wd_moshenggu",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      },
+      {
+        "type": "attr_min",
+        "attr": "wit",
+        "value": 25
+      },
+      {
+        "type": "attr_min",
+        "attr": "cal",
+        "value": 25
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_orphan",
+        "title": "衡山小茶店",
+        "log": "持龍門事件令去衡山小茶店找龍門遺孤。出武當山門往北到武當山下、古道南岔，往東南走衡陽古道、湘江渡口，往南到衡山下，再往東就是小茶店。龍門遺孤只在白天（卯時到申時）在店裡幫忙。",
+        "place": "衡山・衡山小茶店",
+        "objectives": [
+          {
+            "id": "o_orphan",
+            "type": "TALK",
+            "npc": "n_hn_longmen",
+            "dialogue": "d_orphan",
+            "text": "向衡山小茶店的龍門遺孤打聽當年的事（卯時～申時）",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_monks",
+        "on_enter": []
+      },
+      {
+        "id": "s_monks",
+        "title": "兩位少林僧",
+        "log": "遺孤說當年作證的是少林的圓音、圓業。他們常在辰時、巳時到嵩陽茶棚歇腳：從衡山下往北回古道南岔，再往北到武當岔路，往東就是嵩陽茶棚。",
+        "place": "嵩山古道・嵩陽茶棚",
+        "objectives": [
+          {
+            "id": "o_yuanyin",
+            "type": "TALK",
+            "npc": "n_wd_yuanyin",
+            "dialogue": "d_yuanyin",
+            "text": "向圓音討鐵證（辰時、巳時）",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_yuanye",
+            "type": "TALK",
+            "npc": "n_wd_yuanye",
+            "dialogue": "d_yuanye",
+            "text": "向圓業討鐵證（辰時、巳時）",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_yu",
+        "on_enter": []
+      },
+      {
+        "id": "s_yu",
+        "title": "二俠的判斷",
+        "log": "把兩件鐵證帶回武當，交給大殿後屋的俞蓮舟（練武場往南到大殿，再往南）。",
+        "place": "武當派・大殿後屋",
+        "objectives": [
+          {
+            "id": "o_yu",
+            "type": "TALK",
+            "npc": "n_wd_yulianzhou",
+            "dialogue": "d_yu",
+            "text": "把鐵證交給大殿後屋的俞蓮舟",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_beasts",
+        "on_enter": []
+      },
+      {
+        "id": "s_beasts",
+        "title": "七獸練陣",
+        "log": "俞蓮舟要你先降服七頭猛獸，體會七人如一的道理（到了地點按「追捕」）：大理東邊樹林的野象（大理北門外大道往東經陶耘稻田）、西夏狼嚎丘的惡狼（荒草坡往東）、峨嵋竹林山徑的白猿（崆峒橋往東）、嵩山松林的猛虎（嵩陽茶棚往東）、天山雪谷的黑熊（雪原小徑往西到獵戶小屋再往南）、終南後山的獵豹（終南山腳往東）、星宿毒沼的大毒蛇。",
+        "place": "",
+        "objectives": [
+          {
+            "id": "o_xiang",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服大理東邊樹林的野象",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_elang",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服西夏狼嚎丘的惡狼",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_baiyuan",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服峨嵋竹林山徑的白猿",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_menghu",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服嵩山松林的猛虎",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_heixiong",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服天山雪谷的黑熊",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_liebao",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服終南後山的獵豹",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_dadushe",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "降服星宿毒沼的大毒蛇",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_song",
+        "on_enter": []
+      },
+      {
+        "id": "s_song",
+        "title": "大師伯的學習令",
+        "log": "七獸都降服了，回武當大殿見宋遠橋（練武場往南）。",
+        "place": "武當派・大殿",
+        "objectives": [
+          {
+            "id": "o_song",
+            "type": "TALK",
+            "npc": "n_wd_songyuanqiao",
+            "dialogue": "d_song",
+            "text": "到大殿向宋遠橋覆命",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（莫聲谷把一面令牌拍在石上。）龍門鏢局的案子，你聽過沒有？",
+            "choices": [
+              {
+                "id": "c_heard",
+                "label": "聽說當年龍門鏢局滿門被殺……",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子孤陋寡聞。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "都大錦的龍門鏢局受託護送三哥回山，卻讓三哥給人害了。後來鏢局一夜之間七十多口被殺，少林的和尚一口咬定是五哥張翠山幹的。五哥已經不在了，這筆帳，武當不能就這麼認了。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子願去查個明白。",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "龍門事件令",
+                    "n": 1
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no2",
+                "label": "此事牽涉少林，弟子不敢插手。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好！拿著龍門事件令。聽說鏢局有個孩子逃了出來，如今在衡山一帶。先去找他。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "哼，怕事就別穿這身道袍。罷了，等你想清楚再來。"
+          }
+        }
+      },
+      "d_orphan": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（擦桌子的少年看見你腰間的令牌，手上的抹布停了。）龍門事件令……你是武當派的？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "我想知道那一夜到底發生了什麼。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（先不打擾他。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "那年我才七歲，躲在水缸裡。殺人的是個女的，聲音很好聽，手上的暗器一閃一閃的……她一邊殺人，一邊說『誰叫你們護不住俞三俠』。",
+            "choices": [
+              {
+                "id": "c_who",
+                "label": "不是張五俠？",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "我從頭到尾沒看見什麼張五俠。可是第二天，兩個少林和尚就到處說是武當的人幹的。那兩個和尚叫圓音、圓業，聽說常在嵩山那邊的茶棚歇腳。",
+            "goto": "n3"
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "你要是能讓真相大白……我爹娘在地下也能閉眼了。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_orphan"
+              }
+            ]
+          }
+        }
+      },
+      "d_yuanyin": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "阿彌陀佛。施主腰間那面令牌，老衲認得。武當的人，又來翻舊帳了？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "大師當年親眼看見張五俠殺人？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（告辭。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "……老衲趕到時，人已經死光了。只聽見有人說話，聲音是個女子。是師弟說，除了張翠山，沒有人有這種狠手。",
+            "choices": [
+              {
+                "id": "c_proof",
+                "label": "大師是出家人，總該說句實話。",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（圓音低頭唸了好一陣佛號，從懷裡取出一頁發黃的紙。）這是老衲當夜記下的情形，二十年沒給人看過。拿去吧。",
+            "do": [
+              {
+                "do": "give",
+                "item": "鐵證（一）",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_yuanyin"
+              }
+            ]
+          }
+        }
+      },
+      "d_yuanye": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（圓業瞪著你。）武當派的？哼，張翠山的徒子徒孫，還有臉來問？",
+            "choices": [
+              {
+                "id": "c_calm",
+                "label": "大師息怒。我只想知道真相，若真是武當的錯，武當自會認。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_angry",
+                "label": "大師一口咬定，可有憑據？",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "憑據？（他從袖裡摸出一枚發黑的暗器殘片，往桌上一拍。）這是從都大錦身上拔出來的。你倒說說，武當哪一門功夫用這玩意兒？",
+            "choices": [
+              {
+                "id": "c_look",
+                "label": "（細看）這是天鷹教的銀針……不是武當的東西。",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "……（圓業的臉色變了幾變，終於重重哼了一聲。）拿去給你們的人看吧！灑家倒要看看，你們怎麼說。",
+            "do": [
+              {
+                "do": "give",
+                "item": "鐵證（二）",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_yuanye"
+              }
+            ]
+          }
+        }
+      },
+      "d_yu": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（俞蓮舟把兩件鐵證並排放在桌上，看了很久。）口供和暗器都指向天鷹教……五弟的冤屈，總算有了著落。",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "（交出鐵證）二師伯，接下來該怎麼做？",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "鐵證（一）",
+                    "n": 1
+                  },
+                  {
+                    "do": "take",
+                    "item": "鐵證（二）",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "冤有頭、債有主，這筆帳不是殺幾個人就算得清的。武當七兄弟，少了一個、殘了一個，往後要靠真武七截陣才護得住武當。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "你先去降服七頭猛獸：野象、惡狼、白猿、猛虎、黑熊、獵豹、大毒蛇。七獸各有長處，合起來才是一個陣。降服了，再去見大師哥。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_yu"
+              }
+            ]
+          }
+        }
+      },
+      "d_song": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（宋遠橋聽完二弟的轉述，起身向你一揖。）你替五弟洗清了冤屈，宋某代武當上下謝過。",
+            "choices": [
+              {
+                "id": "c_humble",
+                "label": "大師伯言重了，這是弟子分內之事。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "真武七截陣是師父看了龜蛇二山悟出來的，要七人同心才擺得起來。這面學習令給你，陣法的根基，今日就傳你。",
+            "do": [
+              {
+                "do": "give",
+                "item": "學習令",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_song"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "龍門鏢局舊案真相大白",
+        "rewards": {
+          "flags": [
+            "wd_q_longmen"
+          ],
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "later",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_yitian": {
+    "id": "q_wd_yitian",
+    "name": "倚天屠龍筆法",
+    "giver": "n_wd_zhangsanfeng",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      },
+      {
+        "type": "quest_done",
+        "quest": "q_wd_heiyu"
+      },
+      {
+        "type": "skill_min",
+        "skill": "純陽無極功",
+        "value": 30
+      },
+      {
+        "type": "skill_min",
+        "skill": "讀書識字",
+        "value": 40
+      },
+      {
+        "type": "attr_min",
+        "attr": "wit",
+        "value": 30
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_song",
+        "title": "書房的四師伯",
+        "log": "張三丰要你先去書房找張松溪學寫字。書房在練武場東邊。",
+        "place": "武當派・書房",
+        "objectives": [
+          {
+            "id": "o_song",
+            "type": "TALK",
+            "npc": "n_wd_zhangsongxi",
+            "dialogue": "d_song",
+            "text": "到書房向張松溪請教書法",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_copy",
+        "on_enter": []
+      },
+      {
+        "id": "s_copy",
+        "title": "閉門臨帖",
+        "log": "在書房閉門臨摹那二十四個字，至少要寫上半天（約半個遊戲日）。",
+        "place": "武當派・書房",
+        "objectives": [
+          {
+            "id": "o_wait",
+            "type": "WAIT",
+            "days": 0.5,
+            "text": "臨摹二十四字半日",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_test",
+        "on_enter": []
+      },
+      {
+        "id": "s_test",
+        "title": "真人考字",
+        "log": "寫熟了，到內堂請張三丰考校（練武場往南到大殿，往東三清宮，再往南）。",
+        "place": "武當派・內堂",
+        "objectives": [
+          {
+            "id": "o_test",
+            "type": "TALK",
+            "npc": "n_wd_zhangsanfeng",
+            "dialogue": "d_test",
+            "text": "到內堂接受張三丰考校",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張三丰望著窗外，緩緩說道。）那一年翠山出事，老道一夜沒睡，在牆上寫了二十四個字。寫完了才發覺，字裡全是武功。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "弟子想學。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子不敢勾起太師父的傷心事。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "要學這套筆法，得先會寫字。松溪的字是武當寫得最好的，你去書房找他，學會了那二十四個字，再來見我。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子遵命。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "傻孩子，人老了，傷心事也就是一筆一劃的事了。"
+          }
+        }
+      },
+      "d_song": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張松溪擱下筆。）師父要你來學那二十四個字？好，先看我寫一遍。",
+            "choices": [
+              {
+                "id": "c_watch",
+                "label": "（靜心觀看）",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（他提筆蘸墨，一氣呵成：武林至尊，寶刀屠龍，號令天下，莫敢不從。倚天不出，誰與爭鋒。每一筆都像一記殺招。）",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "看清楚了？筆鋒裡的起承轉合，就是招式。回去閉門臨帖，寫上半天，手腕自然就有了那股勁。寫熟了，再去見師父。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_song"
+              }
+            ]
+          }
+        }
+      },
+      "d_test": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "寫熟了？老道考你一考：「武林至尊，寶刀屠龍」，下一句是什麼？",
+            "choices": [
+              {
+                "id": "c_right",
+                "label": "號令天下，莫敢不從。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_wrong1",
+                "label": "倚天不出，誰與爭鋒。",
+                "goto": "n_wrong"
+              },
+              {
+                "id": "c_wrong2",
+                "label": "天下英雄，唯我獨尊。",
+                "goto": "n_wrong"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "嗯。那「倚天不出」之後呢？",
+            "choices": [
+              {
+                "id": "c_right2",
+                "label": "誰與爭鋒。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_test"
+                  }
+                ],
+                "goto": "n_ok"
+              },
+              {
+                "id": "c_wrong3",
+                "label": "莫敢不從。",
+                "goto": "n_wrong"
+              }
+            ]
+          },
+          "n_wrong": {
+            "speaker": "npc",
+            "text": "（張三丰搖搖頭。）字記不牢，招式就亂。回去再寫幾遍，想好了再來。"
+          },
+          "n_ok": {
+            "speaker": "npc",
+            "text": "好。這套筆法以筆代劍，一筆一劃都要寫得堂堂正正。從今日起，你就照著這二十四個字去練吧。"
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "學會了倚天屠龍筆法",
+        "rewards": {
+          "flags": [
+            "wd_q_yitian"
+          ],
+          "learn": {
+            "倚天屠龍筆法": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "proposal",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_wd_taiji": {
+    "id": "q_wd_taiji",
+    "name": "太極拳與太極劍",
+    "giver": "n_wd_zhangsongxi",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "武當"
+      },
+      {
+        "type": "attr_min",
+        "attr": "str",
+        "value": 26
+      },
+      {
+        "type": "attr_min",
+        "attr": "cal",
+        "value": 22
+      },
+      {
+        "type": "attr_min",
+        "attr": "agi",
+        "value": 22
+      },
+      {
+        "type": "attr_min",
+        "attr": "con",
+        "value": 22
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_quan",
+        "title": "四師伯的拳",
+        "log": "在書房接下張松溪的考較。撐不住就退開（逃），也算過了這一關。",
+        "place": "武當派・書房",
+        "objectives": [
+          {
+            "id": "o_quan",
+            "type": "TALK",
+            "npc": "n_wd_zhangsongxi",
+            "dialogue": "d_quan",
+            "text": "接受張松溪的拳腳考較",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_quan_f",
+            "type": "FIGHT",
+            "win": "ANY",
+            "text": "與張松溪過招",
+            "requires": [],
+            "enemies": [
+              "張松溪"
+            ]
+          }
+        ],
+        "next": "s_jian",
+        "on_enter": []
+      },
+      {
+        "id": "s_jian",
+        "title": "二師伯的劍",
+        "log": "到大殿後屋接下俞蓮舟的劍法考較（練武場往南到大殿，再往南）。勝負不拘，撐不住就退開。",
+        "place": "武當派・大殿後屋",
+        "objectives": [
+          {
+            "id": "o_jian",
+            "type": "TALK",
+            "npc": "n_wd_yulianzhou",
+            "dialogue": "d_jian",
+            "text": "接受俞蓮舟的劍法考較",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_jian_f",
+            "type": "FIGHT",
+            "win": "ANY",
+            "text": "與俞蓮舟過招",
+            "requires": [],
+            "enemies": [
+              "俞蓮舟"
+            ]
+          }
+        ],
+        "next": "s_back",
+        "on_enter": []
+      },
+      {
+        "id": "s_back",
+        "title": "說說心得",
+        "log": "回書房把兩場考較的心得說給張松溪聽。",
+        "place": "武當派・書房",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_wd_zhangsongxi",
+            "dialogue": "d_back",
+            "text": "回書房向張松溪覆命",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張松溪把一本拳譜闔上。）師父新近悟出一套拳、一套劍，講的是以柔克剛、以靜制動。",
+            "choices": [
+              {
+                "id": "c_how",
+                "label": "以柔克剛？",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "一兩撥千斤，後發先至。說來容易，練起來難。他老人家要我和二哥先考較考較你們這些小輩，看誰的根骨悟性夠。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "請四師伯指點。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子還差得遠，改日再來。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好。先過我這一關，再去大殿後屋找二哥。"
+          }
+        }
+      },
+      "d_quan": {
+        "start": "n0",
+        "resume": "n1",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張松溪站在書房中央，雙手虛抱成圓。）準備好了？",
+            "choices": [
+              {
+                "id": "c_ready",
+                "label": "弟子準備好了。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "出拳吧。我只守不攻，你能逼我出一招，就算你贏。打不下去就退開，不丟人。",
+            "choices": [
+              {
+                "id": "c_go",
+                "label": "弟子得罪了。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_quan"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_wd_zhangsongxi"
+                    ],
+                    "obj": "o_quan_f",
+                    "solo": true,
+                    "npc": "n_wd_zhangsongxi"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先調勻內息。）",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_jian": {
+        "start": "n0",
+        "resume": "n1",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（俞蓮舟抱劍而立。）四弟說你拳腳還過得去。",
+            "choices": [
+              {
+                "id": "c_ready",
+                "label": "請二師伯考較劍法。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "劍法講究的是圓，你看得出我劍上的圓，就算過關。撐不住就退開。",
+            "choices": [
+              {
+                "id": "c_go",
+                "label": "請二師伯賜招。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_jian"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_wd_yulianzhou"
+                    ],
+                    "obj": "o_jian_f",
+                    "solo": true,
+                    "npc": "n_wd_yulianzhou"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先調勻內息。）",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "兩場打下來，有什麼心得？",
+            "choices": [
+              {
+                "id": "c_a",
+                "label": "四師伯的拳一圈套一圈，打出去的力氣都被化掉了。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_b",
+                "label": "二師伯的劍招招都在畫圓，看似慢，卻處處封住了我的去路。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_c",
+                "label": "弟子只覺得打不到人，什麼也沒看出來。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（張松溪笑了。）能說出這幾句，就夠了。太極拳、太極劍，說穿了就是一個圓字。往後你自己去練，練得越慢，進得越快。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_back"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "通過太極拳與太極劍的考較",
+        "rewards": {
+          "flags": [
+            "wd_q_taiji"
+          ],
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "later",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_em_shougongsha": {
+    "id": "q_em_shougongsha",
+    "name": "冰清玉潔守宮砂",
+    "giver": "n_em_jingzhao",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "峨嵋"
+      },
+      {
+        "type": "quest_flag",
+        "flag": "em_bmy_letter"
+      },
+      {
+        "type": "skill_min",
+        "skill": "基本內功",
+        "value": 40
+      },
+      {
+        "type": "skill_min",
+        "skill": "峨嵋心法",
+        "value": 40
+      },
+      {
+        "type": "skill_min",
+        "skill": "斷惡",
+        "value": 50
+      },
+      {
+        "type": "lilian_min",
+        "value": 80
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_cert",
+        "title": "靜照師太驗砂",
+        "log": "到練武場東邊的易理房，請靜照師太驗明守宮砂。",
+        "place": "峨嵋派・易理房",
+        "objectives": [
+          {
+            "id": "o_cert",
+            "type": "TALK",
+            "npc": "n_em_jingzhao",
+            "dialogue": "d_cert",
+            "text": "請易理房的靜照師太驗明守宮砂",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_miejue",
+        "on_enter": []
+      },
+      {
+        "id": "s_miejue",
+        "title": "拜見師父",
+        "log": "帶著守宮砂證明去見滅絕師太：練武場往北進金頂大殿，再往北就是師父的居所。",
+        "place": "峨嵋派・滅絕師太居所",
+        "objectives": [
+          {
+            "id": "o_miejue",
+            "type": "TALK",
+            "npc": "n_em_miejue",
+            "dialogue": "d_miejue",
+            "text": "把守宮砂證明呈給滅絕師太",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（靜照師太放下手裡的易經。）你的斷惡已有五十，內功心法也都有了根基。想學九陽功？",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子想求師父傳授九陽功。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子只是來請安的。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "九陽功是本門上乘心法，師父規矩嚴，非冰清玉潔的弟子不傳。我先替你驗一驗守宮砂，開一張證明，你再拿去見師父。",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "請師叔查驗。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_cert": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "把袖子捲起來。（靜照師太看了一眼你臂上那一點殷紅，點點頭。）守宮砂完好。",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "多謝師叔。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（她提筆寫了幾行字，蓋上自己的小印。）記住，這一點紅不只是一顆砂，是你一輩子的清白。去吧，師父在居所等你。",
+            "do": [
+              {
+                "do": "give",
+                "item": "守宮砂證明",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_cert"
+              }
+            ]
+          }
+        }
+      },
+      "d_miejue": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（滅絕師太接過證明，冷冷看了你一眼。）靜照說你斷惡有成。我問你一句：若在江湖上遇見魔教中人，你當如何？",
+            "choices": [
+              {
+                "id": "c_kill",
+                "label": "除惡務盡，絕不手軟。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "守宮砂證明",
+                    "n": 1
+                  }
+                ],
+                "goto": "n_kill"
+              },
+              {
+                "id": "c_ask",
+                "label": "先問清楚是非，再行處置。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "守宮砂證明",
+                    "n": 1
+                  }
+                ],
+                "goto": "n_ask"
+              }
+            ]
+          },
+          "n_kill": {
+            "speaker": "npc",
+            "text": "好！這才是峨嵋弟子。正邪不兩立，你心裡要永遠記著這幾個字。",
+            "goto": "n_teach"
+          },
+          "n_ask": {
+            "speaker": "npc",
+            "text": "哼，是非？魔教中人哪有什麼是非！……罷了，你年紀還輕，往後自然會明白。",
+            "goto": "n_teach"
+          },
+          "n_teach": {
+            "speaker": "npc",
+            "text": "九陽功我只傳你入門的一層，往後全憑你自己苦修。練不成，也不必來問我。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_miejue"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "滅絕師太傳了峨嵋九陽功",
+        "rewards": {
+          "flags": [
+            "em_shougongsha"
+          ],
+          "learn": {
+            "峨嵋九陽功": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_em_shandu": {
+    "id": "q_em_shandu",
+    "name": "善妒之女",
+    "giver": "n_em_dingminjun",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "峨嵋"
+      },
+      {
+        "type": "skill_min",
+        "skill": "迴風拂柳劍",
+        "value": 30
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_ding",
+        "title": "丁師姐的脾氣",
+        "log": "在練武場找丁敏君，看她肯不肯把東西交出來。",
+        "place": "峨嵋派・練武場",
+        "objectives": [
+          {
+            "id": "o_ding",
+            "type": "TALK",
+            "npc": "n_em_dingminjun",
+            "dialogue": "d_ding",
+            "text": "和練武場的丁敏君談談",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": [
+          {
+            "if": [
+              {
+                "type": "quest_var",
+                "quest": "q_em_shandu",
+                "var": "honest",
+                "value": true
+              }
+            ],
+            "goto": "s_cool"
+          },
+          {
+            "goto": "s_jiuyang"
+          }
+        ],
+        "on_enter": []
+      },
+      {
+        "id": "s_cool",
+        "title": "等她消氣",
+        "log": "丁敏君氣你不肯順著她說話，把你晾在一邊。等她消消氣（約半個遊戲日），再回練武場找她。",
+        "place": "峨嵋派・練武場",
+        "objectives": [
+          {
+            "id": "o_cool",
+            "type": "WAIT",
+            "days": 0.5,
+            "text": "等丁敏君消氣（半日）",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_ding2",
+        "on_enter": []
+      },
+      {
+        "id": "s_ding2",
+        "title": "再找丁師姐",
+        "log": "回練武場再找丁敏君。",
+        "place": "峨嵋派・練武場",
+        "objectives": [
+          {
+            "id": "o_ding2",
+            "type": "TALK",
+            "npc": "n_em_dingminjun",
+            "dialogue": "d_ding2",
+            "text": "再找練武場的丁敏君",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_jiuyang",
+        "on_enter": []
+      },
+      {
+        "id": "s_jiuyang",
+        "title": "九陽十級",
+        "log": "師父說要九陽功練到十級，才能學滅劍。把峨嵋九陽功練到 10 級，再帶著掌門指環去見滅絕師太（金頂大殿往北）。",
+        "place": "峨嵋派・滅絕師太居所",
+        "objectives": [
+          {
+            "id": "o_jy",
+            "type": "STATE",
+            "requires": [
+              {
+                "type": "skill_min",
+                "skill": "峨嵋九陽功",
+                "value": 10
+              }
+            ],
+            "text": "峨嵋九陽功練到 10 級",
+            "enemies": []
+          },
+          {
+            "id": "o_miejue",
+            "type": "TALK",
+            "npc": "n_em_miejue",
+            "dialogue": "d_miejue",
+            "text": "把掌門指環呈給滅絕師太",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（丁敏君正拿劍削著樹枝，見你過來，哼了一聲。）迴風拂柳劍練到三十了不起啊？師父的寶貝徒弟又多一個了。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "師姐，聽說師父有件東西託您轉交？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（不惹她。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（她把樹枝一扔。）消息倒靈通。是有這麼一件東西，不過給不給、給誰，得看我高不高興。",
+            "choices": [
+              {
+                "id": "c_wait",
+                "label": "那我陪師姐說說話。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_bye",
+                "label": "那就不打擾師姐了。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_ding": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "東西是有。可我問你：師父是不是偏心周師妹？她入門才幾年，什麼好處都是她的。",
+            "choices": [
+              {
+                "id": "c_flatter",
+                "label": "師姐說得是，師父確實偏心了些。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "honest",
+                    "value": false
+                  }
+                ],
+                "goto": "n_flatter"
+              },
+              {
+                "id": "c_honest",
+                "label": "師父自有道理，周師姐用功，大家都看在眼裡。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "honest",
+                    "value": true
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_ding"
+                  }
+                ],
+                "goto": "n_honest"
+              }
+            ]
+          },
+          "n_flatter": {
+            "speaker": "npc",
+            "text": "（她臉色好看了些。）總算有個明白人。喏，這是師父當年用過的掌門指環，說是要給劍法有成的弟子。九陽功練到十級，再拿去給師父看。",
+            "do": [
+              {
+                "do": "give",
+                "item": "掌門指環",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_ding"
+              }
+            ]
+          },
+          "n_honest": {
+            "speaker": "npc",
+            "text": "（丁敏君的臉一下子漲紅了。）好啊，連你也幫著她說話！走開，我現在不想看見你！"
+          }
+        }
+      },
+      "d_ding2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（丁敏君背著身子，過了好一會兒才開口。）……你倒有骨氣，不像有些人只會順著我說話。",
+            "choices": [
+              {
+                "id": "c_sorry",
+                "label": "師姐，方才是我說話太直了。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_firm",
+                "label": "我只是說了實話。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "哼。東西是師父給的，我扣著也沒意思。拿去吧，九陽功練到十級，再去見師父。",
+            "do": [
+              {
+                "do": "give",
+                "item": "掌門指環",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_ding2"
+              }
+            ]
+          }
+        }
+      },
+      "d_miejue": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（滅絕師太看見指環，神色微動。）這指環，敏君竟肯交給你。九陽功練到十級了？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "（呈上掌門指環）弟子九陽功已有十級火候。",
+                "requires": [
+                  {
+                    "type": "skill_min",
+                    "skill": "峨嵋九陽功",
+                    "value": 10
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "掌門指環",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "滅劍是我的獨門劍法，劍劍要見血，專斬邪魔。我只教你頭一招，往後是龍是蟲，看你自己。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_miejue"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "滅絕師太傳了滅劍",
+        "rewards": {
+          "flags": [
+            "em_miejian_ok"
+          ],
+          "learn": {
+            "滅劍": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_sl_riyuebian": {
+    "id": "q_sl_riyuebian",
+    "name": "日月鞭法",
+    "giver": "n_sl_xuanjing",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "少林"
+      },
+      {
+        "type": "skill_min",
+        "skill": "讀書識字",
+        "value": 50
+      },
+      {
+        "type": "skill_min",
+        "skill": "少林心法",
+        "value": 50
+      },
+      {
+        "type": "skill_min",
+        "skill": "佛法",
+        "value": 70
+      },
+      {
+        "type": "hour_in",
+        "hours": [
+          "戌",
+          "亥"
+        ]
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_fetch",
+        "title": "藏經閣取經",
+        "log": "到藏經閣向渡厄大師取經（羅漢堂往東回大雄寶殿，再往東就是藏經閣；做這個任務時藏經閣特准你進去）。渡厄給你哪一部就是哪一部，玄淨要的是「東方淨琉璃世界教主」所說的那一部。",
+        "place": "少林寺・藏經閣",
+        "objectives": [
+          {
+            "id": "o_fetch",
+            "type": "TALK",
+            "npc": "n_sl_due",
+            "dialogue": "d_fetch",
+            "text": "到藏經閣取一部佛經",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_return",
+        "on_enter": []
+      },
+      {
+        "id": "s_return",
+        "title": "呈經",
+        "log": "把經卷帶回羅漢堂交給玄淨（大雄寶殿往西）。",
+        "place": "少林寺・羅漢堂",
+        "objectives": [
+          {
+            "id": "o_return",
+            "type": "TALK",
+            "npc": "n_sl_xuanjing",
+            "dialogue": "d_return",
+            "text": "把經卷交給羅漢堂的玄淨",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（玄淨手持長鞭，閉目打坐，聽見腳步聲才睜眼。）夜深了，你來找老衲，是想學日月鞭法？",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子正是為此而來。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子路過，打擾大師了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "鞭法如日月輪轉，心中若無佛法，鞭子揮出去就只是殺人的繩索。你到藏經閣替老衲取一部經來：東方淨琉璃世界教主所說的那一部。",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "弟子這就去。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_fetch": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（渡厄大師盤坐在經架下，眼也不睜。）玄淨要經？老衲替你抽一部。抽到哪一部，是你的緣法。",
+            "src": "later",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "有勞大師。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "sutra",
+                    "random": [
+                      "jingang",
+                      "lengyan",
+                      "yaoshi"
+                    ],
+                    "src": "later"
+                  },
+                  {
+                    "do": "give",
+                    "item": "藏經閣經卷",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_fetch"
+                  }
+                ],
+                "goto": "n_got"
+              },
+              {
+                "id": "c_later",
+                "label": "（改日再來。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_got": {
+            "speaker": "npc",
+            "text": "（渡厄從經架上隨手抽出一卷，用黃綾包好遞給你。）去吧。",
+            "choices": [
+              {
+                "id": "c_jingang",
+                "label": "（看看經名：《金剛般若波羅蜜經》）",
+                "hide_if_locked": true,
+                "goto": "END",
+                "requires": [
+                  {
+                    "type": "quest_var",
+                    "quest": "q_sl_riyuebian",
+                    "var": "sutra",
+                    "value": "jingang"
+                  }
+                ]
+              },
+              {
+                "id": "c_lengyan",
+                "label": "（看看經名：《大佛頂首楞嚴經》）",
+                "hide_if_locked": true,
+                "goto": "END",
+                "requires": [
+                  {
+                    "type": "quest_var",
+                    "quest": "q_sl_riyuebian",
+                    "var": "sutra",
+                    "value": "lengyan"
+                  }
+                ]
+              },
+              {
+                "id": "c_yaoshi",
+                "label": "（看看經名：《藥師琉璃光如來本願功德經》）",
+                "hide_if_locked": true,
+                "goto": "END",
+                "requires": [
+                  {
+                    "type": "quest_var",
+                    "quest": "q_sl_riyuebian",
+                    "var": "sutra",
+                    "value": "yaoshi"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "d_return": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "經取來了？給老衲看看。",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "（呈上經卷）",
+                "requires": [
+                  {
+                    "type": "quest_var",
+                    "quest": "q_sl_riyuebian",
+                    "var": "sutra",
+                    "value": "yaoshi"
+                  }
+                ],
+                "hide_if_locked": true,
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "藏經閣經卷",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_return"
+                  }
+                ],
+                "goto": "n_ok"
+              },
+              {
+                "id": "c_bad",
+                "label": "（呈上經卷）",
+                "requires": [
+                  {
+                    "type": "any_of",
+                    "options": [
+                      [
+                        {
+                          "type": "quest_var",
+                          "quest": "q_sl_riyuebian",
+                          "var": "sutra",
+                          "value": "jingang"
+                        }
+                      ],
+                      [
+                        {
+                          "type": "quest_var",
+                          "quest": "q_sl_riyuebian",
+                          "var": "sutra",
+                          "value": "lengyan"
+                        }
+                      ]
+                    ]
+                  }
+                ],
+                "hide_if_locked": true,
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "藏經閣經卷",
+                    "n": 1
+                  },
+                  {
+                    "do": "fail",
+                    "reason": "fail_q_sl_riyuebian_jing"
+                  }
+                ],
+                "goto": "n_bad"
+              }
+            ]
+          },
+          "n_ok": {
+            "speaker": "npc",
+            "text": "藥師琉璃光如來，發十二大願，拔眾生之苦。鞭子在你手上，也要記得這個願。日月鞭法，老衲傳你了。"
+          },
+          "n_bad": {
+            "speaker": "npc",
+            "text": "（玄淨搖搖頭，把經卷放到一旁。）這不是老衲要的那一部。心不定，眼就不明。改日夜裡再來吧。"
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "玄淨答應傳授日月鞭法",
+        "rewards": {
+          "flags": [
+            "sl_riyuebian_ok"
+          ],
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_xh_huagong": {
+    "id": "q_xh_huagong",
+    "name": "化功大法",
+    "giver": "n_weixiaobao",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "星宿"
+      },
+      {
+        "type": "skill_min",
+        "skill": "星宿心法",
+        "value": 5
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_shuanger",
+        "title": "雙兒的提點",
+        "log": "韋小寶教了你拍馬屁神功（諂媚 5 級）。旁邊的雙兒好像有話要說，跟她談談。",
+        "place": "大理・大理衙門",
+        "objectives": [
+          {
+            "id": "o_shuanger",
+            "type": "TALK",
+            "npc": "n_shuanger",
+            "dialogue": "d_shuanger",
+            "text": "和大理衙門的雙兒談談",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_flatter",
+        "on_enter": []
+      },
+      {
+        "id": "s_flatter",
+        "title": "吹捧星宿老仙",
+        "log": "回星宿海，到大殿拍師父的馬屁。從大理出北門往北到城北河畔，過河石橋沿河川古道往西北到綠洲，再往西北到沙漠山洞外，往北經大漠邊緣到沙丘邊緣，往西經蛇骨小徑、星宿海邊到星宿海外景，往北就是大殿。",
+        "place": "星宿派・星宿大殿",
+        "objectives": [
+          {
+            "id": "o_flatter",
+            "type": "TALK",
+            "npc": "n_xh_dingchunqiu",
+            "dialogue": "d_flatter",
+            "text": "到星宿大殿吹捧丁春秋",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_shuanger2",
+        "on_enter": []
+      },
+      {
+        "id": "s_shuanger2",
+        "title": "再求雙兒",
+        "log": "師父還是不高興。回大理衙門求雙兒幫忙（路線倒過來走）。",
+        "place": "大理・大理衙門",
+        "objectives": [
+          {
+            "id": "o_shuanger2",
+            "type": "TALK",
+            "npc": "n_shuanger",
+            "dialogue": "d_shuanger2",
+            "text": "回大理衙門求雙兒幫忙",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_wxb2",
+        "on_enter": []
+      },
+      {
+        "id": "s_wxb2",
+        "title": "神功十級",
+        "log": "雙兒替你說了好話。找韋小寶把拍馬屁神功學到 10 級（諂媚 10 級）。",
+        "place": "大理・大理衙門",
+        "objectives": [
+          {
+            "id": "o_wxb2",
+            "type": "TALK",
+            "npc": "n_weixiaobao",
+            "dialogue": "d_wxb2",
+            "text": "請韋小寶把拍馬屁神功教到十級",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_cm10",
+            "type": "STATE",
+            "requires": [
+              {
+                "type": "skill_min",
+                "skill": "諂媚",
+                "value": 10
+              }
+            ],
+            "text": "諂媚練到 10 級",
+            "enemies": []
+          }
+        ],
+        "next": "s_ding",
+        "on_enter": []
+      },
+      {
+        "id": "s_ding",
+        "title": "老仙大悅",
+        "log": "回星宿大殿，再拍一次師父的馬屁。",
+        "place": "星宿派・星宿大殿",
+        "objectives": [
+          {
+            "id": "o_ding",
+            "type": "TALK",
+            "npc": "n_xh_dingchunqiu",
+            "dialogue": "d_ding",
+            "text": "回星宿大殿再吹捧丁春秋",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（韋小寶一見你這身打扮就樂了。）喲，星宿派的！你們丁老怪最愛聽人拍馬屁，偏偏你們這些徒弟拍得難聽死了，是不是？",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "韋爵爺明鑑，求您指點一二。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "我不是來聽這些的。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "拍馬屁也是門學問！要拍得對方渾身舒坦，又不能拍得太露骨。來，韋爵爺今天心情好，先傳你五成功力。",
+            "choices": [
+              {
+                "id": "c_learn",
+                "label": "（洗耳恭聽）",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "learn",
+                    "skill": "諂媚",
+                    "level": 5
+                  }
+                ],
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "記住三句真言：「說好話不用本錢」、「越肉麻越管用」、「臉皮要比城牆厚」。去吧去吧！"
+          }
+        }
+      },
+      "d_shuanger": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（雙兒輕聲說。）這位……{gege}，相公教的法子，是拍他自己那些朋友用的。你們師父那樣的人，恐怕不太一樣。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "雙兒姑娘的意思是？",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "我也說不上來。你先回去試試，要是不成，再來找我，我求相公把壓箱底的本事教你。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_shuanger"
+              }
+            ]
+          }
+        }
+      },
+      "d_flatter": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（丁春秋半閉著眼。）你有什麼事？",
+            "choices": [
+              {
+                "id": "c_a",
+                "label": "師父武功蓋世，天下無敵，弟子佩服得五體投地！",
+                "goto": "n1"
+              },
+              {
+                "id": "c_b",
+                "label": "星宿老仙，法駕中原，神通廣大，與天同壽！",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（丁春秋眉頭一皺。）就這幾句？門口那些弟子天天在喊，老夫耳朵都長繭了。沒點新鮮的，就別來煩我。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_flatter"
+              }
+            ]
+          }
+        }
+      },
+      "d_shuanger2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（雙兒看你垂頭喪氣的樣子，抿嘴一笑。）果然不成？",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "雙兒姑娘，求妳幫幫忙。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "相公最聽我的話。我去跟他說，叫他把拍馬屁神功的十成功夫都教你。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_shuanger2"
+              }
+            ]
+          }
+        }
+      },
+      "d_wxb2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（韋小寶嘆了口氣。）雙兒開口，我還能不答應嗎？好，這回教你真本事：拍馬屁要拍到對方心坎裡，他自己都不知道的好處，你要先替他說出來。",
+            "choices": [
+              {
+                "id": "c_learn",
+                "label": "（洗耳恭聽）",
+                "do": [
+                  {
+                    "do": "learn",
+                    "skill": "諂媚",
+                    "level": 10
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_wxb2"
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "你們師父最怕什麼？怕老！最想要什麼？想天下人都怕他！你就照這個意思去拍，包他樂得合不攏嘴。"
+          }
+        }
+      },
+      "d_ding": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（丁春秋瞟了你一眼。）又來了？",
+            "choices": [
+              {
+                "id": "c_good",
+                "label": "師父容光煥發，比弟子剛入門時又年輕了十歲！中原那些什麼少林武當，聽見星宿老仙的名號，哪個不嚇得屁滾尿流？",
+                "requires": [
+                  {
+                    "type": "skill_min",
+                    "skill": "諂媚",
+                    "value": 10
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_ding"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bad",
+                "label": "師父武功天下第一！",
+                "goto": "n_bad"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（丁春秋撫鬚大笑。）哈哈哈！好徒兒，說得好！老夫今日高興，傳你一門化功大法——中了此功的人，內力就像雪遇著了火，一點一點化掉。"
+          },
+          "n_bad": {
+            "speaker": "npc",
+            "text": "（丁春秋揮揮手。）老調重彈，滾。"
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "丁春秋傳了化功大法",
+        "rewards": {
+          "flags": [
+            "xh_huagong_ok"
+          ],
+          "learn": {
+            "化功大法": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_xd_xuehai": {
+    "id": "q_xd_xuehai",
+    "name": "血海魔功的試鍊",
+    "giver": "n_xd_laozu",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "血刀門"
+      },
+      {
+        "type": "skill_min",
+        "skill": "基本內功",
+        "value": 60
+      },
+      {
+        "type": "skill_min",
+        "skill": "基本刀法",
+        "value": 50
+      },
+      {
+        "type": "skill_min",
+        "skill": "威嚇",
+        "value": 50
+      },
+      {
+        "type": "lilian_min",
+        "value": 100
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_hunt",
+        "title": "雪原追叛徒",
+        "log": "出血刀門口往東到雪谷，往東北上大雪山，再往西就是雪原。找到叛徒，清理門戶。",
+        "place": "大漠雪山道・雪原",
+        "objectives": [
+          {
+            "id": "o_find",
+            "type": "TALK",
+            "npc": "n_xd_pantu",
+            "dialogue": "d_pantu",
+            "text": "在雪原找到血刀叛徒",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_kill",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "除掉叛徒",
+            "requires": [],
+            "enemies": [
+              "血刀叛徒"
+            ]
+          }
+        ],
+        "next": "s_laozu",
+        "on_enter": []
+      },
+      {
+        "id": "s_laozu",
+        "title": "接老祖一刀",
+        "log": "把叛徒的血刀帶回本堂交給血刀老祖，接下老祖的試鍊。撐不住就退開，老祖只看你有沒有膽子。",
+        "place": "血刀門・血刀本堂",
+        "objectives": [
+          {
+            "id": "o_laozu",
+            "type": "TALK",
+            "npc": "n_xd_laozu",
+            "dialogue": "d_laozu",
+            "text": "回本堂接受血刀老祖的試鍊",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_trial",
+            "type": "FIGHT",
+            "win": "ANY",
+            "text": "接下血刀老祖的刀",
+            "requires": [],
+            "enemies": [
+              "血刀老祖"
+            ]
+          }
+        ],
+        "next": "s_xuehai",
+        "on_enter": []
+      },
+      {
+        "id": "s_xuehai",
+        "title": "血池",
+        "log": "到本堂後面的血池見血海老祖（本堂往北）。",
+        "place": "血刀門・血池",
+        "objectives": [
+          {
+            "id": "o_xuehai",
+            "type": "TALK",
+            "npc": "n_xd_xuehai",
+            "dialogue": "d_xuehai",
+            "text": "到血池拜見血海老祖",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（血刀老祖舔了舔刀口。）內功、刀法、威嚇都有點樣子了。想學血海魔功？",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "求老祖成全。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "弟子還沒準備好。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "血刀門的規矩：先除叛徒，再殺敵人。昨夜有個不成材的東西偷了刀譜往雪原跑了。把他的刀帶回來，人嘛……你看著辦，嘿嘿。",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "弟子明白。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_pantu": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（那紅衣僧人一見你的打扮，臉色煞白，撲通跪在雪裡。）師兄！師兄饒命！刀譜我還你，我……我只是想回中原老家看看我娘！",
+            "choices": [
+              {
+                "id": "c_kill",
+                "label": "替老祖清理門戶。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_find"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_xd_pantu"
+                    ],
+                    "obj": "o_kill",
+                    "npc": "n_xd_pantu"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_spare",
+                "label": "把刀譜留下，你走吧。",
+                "goto": "n_spare"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先不動手。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_spare": {
+            "speaker": "npc",
+            "text": "（他磕了幾個頭，連滾帶爬地消失在風雪裡。你手裡只剩一本刀譜——老祖要的是他的刀，不是刀譜。）",
+            "do": [
+              {
+                "do": "fail",
+                "reason": "fail_q_xd_xuehai_spare"
+              }
+            ]
+          }
+        }
+      },
+      "d_laozu": {
+        "start": "n0",
+        "resume": "n1",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（血刀老祖接過叛徒的血刀，看了看刀柄上的記號。）好，夠狠，是血刀門的人。",
+            "choices": [
+              {
+                "id": "c_next",
+                "label": "請老祖試鍊。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "現在，接老祖一刀！撐不住就滾到一邊去，老祖只看你有沒有這個膽。",
+            "choices": [
+              {
+                "id": "c_go",
+                "label": "請老祖賜教！",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "叛徒的血刀",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_laozu"
+                  },
+                  {
+                    "do": "fight",
+                    "monsters": [
+                      "m_xd_laozu_trial"
+                    ],
+                    "obj": "o_trial",
+                    "solo": true,
+                    "npc": "n_xd_laozu"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_wait",
+                "label": "（先調勻氣息。）",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_xuehai": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（血池邊的老人頭也不回。）老祖說你接了他一刀還沒死。不錯。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "求師祖傳授血海魔功。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "血海魔功以血養氣，練成了內力兇猛無比，練不成，就是一池血水。入門的一層傳你，自己練到三十，再來找我。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_xuehai"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "通過血海魔功的試鍊",
+        "rewards": {
+          "flags": [
+            "xd_xuehai_lv1"
+          ],
+          "learn": {
+            "血海魔功": 1
+          },
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "later",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_gb_dai1": {
+    "id": "q_gb_dai1",
+    "name": "丐幫一袋：邪教的埋伏",
+    "giver": "n_gb_chen",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "丐幫"
+      },
+      {
+        "type": "fame_min",
+        "value": 250
+      },
+      {
+        "type": "lilian_min",
+        "value": 250
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_xixia",
+        "title": "西夏的風聲",
+        "log": "陳長老要你先去西夏打聽。出京城南門，經南郊岔路往西下到華山腳下，再沿東路一路往西回西夏城；從西夏廣場往西到西大街，北邊的回春藥鋪門口蹲著丐幫弟子游啟明。",
+        "place": "西夏・回春藥鋪",
+        "objectives": [
+          {
+            "id": "o_you",
+            "type": "TALK",
+            "npc": "n_gb_youqiming",
+            "dialogue": "d_you",
+            "text": "到西夏回春藥鋪找游啟明",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_pan",
+        "on_enter": []
+      },
+      {
+        "id": "s_pan",
+        "title": "大理武館門口",
+        "log": "游啟明說大理武館門口的潘乞兒也聽到些風聲。到大理五華樓前（可在西夏驛站搭車），往西南就是大理武館。",
+        "place": "大理・大理武館",
+        "objectives": [
+          {
+            "id": "o_pan",
+            "type": "TALK",
+            "npc": "n_gb_pan",
+            "dialogue": "d_pan",
+            "text": "到大理武館門口找潘乞兒",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_shenyi",
+        "on_enter": []
+      },
+      {
+        "id": "s_shenyi",
+        "title": "神醫的字條",
+        "log": "潘乞兒要你去問雜貨鋪裡那位神醫，他救過一個被邪教砍傷的漢子。雜貨鋪在大理五華樓前往東南。",
+        "place": "大理・雜貨鋪",
+        "objectives": [
+          {
+            "id": "o_shenyi",
+            "type": "TALK",
+            "npc": "n_gb_shenyi",
+            "dialogue": "d_shenyi",
+            "text": "到大理雜貨鋪問神醫",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_informant",
+        "on_enter": []
+      },
+      {
+        "id": "s_informant",
+        "title": "兵器鋪轉角",
+        "log": "神醫說那漢子往京城去了，字條上寫著「京城兵器鋪轉角」。回京城，從廣場往北上北大街，西邊就是京城兵器鋪。",
+        "place": "京城・京城兵器鋪",
+        "objectives": [
+          {
+            "id": "o_informant",
+            "type": "TALK",
+            "npc": "n_gb_jc_informant",
+            "dialogue": "d_informant",
+            "text": "到京城兵器鋪轉角找那個漢子",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_ambush",
+        "on_enter": []
+      },
+      {
+        "id": "s_ambush",
+        "title": "三處埋伏",
+        "log": "密函上寫著邪教的三處埋伏，各只在一個時辰出現：\n酉時，雁門關外橋邊——出京城北門經北郊山路上嶺，往西接雁門古道，北到雁門關口，再往東南就是橋邊。\n卯時，大理城北的過河石橋——出大理北門到城北河畔，往西北上橋。\n午時，京城北郊山道——出京城北門，過山路岔口再往北。\n每處都有七個邪教門徒，打起來休想逃跑；打不過就等明天同一個時辰再來。三處都打退、一共除掉二十個以上，再回破廟向陳長老稟報。",
+        "place": "雁門關・關外橋邊",
+        "objectives": [
+          {
+            "id": "o_amb_ym",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "酉時在雁門關外橋邊打退邪教埋伏",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_amb_rr",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "卯時在大理城北過河石橋打退邪教埋伏",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_amb_jcn",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "午時在京城北郊山道打退邪教埋伏",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_kill",
+            "type": "KILL",
+            "monster": "m_gb_xiejiao",
+            "count": 20,
+            "text": "除掉二十個邪教門徒",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_report",
+        "on_enter": [
+          {
+            "do": "tell",
+            "key": "gb_tell_mixin"
+          }
+        ]
+      },
+      {
+        "id": "s_report",
+        "title": "回總舵稟報",
+        "log": "三處埋伏都打退了。帶著密函回京城北郊的丐幫破廟（出京城北門，山路岔口往東），向陳長老稟報。",
+        "place": "丐幫總舵・破廟正殿",
+        "objectives": [
+          {
+            "id": "o_report",
+            "type": "TALK",
+            "npc": "n_gb_chen",
+            "dialogue": "d_report",
+            "text": "回破廟向陳長老稟報",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "陳長老把竹棒往地上一頓：「{name}，你入幫也有些時日了。近來江湖上冒出一夥邪教之徒，四處擄掠，連咱們幫裡的兄弟也吃了虧。」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "弟子願聞其詳。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "弟子還有事在身，改日再來聽長老吩咐。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「咱們丐幫弟子遍布天下，消息最是靈通。你先到西夏回春藥鋪門口找游啟明，他那裡有些風聲。把邪教的底細摸清楚了，再回來稟報。」",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "弟子這就去辦。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n2"
+              },
+              {
+                "id": "c_no",
+                "label": "容弟子再想想。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「好。這件事辦成了，下回聚會，我便當著眾兄弟的面，給你掛上第一隻布袋。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_you": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "游啟明蹲在藥鋪門口，捧著缺了口的破碗：「這位兄弟面生得很……喲，背後插著竹棒，是自家人？」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "陳長老要我來打聽邪教的消息。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "沒事，路過看看。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "游啟明壓低聲音：「那夥人穿得人模人樣，專挑落單的叫化子下手。前幾天我在這門口聽兩個行商嘀咕，說他們在大理也有人手。你去大理武館門口找潘乞兒，他鼻子比狗還靈。」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "多謝游兄弟。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_you"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_pan": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "一個滿臉泥灰的乞兒倚在武館門口打盹，聽見腳步聲一骨碌坐起：「討飯的地盤先來後到——咦，自己人？」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "游啟明叫我來找你，問邪教的事。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "潘乞兒四下張望：「噓，小聲點。前兩天我在這門口撿到一個渾身是血的漢子，是雜貨鋪那位神醫把他救活的。那漢子昏迷時嘴裡一直嚷著『橋上、時辰』什麼的……你去問問神醫。」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "我這就去。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_pan"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_shenyi": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "神醫正替人把脈，頭也不抬：「看病排隊，討飯請到門外。」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "在下是丐幫弟子，想打聽前幾天那個受傷的漢子。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "打擾先生了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "神醫這才抬眼看你：「哦，那人啊。他身上中了好幾刀，刀口都是同一路數。我替他換藥時，從他懷裡掉出半張字條，寫著『京城兵器鋪轉角』幾個字。他醒來就慌慌張張走了，八成是往京城去了。」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "多謝先生指點。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_shenyi"
+                  }
+                ],
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_informant": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "兵器鋪轉角蹲著一個漢子，帽簷壓得極低，見你走近，手按到了腰間：「你是什麼人？」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "丐幫弟子。大理的神醫說，你知道邪教的事。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "認錯人了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "漢子鬆了口氣：「原來是丐幫的朋友。我本是邪教裡的小卒，看不慣他們濫殺無辜，才逃了出來。這封密函是我偷出來的，上頭寫著他們三處埋伏的地點和時辰。」",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "交給我吧，丐幫替你出這口氣。",
+                "do": [
+                  {
+                    "do": "give",
+                    "item": "邪教密函",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_informant"
+                  }
+                ],
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「酉時，雁門關外橋邊；卯時，大理城北的過河石橋；午時，京城北郊的山道。那些人下手狠，一旦撞上，休想逃得掉。你……多保重。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_report": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "陳長老放下手中的竹棒：「回來了？邪教的事辦得如何？」",
+            "choices": [
+              {
+                "id": "c_report",
+                "label": "三處埋伏都打退了，這是那封密函。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "i_gb_mixin",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "邪教密函",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_report"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "弟子還在查。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "陳長老看完密函，連連點頭：「好，好！咱們丐幫弟子，就是要這般不怕死、不怕難。等下回聚會，我便當著眾兄弟的面，給你掛上第一隻布袋。」",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "謝長老栽培。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "陳長老答應在聚會上升你為一袋弟子",
+        "rewards": {
+          "sect_rank": {
+            "sect": "gaibang",
+            "rank": 1
+          },
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  },
+  "q_gb_dai2": {
+    "id": "q_gb_dai2",
+    "name": "丐幫二袋：蠻兵南下",
+    "giver": "n_gb_jiang",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "丐幫"
+      },
+      {
+        "type": "sect_rank_min",
+        "sect": "丐幫",
+        "value": 1
+      },
+      {
+        "type": "fame_min",
+        "value": 500
+      },
+      {
+        "type": "lilian_min",
+        "value": 500
+      }
+    ],
+    "stages": [
+      {
+        "id": "s_zhanggun",
+        "title": "稟報掌棍長老",
+        "log": "把蠻族探子的事稟報掌棍長老。出京城北門，經北郊山路到山路岔口往東進破廟，從正殿往東就是後院。",
+        "place": "丐幫總舵・破廟後院",
+        "objectives": [
+          {
+            "id": "o_zhanggun",
+            "type": "TALK",
+            "npc": "n_gb_zhanggun",
+            "dialogue": "d_zhanggun",
+            "text": "到破廟後院找掌棍長老",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_letters",
+        "on_enter": []
+      },
+      {
+        "id": "s_letters",
+        "title": "三封書信",
+        "log": "把掌棍長老的三封書信分別送到：西夏回春藥鋪門口的游啟明（西大街北邊）、大理武館門口的潘乞兒（五華樓前往西南）、京城兵器鋪轉角的漢子（北大街西邊）。",
+        "place": "西夏・回春藥鋪",
+        "objectives": [
+          {
+            "id": "o_xin_xx",
+            "type": "DELIVER",
+            "npc": "n_gb_youqiming",
+            "item": "掌棍長老的書信",
+            "count": 1,
+            "text": "把書信交給西夏的游啟明",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_xin_dl",
+            "type": "DELIVER",
+            "npc": "n_gb_pan",
+            "item": "掌棍長老的書信",
+            "count": 1,
+            "text": "把書信交給大理的潘乞兒",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_xin_jc",
+            "type": "DELIVER",
+            "npc": "n_gb_jc_informant",
+            "item": "掌棍長老的書信",
+            "count": 1,
+            "text": "把書信交給京城兵器鋪轉角的漢子",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_manbing",
+        "on_enter": []
+      },
+      {
+        "id": "s_manbing",
+        "title": "三路蠻兵",
+        "log": "三處都回了消息：蠻兵分三路潛了過來——京城北郊的嶺上古道（出北門一路往北上嶺）、大理的蒼山林道（出大理北門到城北河畔再往東）、西夏的狼嚎丘（出西夏東門經荒草坡往東）。蠻兵皮粗肉厚，單打獨鬥極難取勝，最好邀幾位幫手同去。三路都打退了，回破廟找陳長老。",
+        "place": "京城北郊・嶺上古道",
+        "objectives": [
+          {
+            "id": "o_mb_jcn",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "打退京城北郊嶺上古道的蠻兵",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_mb_dl",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "打退大理蒼山林道的蠻兵",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_mb_xx",
+            "type": "FIGHT",
+            "win": "WIN",
+            "text": "打退西夏狼嚎丘的蠻兵",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_report",
+        "on_enter": [
+          {
+            "do": "tell",
+            "key": "gb_tell_manbing"
+          }
+        ]
+      },
+      {
+        "id": "s_report",
+        "title": "回總舵覆命",
+        "log": "三路蠻兵都打退了。回京城北郊的丐幫破廟（出京城北門，山路岔口往東）向陳長老覆命。",
+        "place": "丐幫總舵・破廟正殿",
+        "objectives": [
+          {
+            "id": "o_report",
+            "type": "TALK",
+            "npc": "n_gb_chen",
+            "dialogue": "d_report",
+            "text": "回破廟向陳長老覆命",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "on_enter": []
+      }
+    ],
+    "give_items": [],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "一個姓姜的老乞丐坐在錢莊門前的石階上，伸著破碗向過往行人討錢，瞥見你肩上那隻布袋，眼睛一亮：「這位兄弟，是一袋弟子吧？」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "正是。老人家有何吩咐？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "不是，認錯人了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「我在這錢莊前討了半輩子飯，什麼人沒見過？這幾日城裡來了好些高鼻深目、說話怪腔怪調的漢子，腰裡藏著彎刀，打聽的全是北郊、雁門關的路。依我看，是蠻族的探子。」",
+            "choices": [
+              {
+                "id": "c_more",
+                "label": "此事非同小可。",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「我一個老叫化子，說了也沒人當真。你回總舵稟報掌棍長老，幫裡跟外敵動手的事歸他管。」",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "我這就回總舵。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "END"
+              },
+              {
+                "id": "c_no",
+                "label": "這事我管不了。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      },
+      "d_zhanggun": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "掌棍長老拄著一根烏黑的鐵棍立在井邊：「什麼事慌慌張張的？」",
+            "choices": [
+              {
+                "id": "c_report",
+                "label": "京城錢莊前的姜乞丐看見蠻族的探子。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "掌棍長老濃眉一擰：「蠻族？哼，我早聽說他們在邊上蠢蠢欲動。這三封信，你分頭送到西夏的游啟明、大理的潘乞兒，還有京城兵器鋪轉角那位朋友手上，叫他們留神蠻兵的動靜。」",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "弟子領命。",
+                "do": [
+                  {
+                    "do": "give",
+                    "item": "掌棍長老的書信",
+                    "n": 3
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_zhanggun"
+                  }
+                ],
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「信送到了，他們自會把消息報回來。到時候，就看你這個一袋弟子有沒有膽子去會一會蠻兵了。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_report": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "陳長老聽完掌棍長老派人捎來的消息，捋著鬍子打量你：「三路蠻兵，都教你打回去了？」",
+            "choices": [
+              {
+                "id": "c_report",
+                "label": "僥倖不辱使命。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_report"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "還差一些，弟子再去。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「你這一袋弟子做得不錯。等下回聚會，我便當著眾兄弟的面，給你掛上第二隻布袋。只是升了袋，名聲、歷練都得拿些出來孝敬幫裡，這是老規矩。」",
+            "choices": [
+              {
+                "id": "c_thanks",
+                "label": "弟子明白，謝長老。",
+                "goto": "END"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "outcomes": {
+      "default": {
+        "label": "陳長老答應在聚會上升你為二袋弟子",
+        "rewards": {
+          "sect_rank": {
+            "sect": "gaibang",
+            "rank": 2
+          },
+          "learn": {},
+          "learn_add": {},
+          "skill_prof": {},
+          "items": []
+        }
+      }
+    },
+    "source_status": "verified",
+    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+  }
+}

@@ -33,6 +33,8 @@ const HELP = "指令：前往 地名｜拜師 門派｜練功 武功名｜裝備
 static var NPCS: Dictionary = {}
 static var SKILLS: Dictionary = {}
 static var STORIES: Array = []
+static var QUESTS: Dictionary = {}
+static var RANKS: Array = []
 
 static func _static_init() -> void:
 	var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/catalog.json"))
@@ -43,7 +45,9 @@ static func _static_init() -> void:
 	SECTS.merge(catalog.sects, true)
 	NPCS = catalog.npcs
 	SKILLS = catalog.skills
+	RANKS = catalog.get("ranks", [])
 	STORIES = JSON.parse_string(FileAccess.get_file_as_string("res://data/stories.json"))
+	QUESTS = JSON.parse_string(FileAccess.get_file_as_string("res://data/learning_quests.json"))
 	for old in ["少林寺", "武當山", "峨眉山"]:
 		PLACES.erase(old)
 		PLACES["揚州城"].exits.erase(old)
@@ -55,13 +59,13 @@ static func _static_init() -> void:
 		if not place in PLACES["揚州城"].exits: PLACES["揚州城"].exits.append(place)
 		if not "揚州城" in PLACES[place].exits: PLACES[place].exits.append("揚州城")
 	for name in ["太祖長拳", "逍遙遊", "混天功", "降龍十八掌", "打狗棒法"]:
+		if SKILLS.has(name): continue
 		var category: String = "STAFF" if name == "打狗棒法" else ("INNER" if name == "混天功" else "FIST")
 		SKILLS[name] = {"name": name, "sect": "丐幫", "category": category, "role": "INNER" if category == "INNER" else "EXTERNAL", "weapon_types": ["STAFF"] if category == "STAFF" else (["UNARMED", "CLAW"] if category == "FIST" else []), "base": "基本棍法" if category == "STAFF" else ("基本內功" if category == "INNER" else "搏擊格鬥"), "desc": "丐幫相傳之學；此分舵的師承與數值為模擬器改編。", "difficulty": 1.2, "cap": 100, "study_cap": 100, "moves": []}
-	SKILLS["乞討"] = {"name": "乞討", "sect": "丐幫", "category": "SECT", "base": "", "desc": "知人情冷暖，行江湖正道。", "difficulty": 1.0, "cap": 100, "moves": []}
+		SKILLS[name]["legacy_only"] = true
 	SECTS["丐幫"]["virtue"] = "乞討"
 	NPCS["yx_hongqigong"] = {"name": "洪七公", "place": "丐幫分舵", "desc": "九指神丐抱著酒葫蘆，目光炯炯。", "kind": "MASTER", "dialogue": ["洪七公笑道：武功高低倒在其次，若仗著本事欺負窮人，老叫化第一個不饒！", "洪七公拈起一根竹枝：棒是尋常竹，心卻不可偏。看清敵人的退路，才知這一棒該落在哪裡。"], "teach": []}
-	for name in ["太祖長拳", "逍遙遊", "混天功", "乞討", "降龍十八掌", "打狗棒法"]:
-		NPCS["yx_hongqigong"].teach.append({"skill": name, "cap": 80 if name in ["降龍十八掌", "打狗棒法"] else 60, "price": 2, "requires": [{"skill": "太祖長拳", "level": 30}, {"skill": "乞討", "level": 20}] if name in ["降龍十八掌", "打狗棒法"] else []})
+	NPCS["yx_hongqigong"].dialogue.append("丐幫學藝請前往總舵，向各位長老投師。舊版分舵直接授絕技的入口已取消。")
 	PLACES["丐幫分舵"]["npcs"] = ["yx_hongqigong"]
 	for name in ["金創藥", "養氣丹", "精鋼劍", "青布袍"]:
 		SHOP[name]["type"] = "WEAPON" if name == "精鋼劍" else ("ARMOR" if name == "青布袍" else "OTHER")
@@ -77,6 +81,12 @@ static func _static_init() -> void:
 
 static func role(skill: String) -> String:
 	return str(SKILLS.get(skill, {}).get("role", "UTILITY"))
+
+static func flag_name(flag: String) -> String:
+	for quest in QUESTS.values():
+		for outcome in quest.outcomes.values():
+			if flag in outcome.rewards.get("flags", []): return quest.name
+	return {"gm_jiuyin_read": "古墓九陰刻文（流程待補）", "sl_tongren_passed": "十八銅人陣（流程待補）", "qz_kongming": "空明拳機緣（流程待補）"}.get(flag, flag + "（流程待補）")
 
 static func category_label(category: String) -> String:
 	return str({"FIST": "搏擊拳掌", "STAB": "刺術指法", "BLADE": "刀法", "SWORD": "劍法", "STAFF": "棍杖", "SPEAR": "槍法", "WHIP": "鞭法", "CLAW": "搏擊兵器（爪）", "UNARMED": "徒手", "INNER": "內功", "LIGHTNESS": "輕功", "DODGE": "閃躲", "PARRY": "拆招", "FORMATION": "陣法", "HIDDEN": "暗器", "POISON": "毒術", "MEDIC": "醫術", "SECT": "門派修養"}.get(category, "生活技藝"))
@@ -97,6 +107,7 @@ static func local_npcs(place: String) -> Array:
 	return PLACES.get(place, {}).get("npcs", [])
 
 static func path_to(start: String, destination: String) -> Array:
+	if not PLACES.has(start) or not PLACES.has(destination): return []
 	if start == destination: return []
 	var queue: Array = [start]
 	var previous := {start: ""}
@@ -113,3 +124,37 @@ static func path_to(start: String, destination: String) -> Array:
 				while previous[result[0]] != start: result.push_front(previous[result[0]])
 				return result
 	return []
+
+static func destinations(query: String, start: String) -> Array:
+	var found: Array = []
+	var seen := {}
+	var needle := query.strip_edges().to_lower()
+	for place in PLACES:
+		if needle != "" and not needle in place.to_lower() and not needle in str(PLACES[place].get("region", "")).to_lower(): continue
+		found.append({"title": place, "place": place, "kind": "地點", "steps": path_to(start, place).size()})
+		seen["地點|" + place] = true
+	for npc_id in NPCS:
+		var npc: Dictionary = NPCS[npc_id]
+		var reasons: PackedStringArray = []
+		if needle != "" and needle in str(npc.name).to_lower(): reasons.append(npc.name)
+		for lesson in npc.teach:
+			if needle != "" and needle in str(lesson.skill).to_lower(): reasons.append("學 " + str(lesson.skill))
+		if reasons.is_empty(): continue
+		found.append({"title": npc.name + " · " + "、".join(reasons), "place": npc.place, "kind": "師父" if not npc.teach.is_empty() else "人物", "steps": path_to(start, npc.place).size()})
+	if needle != "":
+		for quest in QUESTS.values():
+			var match_quest: bool = needle in str(quest.name).to_lower()
+			for outcome in quest.outcomes.values():
+				for skill in outcome.rewards.get("learn", {}):
+					if needle in str(skill).to_lower(): match_quest = true
+				for skill in SKILLS:
+					if not needle in str(skill).to_lower(): continue
+					for condition in SKILLS[skill].get("conditions", []):
+						if condition.get("type", "") == "quest_flag" and condition.flag in outcome.rewards.get("flags", []): match_quest = true
+			if match_quest and NPCS.has(quest.giver):
+				var npc: Dictionary = NPCS[quest.giver]
+				found.append({"title": quest.name + " · " + str(npc.name), "place": npc.place, "kind": "機緣", "steps": path_to(start, npc.place).size()})
+	found.sort_custom(func(a: Dictionary, b: Dictionary):
+		if a.steps == b.steps: return str(a.title) < str(b.title)
+		return int(a.steps) < int(b.steps))
+	return found

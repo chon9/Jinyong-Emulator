@@ -26,6 +26,15 @@ def build(source):
         all_skills.append({'id': s['sect_skill'], 'name': s['sect_skill_name'], 'sect_id': sid,
                            'category': 'SECT', 'desc': '本門修養，影響師父是否願意傳授更深武學。'})
     skill_names = {s['id']: s['name'] for s in all_skills}
+    def conditions(values):
+        converted = []
+        for raw in values:
+            req = dict(raw)
+            if req.get('skill') in skill_names: req['skill'] = skill_names[req['skill']]
+            if req.get('sect') in sects: req['sect'] = sects[req['sect']]['name']
+            if req.get('type') == 'any_of': req['options'] = [conditions(group) for group in req['options']]
+            converted.append(req)
+        return converted
     basic_categories = {'basic_blade': 'BLADE', 'basic_sword': 'SWORD', 'basic_whip': 'WHIP',
                         'basic_staff': 'STAFF', 'basic_spear': 'SPEAR', 'basic_fist': 'FIST',
                         'basic_stab': 'STAB', 'basic_inner': 'INNER', 'basic_body': 'LIGHTNESS',
@@ -47,23 +56,33 @@ def build(source):
                       'weapon_types': (['UNARMED', 'CLAW'] if category in ['FIST', 'STAB'] else [category]) if role == 'EXTERNAL' else [],
                       'basic': a['id'].startswith('basic_'),
                       'desc': a.get('desc', '紮穩根基，方能登堂入室。'),
-                      'difficulty': a.get('difficulty', 1.0), 'cap': a.get('max_level', 100),
-                      'study_cap': a.get('self_study_cap', 0) or a.get('max_level', 100),
+                      'difficulty': a.get('difficulty', 1.0), 'cap': a.get('max_level', 100 if category == 'SECT' else 250),
+                      'study_cap': a.get('self_study_cap', 0) or a.get('max_level', 100 if category == 'SECT' else 250),
+                      'curve': a.get('curve', 'CUBIC'), 'self_study_until': a.get('self_study_until', 0),
+                      'conditions': conditions(a.get('requires', [])),
+                      'source_status': a.get('src', 'proposal'),
                       'learn_cap': 1 if a['id'] in ['hs_zixia', 'em_jiuyang', 'gm_jiuyin'] else 0,
                       'requires': [{'skill': skill_names[r['skill']], 'level': r['value']} for r in a.get('requires', [])
                                    if r['type'] == 'skill_min' and r['skill'] in skill_names],
-                      'moves': [m['name'] for m in a.get('moves', [])]}
+                      'moves': [m['name'] for m in a.get('moves', [])], 'move_data': a.get('moves', [])}
+    # 2001/2002 player measurements; coefficients not available for every art.
+    for sid, difficulty in {'hs_jianfa': .8, 'lj_zhemei': 1.25, 'gm_yunu_jian': .96, 'xd_daofa': 1.6}.items():
+        if skill_names.get(sid) in arts: arts[skill_names[sid]]['difficulty'] = difficulty
+    for art in arts.values():
+        if art['id'] == 'wd_taijiquan':
+            art['attack_coefficient'], art['parry_coefficient'] = .395, .0345
     item_names = {i['id']: i['name'] for i in rows('items')}
     items = {}
     for i in rows('items'):
         restore = {}
         for effect in i.get('effects', []):
             if effect['type'] == 'restore':
-                stat = {'qi': 'hp', 'jing': 'energy', 'shen': 'mp', 'food': 'energy', 'water': 'mp'}.get(effect['stat'])
+                stat = {'qi': 'hp', 'jing': 'energy', 'shen': 'spirit', 'neili': 'mp', 'food': 'energy', 'water': 'mp'}.get(effect['stat'])
                 if stat: restore[stat] = restore.get(stat, 0) + effect['value']
         items[i['name']] = {'id': i['id'], 'price': max(1, i.get('price', 1)), 'desc': i.get('desc', ''),
                             'type': i['tab'], 'attack': i.get('atk', 0), 'defense': i.get('def', 0),
                             'restore': restore, 'quest': i.get('quest_item', False),
+                            'attr_bonus': {e['stat']: e['value'] for e in i.get('effects', []) if e['type'] == 'attr'},
                             'sellable': not i.get('no_sell', False), 'weapon_type': i.get('weapon_type', '')}
     enemies = {}
     enemy_names = {m['id']: m['name'] for m in rows('monsters')}
@@ -77,6 +96,7 @@ def build(source):
                               'potential': max(8, m.get('learn_points', 2) * 3),
                               'silver': max(5, m.get('money', {}).get('max', 5)),
                               'level': level, 'desc': m.get('desc', ''),
+                              'combat_xp': m.get('combat_xp', 10), 'agility': stats.get('agi', 20),
                               'drops': [{'item': item_names[d['item']], 'chance': d['chance']}
                                         for d in m.get('drops', []) if d['item'] in item_names]}
     # 新增有獨立戰鬥定位的遭遇，補足百種敵人；不標為原作已驗證內容。
@@ -145,7 +165,8 @@ def build(source):
                 requirements.append({'skill': skill_names[req['skill']], 'level': req['value']})
         requirements += [r for r in arts[skill]['requires'] if r not in requirements]
         npcs[m['npc_id']]['teach'].append({'skill': skill, 'cap': arts[skill]['learn_cap'] or min(arts[skill]['cap'], m['cap']),
-                                         'price': max(1, m.get('price', 1)), 'requires': requirements})
+                                         'price': max(0, m.get('price', 1)), 'requires': requirements,
+                                         'conditions': conditions(m.get('requires', []))})
     sect_data = {}
     for sid, s in sects.items():
         own = [a for a in arts.values() if a['sect'] == s['name'] and a['category'] != 'SECT']
@@ -156,7 +177,11 @@ def build(source):
                                 'advanced': next((a['name'] for a in reversed(own) if a['role'] == 'EXTERNAL'), own[-1]['name']), 'hp': 20, 'attack': 3,
                                 'style': s['sect_skill_name'] + '立身，循師承逐級學藝',
                                 'virtue': s['sect_skill_name'], 'gender': s.get('gender', []),
-                                'note': '本作允許自由選派；不套用原版性別限制。'}
+                                'conditions': conditions(s.get('join_requires', [])),
+                                'teach_conditions': conditions(s.get('teach_requires', [])),
+                                'personal_master': s.get('personal_master', False),
+                                'train_cost': s.get('sect_skill_train_cost', []),
+                                'note': '依來源資料檢查入門條件；個別年代待考證條件見武學規則。'}
         # 山門的知客師父可教本門修養，避免初學者卡死。
         gate_npcs = places[names[s['gate_room']]]['npcs']
         if gate_npcs:
@@ -173,8 +198,10 @@ def build(source):
         required = art['base'] or '基本內功'
         requirements = [{'skill': required, 'level': 20}] if required != skill else []
         requirements += [r for r in art['requires'] if r not in requirements]
+        # Do not turn quest rewards into ordinary lessons. The quest engine grants them.
+        if any(r['type'] == 'quest_flag' for r in art['conditions']): continue
         npcs[instructor]['teach'].append({'skill': skill, 'cap': art['learn_cap'] or 60, 'price': 5,
-                                          'requires': requirements})
+                                          'requires': requirements, 'conditions': art['conditions']})
     # 確保 100+ 種遭遇均可在地圖實際遇見，保留原本遭遇，另加輪替池。
     wilds = [v for v in places.values() if not v['safe']]
     for i, name in enumerate(enemies):
@@ -194,11 +221,91 @@ def build(source):
     while len(reachable()) < len(places):
         seen = reachable()
         dest = next(n for n in places if n not in seen)
-        anchor = next((n for n in seen if places[n]['region'] == places[dest]['region']), start)
+        anchor = next((n for n in sorted(seen) if places[n]['region'] == places[dest]['region']), start)
         places[anchor]['exits'].append(dest)
         places[dest]['exits'].append(anchor)
+    # Preserve learning-event prerequisites and stage objectives. Dialogue prose is
+    # adapted by the text client; source status is kept, never relabeled verified.
+    quest_rows = rows('quests')
+    needed_flags = {r['flag'] for a in arts.values() for r in a['conditions'] if r['type'] == 'quest_flag'}
+    needed_flags.update(r['flag'] for sect in sect_data.values() for r in sect.get('conditions', []) if r['type'] == 'quest_flag')
+    rank_rows = rows('sect_ranks')
+    selected = {q['id'] for q in quest_rows if any(flag in str(q.get('outcomes', {})) or flag in q.get('rewards', {}).get('flags', []) for flag in needed_flags) or q.get('steps')}
+    selected.update(r['quest'] for r in rank_rows if r.get('quest'))
+    changed = True
+    while changed:
+        before = len(selected)
+        for q in quest_rows:
+            if q['id'] not in selected: continue
+            for req in q.get('requires', []):
+                if req['type'] == 'quest_done': selected.add(req['quest'])
+                if req['type'] == 'quest_flag':
+                    selected.update(other['id'] for other in quest_rows if req['flag'] in str(other.get('outcomes', {})) or req['flag'] in other.get('rewards', {}).get('flags', []))
+        changed = len(selected) != before
+    learning_quests = {}
+    def script_value(value):
+        if isinstance(value, list): return [script_value(v) for v in value]
+        if not isinstance(value, dict): return value
+        out = {}
+        for key, v in value.items():
+            if key in ['src_note', 'test_plan']: continue
+            if key in ['requires', 'if'] and isinstance(v, list): out[key] = conditions(v)
+            elif key == 'item' and isinstance(v, str): out[key] = item_names.get(v, v)
+            elif key == 'skill' and isinstance(v, str): out[key] = skill_names.get(v, v)
+            elif key in ['learn', 'learn_add', 'skill_prof'] and isinstance(v, dict): out[key] = {skill_names.get(s, s): n for s, n in v.items()}
+            else: out[key] = script_value(v)
+        return out
+    for q in quest_rows:
+        if q['id'] not in selected or q.get('giver') not in npcs: continue
+        q = dict(q)
+        if not q.get('stages'):
+            q['stages'] = []
+            for index, raw in enumerate(q.get('steps', [])):
+                o = dict(raw, id='o_' + str(index))
+                if raw['type'] in ['TALK', 'DELIVER']: o['npc'] = raw['target']
+                if raw['type'] == 'KILL': o.update(type='FIGHT', source_monsters=[raw['target']])
+                target_place = npcs.get(o.get('npc'), {}).get('place', npcs[q['giver']]['place'])
+                if raw['type'] == 'KILL':
+                    target_place = next((place for place, d in places.items() if enemy_names.get(raw['target']) in d.get('enemies', [])), target_place)
+                q['stages'].append({'id': 's_' + str(index), 'title': raw.get('text', q['name']), 'log': raw.get('text', ''), 'runtime_place': target_place, 'objectives': [o]})
+            q['outcomes'] = {'default': {'label': '完成' + q['name'], 'rewards': q.get('rewards', {})}}
+        fights = {}
+        def find_fights(value):
+            if isinstance(value, dict):
+                if value.get('do') == 'fight': fights[value.get('obj', '')] = value.get('monsters', [])
+                for v in value.values(): find_fights(v)
+            elif isinstance(value, list):
+                for v in value: find_fights(v)
+        find_fights(q.get('dialogues', {}))
+        stages = []
+        for stage in q['stages']:
+            objectives = []
+            for raw in stage.get('objectives', []):
+                o = dict(raw)
+                o['requires'] = conditions(o.get('requires', []))
+                if o.get('item') in item_names: o['item'] = item_names[o['item']]
+                o['enemies'] = [enemy_names[m] for m in o.get('source_monsters', fights.get(o.get('id'), [])) if m in enemy_names]
+                objectives.append(o)
+            stages.append({'id': stage['id'], 'title': stage['title'], 'log': stage.get('log', ''),
+                           'place': stage.get('runtime_place', names.get(stage.get('hint_room'), '')), 'objectives': objectives,
+                           'next': script_value(stage.get('next', '')), 'on_enter': script_value(stage.get('on_enter', []))})
+        outcomes = {}
+        for key, outcome in q.get('outcomes', {}).items():
+            reward = dict(outcome.get('rewards', {}))
+            for field in ['learn', 'learn_add', 'skill_prof']:
+                reward[field] = {skill_names[s]: n for s, n in reward.get(field, {}).items() if s in skill_names and skill_names[s] in arts}
+            reward['items'] = [{'item': item_names[i['item']], 'n': i.get('n', 1)} for i in reward.get('items', []) if i['item'] in item_names]
+            outcomes[key] = {'label': outcome['label'], 'rewards': reward}
+        learning_quests[q['id']] = {'id': q['id'], 'name': q['name'], 'giver': q['giver'],
+                                   'conditions': conditions(q.get('requires', [])), 'stages': stages,
+                                   'give_items': [{'item': item_names[i['id']], 'n': i.get('n', 1)} for i in q.get('give_items', []) if i['id'] in item_names],
+                                   'dialogues': script_value(q.get('dialogues', {})),
+                                   'outcomes': outcomes, 'source_status': q.get('src', 'proposal'),
+                                   'note': '來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。'}
+    (ROOT / 'data/learning_quests.json').write_text(json.dumps(learning_quests, ensure_ascii=False, indent=2), encoding='utf-8')
     catalog = {'version': 1, 'provenance': 'Converted from user project JY-Mini OL, 2026-10-19; combat and progression values adapted for this simulator.',
                'places': places, 'npcs': npcs, 'items': items, 'enemies': enemies, 'skills': arts, 'sects': sect_data,
+               'ranks': [dict(r, sect=sects.get(r['sect'], {}).get('name', r['sect']), conditions=conditions(r.get('requires', []))) for r in rank_rows],
                'entry': start}
     (ROOT / 'data').mkdir(exist_ok=True)
     (ROOT / 'data/catalog.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8')

@@ -11,7 +11,7 @@ var steam_id: int = 0
 var status := "未載入 GodotSteam"
 var pending := ""
 var pending_at := 0
-const TAG := "youxia_text_v3"
+const TAG := "youxia_text_v4"
 
 func _ready() -> void:
 	if "--no-steam" in OS.get_cmdline_user_args():

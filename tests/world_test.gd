@@ -52,7 +52,11 @@ func run() -> void:
 		if not Data.SHOP[item].get("quest", false): acquisitions[item] = true
 		check(acquisitions.has(item), "Item can actually be acquired: " + item)
 		if Data.SHOP[item].get("quest", false): check(commissions.has(item), "Quest item has a delivery use: " + item)
-	for skill in Data.SKILLS: check(taught.has(skill), "Skill has an actual teacher: " + skill)
+	for skill in Data.SKILLS:
+		var quest_locked := false
+		for condition in Data.SKILLS[skill].get("conditions", []):
+			if condition.type == "quest_flag": quest_locked = true
+		check(taught.has(skill) or quest_locked or Data.SKILLS[skill].get("legacy_only", false), "Skill has a teacher, explicit quest lock or preserved legacy status: " + skill)
 	check(dialogue_set.size() == Data.NPCS.size(), "Every NPC has a unique opening dialogue")
 	for story in Data.STORIES:
 		check(story.npcs.size() == story.scenes.size(), "Complete story scenes: " + story.id)
@@ -65,8 +69,13 @@ func run() -> void:
 	for sect in Data.SECTS:
 		p = world.add_player(1)
 		p.place = Data.SECTS[sect].place
+		p.gender = Data.SECTS[sect].get("gender", ["M"])[0]
+		p.morality = -100 if sect in ["星宿", "血刀門"] else 50
+		p.skills["基本內功"] = 5
+		p.skills["讀書識字"] = 5
+		p.flags.merge({"wd_recommended": true, "hs_trial_passed": true})
 		check(world.act(1, "拜師", sect), "Can join " + sect)
-		check(p.skills.has(Data.SECTS[sect].basic), "Receives sect beginner art: " + sect)
+		check(not p.skills.has(Data.SECTS[sect].basic), "Sect enrollment does not bypass learning requirements: " + sect)
 		check(not world.act(1, "拜師", sect), "Cannot repeatedly claim sect rewards")
 	p = world.add_player(1)
 	var teacher := "n_xx_wushi"
@@ -76,7 +85,7 @@ func run() -> void:
 	var points: int = p.potential
 	var silver: int = p.silver
 	check(world.act(1, "消點", teacher + "|" + skill), "First lesson at local master")
-	check(int(p.skills[skill]) == 1 and p.potential < points and p.silver < silver, "Lessons consume resources and unlock skills")
+	check(int(p.skills[skill]) >= 1 and p.potential == points - 1 and p.silver <= silver, "Lessons spend one point on proficiency and can unlock skills")
 	check(not world.act(1, "消點", teacher + "|" + skill), "One lesson per simulation tick")
 	world.step()
 	p.place = "揚州城"
@@ -90,8 +99,8 @@ func run() -> void:
 	check(world.act(1, "自修", skill), "Self study starts on known martial art")
 	for i in 6: world.step()
 	check(int(p.skills[skill]) > 1, "Self study actually raises martial level")
-	check(p.potential == points and p.silver == silver, "Self study uses no points or silver")
-	check(p.energy < 100 and p.mp < p.max_mp, "Self study consumes energy and inner power")
+	check(p.potential == points - 3 and p.silver == silver, "One full self-study cycle consumes three points without silver")
+	check(p.energy < 100, "Self study consumes energy")
 	check(not world.act(1, "自修", "不會的武功"), "Unknown self study rejected")
 	p = world.add_player(1)
 	p.hp = 10
@@ -102,7 +111,9 @@ func run() -> void:
 	check(world.act(1, "任務"), "Bounty accepted")
 	check(world.act(1, "前往", "城郊荒野"), "Can reach beginner combat area")
 	check(world.act(1, "掛機", "刷怪"), "Auto hunt starts")
-	for i in 20: world.step()
+	for i in 60:
+		world.step()
+		if p.job.count == 3: break
 	check(p.kills >= 3 and p.job.count == 3, "Kills progress active bounty")
 	check(p.potential > 100, "Combat awards study points")
 	world.act(1, "逃跑")
@@ -115,7 +126,7 @@ func run() -> void:
 	check(not world.act(1, "裝備", "精鋼劍"), "Cannot use sword without learned sword arts")
 	p.skills["基本劍法"] = p.skills["搏擊格鬥"]
 	var before := Rules.attack(p)
-	check(world.act(1, "裝備", "精鋼劍") and Rules.attack(p) == before + 8, "Equipment affects actual combat stats")
+	check(world.act(1, "裝備", "精鋼劍") and Rules.attack(p) > before, "Compatible weapon scales actual martial power")
 	check(not world.act(1, "出售", "精鋼劍"), "Cannot sell last equipped weapon")
 	var story: Dictionary = Data.STORIES[0]
 	for npc_id in story.npcs:

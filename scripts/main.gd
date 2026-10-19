@@ -2,6 +2,7 @@ extends Control
 ## Classic client shell; gameplay and combat remain text based.
 const Data = preload("res://scripts/content.gd")
 const Rules = preload("res://scripts/world.gd")
+const Training = preload("res://scripts/progression.gd")
 const GOLD := Color("e6c77a")
 const INK := Color("24180f")
 const MUTED := Color("c8bc9c")
@@ -50,6 +51,7 @@ var last_backdrop := ""
 var music_label: Label
 var music_toggle: CheckBox
 var music_volume: HSlider
+var navigation_query := ""
 
 func _ready() -> void:
 	_build_theme()
@@ -143,8 +145,8 @@ func _refresh() -> void:
 	if Session.state.is_empty(): return
 	var p: Dictionary = Session.state.player
 	refresh_lock = true
-	heading.text = "%s · %s Lv.%d" % [p.name, p.sect, p.level]
-	vitals.text = "銀 %d · 學點 %d · 貢獻 %d\n攻 %d / 防 %d · 閱歷 %d/%d" % [p.silver, p.potential, p.contribution, Rules.attack(p), Rules.defense(p), p.exp, Rules.exp_needed(p)]
+	heading.text = "%s · %s" % [p.name, p.sect]
+	vitals.text = "銀 %d · 學點 %d · 神 %d/%d\n攻勢 %d / 格擋 %d · 實戰 %d" % [p.silver, p.potential, p.spirit, p.max_spirit, Rules.attack(p), Rules.defense(p), p.combat_xp]
 	for stat in vital_bars:
 		vital_bars[stat].max_value = 100 if stat == "energy" else int(p["max_" + stat])
 		vital_bars[stat].value = int(p[stat])
@@ -168,7 +170,7 @@ func _refresh() -> void:
 	var party: Dictionary = Session.state.get("social", {}).get("party", {})
 	for member in Session.state.roster:
 		var emblem := "★ " if int(party.get("leader", 0)) == int(member.id) else ("◆ " if int(p.party) != 0 and int(member.party) == int(p.party) else "")
-		names.append("%s%s Lv.%d · %d/%d\n  %s" % [emblem, member.name, member.level, member.hp, member.max_hp, member.place])
+		names.append("%s%s · %d/%d\n  %s" % [emblem, member.name, member.hp, member.max_hp, member.place])
 	var pending: Array = Session.state.get("social", {}).get("requests", [])
 	if not pending.is_empty(): names.append("〔%d 份邀請待回覆 · 按 F7〕" % pending.size())
 	roster.text = "\n".join(names)
@@ -178,10 +180,11 @@ func _refresh() -> void:
 	_classic_workspace(selected, p.place)
 	var signature := "static"
 	match selected:
-		"江湖": signature = str([p.place, p.sect, p.job, p.searched, p.deliveries, target, Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place])])
-		"武學": signature = str([p.place, p.sect, p.skills, p.equipped, p.inner, p.movement, p.weapon])
+		"江湖": signature = str([p.place, p.sect, p.job, p.searched, p.deliveries, target, p.travel_target, Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place])])
+		"武學": signature = str([p.place, p.sect, p.skills, p.equipped, p.inner, p.movement, p.parry, p.weapon, p.armor, p.gender, p.sect_master, p.flags, p.attrs, p.attributes_locked])
+		"圖鑑": signature = str([p.place, p.sect])
+		"故事": signature = str([p.stories, p.story_choices, p.place, p.learning_quests, p.quests_done])
 		"行囊": signature = str([p.place, p.inventory, p.weapon, p.armor])
-		"故事": signature = str([p.stories, p.story_choices])
 		"人際": signature = str([selected_peer, p.party, p.follow, p.pk_enabled, Session.state.get("social", {}).get("requests", []), Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place, r.party, r.fight])])
 	if signatures.get(selected, "") != signature:
 		signatures[selected] = signature
@@ -199,18 +202,33 @@ func _refresh() -> void:
 
 func _world_page(p: Dictionary) -> void:
 	var body := clear_page("江湖")
+	var travel := row(body)
+	button("去哪裡？搜尋地點／人物／武功", func():
+		tabs.current_tab = 4
+		_refresh()
+		if is_instance_valid(map_search): map_search.grab_focus(), travel)
+	if p.travel_target != "":
+		body.add_child(paragraph("正在前往：%s · 尚餘 %d 步 · 停止可取消行程" % [p.travel_target, p.travel_route.size()], GOLD))
+		action("停止趕路", "停止", "", travel)
 	if target != "" and Data.PLACES.has(target):
 		var route: Array = Data.path_to(p.place, target)
-		body.add_child(paragraph("尋路目標：" + target + (" · 已抵達" if route.is_empty() else "\n" + " → ".join(route)), GOLD))
-		if not route.is_empty(): action("沿路前往：" + str(route[0]), "前往", route[0], body)
-		button("取消尋路", func(): target = ""; signatures.clear(); _refresh(), body)
+		var progress := " · 已抵達" if p.place == target else (" · 無可通行路線" if route.is_empty() else " · %d 步\n下一站：%s" % [route.size(), route[0]])
+		body.add_child(paragraph("目的地：" + target + progress, GOLD))
+		if not route.is_empty():
+			var go := row(body)
+			action("自動前往目的地", "尋路", target, go)
+			action("只走下一步", "前往", str(route[0]), go)
+			var preview := button("查看完整路線", func(): _message("行路", str(p.place) + " → " + " → ".join(route)), go)
+			preview.tooltip_text = str(p.place) + " → " + " → ".join(route)
+		button("清除目的地", func(): Session.send("停止"); target = ""; signatures.clear(); _refresh(), body)
 	body.add_child(label("山 川 有 路", 15, GOLD))
 	var exits := HFlowContainer.new()
 	exits.add_theme_constant_override("h_separation", 6)
 	exits.add_theme_constant_override("v_separation", 6)
 	body.add_child(exits)
 	for destination in Data.PLACES[p.place].exits:
-		action(destination, "前往", destination, exits)
+		var shortcut: bool = p.place == "揚州城" and Data.SECTS.values().any(func(s: Dictionary): return s.place == destination)
+		action(("驛站 · " if shortcut else "") + destination, "前往", destination, exits)
 	for sect in Data.SECTS:
 		if Data.SECTS[sect].place == p.place and p.sect == "江湖散人":
 			action("拜入" + sect + " · " + Data.SECTS[sect].style, "拜師", sect, body)
@@ -227,6 +245,8 @@ func _world_page(p: Dictionary) -> void:
 		var line := row(body)
 		action("交談 · " + npc.name, "對話", npc_id, line)
 		if not npc.teach.is_empty(): button("請教武學", func(): tabs.current_tab = 1, line)
+		if Data.QUESTS.values().any(func(q: Dictionary): return q.giver == npc_id): button("學藝機緣", func(): tabs.current_tab = 3; _refresh(), line)
+		if not npc.teach.is_empty() and Data.SECTS.get(p.sect, {}).get("personal_master", false): action("投師門下", "投師", npc_id, line)
 		body.add_child(paragraph(npc.desc))
 		for request in npc.get("requests", []):
 			if p.deliveries.has(npc_id + "|" + request.item): continue
@@ -293,7 +313,7 @@ func _social_page(p: Dictionary) -> void:
 	body.add_child(label("在線少俠 · 點選互動對象", 18, GOLD))
 	for other in Session.state.roster:
 		if int(other.id) == int(Session.state.self_id): continue
-		button("%s Lv.%d · %s%s" % [other.name, other.level, other.place, " 〔目前對象〕" if selected_peer == int(other.id) else ""], func(): selected_peer = int(other.id); signatures.erase("人際"); _refresh(), body)
+		button("%s · 實戰 %d · %s%s" % [other.name, int(other.get("combat_xp", 0)), other.place, " 〔目前對象〕" if selected_peer == int(other.id) else ""], func(): selected_peer = int(other.id); signatures.erase("人際"); _refresh(), body)
 	if Session.state.roster.size() == 1: body.add_child(paragraph("目前只有你一人。先在右側「系統」燈籠開房，邀朋友加入。"))
 	var exists: bool = Session.state.roster.any(func(r: Dictionary): return int(r.id) == selected_peer)
 	if not exists: return
@@ -337,10 +357,47 @@ func _chat_submit(text: String) -> void:
 func _skills_page(p: Dictionary) -> void:
 	var body := clear_page("武學")
 	skill_labels.clear()
-	body.add_child(paragraph("消點須在師父身邊，花學點、銀兩與精力；授業與自修上限依各門武學而定。自修不花學點。\n外功須配合兵器；拳掌與刺術可徒手或配爪。內功、輕功各自運用，門派修養不作攻擊。\n外功：%s　內功：%s　輕功：%s" % [p.equipped, p.inner if p.inner != "" else "無", p.movement if p.movement != "" else "無"], TEXT))
+	var a := Training.attrs(p)
+	body.add_child(paragraph("悟性 %d · 消點每學點 +%d 熟練，耗 %d 精；自修每完整 5 秒耗 3 學點，+%d 熟練。\n實戰 %d · 武學實戰上限 %d · 特殊武功 %d/16\n外功：%s　內功：%s　輕功：%s" % [a.wit, Training.lesson_gain(p), Training.energy_cost(p), Training.study_gain(p), p.combat_xp, Training.xp_cap(p), Training.special_count(p), p.equipped, p.inner if p.inner != "" else "無", p.movement if p.movement != "" else "無"], TEXT))
+	body.add_child(paragraph("臂力 %d　根骨 %d　機敏 %d　定力 %d　膽識 %d　福緣 %d\n善惡 %d　歷練 %d　師承：%s" % [a.str, a.con, a.agi, a.cal, a.guts, a.luck, p.morality, p.lilian, Data.NPCS.get(p.sect_master, {}).get("name", "未選個人師承")]))
+	if not p.attributes_locked:
+		var respec := VBoxContainer.new()
+		respec.visible = false
+		button("配置先天屬性 · 本作每人可確認一次", func(): respec.visible = not respec.visible, body)
+		body.add_child(respec)
+		respec.add_child(paragraph("本作開局配置：七項合計 180，每項 15–30。請先查看心儀武功的門檻；確認後不能重新配置。基本功與裝備加成不佔此額度。"))
+		var fields := HFlowContainer.new()
+		respec.add_child(fields)
+		var controls := {}
+		for key in Training.ATTRS:
+			fields.add_child(label(Training.ATTRS[key], 14))
+			var box := SpinBox.new()
+			box.min_value = 15
+			box.max_value = 30
+			box.value = int(p.attrs.get(key, 25))
+			fields.add_child(box)
+			controls[key] = box
+		button("確認先天配置（僅一次）", func():
+			var values := {}
+			for key in controls: values[key] = int(controls[key].value)
+			Session.send("先天配點", JSON.stringify(values)), respec)
+	if p.sect == "江湖散人":
+		var background := row(body)
+		action("身世：男", "身世", "M", background)
+		action("身世：女", "身世", "F", background)
+	elif p.sect == "丐幫": action("門派晉升 · 目前 %d 袋" % int(p.sect_rank), "晉升", "", body)
 	var slots := row(body)
+	slots.add_child(label("出力（1–10 成）", 14))
+	var force := SpinBox.new()
+	force.min_value = 1
+	force.max_value = 10
+	force.value = int(p.power)
+	force.value_changed.connect(func(value: float): Session.send("出力", str(int(value))))
+	slots.add_child(force)
+	body.add_child(paragraph("格擋運用：" + Rules.guard_art(p) + "；可與攻擊外功分開選擇。"))
 	if p.inner != "": action("停止運內功", "卸下", "inner", slots)
 	if p.movement != "": action("停止運輕功", "卸下", "movement", slots)
+	_local_lessons_page(body, p)
 	body.add_child(label("已 學 武 學", 17, GOLD))
 	for skill in p.skills:
 		var line := row(body)
@@ -348,23 +405,17 @@ func _skills_page(p: Dictionary) -> void:
 		skill_labels[skill] = text
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(text)
-		if int(p.skills[skill]) < int(Data.SKILLS.get(skill, {}).get("study_cap", 100)): action("自修", "自修", skill, line)
+		var study_reason := Training.eligibility(p, skill, true, {}, int(Session.state.tick))
+		var study := action("自修", "自修", skill, line)
+		study.disabled = study_reason != ""
+		study.tooltip_text = study_reason if study_reason != "" else "每完整 5 秒消耗 3 學點與精，累積熟練。"
 		if Data.role(skill) in ["EXTERNAL", "INNER", "MOVEMENT"]:
 			var use := action("運用", "裝備", skill, line)
 			use.disabled = Data.role(skill) == "EXTERNAL" and not Data.fits(skill, p.weapon)
 			use.tooltip_text = Data.requirement_text(skill)
-	body.add_child(label("當 地 師 父 · 授 業", 17, GOLD))
-	var lessons: Array = Session.world.local_lessons(p)
-	if lessons.is_empty(): body.add_child(paragraph("此處沒有可向你授業的師父。先拜師，再前往山內授業地點。"))
-	for lesson in lessons:
-		var npc: Dictionary = Data.NPCS[lesson.npc]
-		var line := row(body)
-		var reqs: PackedStringArray = []
-		for req in lesson.requires: reqs.append("%s %d" % [req.skill, req.level])
-		var desc := label("%s · %s\n上限 %d 級 · %d 兩%s" % [npc.name, lesson.skill, lesson.cap, lesson.price, " · 需 " + "、".join(reqs) if not reqs.is_empty() else ""], 14)
-		desc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		line.add_child(desc)
-		action("消點", "消點", lesson.npc + "|" + lesson.skill, line)
+			if Data.role(skill) == "EXTERNAL":
+				var guard := action("格擋", "格擋", skill, line)
+				guard.disabled = not Data.fits(skill, p.weapon)
 	body.add_child(label("尋 師 訪 道", 17, GOLD))
 	for npc_id in Data.NPCS:
 		var npc: Dictionary = Data.NPCS[npc_id]
@@ -377,9 +428,29 @@ func _skills_page(p: Dictionary) -> void:
 		button(npc.name + " · 尋路", func(): _navigate(npc.place), line)
 		line.add_child(paragraph("、".join(own)))
 
+func _local_lessons_page(body: VBoxContainer, p: Dictionary) -> void:
+	body.add_child(label("當 地 師 父 · 授 業", 17, GOLD))
+	var lessons: Array = Session.world.local_lessons(p)
+	if lessons.is_empty(): body.add_child(paragraph("此處沒有可向你授業的師父。先拜師，再前往山內授業地點。"))
+	for lesson in lessons:
+		var npc: Dictionary = Data.NPCS[lesson.npc]
+		var line := row(body)
+		var reqs: PackedStringArray = []
+		for req in lesson.requires: reqs.append("%s %d" % [req.skill, req.level])
+		for req in Data.SKILLS.get(lesson.skill, {}).get("conditions", []): reqs.append(Training.condition_text(req))
+		var desc := label("%s · %s\n上限 %d 級 · %d 兩%s" % [npc.name, lesson.skill, lesson.cap, lesson.price, " · 需 " + "、".join(reqs) if not reqs.is_empty() else ""], 14)
+		desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		desc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		line.add_child(desc)
+		var reason := Training.eligibility(p, lesson.skill, false, lesson, int(Session.state.tick))
+		var learn := action("消點", "消點", lesson.npc + "|" + lesson.skill, line)
+		learn.disabled = reason != ""
+		learn.tooltip_text = reason
+		if reason != "": body.add_child(paragraph("尚缺：" + reason, MUTED))
+
 func _skill_text(p: Dictionary, skill: String) -> String:
 	var level := int(p.skills[skill])
-	return "%s  Lv.%d  ·  熟練 %d/%d%s\n%s · 自修上限 %d" % [skill, level, int(p.skill_xp.get(skill, 0)), 12 + level * 3, " 〔運用中〕" if skill in [p.equipped, p.inner, p.movement] else "", Data.requirement_text(skill), int(Data.SKILLS.get(skill, {}).get("study_cap", 100))]
+	return "%s  Lv.%d  ·  熟練 %d/%d%s\n%s · 目前自修上限 %d" % [skill, level, int(p.skill_xp.get(skill, 0)), Training.needed(skill, level), " 〔運用中〕" if skill in [p.equipped, p.inner, p.movement] else "", Data.requirement_text(skill), Training.study_cap(p, skill)]
 
 func _inventory_page(p: Dictionary) -> void:
 	var body := clear_page("行囊")
@@ -413,6 +484,7 @@ func _inventory_page(p: Dictionary) -> void:
 
 func _story_page(p: Dictionary) -> void:
 	var body := clear_page("故事")
+	_learning_routes(body, p)
 	body.add_child(paragraph("江湖拾遺：以金庸人物與故事脈絡重新撰寫的訪談支線。跨作品人物共處一個模擬江湖；並非原著逐字內容，也不對應單一歷史時間線。", TEXT))
 	for story in Data.STORIES:
 		var stage := int(p.stories.get(story.id, 0))
@@ -421,34 +493,95 @@ func _story_page(p: Dictionary) -> void:
 		if p.story_choices.has(story.id):
 			body.add_child(paragraph(story.ending[int(p.story_choices[story.id])], GOLD))
 		elif stage >= story.npcs.size():
-			for i in range(story.choices.size()): action(story.choices[i], "故事選擇", story.id + "|" + str(i), body)
+			for i in range(story.choices.size()): action(story.choices[i] + ("（善惡 +20）" if i == 0 else "（善惡 -20）"), "故事選擇", story.id + "|" + str(i), body)
 		else:
 			var npc: Dictionary = Data.NPCS[story.npcs[stage]]
 			button("拜訪 " + npc.name + " · " + npc.place, func(): _navigate(npc.place), body)
 		body.add_child(HSeparator.new())
 
+func _learning_routes(body: VBoxContainer, p: Dictionary) -> void:
+	body.add_child(label("學 藝 機 緣 · 任 務 解 鎖", 20, GOLD))
+	body.add_child(paragraph("先滿足條件，再依階段交談、交付或接受真實考較。完成後選擇結局，才會取得武功或解鎖旗標。這些是來源任務的文字改編；未開放的特殊步驟會明確停止，不能跳過。"))
+	for q in Data.QUESTS.values():
+		if p.quests_done.has(q.id): continue
+		var reason := Training.check(p, q.conditions, int(Session.state.tick))
+		var own := false
+		for condition in q.conditions:
+			if condition.get("type", "") == "sect" and condition.sect == p.sect: own = true
+		if not own and not p.learning_quests.has(q.id) and p.sect != "江湖散人": continue
+		body.add_child(label(q.name, 18, GOLD))
+		if not p.learning_quests.has(q.id):
+			var line := row(body)
+			button("拜訪 " + str(Data.NPCS[q.giver].name), func(): _navigate(Data.NPCS[q.giver].place), line)
+			var accept := action("接受機緣", "接受任務", q.id, line)
+			accept.disabled = reason != "" or p.place != Data.NPCS[q.giver].place
+			accept.tooltip_text = reason if reason != "" else "到發起人身邊接受"
+			if reason != "": body.add_child(paragraph("尚缺：" + reason, MUTED))
+			continue
+		var state: Dictionary = p.learning_quests[q.id]
+		if int(state.stage) == 0 and q.get("dialogues", {}).has("d_offer"):
+			var origin := row(body)
+			button("回發起人", func(): _navigate(Data.NPCS[q.giver].place), origin)
+			action("詢問機緣緣起", "任務緣起", q.id, origin)
+		if int(state.stage) >= q.stages.size():
+			for key in q.outcomes:
+				if str(state.get("outcome", key)) == key: action(q.outcomes[key].label, "任務結局", q.id + "|" + key, body)
+			continue
+		if state.get("dialogue", "") != "":
+			var node: Dictionary = q.get("dialogues", {}).get(state.dialogue, {}).get("nodes", {}).get(state.get("node", ""), {})
+			body.add_child(paragraph(str(node.get("text", "")), TEXT))
+			for option in node.get("choices", []):
+				var choose := action(option.label, "任務對話", q.id + "|" + option.id, body)
+				var lock := Training.check(p, option.get("requires", []), int(Session.state.tick))
+				choose.disabled = lock != ""
+				choose.tooltip_text = lock
+		var stage: Dictionary = q.stages[int(state.stage)]
+		body.add_child(paragraph("%d/%d · %s\n%s" % [int(state.stage) + 1, q.stages.size(), stage.title, stage.log]))
+		for objective in stage.objectives:
+			if state.done.has(objective.id): continue
+			var line := row(body)
+			var npc: String = objective.get("npc", objective.get("target", ""))
+			var place: String = Data.NPCS.get(npc, {}).get("place", stage.place)
+			if place != "": button("前往 · " + place, func(): _navigate(place), line)
+			action(objective.get("text", objective.type), "任務行動", q.id + "|" + objective.id, line)
+		body.add_child(HSeparator.new())
+
 func _catalog_page(_p: Dictionary) -> void:
+	var had_focus := is_instance_valid(map_search) and map_search.has_focus()
+	var caret := map_search.caret_column if is_instance_valid(map_search) else 0
 	var body := clear_page("圖鑑")
-	body.add_child(label("江湖萬象", 20, GOLD))
+	body.add_child(label("江湖地圖 · 找人、尋師、前往目的地", 20, GOLD))
 	body.add_child(paragraph("%d 地點　%d 人物　%d 物品　%d 敵人\n%d 門派　%d 武學　%d 故事支線" % [Data.PLACES.size(), Data.NPCS.size(), Data.SHOP.size(), Data.ENEMIES.size(), Data.SECTS.size(), Data.SKILLS.size(), Data.STORIES.size()], TEXT))
-	var search := LineEdit.new()
-	search.placeholder_text = "搜尋地點、人物、物品、敵人或武學，按 Enter（空白列出地點）"
-	body.add_child(search)
+	map_search = LineEdit.new()
+	map_search.placeholder_text = "輸入地名、人物或想學的武功，例如：張三丰、武當心法"
+	map_search.text = navigation_query
+	body.add_child(map_search)
 	var results := VBoxContainer.new()
 	results.add_theme_constant_override("separation", 8)
 	body.add_child(results)
-	search.text_submitted.connect(func(query: String): _search_catalog(results, query))
-	_search_catalog(results, "")
+	map_search.text_changed.connect(func(query: String): navigation_query = query; _search_catalog(results, query))
+	map_search.text_submitted.connect(func(query: String): _search_catalog(results, query))
+	var shortcuts := row(body)
+	button("回揚州", func(): _navigate("揚州城"), shortcuts)
+	button("找武館", func(): map_search.text = "武師"; _search_catalog(results, "武師"), shortcuts)
+	button("學讀書識字", func(): map_search.text = "讀書識字"; _search_catalog(results, "讀書識字"), shortcuts)
+	if Data.SECTS.has(_p.sect): button("回本門山門", func(): _navigate(Data.SECTS[_p.sect].place), shortcuts)
+	_search_catalog(results, navigation_query)
+	if had_focus:
+		map_search.grab_focus()
+		map_search.caret_column = caret
 
 func _search_catalog(results: VBoxContainer, query: String) -> void:
-	for child in results.get_children(): child.queue_free()
-	for place in Data.PLACES:
-		if query == "" or query in place: button("地點 · " + place, func(): _navigate(place), results)
+	for child in results.get_children(): results.remove_child(child); child.queue_free()
+	var start: String = Session.state.player.place
+	var found := Data.destinations(query, start)
+	if found.is_empty(): results.add_child(paragraph("找不到相符目的地。可輸入部分地名、人物名或武功名稱。"))
+	for entry in found.slice(0, 60):
+		var destination: String = entry.place
+		var text := "%s · %s\n%s · %s" % [entry.kind, entry.title, destination, "就在此地" if destination == start else "%d 步" % int(entry.steps)]
+		button(text, func(): _navigate(destination), results)
+	if found.size() > 60: results.add_child(paragraph("還有 %d 個結果，請輸入更精確的關鍵字。" % (found.size() - 60)))
 	if query == "": return
-	for id in Data.NPCS:
-		var npc: Dictionary = Data.NPCS[id]
-		if query in npc.name:
-			button("人物 · " + npc.name + " · " + npc.place, func(): _navigate(npc.place), results)
 	for item in Data.SHOP:
 		if query in item: results.add_child(paragraph("物品 · " + item + "\n" + Data.SHOP[item].desc, TEXT))
 	for enemy in Data.ENEMIES:
@@ -459,6 +592,10 @@ func _search_catalog(results: VBoxContainer, query: String) -> void:
 		if query in skill: results.add_child(paragraph("武學 · %s · %s\n%s\n根基：%s\n%s" % [skill, Data.SKILLS[skill].sect, Data.requirement_text(skill), Data.SKILLS[skill].get("base", ""), Data.SKILLS[skill].desc], TEXT))
 
 func _navigate(place: String) -> void:
+	if not Data.PLACES.has(place):
+		_message("提示", "目的地已失效，請重新搜尋。")
+		return
+	if Session.state.player.travel_target != "" and Session.state.player.travel_target != place: Session.send("停止")
 	target = place
 	signatures.clear()
 	tabs.current_tab = 0

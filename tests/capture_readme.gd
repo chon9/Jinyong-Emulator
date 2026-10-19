@@ -14,6 +14,8 @@ func run() -> void:
 	session.world.add_player(1, "青衫游俠")
 	session.world.add_player(2, "墨客")
 	session.world.add_player(3, "燕十三")
+	session.world.players[1].flags["wd_recommended"] = true
+	session.world.players[1].morality = 50
 	session.world.act(1, "前往", session.world.Data.SECTS["武當"].place)
 	session.world.act(1, "拜師", "武當")
 	for id in [2, 3]: session.world.players[id].place = session.world.players[1].place
@@ -33,13 +35,21 @@ func run() -> void:
 	ui._refresh()
 	await capture("music")
 	var p: Dictionary = session.world.players[1]
-	p.skills.merge({"基本劍法": 20, "太極劍法": 30, "武當心法": 25, "梯雲縱": 15}, true)
+	p.skills.merge({"基本劍法": 20, "太極劍法": 30, "武當心法": 25, "梯雲縱": 15, "俠義": 35}, true)
+	p.combat_xp = 25000
 	p.inventory["木劍"] = 1
 	session.world.act(1, "裝備", "木劍")
 	session.world.act(1, "裝備", "武當心法")
 	session.world.act(1, "裝備", "梯雲縱")
+	p.place = session.world.Data.NPCS["n_wd_zhangsongxi"].place
 	session._publish()
 	ui.tabs.current_tab = 1
 	ui._refresh()
 	await capture("martial")
+	ui.navigation_query = "武當心法"
+	ui.tabs.current_tab = 4
+	ui._refresh()
+	await capture("navigation")
+	ui._navigate(session.world.Data.NPCS["n_wd_yudaiyan"].place)
+	await capture("route")
 	quit()

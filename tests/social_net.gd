@@ -40,7 +40,7 @@ func run() -> void:
 		session.guest_saves.clear()
 		session.world.add_player(1, "聯機隊長")
 		session.world.players[1].auto_heal = false
-		await wait_until(func(): return complete, "Remote interaction scenario completes", 35)
+		await wait_until(func(): return complete, "Remote interaction scenario completes", 55)
 		check(private_received, "Host receives directed private chat")
 		check(session.world.social.battles.is_empty(), "No orphan multiplayer battles")
 	else:
@@ -56,6 +56,17 @@ func run() -> void:
 		check(session.state.player.inner == "基本內功" and session.state.player.equipped == "基本劍法", "Remote inner slot does not replace external art")
 		await tx("卸下", "weapon")
 		check(session.state.player.weapon == "" and session.state.player.equipped == "搏擊格鬥", "Host applies remote weapon removal")
+		await tx("尋路", session.world.Data.NPCS["n_wd_zhangsanfeng"].place)
+		await wait_until(func(): return session.state.player.place == session.world.Data.NPCS["n_wd_zhangsanfeng"].place, "Remote navigation reaches the exact NPC room", 15)
+		check(session.state.player.travel_target == "", "Remote travel clears automatically on arrival")
+		await tx("說", "SYNC_LEARNING")
+		await wait_until(func(): return session.state.player.place == session.world.Data.NPCS["n_xx_wushi"].place, "Host learning fixture synchronized")
+		await tx("消點", "n_xx_wushi|基本劍法")
+		check(int(session.state.player.potential) == 99 and int(session.state.player.skills["基本劍法"]) == 4 and int(session.state.player.skill_xp["基本劍法"]) == 15, "Remote instruction spends one point for proficiency instead of a level")
+		await tx("自修", "基本劍法")
+		await wait_until(func(): return int(session.state.player.potential) <= 96, "Host completes remote five-second self-study cycle", 8)
+		await tx("停止")
+		check(int(session.state.player.potential) == 96, "Remote self-study consumes exactly three points per cycle")
 		await tx("說", "SYNC_PARTY")
 		if not await wait_until(func(): return invitation("組隊") > 0, "Host invitation replicated"): finish(); return
 		await tx("接受邀請", str(invitation("組隊")))
@@ -105,7 +116,18 @@ func _message(channel: String, text: String) -> void:
 		p.skills.merge({"基本劍法": 1, "打狗棒法": 1}, true)
 		p.inventory["木劍"] = 1
 		session._publish()
+	elif "SYNC_LEARNING" in text:
+		var p: Dictionary = session.world.players[target]
+		p.place = session.world.Data.NPCS["n_xx_wushi"].place
+		p.skills["基本劍法"] = 4
+		p.skill_xp["基本劍法"] = 0
+		p.potential = 100
+		p.energy = 100
+		p.silver = 1000
+		p.combat_xp = 10000
+		session._publish()
 	elif "SYNC_PARTY" in text:
+		session.world.players[target].place = "揚州城"
 		session.world.players[target].auto_heal = false
 		session.send("組隊邀請", str(target))
 	elif "SYNC_TRAVEL" in text:

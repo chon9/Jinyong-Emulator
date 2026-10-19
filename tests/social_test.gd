@@ -70,11 +70,13 @@ func run() -> void:
 	check(w.act(1, "打怪"), "Party hunt starts")
 	check(w.players[1].fight != 0 and w.players[1].fight == w.players[2].fight, "One shared encounter used by both members")
 	check(w.players[1].enemy.hp == 72, "Party encounter health scales for two members")
+	w.social.battles.values()[0].enemy["combat_xp"] = 1
 	check(not w.act(1, "前往", "揚州城"), "Cannot teleport out of shared combat")
 	check(not w.act(1, "離隊"), "Cannot reshuffle parties during shared combat")
 	for i in 10: w.step()
 	check(w.players[1].kills == 1 and w.players[2].kills == 1, "Survivors both receive kill credit")
 	check(w.players[1].exp + w.players[2].exp == 26, "Experience split without multiplication")
+	check(w.players[1].combat_xp + w.players[2].combat_xp == 0, "Small lifetime XP rewards cannot multiply through a party")
 	check(w.players[1].silver + w.players[2].silver == 172, "Coin split conserves total reward")
 	check(w.social.battles.is_empty() and w.players[1].fight == 0 and w.players[2].enemy.is_empty(), "Shared battle cleanup")
 	w.players[2].hp = 20

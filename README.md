@@ -17,19 +17,35 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 
 | Explore | Meet | Collect | Challenge |
 | :---: | :---: | :---: | :---: |
-| **208** connected locations | **221** NPCs with distinct dialogue | **116** items | **110** enemy types |
-| **11** sects | **12** character storylines | **115** martial arts | **55** artifact commissions |
+| **270** connected locations | **292** NPCs with distinct dialogue | **174** items | **137** enemy types |
+| **11** sects | **12** character storylines | **124** martial arts | **71** artifact commissions |
 
 ## Learn the art. Find your way.
 
 - **門派與師承** — Join 少林、武當、峨嵋、華山、恆山、全真、古墓、靈鷲宮、星宿、血刀門 or 丐幫. Find teachers, meet prerequisites, and work through their teaching limits.
-- **消點與自修** — Spend learning points and silver for direct instruction, or train known arts over time using energy and inner power. Self-study can take you beyond a teacher's cap.
+- **消點與自修** — Spend learning points to gain proficiency. 悟性 changes training efficiency; ordinary self-study consumes points and energy every complete five-second cycle. Teachers, basic skills, combat experience and quests constrain progression.
 - **游俠控制台** — Automate hunting, instruction, self-study, and healing. Medicines are consumed from your actual inventory; automation stops when conditions cannot be met.
 - **故事與探索** — Follow character conversations inspired by Jin Yong's stories, make choices, search for artifacts, and deliver commissions. A searchable codex helps you find people and routes.
 - **經典介面** — Parchment, jade, lanterns, a calligraphic font, illustrated landscapes, and a bottom hotbar adapted from JY-Mini OL.
 - **江湖聲韻** — Five BGM tracks, scene-aware switching, crossfades, volume and mute controls, and a manual track selector. Preferences are saved locally.
 
 `拜師 → 刷怪 → 學點 → 消點／自修 → 更深的江湖`
+
+### Find the person. Learn the art.
+
+**v0.4.0 restores point-based training and makes travel explicit.** Search the map for a place, person, martial art or learning event. Searching **武當心法** finds its actual teacher; an event art can point to its quest giver. Results show the exact room and distance.
+
+Choose a result to preview the destination and next stop, then press **自動前往目的地**. Travel follows adjacent rooms one step at a time, stops on arrival, and can be cancelled with **停止**. Changing destination cancels the old journey.
+
+![Find a martial arts teacher by the art they teach](docs/screenshots/navigation.png)
+
+![Preview the exact destination and next step, then start or cancel travel](docs/screenshots/route.png)
+
+Instruction now spends **one point for proficiency**, rather than granting a full level. Self-study spends **three points every five seconds**, with no credit for an interrupted cycle. Train 讀書識字 to improve 悟性, build lifetime 實戰, meet the teacher's prerequisites, and complete learning events to unlock advanced arts. The 武功 page shows what is missing.
+
+The **29 source quest routes** include recommendation letters, conversations, items, trials and learning rewards. Some special steps and missing historical events remain unavailable and are marked as such. External, internal, lightness and parry arts have separate selections; combat includes corresponding basic skills, equipment scaling, dodge, move unlocks and inner-power costs.
+
+See the [research and implementation audit](docs/RESTORATION.md) for sources, historical differences and reconstructed coefficients. This build does not claim exact official-server parity.
 
 ### Match your art to your weapon
 
@@ -57,7 +73,7 @@ The original basic name **搏擊格鬥** replaces the prototype's 基本拳腳. 
 
 Keep the bundled DLLs and `steam_appid.txt` next to the EXE. The game opens in single-player mode and remains playable when Steam is unavailable.
 
-**First steps:** choose a sect gate in the scene scroll, join the sect, open 武功 to find a teacher, then return to 揚州城 and try the beginner bounty in 城郊荒野. Press **F8** for music settings and multiplayer connections.
+**First steps:** open 地圖 and search **基本刀法** or **基本劍法** to find a武館 teacher. Learn a basic art, return to 揚州城 for the beginner bounty, then work toward your chosen sect's entry requirements. Set gender in 武功 before joining; 武當 and 華山 also need their entry events. Press **F8** for music settings and multiplayer connections.
 
 | Key | Action | Key | Action |
 | --- | --- | --- | --- |
@@ -104,7 +120,7 @@ The standalone Windows game saves to:
 %APPDATA%\Godot\app_userdata\網金游俠模擬器\
 ```
 
-Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Existing v0.1/v0.2 characters can be loaded; everyone in a multiplayer session needs a compatible version.
+Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat and incomplete study cycles reset on load. Everyone in a multiplayer session must use **v0.4.0 / protocol 4**.
 
 ## Build from source
 
@@ -135,7 +151,7 @@ The launcher isolates development saves and editor caches under `.tools/`; they 
 | Classic UI and controls | [`scripts/classic/`](scripts/classic/) |
 | World catalog and stories | [`data/`](data/) |
 
-See the [development and gameplay manual](docs/DEVELOPMENT.md) for formulas and detailed controls, and [release notes](docs/releases/v0.3.1.md) for this build.
+See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.4.0.md) for this build.
 
 ## Project notes & credits
 

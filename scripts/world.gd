@@ -4,7 +4,11 @@ extends RefCounted
 signal event(peer_id: int, channel: String, message: String)
 const Data = preload("res://scripts/content.gd")
 const Social = preload("res://scripts/social.gd")
+const Training = preload("res://scripts/progression.gd")
+const Combat = preload("res://scripts/combat_rules.gd")
+const Quests = preload("res://scripts/learning_quests.gd")
 var social
+var quests
 var players: Dictionary = {}
 var tick: int = 0
 var rng := RandomNumberGenerator.new()
@@ -12,13 +16,14 @@ var rng := RandomNumberGenerator.new()
 func _init() -> void:
 	rng.randomize()
 	social = Social.new(self)
+	quests = Quests.new(self)
 
 func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 	var p := {
 		"name": clean_name(title), "level": 1, "exp": 0, "potential": 100, "silver": 80,
-		"hp": 120, "max_hp": 120, "mp": 60, "max_mp": 60, "energy": 100,
+		"hp": 120, "max_hp": 120, "mp": 60, "max_mp": 60, "energy": 100, "spirit": 100, "max_spirit": 100,
 		"sect": "江湖散人", "contribution": 0, "place": "揚州城",
-		"skills": {"搏擊格鬥": 1, "基本內功": 1}, "equipped": "搏擊格鬥", "inner": "基本內功", "movement": "",
+		"skills": {"搏擊格鬥": 1, "基本內功": 1}, "equipped": "搏擊格鬥", "inner": "基本內功", "movement": "", "parry": "",
 		"inventory": {"金創藥": 5, "養氣丹": 3}, "weapon": "", "armor": "",
 		"auto": "停止", "auto_heal": true, "heal_at": 45, "auto_skill": "搏擊格鬥",
 		"teacher": "", "skill_xp": {}, "talked": {}, "stories": {}, "story_choices": {}, "visited": {"揚州城": true},
@@ -27,6 +32,9 @@ func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 		"stance": "普通", "session_kills": 0, "session_silver": 0
 	}
 	p.merge({"party": 0, "follow": false, "fight": 0, "pk_enabled": false, "pvp_wins": 0, "pvp_losses": 0})
+	p.merge({"travel_target": "", "travel_route": [], "study_ticks": 0, "quest_restore": {}})
+	p.merge({"attrs": {"str": 25, "con": 25, "wit": 30, "agi": 25, "cal": 25, "guts": 25, "luck": 25}, "gender": "M", "combat_xp": 0, "morality": 0, "fame": 0, "lilian": 0, "sect_master": "", "sect_rank": 1, "flags": {}, "learning_quests": {}, "quests_done": {}, "power": 5, "rules_version": 4})
+	p["attributes_locked"] = false
 	players[id] = p
 	return p
 
@@ -35,14 +43,7 @@ static func clean_name(value: String) -> String:
 	return cleaned.left(12) if not cleaned.is_empty() else "無名少俠"
 
 static func attack(p: Dictionary) -> int:
-	var art := active_art(p)
-	var skill := int(p.skills.get(art, 1))
-	var bonus := 0 if not Data.SECTS.has(p.sect) else int(Data.SECTS[p.sect].attack)
-	var advanced: bool = Data.SECTS.has(p.sect) and art == Data.SECTS[p.sect].advanced
-	var weapon_attack := int(Data.SHOP.get(p.weapon, {}).get("attack", 0)) if Data.fits(art, p.weapon) else 0
-	var base: String = Data.SKILLS.get(art, {}).get("base", "")
-	var foundation := int(p.skills.get(base, 0)) / 4 if base != art else 0
-	return 12 + int(p.level) * 3 + skill * 2 + bonus + weapon_attack + foundation + slot_level(p, "inner", "INNER") / 5 + (skill if advanced else 0)
+	return roundi(Combat.attack_power(p, active_art(p)))
 
 static func slot_level(p: Dictionary, slot: String, expected: String) -> int:
 	var skill: String = p.get(slot, "")
@@ -79,7 +80,11 @@ static func normalize_martial(p: Dictionary) -> void:
 	p.equipped = active_art(p)
 
 static func defense(p: Dictionary) -> int:
-	return 2 + int(p.level) + int(p.skills.get("基本內功", 1)) / 3 + int(p.skills.get("拆招卸力", 0)) / 4 + slot_level(p, "inner", "INNER") / 6 + slot_level(p, "movement", "MOVEMENT") / 5 + int(Data.SHOP.get(p.armor, {}).get("defense", 0))
+	return roundi(Combat.defense_power(p, guard_art(p)))
+
+static func guard_art(p: Dictionary) -> String:
+	var skill: String = p.get("parry", "")
+	return skill if int(p.skills.get(skill, 0)) > 0 and Data.fits(skill, str(p.get("weapon", ""))) else active_art(p)
 
 static func exp_needed(p: Dictionary) -> int:
 	return int(p.level) * 70
@@ -91,10 +96,89 @@ func act(id: int, command: String, arg: String = "") -> bool:
 	if not players.has(id):
 		return false
 	var p: Dictionary = players[id]
+	if command in ["接受任務", "任務行動", "任務結局", "任務對話", "任務緣起"]:
+		if not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先結束戰鬥，再處理任務。")
+		p.travel_target = ""
+		p.travel_route = []
+		p.auto = "停止"
+		p.study_ticks = 0
+		return quests.act(id, command, arg)
+	if command == "尋路":
+		if not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先結束戰鬥，再開始趕路。")
+		if p.follow: return reject(id, "請先取消跟隨隊長，再自行尋路。")
+		if not Data.PLACES.has(arg): return reject(id, "目的地不存在，請從地圖搜尋結果選擇。")
+		p.travel_target = arg
+		p.travel_route = Data.path_to(p.place, arg)
+		p.auto = "停止"
+		p.study_ticks = 0
+		if arg == p.place:
+			p.travel_target = ""
+			tell(id, "已抵達%s。" % arg, "行路")
+			return true
+		if p.travel_route.is_empty():
+			p.travel_target = ""
+			return reject(id, "目前找不到可通行的路線。")
+		tell(id, "開始前往%s，尚餘 %d 步；每息沿相鄰地點行走，可隨時按停止。" % [arg, p.travel_route.size()], "行路")
+		return true
+	# 新操作取消行程，聊天及戰鬥姿態不會暗中改變路線。
+	if command in ["前往", "停止", "拜師", "裝備", "卸下", "消點", "練功", "自修", "打怪", "打坐", "休息", "掛機", "對話", "接受任務", "任務選項", "任務行動"]:
+		p.travel_target = ""
+		p.travel_route = []
+		if command != "自修": p.study_ticks = 0
+		if command in ["前往", "拜師", "裝備", "卸下", "消點", "練功", "打怪", "對話"]: p.auto = "停止"
 	if command in Social.COMMANDS: return social.act(id, command, arg)
 	if int(p.fight) != 0 and command in ["前往", "拜師", "練功", "消點", "自修", "對話", "故事選擇", "搜查", "交付", "裝備", "卸下", "打怪", "打坐", "休息", "購買", "出售", "掛機"]:
 		return reject(id, "先結束戰鬥或逃跑，再執行此操作。")
 	match command:
+		"先天配點":
+			if p.attributes_locked or not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先天配置已確認，或正在戰鬥中。")
+			var values: Variant = JSON.parse_string(arg)
+			if not values is Dictionary or values.size() != 7: return false
+			var total := 0
+			for key in Training.ATTRS:
+				var value: Variant = values.get(key)
+				if not (value is int or value is float) or float(value) != floorf(float(value)) or int(value) < 15 or int(value) > 30: return false
+				total += int(value)
+			if total != 180: return reject(id, "本作先天配置總和須為 180，各項 15–30。")
+			p.attrs = values
+			p.attributes_locked = true
+			tell(id, "已確認本作先天屬性配置。後天基本功與裝備加成另計。", "武學")
+		"身世":
+			if p.sect != "江湖散人": return reject(id, "入門後不能更換身世。")
+			if not arg in ["M", "F"]: return false
+			p.gender = arg
+			tell(id, "已設定身世：" + ("男性" if arg == "M" else "女性"), "武學")
+		"投師":
+			if not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先結束戰鬥，再投師。")
+			if not arg in Data.local_npcs(p.place): return reject(id, "請先到師父身邊。")
+			var valid := false
+			for lesson in Data.NPCS[arg].teach:
+				if Data.SKILLS.get(lesson.skill, {}).get("sect", "") == p.sect: valid = true
+			if not valid: return reject(id, "這位師父並非本門授業師父。")
+			if p.sect_master != "" and p.sect_master != arg: return reject(id, "已有本門個人師承，不能隨意更換。")
+			p.sect_master = arg
+			tell(id, "你正式投師%s門下。" % Data.NPCS[arg].name, "武學")
+		"晉升":
+			for rank in Data.RANKS:
+				if rank.sect != p.sect or int(rank.rank) != int(p.sect_rank) + 1: continue
+				if p.place != Data.SECTS[p.sect].place: return reject(id, "請回本門山門辦理晉升。")
+				var reason := Training.check(p, rank.conditions, tick)
+				if reason != "": return reject(id, "晉升需要：" + reason)
+				if rank.get("promote", "") == "QUEST": return reject(id, "請先完成「%s」。" % Data.QUESTS.get(rank.get("quest", ""), {}).get("name", "門派晉升機緣"))
+				for stat in rank.get("cost", {}):
+					if int(p.get(stat, 0)) < int(rank.cost[stat]): return reject(id, "晉升資源不足。")
+				for stat in rank.get("cost", {}): p[stat] -= int(rank.cost[stat])
+				p.sect_rank = int(rank.rank)
+				tell(id, "晉升為" + str(rank.name), "武學")
+				return true
+			return reject(id, "沒有下一個可用的門派位階。")
+		"出力":
+			if not arg.is_valid_int() or arg.to_int() < 1 or arg.to_int() > 10: return false
+			p.power = arg.to_int()
+		"格擋":
+			if not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先結束戰鬥，再更換格擋。")
+			if int(p.skills.get(arg, 0)) <= 0 or not Data.fits(arg, p.weapon): return reject(id, "格擋須使用已學且符合兵器的外功。")
+			p.parry = arg
 		"前往":
 			if not Data.PLACES.has(arg) or not arg in Data.PLACES[p.place].exits:
 				return reject(id, "此處無法直達那裡，請沿相鄰地點行走。")
@@ -112,23 +196,26 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			if not Data.SECTS.has(arg): return reject(id, "請選擇少林、武當、峨眉或丐幫。")
 			var sect: Dictionary = Data.SECTS[arg]
 			if p.place != sect.place: return reject(id, "請先前往%s拜訪師父。" % sect.place)
+			var reason := Training.check(p, sect.get("conditions", []), tick)
+			if reason != "": return reject(id, "入門需要：" + reason)
+			var genders: Array = sect.get("gender", [])
+			if not genders.is_empty() and not p.gender in genders: return reject(id, "這個門派不接受你的身世；散人可在武功頁先設定男／女。")
 			p.sect = arg
-			p.skills[sect.basic] = 1
-			# 入門贈藝仍屬本作便利設定；兵器外功須先備相容兵器。
-			if Data.fits(sect.basic, p.weapon): p.equipped = sect.basic
+			if arg == "丐幫": p.sect_rank = 0
 			p.auto_skill = sect.basic
 			if sect.has("virtue"): p.skills[sect.virtue] = 1
 			p.max_hp += sect.hp
 			p.hp = p.max_hp
-			tell(id, "%s收你為%s弟子，傳授%s。你的江湖，自此有了師承。" % [sect.master, arg, sect.basic], "武學")
+			tell(id, "%s引你加入%s。請向授業師父消點學藝；入門不再直接贈送特殊武功。" % [sect.master, arg], "武學")
 		"練功", "消點": return learn(id, arg)
 		"自修":
-			if not p.skills.has(arg): return reject(id, "先向師父學會這門武功，才能自修。")
-			if int(p.skills[arg]) >= int(Data.SKILLS.get(arg, {}).get("study_cap", 100)): return reject(id, "已達這門武學的自修上限。")
+			var reason := Training.eligibility(p, arg, true, {}, tick)
+			if reason != "": return reject(id, reason)
 			if not p.enemy.is_empty(): return reject(id, "交戰中無法自修。")
 			p.auto_skill = arg
 			p.auto = "自修"
-			tell(id, "開始自修%s。每息消耗 2 精力與 1 內力，累積熟練後升級，不消耗學點與銀兩。" % arg, "修行")
+			p.study_ticks = 0
+			tell(id, "開始自修%s。每完整 5 息消耗 3 學點與 %d 精，獲得 %d 熟練；中斷不結算。" % [arg, Training.energy_cost(p), Training.study_gain(p)], "修行")
 		"對話": return talk(id, arg)
 		"故事選擇": return choose_story(id, arg)
 		"搜查":
@@ -158,7 +245,7 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			return false
 		"裝備":
 			if not p.enemy.is_empty(): return reject(id, "交戰中不能更換武學或裝備。")
-			if p.skills.has(arg):
+			if int(p.skills.get(arg, 0)) > 0:
 				match Data.role(arg):
 					"EXTERNAL":
 						if not Data.fits(arg, p.weapon): return reject(id, "%s：%s。請先更換或卸下兵器。" % [arg, Data.requirement_text(arg)])
@@ -218,6 +305,7 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			p.auto_heal = arg == "開啟"
 		"修練設定":
 			if not p.skills.has(arg): return false
+			if p.auto_skill != arg: p.study_ticks = 0
 			p.auto_skill = arg
 		"招式":
 			if not arg in ["普通", "重擊", "防守"]: return false
@@ -225,6 +313,11 @@ func act(id: int, command: String, arg: String = "") -> bool:
 		"逃跑":
 			if int(p.fight) != 0: return social.flee(id)
 			if p.enemy.is_empty(): return reject(id, "你並未陷入戰鬥。")
+			if p.enemy.has("quest_id"):
+				var previous: Dictionary = p.enemy
+				p.enemy = {}
+				quests.fight_result(id, previous.quest_id, previous.quest_objective, previous.get("quest_any", false))
+				return true
 			p.enemy = {}
 			p.auto = "停止"
 			p.hp = maxi(1, int(p.hp) - 12)
@@ -240,8 +333,9 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			p.silver += 60
 			p.potential += 40
 			p.contribution += 8
+			p.morality = mini(1000, int(p.morality) + 50)
 			p.job = {}
-			tell(id, "懸賞完成！獲得 60 兩、40 潛能、8 貢獻。", "任務")
+			tell(id, "懸賞完成！獲得 60 兩、40 學點、8 貢獻、50 善惡。", "任務")
 		"改名":
 			p.name = clean_name(arg)
 			tell(id, "從此江湖人稱你為「%s」。" % p.name)
@@ -273,49 +367,53 @@ func learn(id: int, arg: String) -> bool:
 	var teacher: String = parts[0] if parts.size() == 2 else str(p.teacher)
 	var lesson: Dictionary = {}
 	for row in local_lessons(p):
-		if row.skill == skill and (teacher == "" or row.npc == teacher):
-			lesson = row
-			break
-	if lesson.is_empty(): return reject(id, "請到授業師父身邊消點；可在武學頁查看師承與路線。")
-	for req in lesson.requires:
-		if int(p.skills.get(req.skill, 0)) < int(req.level): return reject(id, "學習%s需要%s %d 級。" % [skill, req.skill, req.level])
-	var level := int(p.skills.get(skill, 0))
-	if level >= int(lesson.cap): return reject(id, "已達這位師父的授業上限 %d 級；可尋訪高師或自修突破。" % lesson.cap)
+		if row.skill == skill and (teacher == "" or row.npc == teacher): lesson = row; break
+	if lesson.is_empty(): return reject(id, "請到授業師父身邊消點；可在地圖搜尋武功名稱尋師。")
+	var reason := Training.eligibility(p, skill, false, lesson, tick)
+	if reason == "": reason = Training.check(p, Data.SECTS.get(p.sect, {}).get("teach_conditions", []), tick)
+	if reason != "": return reject(id, "消點需要：" + reason)
 	if p.cooldown == tick: return false
-	var cost := 5 + level * 2
-	if int(p.potential) < cost or int(p.silver) < int(lesson.price) or int(p.energy) < 3:
-		return reject(id, "消點需 %d 學點、%d 兩與 3 精力。刷怪賺學點，打坐回復精力。" % [cost, lesson.price])
+	var energy := Training.energy_cost(p)
+	var mp := 1 if "neili" in Data.SECTS.get(p.sect, {}).get("train_cost", []) and Data.SKILLS[skill].category == "SECT" else 0
+	var spirit := 2 if "shen" in Data.SECTS.get(p.sect, {}).get("train_cost", []) and Data.SKILLS[skill].category == "SECT" else 0
+	if int(p.potential) < 1 or int(p.silver) < int(lesson.price) or int(p.energy) < energy or int(p.mp) < mp or int(p.spirit) < spirit:
+		return reject(id, "消點需 1 學點、%d 兩、%d 精、%d 內力與 %d 神。" % [lesson.price, energy, mp, spirit])
 	p.cooldown = tick
-	p.potential -= cost
+	p.potential -= 1
 	p.silver -= int(lesson.price)
-	p.energy -= 3
-	p.skills[skill] = level + 1
+	p.energy -= energy
+	p.mp -= mp
+	p.spirit -= spirit
+	var gain := Training.lesson_gain(p)
+	var before := int(p.skills.get(skill, 0))
+	var level := Training.add_prof(p, skill, gain, mini(int(lesson.cap), Training.xp_cap(p)))
 	p.auto_skill = skill
 	p.teacher = lesson.npc
-	if skill == "基本內功": p.max_mp += 3
-	tell(id, "%s指點%s：%d → %d 級，消耗 %d 學點與 %d 兩。" % [Data.NPCS[lesson.npc].name, skill, level, level + 1, cost, lesson.price], "消點")
+	tell(id, "%s指點%s：熟練 +%d，%d → %d 級（%d/%d），消耗 1 學點。" % [Data.NPCS[lesson.npc].name, skill, gain, before, level, p.skill_xp[skill], Training.needed(skill, level)], "消點")
 	return true
 
 func self_study(id: int) -> void:
 	var p: Dictionary = players[id]
 	var skill: String = p.auto_skill
-	var level := int(p.skills.get(skill, 0))
-	var cap := int(Data.SKILLS.get(skill, {}).get("study_cap", 100))
-	if level <= 0 or level >= cap or p.energy < 2 or p.mp < 1:
+	var reason := Training.eligibility(p, skill, true, {}, tick)
+	if reason != "":
 		p.auto = "停止"
-		tell(id, "自修已停止：需要已學武功、精力及內力；此門上限 %d。" % cap, "修行")
+		p.study_ticks = 0
+		tell(id, "自修已停止：" + reason, "修行")
 		return
-	p.energy -= 2
-	p.mp -= 1
-	var difficulty := float(Data.SKILLS.get(skill, {}).get("difficulty", 1.0))
-	var gain := maxi(1, int(6.0 / maxf(0.5, difficulty)))
-	var needed := 12 + level * 3
-	p.skill_xp[skill] = int(p.skill_xp.get(skill, 0)) + gain
-	if int(p.skill_xp[skill]) >= needed:
-		p.skill_xp[skill] -= needed
-		p.skills[skill] = level + 1
-		if skill == "基本內功": p.max_mp += 3
-		tell(id, "你反覆推敲招意，%s自修至 %d 級。" % [skill, level + 1], "自修")
+	p.study_ticks += 1
+	if int(p.study_ticks) < Training.STUDY_SECONDS: return
+	p.study_ticks = 0
+	var energy := Training.energy_cost(p)
+	if int(p.potential) < Training.STUDY_POINTS or int(p.energy) < energy:
+		p.auto = "停止"
+		tell(id, "自修已停止：需要 3 學點與 %d 精。" % energy, "修行")
+		return
+	p.potential -= Training.STUDY_POINTS
+	p.energy -= energy
+	var gain := Training.study_gain(p)
+	var level := Training.add_prof(p, skill, gain, mini(Training.study_cap(p, skill), Training.xp_cap(p)))
+	tell(id, "%s自修：熟練 +%d，%d 級（%d/%d），消耗 3 學點。" % [skill, gain, level, p.skill_xp[skill], Training.needed(skill, level)], "自修")
 
 func talk(id: int, npc_id: String) -> bool:
 	var p: Dictionary = players[id]
@@ -347,6 +445,7 @@ func choose_story(id: int, arg: String) -> bool:
 		p.potential += 80 if choice == 0 else 50
 		p.silver += 50 if choice == 0 else 90
 		p.contribution += 5
+		p.morality = clampi(int(p.morality) + (20 if choice == 0 else -20), -1000, 1000)
 		tell(id, "【%s】%s（學點與銀兩獎勵已入帳，貢獻 +5）" % [story.title, story.ending[choice]], "故事")
 		return true
 	return false
@@ -393,6 +492,9 @@ func step() -> void:
 		if p.auto_heal and int(p.hp) * 100 <= int(p.max_hp) * int(p.heal_at) and int(p.inventory.get("金創藥", 0)) > 0:
 			use_item(id, "金創藥")
 		if int(p.fight) != 0: continue
+		if p.travel_target != "":
+			travel_step(id)
+			continue
 		if not p.enemy.is_empty():
 			combat(id)
 		elif p.auto == "刷怪":
@@ -407,7 +509,8 @@ func step() -> void:
 			p.hp = mini(int(p.max_hp), int(p.hp) + 9)
 			p.mp = mini(int(p.max_mp), int(p.mp) + 7)
 			p.energy = mini(100, int(p.energy) + 5)
-			if p.hp == p.max_hp and p.mp == p.max_mp and p.energy == 100:
+			p.spirit = mini(int(p.max_spirit), int(p.spirit) + 5)
+			if p.hp == p.max_hp and p.mp == p.max_mp and p.energy == 100 and p.spirit == p.max_spirit:
 				p.auto = "停止"
 				tell(id, "調息完畢，精氣神已恢復。", "修行")
 		elif tick % 4 == 0:
@@ -415,29 +518,50 @@ func step() -> void:
 			p.mp = mini(int(p.max_mp), int(p.mp) + 1)
 	social.step()
 
+func travel_step(id: int) -> void:
+	var p: Dictionary = players[id]
+	if not p.enemy.is_empty() or int(p.fight) != 0 or p.follow:
+		p.travel_target = ""
+		p.travel_route = []
+		return
+	var destination: String = p.travel_target
+	var route := Data.path_to(p.place, destination)
+	if route.is_empty():
+		p.travel_target = ""
+		p.travel_route = []
+		tell(id, "已抵達%s。" % destination if p.place == destination else "行程中斷：前路不通。", "行路")
+		return
+	var origin: String = p.place
+	p.place = route.pop_front()
+	p.travel_route = route
+	if not p.visited.has(p.place):
+		p.visited[p.place] = true
+		p.potential += 2
+	social.moved(id, origin)
+	if route.is_empty():
+		p.travel_target = ""
+		tell(id, "已抵達%s。%s" % [destination, Data.PLACES[destination].desc], "行路")
+	else: tell(id, "來到%s，前往%s尚餘 %d 步。" % [p.place, destination, route.size()], "行路")
+
+func strike(p: Dictionary, target: Dictionary) -> Dictionary:
+	return Combat.roll(p, target, active_art(p), guard_art(target) if target.has("skills") else "", rng)
+
 func roll_damage(p: Dictionary, armor: int) -> int:
-	var damage := maxi(1, attack(p) - armor + rng.randi_range(-3, 3))
-	if p.stance == "重擊" and int(p.mp) >= 6:
-		p.mp -= 6
-		damage = int(damage * 1.65)
-	elif p.stance == "防守": damage = maxi(1, int(damage * .7))
-	if rng.randf() < .1: damage = int(damage * 1.5)
-	return damage
+	return int(strike(p, {"defense": armor, "level": 1}).damage)
 
 func combat(id: int) -> void:
 	var p: Dictionary = players[id]
 	var e: Dictionary = p.enemy
-	var damage := roll_damage(p, int(e.defense))
+	var outcome := strike(p, e)
+	var damage := int(outcome.damage)
 	var style: String = active_art(p)
-	var moves: Array = Data.SKILLS.get(style, {}).get("moves", [])
-	if not moves.is_empty(): style = str(moves[mini(moves.size() - 1, int(p.skills.get(active_art(p), 1)) / 30)])
+	style = str(outcome.move)
 	e.hp = maxi(0, int(e.hp) - damage)
 	tell(id, "%s，對%s造成 %d 傷害。%s" % [style, e.name, damage, "（%d/%d）" % [e.hp, e.max_hp]], "戰鬥")
 	if e.hp <= 0:
 		victory(id)
 		return
-	var received := maxi(1, int(e.attack) - defense(p) + rng.randi_range(-2, 2))
-	if p.stance == "防守": received = maxi(1, int(received * 0.45))
+	var received := Combat.enemy_roll(e, p, guard_art(p), rng)
 	p.hp = maxi(0, int(p.hp) - received)
 	tell(id, "%s反擊，你損失 %d 氣血。" % [e.name, received], "戰鬥")
 	if p.hp <= 0:
@@ -445,6 +569,11 @@ func combat(id: int) -> void:
 
 func defeat(id: int) -> void:
 	var p: Dictionary = players[id]
+	if p.enemy.has("quest_id"):
+		var previous: Dictionary = p.enemy
+		p.enemy = {}
+		quests.fight_result(id, previous.quest_id, previous.quest_objective, previous.get("quest_any", false))
+		return
 	var lost := int(p.silver * 0.08)
 	p.silver -= lost
 	p.deaths += 1
@@ -458,6 +587,16 @@ func defeat(id: int) -> void:
 func victory(id: int, reward: Dictionary = {}, loot: bool = true) -> void:
 	var p: Dictionary = players[id]
 	var e: Dictionary = p.enemy if reward.is_empty() else reward
+	if e.has("quest_id"):
+		var remaining: Array = e.get("quest_enemies", [])
+		if not remaining.is_empty():
+			var next: Dictionary = Data.ENEMIES[remaining[0]].duplicate(true)
+			next.merge({"name": "機緣考較 · " + str(remaining[0]), "max_hp": next.hp, "quest_id": e.quest_id, "quest_objective": e.quest_objective, "quest_any": e.quest_any, "quest_enemies": remaining.slice(1), "exp": 0, "combat_xp": 0, "potential": 0, "silver": 0, "drops": []}, true)
+			p.enemy = next
+			return
+		p.enemy = {}
+		quests.fight_result(id, e.quest_id, e.quest_objective, true)
+		return
 	p.exp += e.exp
 	p.potential += e.potential
 	p.silver += e.silver
@@ -476,19 +615,16 @@ func victory(id: int, reward: Dictionary = {}, loot: bool = true) -> void:
 			p.inventory[drop.item] = int(p.inventory.get(drop.item, 0)) + 1
 			tell(id, "你拾得%s。" % drop.item, "收穫")
 	p.enemy = {}
-	while p.exp >= exp_needed(p) and p.level < 50:
-		p.exp -= exp_needed(p)
-		p.level += 1
-		p.max_hp += 18
-		p.max_mp += 6
-		p.hp = p.max_hp
-		p.mp = p.max_mp
-		tell(id, "江湖境界提升至 %d 級，氣血與內力恢復！" % p.level, "成長")
+	# Original progression is martial proficiency and lifetime combat XP;
+	# retained legacy character level no longer grants attack, HP or healing.
+	p.combat_xp += int(e.get("combat_xp", e.exp))
+	p.lilian += 1
+	if e.has("quest_id"): quests.fight_result(id, str(e.quest_id), str(e.quest_objective), true)
 
 func snapshot(id: int) -> Dictionary:
 	if not players.has(id): return {}
 	var roster: Array = []
 	for peer in players:
 		var p: Dictionary = players[peer]
-		roster.append({"id": peer, "name": p.name, "sect": p.sect, "level": p.level, "place": p.place, "hp": p.hp, "max_hp": p.max_hp, "party": p.party, "fight": p.fight, "pk_enabled": p.pk_enabled, "pvp_wins": p.pvp_wins})
+		roster.append({"id": peer, "name": p.name, "sect": p.sect, "level": p.level, "combat_xp": p.combat_xp, "place": p.place, "hp": p.hp, "max_hp": p.max_hp, "party": p.party, "fight": p.fight, "pk_enabled": p.pk_enabled, "pvp_wins": p.pvp_wins})
 	return {"player": players[id].duplicate(true), "roster": roster, "tick": tick, "social": social.snapshot(id), "self_id": id}

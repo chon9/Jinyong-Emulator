@@ -296,10 +296,10 @@ func step() -> void:
 			var defender: int = b.members[1] if attacker == b.members[0] else b.members[0]
 			var p: Dictionary = world.players[attacker]
 			var q: Dictionary = world.players[defender]
-			var damage: int = world.roll_damage(p, world.defense(q))
-			if q.stance == "防守": damage = maxi(1, int(damage * .45))
+			var result: Dictionary = world.strike(p, q)
+			var damage: int = int(result.damage)
 			q.hp = maxi(0, int(q.hp) - damage)
-			notify(b.members, "%s以%s攻擊%s，造成 %d 傷害。" % [p.name, world.active_art(p), q.name, damage], b.kind)
+			notify(b.members, "%s以%s攻擊%s，造成 %d 傷害。" % [p.name, result.move, q.name, damage], b.kind)
 			if q.hp <= 0: finish_pvp(key, defender); break
 
 func pve_round(fight: int) -> void:
@@ -307,13 +307,15 @@ func pve_round(fight: int) -> void:
 	var e: Dictionary = b.enemy
 	for id in b.members.duplicate():
 		var p: Dictionary = world.players[id]
-		var damage: int = world.roll_damage(p, int(e.defense))
+		var result: Dictionary = world.strike(p, e)
+		var damage: int = int(result.damage)
 		e.hp = maxi(0, int(e.hp) - damage)
-		notify(b.members, "%s以%s對%s造成 %d 傷害（%d/%d）。" % [p.name, world.active_art(p), e.name, damage, e.hp, e.max_hp], "戰鬥")
+		notify(b.members, "%s以%s對%s造成 %d 傷害（%d/%d）。" % [p.name, result.move, e.name, damage, e.hp, e.max_hp], "戰鬥")
 		if e.hp <= 0:
 			var survivors: Array = b.members.duplicate()
 			var reward: Dictionary = e.duplicate(true)
 			for stat in ["exp", "potential", "silver"]: reward[stat] = maxi(1, int(e[stat]) / int(b.participants))
+			if e.has("combat_xp"): reward.combat_xp = maxi(0, int(e.combat_xp) / int(b.participants))
 			# 掉落只擲一次，指定一名存活隊友獲得，防止每人複製掉落。
 			var loot_owner: int = survivors[world.rng.randi_range(0, survivors.size() - 1)]
 			for member in survivors:
@@ -324,8 +326,7 @@ func pve_round(fight: int) -> void:
 	if b.members.is_empty(): battles.erase(fight); return
 	var target: int = b.members[world.rng.randi_range(0, b.members.size() - 1)]
 	var defender: Dictionary = world.players[target]
-	var hurt := maxi(1, int(e.attack) - int(world.defense(defender)))
-	if defender.stance == "防守": hurt = maxi(1, int(hurt * .45))
+	var hurt: int = world.Combat.enemy_roll(e, defender, world.guard_art(defender), world.rng)
 	defender.hp = maxi(0, int(defender.hp) - hurt)
 	notify(b.members, "%s反擊%s，造成 %d 傷害。" % [e.name, defender.name, hurt], "戰鬥")
 	if defender.hp == 0:
