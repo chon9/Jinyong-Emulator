@@ -4,7 +4,7 @@ $youxiaRoot = Split-Path -Parent $PSScriptRoot
 $env:APPDATA = Join-Path $youxiaRoot '.tools\appdata'
 $env:LOCALAPPDATA = Join-Path $youxiaRoot '.tools\localappdata'
 New-Item -ItemType Directory -Path (Join-Path $youxiaRoot 'test-results'),$env:APPDATA,$env:LOCALAPPDATA -Force | Out-Null
-foreach ($youxiaSuite in @('world_test.gd','social_test.gd','bgm_test.gd','ui_test.gd')) {
+foreach ($youxiaSuite in @('world_test.gd','martial_test.gd','social_test.gd','bgm_test.gd','ui_test.gd')) {
     & $Godot --headless --path $youxiaRoot --script "res://tests/$youxiaSuite" -- --no-steam --test-profile=unit
     if ($LASTEXITCODE -ne 0) { throw "Failed: $youxiaSuite" }
 }

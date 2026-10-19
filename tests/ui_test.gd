@@ -36,8 +36,8 @@ func run() -> void:
 	check(int(session.local_character.silver) == 654, "Latest save read back")
 	session._restore(1, session.local_character)
 	p = session.world.players[1]
-	check(p.name == "存檔驗證" and p.skills["基本拳腳"] == 17 and p.inventory["金創藥"] == 8, "Character resources and skills survive JSON round trip")
-	check(p.skill_xp["基本拳腳"] == 9 and p.auto == "停止" and p.enemy.is_empty(), "Progress preserved, combat and automation reset safely")
+	check(p.name == "存檔驗證" and p.skills["搏擊格鬥"] == 17 and not p.skills.has("基本拳腳") and p.inventory["金創藥"] == 8, "Legacy fist name migrates without losing character progress")
+	check(p.skill_xp["搏擊格鬥"] == 9 and p.auto == "停止" and p.enemy.is_empty(), "Progress preserved, combat and automation reset safely")
 	var corrupt := FileAccess.open(session.save_path, FileAccess.WRITE)
 	corrupt.store_string("{incomplete")
 	corrupt.close()

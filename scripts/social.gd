@@ -299,7 +299,7 @@ func step() -> void:
 			var damage: int = world.roll_damage(p, world.defense(q))
 			if q.stance == "防守": damage = maxi(1, int(damage * .45))
 			q.hp = maxi(0, int(q.hp) - damage)
-			notify(b.members, "%s以%s攻擊%s，造成 %d 傷害。" % [p.name, p.equipped, q.name, damage], b.kind)
+			notify(b.members, "%s以%s攻擊%s，造成 %d 傷害。" % [p.name, world.active_art(p), q.name, damage], b.kind)
 			if q.hp <= 0: finish_pvp(key, defender); break
 
 func pve_round(fight: int) -> void:
@@ -309,7 +309,7 @@ func pve_round(fight: int) -> void:
 		var p: Dictionary = world.players[id]
 		var damage: int = world.roll_damage(p, int(e.defense))
 		e.hp = maxi(0, int(e.hp) - damage)
-		notify(b.members, "%s以%s對%s造成 %d 傷害（%d/%d）。" % [p.name, p.equipped, e.name, damage, e.hp, e.max_hp], "戰鬥")
+		notify(b.members, "%s以%s對%s造成 %d 傷害（%d/%d）。" % [p.name, world.active_art(p), e.name, damage, e.hp, e.max_hp], "戰鬥")
 		if e.hp <= 0:
 			var survivors: Array = b.members.duplicate()
 			var reward: Dictionary = e.duplicate(true)

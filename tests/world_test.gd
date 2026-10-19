@@ -112,6 +112,8 @@ func run() -> void:
 	check(not world.act(1, "領賞"), "Cannot replay reward")
 	p.silver = 1000
 	check(world.act(1, "購買", "精鋼劍"), "Buy weapon")
+	check(not world.act(1, "裝備", "精鋼劍"), "Cannot use sword without learned sword arts")
+	p.skills["基本劍法"] = p.skills["搏擊格鬥"]
 	var before := Rules.attack(p)
 	check(world.act(1, "裝備", "精鋼劍") and Rules.attack(p) == before + 8, "Equipment affects actual combat stats")
 	check(not world.act(1, "出售", "精鋼劍"), "Cannot sell last equipped weapon")

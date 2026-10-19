@@ -17,7 +17,7 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 
 | Explore | Meet | Collect | Challenge |
 | :---: | :---: | :---: | :---: |
-| **208** connected locations | **221** NPCs with distinct dialogue | **114** items | **110** enemy types |
+| **208** connected locations | **221** NPCs with distinct dialogue | **116** items | **110** enemy types |
 | **11** sects | **12** character storylines | **115** martial arts | **55** artifact commissions |
 
 ## Learn the art. Find your way.
@@ -30,6 +30,24 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 - **江湖聲韻** — Five BGM tracks, scene-aware switching, crossfades, volume and mute controls, and a manual track selector. Preferences are saved locally.
 
 `拜師 → 刷怪 → 學點 → 消點／自修 → 更深的江湖`
+
+### Match your art to your weapon
+
+**v0.3.1 fixes martial-art and weapon matching.** The 武功 page shows each art's category, required weapon, foundation and self-study limit. Equip an external art, an internal art and a lightness skill independently.
+
+| Martial art | Required equipment |
+| --- | --- |
+| 搏擊格鬥 / 基本刺術 / 拳掌指法 | Unarmed or a claw weapon |
+| 劍法 / 刀法 | Sword / blade respectively |
+| 棍杖 / 槍法 / 鞭法 | Staff / spear / whip respectively |
+| 倚天屠龍筆法 | Spear category, following the official classification |
+| 內功 / 輕功 | Separate support slots; cannot replace your attack |
+
+Learn **基本劍法** from a teacher before equipping **木劍**. Equipping a weapon selects a compatible art you already know. Use **行囊 → 卸下兵器** to return to unarmed arts. A sword no longer adds damage to fist or staff techniques.
+
+![Martial arts with separate external, internal and lightness slots, weapon requirements and training caps](docs/screenshots/martial.png)
+
+The original basic name **搏擊格鬥** replaces the prototype's 基本拳腳. Old levels and proficiency migrate automatically. See [the rules and sources](docs/MARTIAL_RULES.md) for verified classifications and remaining simulator adaptations.
 
 ## Start playing
 
@@ -117,7 +135,7 @@ The launcher isolates development saves and editor caches under `.tools/`; they 
 | Classic UI and controls | [`scripts/classic/`](scripts/classic/) |
 | World catalog and stories | [`data/`](data/) |
 
-See the [development and gameplay manual](docs/DEVELOPMENT.md) for formulas and detailed controls, and [release notes](docs/releases/v0.3.0.md) for this build.
+See the [development and gameplay manual](docs/DEVELOPMENT.md) for formulas and detailed controls, and [release notes](docs/releases/v0.3.1.md) for this build.
 
 ## Project notes & credits
 

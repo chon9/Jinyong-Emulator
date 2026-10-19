@@ -139,7 +139,7 @@ func clear_page(title: String) -> VBoxContainer:
 	return body
 
 func _refresh() -> void:
-	status_label.text = Session.status + "    /    " + SteamBridge.status + "    /    v0.3"
+	status_label.text = Session.status + "    /    " + SteamBridge.status + "    /    v" + str(ProjectSettings.get_setting("application/config/version", ""))
 	if Session.state.is_empty(): return
 	var p: Dictionary = Session.state.player
 	refresh_lock = true
@@ -179,7 +179,7 @@ func _refresh() -> void:
 	var signature := "static"
 	match selected:
 		"江湖": signature = str([p.place, p.sect, p.job, p.searched, p.deliveries, target, Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place])])
-		"武學": signature = str([p.place, p.sect, p.skills, p.equipped])
+		"武學": signature = str([p.place, p.sect, p.skills, p.equipped, p.inner, p.movement, p.weapon])
 		"行囊": signature = str([p.place, p.inventory, p.weapon, p.armor])
 		"故事": signature = str([p.stories, p.story_choices])
 		"人際": signature = str([selected_peer, p.party, p.follow, p.pk_enabled, Session.state.get("social", {}).get("requests", []), Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place, r.party, r.fight])])
@@ -337,7 +337,10 @@ func _chat_submit(text: String) -> void:
 func _skills_page(p: Dictionary) -> void:
 	var body := clear_page("武學")
 	skill_labels.clear()
-	body.add_child(paragraph("消點：在授業師父身邊，花學點、銀兩與精力，直接提升一級；每息一次。\n自修：已學武功可隨地反覆修練，消耗精力與內力累積熟練，不花學點；可超越師父授業上限至 100 級。", TEXT))
+	body.add_child(paragraph("消點須在師父身邊，花學點、銀兩與精力；授業與自修上限依各門武學而定。自修不花學點。\n外功須配合兵器；拳掌與刺術可徒手或配爪。內功、輕功各自運用，門派修養不作攻擊。\n外功：%s　內功：%s　輕功：%s" % [p.equipped, p.inner if p.inner != "" else "無", p.movement if p.movement != "" else "無"], TEXT))
+	var slots := row(body)
+	if p.inner != "": action("停止運內功", "卸下", "inner", slots)
+	if p.movement != "": action("停止運輕功", "卸下", "movement", slots)
 	body.add_child(label("已 學 武 學", 17, GOLD))
 	for skill in p.skills:
 		var line := row(body)
@@ -345,8 +348,11 @@ func _skills_page(p: Dictionary) -> void:
 		skill_labels[skill] = text
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(text)
-		action("自修", "自修", skill, line)
-		if skill != "基本內功" and Data.SKILLS.get(skill, {}).get("category", "") != "SECT": action("運用", "裝備", skill, line)
+		if int(p.skills[skill]) < int(Data.SKILLS.get(skill, {}).get("study_cap", 100)): action("自修", "自修", skill, line)
+		if Data.role(skill) in ["EXTERNAL", "INNER", "MOVEMENT"]:
+			var use := action("運用", "裝備", skill, line)
+			use.disabled = Data.role(skill) == "EXTERNAL" and not Data.fits(skill, p.weapon)
+			use.tooltip_text = Data.requirement_text(skill)
 	body.add_child(label("當 地 師 父 · 授 業", 17, GOLD))
 	var lessons: Array = Session.world.local_lessons(p)
 	if lessons.is_empty(): body.add_child(paragraph("此處沒有可向你授業的師父。先拜師，再前往山內授業地點。"))
@@ -373,15 +379,18 @@ func _skills_page(p: Dictionary) -> void:
 
 func _skill_text(p: Dictionary, skill: String) -> String:
 	var level := int(p.skills[skill])
-	return "%s  Lv.%d  ·  熟練 %d/%d%s" % [skill, level, int(p.skill_xp.get(skill, 0)), 12 + level * 3, " 〔運用中〕" if p.equipped == skill else ""]
+	return "%s  Lv.%d  ·  熟練 %d/%d%s\n%s · 自修上限 %d" % [skill, level, int(p.skill_xp.get(skill, 0)), 12 + level * 3, " 〔運用中〕" if skill in [p.equipped, p.inner, p.movement] else "", Data.requirement_text(skill), int(Data.SKILLS.get(skill, {}).get("study_cap", 100))]
 
 func _inventory_page(p: Dictionary) -> void:
 	var body := clear_page("行囊")
 	body.add_child(paragraph("已裝備：%s ／ %s" % [p.weapon if p.weapon != "" else "徒手", p.armor if p.armor != "" else "布衣"]))
+	if p.weapon != "": action("卸下兵器 · 改用拳掌", "卸下", "weapon", body)
 	for item in p.inventory:
 		if int(p.inventory[item]) < 1: continue
 		var line := row(body)
-		var text := label("%s × %d" % [item, p.inventory[item]], 15)
+		var definition: Dictionary = Data.SHOP.get(item, {})
+		var kind := " · " + Data.category_label(Data.weapon_type(item)) if definition.get("type", "") == "WEAPON" else ""
+		var text := label("%s × %d%s" % [item, p.inventory[item], kind], 15)
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(text)
 		if Data.SHOP.has(item):
@@ -395,7 +404,8 @@ func _inventory_page(p: Dictionary) -> void:
 	for item in stock:
 		if Data.SHOP[item].get("quest", false): continue
 		var line := row(body)
-		var text := label("%s · %d 兩" % [item, Data.SHOP[item].price], 15)
+		var kind := " · " + Data.category_label(Data.weapon_type(item)) if Data.SHOP[item].type == "WEAPON" else ""
+		var text := label("%s · %d 兩%s" % [item, Data.SHOP[item].price, kind], 15)
 		text.tooltip_text = Data.SHOP[item].desc
 		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		line.add_child(text)
@@ -446,7 +456,7 @@ func _search_catalog(results: VBoxContainer, query: String) -> void:
 			var e: Dictionary = Data.ENEMIES[enemy]
 			results.add_child(paragraph("敵人 · %s · 氣血 %d / 攻擊 %d / 防禦 %d\n%s" % [enemy, e.hp, e.attack, e.defense, e.get("desc", "")], TEXT))
 	for skill in Data.SKILLS:
-		if query in skill: results.add_child(paragraph("武學 · %s · %s\n%s" % [skill, Data.SKILLS[skill].sect, Data.SKILLS[skill].desc], TEXT))
+		if query in skill: results.add_child(paragraph("武學 · %s · %s\n%s\n根基：%s\n%s" % [skill, Data.SKILLS[skill].sect, Data.requirement_text(skill), Data.SKILLS[skill].get("base", ""), Data.SKILLS[skill].desc], TEXT))
 
 func _navigate(place: String) -> void:
 	target = place

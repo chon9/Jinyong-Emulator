@@ -52,7 +52,7 @@ Combat, inventory, party, trade and networking remain the Youxia simulator imple
 '@
 Set-Content -LiteralPath (Join-Path $youxiaOutput 'Asset-Credits.txt') -Value $youxiaCredits -Encoding utf8
 $youxiaReadme = @'
-網金游俠模擬器 / Youxia 0.3.0 — Windows x64
+網金游俠模擬器 / Youxia __VERSION__ — Windows x64
 
 解壓縮整個資料夾，雙擊 Youxia.exe 即可遊玩；不需要安裝 Godot、Python 或 PowerShell。
 請把同資料夾的 DLL 與 steam_appid.txt 留在原位，給朋友時傳送整個 ZIP。
@@ -69,6 +69,9 @@ PK：雙方先開啟野外 PK，安全區禁止；敗者送回揚州並關閉 PK
 聊天：底部可切換千里傳音、隊伍頻道、密語對象。
 快捷鍵：F1 自修、F2 打坐、F3 尋敵、F4 金創藥、F5 存檔、F6 江湖、F7 人際、F8 聯機。
 BGM：按 F8／系統，可開關音樂、調整音量，或指定曲目；預設依場景及戰鬥自動切換。
+武學：外功須配相容兵器；內功與輕功分開運用。武功頁顯示類型、兵器需求、自修上限。
+劍法先學基本劍法，再買木劍；裝備兵器會選擇已學的相容外功。行囊可卸下兵器改用拳掌。
+舊存檔的基本拳腳會自動更名為搏擊格鬥，保留等級與熟練。聯機雙方請使用相同版本。
 
 存檔：%APPDATA%\Godot\app_userdata\網金游俠模擬器\youxia_save.json
 每 30 秒、按 F5、退出遊戲時儲存，另保留 .bak 備份。
@@ -77,7 +80,7 @@ BGM：按 F8／系統，可開關音樂、調整音量，或指定曲目；預�
 Godot Engine license and third-party attributions: https://godotengine.org/license/
 GodotSteam license: GodotSteam-LICENSE.txt
 '@
-Set-Content -LiteralPath (Join-Path $youxiaOutput '如何遊玩.txt') -Value $youxiaReadme -Encoding utf8
+Set-Content -LiteralPath (Join-Path $youxiaOutput '如何遊玩.txt') -Value $youxiaReadme.Replace('__VERSION__', $youxiaVersion) -Encoding utf8
 $youxiaArchive = Join-Path $youxiaRoot "build\Youxia-$youxiaVersion-Windows-x64.zip"
 Compress-Archive -Path (Join-Path $youxiaOutput '*') -DestinationPath $youxiaArchive -Force
 Get-ChildItem -LiteralPath $youxiaOutput | Select-Object Name,Length

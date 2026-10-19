@@ -18,9 +18,9 @@ func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 		"name": clean_name(title), "level": 1, "exp": 0, "potential": 100, "silver": 80,
 		"hp": 120, "max_hp": 120, "mp": 60, "max_mp": 60, "energy": 100,
 		"sect": "江湖散人", "contribution": 0, "place": "揚州城",
-		"skills": {"基本拳腳": 1, "基本內功": 1}, "equipped": "基本拳腳",
+		"skills": {"搏擊格鬥": 1, "基本內功": 1}, "equipped": "搏擊格鬥", "inner": "基本內功", "movement": "",
 		"inventory": {"金創藥": 5, "養氣丹": 3}, "weapon": "", "armor": "",
-		"auto": "停止", "auto_heal": true, "heal_at": 45, "auto_skill": "基本拳腳",
+		"auto": "停止", "auto_heal": true, "heal_at": 45, "auto_skill": "搏擊格鬥",
 		"teacher": "", "skill_xp": {}, "talked": {}, "stories": {}, "story_choices": {}, "visited": {"揚州城": true},
 		"searched": {}, "deliveries": {},
 		"enemy": {}, "kills": 0, "deaths": 0, "job": {}, "cooldown": -1,
@@ -35,13 +35,51 @@ static func clean_name(value: String) -> String:
 	return cleaned.left(12) if not cleaned.is_empty() else "無名少俠"
 
 static func attack(p: Dictionary) -> int:
-	var skill := int(p.skills.get(p.equipped, 1))
+	var art := active_art(p)
+	var skill := int(p.skills.get(art, 1))
 	var bonus := 0 if not Data.SECTS.has(p.sect) else int(Data.SECTS[p.sect].attack)
-	var advanced: bool = Data.SECTS.has(p.sect) and p.equipped == Data.SECTS[p.sect].advanced
-	return 12 + int(p.level) * 3 + skill * 2 + bonus + int(Data.SHOP.get(p.weapon, {}).get("attack", 0)) + (skill if advanced else 0)
+	var advanced: bool = Data.SECTS.has(p.sect) and art == Data.SECTS[p.sect].advanced
+	var weapon_attack := int(Data.SHOP.get(p.weapon, {}).get("attack", 0)) if Data.fits(art, p.weapon) else 0
+	var base: String = Data.SKILLS.get(art, {}).get("base", "")
+	var foundation := int(p.skills.get(base, 0)) / 4 if base != art else 0
+	return 12 + int(p.level) * 3 + skill * 2 + bonus + weapon_attack + foundation + slot_level(p, "inner", "INNER") / 5 + (skill if advanced else 0)
+
+static func slot_level(p: Dictionary, slot: String, expected: String) -> int:
+	var skill: String = p.get(slot, "")
+	return int(p.skills.get(skill, 0)) if Data.role(skill) == expected else 0
+
+static func compatible_art(p: Dictionary, weapon: String) -> String:
+	var best := ""
+	for skill in p.skills:
+		if int(p.skills[skill]) > 0 and Data.fits(skill, weapon) and (best == "" or int(p.skills[skill]) > int(p.skills[best])): best = skill
+	return best
+
+static func active_art(p: Dictionary) -> String:
+	var skill: String = p.get("equipped", "")
+	if int(p.skills.get(skill, 0)) > 0 and Data.fits(skill, str(p.get("weapon", ""))): return skill
+	var fallback := compatible_art(p, str(p.get("weapon", "")))
+	return fallback if fallback != "" else "搏擊格鬥"
+
+static func normalize_martial(p: Dictionary) -> void:
+	# 舊存檔只遷移名稱與運用欄位，保留已學等級、熟練與物品。
+	for field in ["skills", "skill_xp"]:
+		if p[field].has("基本拳腳"):
+			p[field]["搏擊格鬥"] = maxi(int(p[field].get("搏擊格鬥", 0)), int(p[field]["基本拳腳"]))
+			p[field].erase("基本拳腳")
+	for field in ["equipped", "auto_skill"]:
+		if p[field] == "基本拳腳": p[field] = "搏擊格鬥"
+	if not p.skills.has("搏擊格鬥"): p.skills["搏擊格鬥"] = 1
+	var old: String = p.equipped
+	if Data.role(old) == "INNER": p.inner = old
+	elif Data.role(old) == "MOVEMENT": p.movement = old
+	for slot in ["inner", "movement"]:
+		var expected := "INNER" if slot == "inner" else "MOVEMENT"
+		if p.get(slot, "") != "" and slot_level(p, slot, expected) <= 0: p[slot] = "基本內功" if slot == "inner" and p.skills.has("基本內功") else ""
+	if p.weapon != "" and (int(p.inventory.get(p.weapon, 0)) < 1 or compatible_art(p, p.weapon) == ""): p.weapon = ""
+	p.equipped = active_art(p)
 
 static func defense(p: Dictionary) -> int:
-	return 2 + int(p.level) + int(p.skills.get("基本內功", 1)) / 3 + int(Data.SHOP.get(p.armor, {}).get("defense", 0))
+	return 2 + int(p.level) + int(p.skills.get("基本內功", 1)) / 3 + int(p.skills.get("拆招卸力", 0)) / 4 + slot_level(p, "inner", "INNER") / 6 + slot_level(p, "movement", "MOVEMENT") / 5 + int(Data.SHOP.get(p.armor, {}).get("defense", 0))
 
 static func exp_needed(p: Dictionary) -> int:
 	return int(p.level) * 70
@@ -54,7 +92,7 @@ func act(id: int, command: String, arg: String = "") -> bool:
 		return false
 	var p: Dictionary = players[id]
 	if command in Social.COMMANDS: return social.act(id, command, arg)
-	if int(p.fight) != 0 and command in ["前往", "拜師", "練功", "消點", "自修", "對話", "故事選擇", "搜查", "交付", "裝備", "打怪", "打坐", "休息", "購買", "出售", "掛機"]:
+	if int(p.fight) != 0 and command in ["前往", "拜師", "練功", "消點", "自修", "對話", "故事選擇", "搜查", "交付", "裝備", "卸下", "打怪", "打坐", "休息", "購買", "出售", "掛機"]:
 		return reject(id, "先結束戰鬥或逃跑，再執行此操作。")
 	match command:
 		"前往":
@@ -76,7 +114,8 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			if p.place != sect.place: return reject(id, "請先前往%s拜訪師父。" % sect.place)
 			p.sect = arg
 			p.skills[sect.basic] = 1
-			p.equipped = sect.basic
+			# 入門贈藝仍屬本作便利設定；兵器外功須先備相容兵器。
+			if Data.fits(sect.basic, p.weapon): p.equipped = sect.basic
 			p.auto_skill = sect.basic
 			if sect.has("virtue"): p.skills[sect.virtue] = 1
 			p.max_hp += sect.hp
@@ -85,6 +124,7 @@ func act(id: int, command: String, arg: String = "") -> bool:
 		"練功", "消點": return learn(id, arg)
 		"自修":
 			if not p.skills.has(arg): return reject(id, "先向師父學會這門武功，才能自修。")
+			if int(p.skills[arg]) >= int(Data.SKILLS.get(arg, {}).get("study_cap", 100)): return reject(id, "已達這門武學的自修上限。")
 			if not p.enemy.is_empty(): return reject(id, "交戰中無法自修。")
 			p.auto_skill = arg
 			p.auto = "自修"
@@ -118,12 +158,29 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			return false
 		"裝備":
 			if not p.enemy.is_empty(): return reject(id, "交戰中不能更換武學或裝備。")
-			if p.skills.has(arg) and arg != "基本內功":
-				p.equipped = arg
+			if p.skills.has(arg):
+				match Data.role(arg):
+					"EXTERNAL":
+						if not Data.fits(arg, p.weapon): return reject(id, "%s：%s。請先更換或卸下兵器。" % [arg, Data.requirement_text(arg)])
+						p.equipped = arg
+					"INNER": p.inner = arg
+					"MOVEMENT": p.movement = arg
+					_: return reject(id, "陣法、暗器、毒術與生活修養不作普通外功運用。")
 			elif int(p.inventory.get(arg, 0)) > 0 and Data.SHOP.has(arg) and Data.SHOP[arg].type in ["WEAPON", "ARMOR"]:
-				p["weapon" if Data.SHOP[arg].type == "WEAPON" else "armor"] = arg
+				if Data.SHOP[arg].type == "WEAPON":
+					var art: String = p.equipped if Data.fits(p.equipped, arg) else compatible_art(p, arg)
+					if art == "": return reject(id, "尚未學會與%s相容的外功，請先向武師學習%s。" % [arg, Data.category_label(Data.weapon_type(arg))])
+					p.weapon = arg
+					p.equipped = art
+				else: p.armor = arg
 			else: return reject(id, "你尚未擁有這項武學或裝備。")
-			tell(id, "你已裝備%s。" % arg, "武學")
+			tell(id, "你已運用%s。外功：%s；內功：%s；輕功：%s。" % [arg, p.equipped, p.inner, p.movement], "武學")
+		"卸下":
+			if not p.enemy.is_empty(): return reject(id, "交戰中不能卸下裝備。")
+			if not arg in ["weapon", "armor", "inner", "movement"]: return false
+			p[arg] = ""
+			if arg == "weapon": p.equipped = active_art(p)
+			tell(id, "已卸下。外功運用：%s。" % p.equipped, "武學")
 		"打怪": return hunt(id)
 		"打坐", "休息":
 			if not p.enemy.is_empty(): return reject(id, "交戰中無法調息。")
@@ -243,9 +300,10 @@ func self_study(id: int) -> void:
 	var p: Dictionary = players[id]
 	var skill: String = p.auto_skill
 	var level := int(p.skills.get(skill, 0))
-	if level <= 0 or level >= 100 or p.energy < 2 or p.mp < 1:
+	var cap := int(Data.SKILLS.get(skill, {}).get("study_cap", 100))
+	if level <= 0 or level >= cap or p.energy < 2 or p.mp < 1:
 		p.auto = "停止"
-		tell(id, "自修已停止：需要已學武功、精力及內力，等級上限 100。", "修行")
+		tell(id, "自修已停止：需要已學武功、精力及內力；此門上限 %d。" % cap, "修行")
 		return
 	p.energy -= 2
 	p.mp -= 1
@@ -369,20 +427,12 @@ func roll_damage(p: Dictionary, armor: int) -> int:
 func combat(id: int) -> void:
 	var p: Dictionary = players[id]
 	var e: Dictionary = p.enemy
-	var damage := maxi(1, attack(p) - int(e.defense) + rng.randi_range(-3, 3))
-	var style: String = p.equipped
-	var moves: Array = Data.SKILLS.get(p.equipped, {}).get("moves", [])
-	if not moves.is_empty(): style = str(moves[mini(moves.size() - 1, int(p.skills.get(p.equipped, 1)) / 30)])
-	if p.stance == "重擊" and p.mp >= 6:
-		p.mp -= 6
-		damage = int(damage * 1.65)
-		style += "・重擊"
-	elif p.stance == "防守":
-		damage = maxi(1, int(damage * 0.7))
-	var critical := rng.randf() < 0.1
-	if critical: damage = int(damage * 1.5)
+	var damage := roll_damage(p, int(e.defense))
+	var style: String = active_art(p)
+	var moves: Array = Data.SKILLS.get(style, {}).get("moves", [])
+	if not moves.is_empty(): style = str(moves[mini(moves.size() - 1, int(p.skills.get(active_art(p), 1)) / 30)])
 	e.hp = maxi(0, int(e.hp) - damage)
-	tell(id, "%s%s，對%s造成 %d 傷害。%s" % ["會心！" if critical else "", style, e.name, damage, "（%d/%d）" % [e.hp, e.max_hp]], "戰鬥")
+	tell(id, "%s，對%s造成 %d 傷害。%s" % [style, e.name, damage, "（%d/%d）" % [e.hp, e.max_hp]], "戰鬥")
 	if e.hp <= 0:
 		victory(id)
 		return

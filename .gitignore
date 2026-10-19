@@ -19,3 +19,4 @@ youxia_save.json*
 youxia_identity.cfg
 youxia_music.cfg
 *.log
+addons/godotsteam/win64/~*.dll

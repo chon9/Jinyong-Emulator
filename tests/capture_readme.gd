@@ -32,4 +32,14 @@ func run() -> void:
 	ui.tabs.current_tab = 5
 	ui._refresh()
 	await capture("music")
+	var p: Dictionary = session.world.players[1]
+	p.skills.merge({"基本劍法": 20, "太極劍法": 30, "武當心法": 25, "梯雲縱": 15}, true)
+	p.inventory["木劍"] = 1
+	session.world.act(1, "裝備", "木劍")
+	session.world.act(1, "裝備", "武當心法")
+	session.world.act(1, "裝備", "梯雲縱")
+	session._publish()
+	ui.tabs.current_tab = 1
+	ui._refresh()
+	await capture("martial")
 	quit()

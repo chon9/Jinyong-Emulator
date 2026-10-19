@@ -4210,7 +4210,7 @@
           "requires": []
         },
         {
-          "skill": "基本拳腳",
+          "skill": "搏擊格鬥",
           "cap": 30,
           "price": 5,
           "requires": []
@@ -4527,31 +4527,31 @@
         },
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -4674,14 +4674,14 @@
           "price": 5,
           "requires": [
             {
-              "skill": "基本拳腳",
+              "skill": "搏擊格鬥",
               "level": 20
             }
           ]
         },
         {
           "skill": "紫霞神功",
-          "cap": 60,
+          "cap": 1,
           "price": 5,
           "requires": [
             {
@@ -4723,37 +4723,37 @@
       "teach": [
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 150,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 150,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -4921,7 +4921,7 @@
           "requires": []
         },
         {
-          "skill": "基本拳腳",
+          "skill": "搏擊格鬥",
           "cap": 30,
           "price": 5,
           "requires": []
@@ -5051,25 +5051,53 @@
           "skill": "峨嵋九陽功",
           "cap": 1,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "斷惡",
+              "level": 50
+            }
+          ]
         },
         {
           "skill": "滅劍",
           "cap": 1,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "迴風拂柳劍",
+              "level": 30
+            },
+            {
+              "skill": "峨嵋九陽功",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "絕劍",
           "cap": 1,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "迴風拂柳劍",
+              "level": 50
+            }
+          ]
         },
         {
           "skill": "佛光普照掌",
           "cap": 1,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "金頂綿掌",
+              "level": 50
+            },
+            {
+              "skill": "峨嵋九陽功",
+              "level": 1
+            }
+          ]
         }
       ],
       "requests": [
@@ -5113,7 +5141,12 @@
           "skill": "金頂綿掌",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "飄雪穿雲掌",
+              "level": 20
+            }
+          ]
         },
         {
           "skill": "迴風拂柳劍",
@@ -5184,37 +5217,37 @@
       "teach": [
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -5470,13 +5503,23 @@
           "skill": "美女拳法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 5
+            }
+          ]
         },
         {
           "skill": "天羅地網勢身法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 5
+            }
+          ]
         },
         {
           "skill": "全真劍法",
@@ -5493,23 +5536,50 @@
           "skill": "玉女心經",
           "cap": 60,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 30
+            },
+            {
+              "skill": "古墓心法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "天羅地網勢掌法",
           "cap": 60,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 30
+            },
+            {
+              "skill": "美女拳法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "迎風拂柳步",
           "cap": 60,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 30
+            },
+            {
+              "skill": "天羅地網勢身法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "九陰真經",
-          "cap": 60,
+          "cap": 1,
           "price": 5,
           "requires": [
             {
@@ -5556,31 +5626,72 @@
           "skill": "玉女心經",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 30
+            },
+            {
+              "skill": "古墓心法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "天羅地網勢掌法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 30
+            },
+            {
+              "skill": "美女拳法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "迎風拂柳步",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 30
+            },
+            {
+              "skill": "天羅地網勢身法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "銀索金鈴",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 50
+            },
+            {
+              "skill": "基本鞭法",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "玉女素心劍法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "玉女劍法",
+              "level": 60
+            }
+          ]
         },
         {
           "skill": "古墓心法",
@@ -5598,13 +5709,23 @@
           "skill": "美女拳法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 5
+            }
+          ]
         },
         {
           "skill": "天羅地網勢身法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "清心",
+              "level": 5
+            }
+          ]
         },
         {
           "skill": "全真劍法",
@@ -5639,43 +5760,43 @@
       "teach": [
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本鞭法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -5801,7 +5922,12 @@
           "skill": "恆山身法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "慈悲",
+              "level": 10
+            }
+          ]
         },
         {
           "skill": "恆山劍法",
@@ -5813,17 +5939,22 @@
           "skill": "恆山醫法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "基本醫術",
+              "level": 10
+            }
+          ]
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -5862,7 +5993,20 @@
           "skill": "萬花劍法",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "慈悲",
+              "level": 50
+            },
+            {
+              "skill": "恆山心法",
+              "level": 50
+            },
+            {
+              "skill": "恆山劍法",
+              "level": 50
+            }
+          ]
         }
       ]
     },
@@ -5880,7 +6024,16 @@
           "skill": "天長掌法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "慈悲",
+              "level": 30
+            },
+            {
+              "skill": "恆山心法",
+              "level": 30
+            }
+          ]
         }
       ],
       "requests": [
@@ -5904,13 +6057,13 @@
       "teach": [
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -5928,7 +6081,7 @@
       "teach": [
         {
           "skill": "基本醫術",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -5946,13 +6099,13 @@
       "teach": [
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -6105,65 +6258,101 @@
           "skill": "天羽奇劍",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "逍遙心法",
+              "level": 10
+            },
+            {
+              "skill": "定性",
+              "level": 20
+            }
+          ]
         },
         {
           "skill": "如意刀法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "逍遙心法",
+              "level": 10
+            },
+            {
+              "skill": "定性",
+              "level": 10
+            }
+          ]
         },
         {
           "skill": "天山六陽掌",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "天山折梅手",
+              "level": 90
+            },
+            {
+              "skill": "定性",
+              "level": 50
+            }
+          ]
         },
         {
           "skill": "八荒六合唯我獨尊功",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "逍遙心法",
+              "level": 80
+            },
+            {
+              "skill": "定性",
+              "level": 50
+            }
+          ]
         },
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本刀法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本刺術",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -6207,7 +6396,7 @@
       "teach": [
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -6342,13 +6531,55 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "三花聚頂掌",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "昊天掌",
+              "level": 70
+            },
+            {
+              "skill": "全真心法",
+              "level": 70
+            },
+            {
+              "skill": "基本內功",
+              "level": 60
+            },
+            {
+              "skill": "搏擊格鬥",
+              "level": 60
+            }
+          ]
         },
         {
           "skill": "重陽劍法",
@@ -6358,6 +6589,22 @@
             {
               "skill": "基本劍法",
               "level": 20
+            },
+            {
+              "skill": "全真心法",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本內功",
+              "level": 60
+            },
+            {
+              "skill": "養生",
+              "level": 80
             }
           ]
         },
@@ -6367,8 +6614,24 @@
           "price": 5,
           "requires": [
             {
-              "skill": "基本拳腳",
+              "skill": "搏擊格鬥",
               "level": 20
+            },
+            {
+              "skill": "昊天掌",
+              "level": 70
+            },
+            {
+              "skill": "搏擊格鬥",
+              "level": 80
+            },
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "養生",
+              "level": 90
             }
           ]
         }
@@ -6412,13 +6675,51 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "先天氣功",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 90
+            },
+            {
+              "skill": "養生",
+              "level": 100
+            },
+            {
+              "skill": "基本內功",
+              "level": 80
+            }
+          ]
         }
       ],
       "requests": [
@@ -6468,13 +6769,59 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "同歸劍法",
           "cap": 90,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 60
+            },
+            {
+              "skill": "全真劍法",
+              "level": 50
+            },
+            {
+              "skill": "養生",
+              "level": 70
+            },
+            {
+              "skill": "基本內功",
+              "level": 50
+            },
+            {
+              "skill": "基本劍法",
+              "level": 40
+            }
+          ]
         }
       ]
     },
@@ -6516,13 +6863,59 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "同歸劍法",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 60
+            },
+            {
+              "skill": "全真劍法",
+              "level": 50
+            },
+            {
+              "skill": "養生",
+              "level": 70
+            },
+            {
+              "skill": "基本內功",
+              "level": 50
+            },
+            {
+              "skill": "基本劍法",
+              "level": 40
+            }
+          ]
         }
       ]
     },
@@ -6564,13 +6957,51 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "先天氣功",
           "cap": 70,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 90
+            },
+            {
+              "skill": "養生",
+              "level": 100
+            },
+            {
+              "skill": "基本內功",
+              "level": 80
+            }
+          ]
         }
       ],
       "requests": [
@@ -6620,13 +7051,55 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "三花聚頂掌",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "昊天掌",
+              "level": 70
+            },
+            {
+              "skill": "全真心法",
+              "level": 70
+            },
+            {
+              "skill": "基本內功",
+              "level": 60
+            },
+            {
+              "skill": "搏擊格鬥",
+              "level": 60
+            }
+          ]
         }
       ]
     },
@@ -6668,13 +7141,59 @@
           "skill": "天罡北斗陣",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 80
+            },
+            {
+              "skill": "全真劍法",
+              "level": 70
+            },
+            {
+              "skill": "養生",
+              "level": 90
+            },
+            {
+              "skill": "基本內功",
+              "level": 70
+            },
+            {
+              "skill": "基本劍法",
+              "level": 60
+            },
+            {
+              "skill": "基本陣法",
+              "level": 1
+            }
+          ]
         },
         {
           "skill": "同歸劍法",
           "cap": 80,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "全真心法",
+              "level": 60
+            },
+            {
+              "skill": "全真劍法",
+              "level": 50
+            },
+            {
+              "skill": "養生",
+              "level": 70
+            },
+            {
+              "skill": "基本內功",
+              "level": 50
+            },
+            {
+              "skill": "基本劍法",
+              "level": 40
+            }
+          ]
         }
       ]
     },
@@ -6739,37 +7258,37 @@
       "teach": [
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
@@ -7184,59 +7703,74 @@
           "skill": "太極神功",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "武當心法",
+              "level": 50
+            }
+          ]
         },
         {
           "skill": "綿掌",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "武當長拳",
+              "level": 30
+            }
+          ]
         },
         {
           "skill": "柔雲劍法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "繞指柔劍",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本劍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本刀法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -7325,7 +7859,12 @@
           "skill": "太極拳",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "俠義",
+              "level": 40
+            }
+          ]
         }
       ]
     },
@@ -7361,7 +7900,12 @@
           "skill": "真武七截陣",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "俠義",
+              "level": 50
+            }
+          ]
         },
         {
           "skill": "基本陣法",
@@ -7405,7 +7949,12 @@
           "skill": "太極劍法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "俠義",
+              "level": 40
+            }
+          ]
         }
       ]
     },
@@ -7423,7 +7972,12 @@
           "skill": "梯雲縱",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "俠義",
+              "level": 30
+            }
+          ]
         }
       ],
       "requests": [
@@ -7498,17 +8052,27 @@
           "skill": "純陽無極功",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "俠義",
+              "level": 40
+            }
+          ]
         },
         {
           "skill": "倚天屠龍筆法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "俠義",
+              "level": 30
+            }
+          ]
         },
         {
           "skill": "基本刺術",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         }
@@ -7666,49 +8230,49 @@
         },
         {
           "skill": "基本毒術",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本暗器",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本棍法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
@@ -7716,7 +8280,12 @@
           "skill": "化功大法",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "星宿心法",
+              "level": 5
+            }
+          ]
         }
       ]
     },
@@ -7923,37 +8492,37 @@
       "teach": [
         {
           "skill": "基本內功",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "拆招卸力",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "閃躲縱躍",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本身法",
-          "cap": 100,
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
-          "skill": "基本拳腳",
-          "cap": 100,
+          "skill": "搏擊格鬥",
+          "cap": 140,
           "price": 1,
           "requires": []
         },
         {
           "skill": "基本刀法",
-          "cap": 100,
+          "cap": 120,
           "price": 1,
           "requires": []
         }
@@ -7984,7 +8553,20 @@
           "skill": "血海魔功",
           "cap": 100,
           "price": 1,
-          "requires": []
+          "requires": [
+            {
+              "skill": "基本內功",
+              "level": 60
+            },
+            {
+              "skill": "基本刀法",
+              "level": 50
+            },
+            {
+              "skill": "威嚇",
+              "level": 50
+            }
+          ]
         }
       ],
       "requests": [
@@ -11713,187 +12295,305 @@
       "id": "basic_blade",
       "name": "基本刀法",
       "sect": "",
-      "category": "BASIC",
+      "category": "BLADE",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "BLADE"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本劍法": {
       "id": "basic_sword",
       "name": "基本劍法",
       "sect": "",
-      "category": "BASIC",
+      "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本鞭法": {
       "id": "basic_whip",
       "name": "基本鞭法",
       "sect": "",
-      "category": "BASIC",
+      "category": "WHIP",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "WHIP"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本棍法": {
       "id": "basic_staff",
       "name": "基本棍法",
       "sect": "",
-      "category": "BASIC",
+      "category": "STAFF",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "STAFF"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本槍法": {
       "id": "basic_spear",
       "name": "基本槍法",
       "sect": "",
-      "category": "BASIC",
+      "category": "SPEAR",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "SPEAR"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本內功": {
       "id": "basic_inner",
       "name": "基本內功",
       "sect": "",
-      "category": "BASIC",
+      "category": "INNER",
+      "role": "INNER",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.8,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本刺術": {
       "id": "basic_stab",
       "name": "基本刺術",
       "sect": "",
-      "category": "BASIC",
+      "category": "STAB",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "拆招卸力": {
       "id": "basic_parry",
       "name": "拆招卸力",
       "sect": "",
-      "category": "BASIC",
+      "category": "PARRY",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
-    "基本拳腳": {
+    "搏擊格鬥": {
       "id": "basic_fist",
-      "name": "基本拳腳",
+      "name": "搏擊格鬥",
       "sect": "",
-      "category": "BASIC",
+      "category": "FIST",
+      "role": "EXTERNAL",
       "base": "",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "閃躲縱躍": {
       "id": "basic_dodge",
       "name": "閃躲縱躍",
       "sect": "",
-      "category": "BASIC",
+      "category": "DODGE",
+      "role": "MOVEMENT",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本身法": {
       "id": "basic_body",
       "name": "基本身法",
       "sect": "",
-      "category": "BASIC",
+      "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本陣法": {
       "id": "basic_formation",
       "name": "基本陣法",
       "sect": "",
-      "category": "BASIC",
+      "category": "FORMATION",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本毒術": {
       "id": "basic_poison",
       "name": "基本毒術",
       "sect": "",
-      "category": "BASIC",
+      "category": "POISON",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本醫術": {
       "id": "basic_medic",
       "name": "基本醫術",
       "sect": "",
-      "category": "BASIC",
+      "category": "MEDIC",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "基本暗器": {
       "id": "basic_hidden",
       "name": "基本暗器",
       "sect": "",
-      "category": "BASIC",
+      "category": "HIDDEN",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "讀書識字": {
       "id": "basic_literacy",
       "name": "讀書識字",
       "sect": "",
-      "category": "BASIC",
+      "category": "UTILITY",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 1.0,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "交易之道": {
       "id": "basic_trade",
       "name": "交易之道",
       "sect": "",
-      "category": "BASIC",
+      "category": "UTILITY",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": true,
       "desc": "紮穩根基，方能登堂入室。",
       "difficulty": 0.9,
-      "cap": 100,
+      "cap": 250,
+      "study_cap": 250,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "少林長拳": {
@@ -11901,10 +12601,19 @@
       "name": "少林長拳",
       "sect": "少林",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "少林入門拳法，拳勢剛猛，紮根基之用。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "黑虎掏心",
         "雙龍搶珠",
@@ -11916,10 +12625,19 @@
       "name": "羅漢拳",
       "sect": "少林",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "少林十八羅漢化身的拳法，招式樸實。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "羅漢拜佛",
         "伏虎式"
@@ -11930,10 +12648,16 @@
       "name": "少林心法",
       "sect": "少林",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "少林寺內功根基，禪定之中自生內力。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "少林身法": {
@@ -11941,10 +12665,16 @@
       "name": "少林身法",
       "sect": "少林",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "少林弟子的步法，進退之間穩如山岳。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "慈悲刀法": {
@@ -11952,10 +12682,18 @@
       "name": "慈悲刀法",
       "sect": "少林",
       "category": "BLADE",
+      "role": "EXTERNAL",
       "base": "基本刀法",
+      "weapon_types": [
+        "BLADE"
+      ],
+      "basic": false,
       "desc": "刀下留情的佛門刀法，點到即止。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "慈航普渡",
         "回頭是岸"
@@ -11966,10 +12704,18 @@
       "name": "羅漢劍法",
       "sect": "少林",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "少林入門劍法，劍招沉穩，以守為主。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "金剛護法",
         "降魔一劍"
@@ -11980,10 +12726,16 @@
       "name": "華山心法",
       "sect": "華山",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "華山派氣宗入門內功。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "華山劍法": {
@@ -11991,10 +12743,18 @@
       "name": "華山劍法",
       "sect": "華山",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "華山派入門劍法，劍招輕靈，變化多端。",
       "difficulty": 0.8,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "有鳳來儀",
         "蒼松迎客",
@@ -12006,10 +12766,19 @@
       "name": "劈石破玉拳",
       "sect": "華山",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "桃谷六仙任務取得拳譜後才能修習（M3）。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "劈石破玉"
       ]
@@ -12019,10 +12788,16 @@
       "name": "峨嵋心法",
       "sect": "峨嵋",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "峨嵋派入門內功，講究心平氣和、綿綿不絕。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "峨嵋身法": {
@@ -12030,10 +12805,16 @@
       "name": "峨嵋身法",
       "sect": "峨嵋",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "峨嵋弟子的輕身步法，身形飄逸，閃避靈動。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "飄雪穿雲掌": {
@@ -12041,10 +12822,19 @@
       "name": "飄雪穿雲掌",
       "sect": "峨嵋",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "峨嵋入門掌法，掌勢如雪片紛飛，一掌接一掌直穿而出。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "瑞雪初降",
         "穿雲破霧",
@@ -12056,10 +12846,24 @@
       "name": "金頂綿掌",
       "sect": "峨嵋",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "以柔克剛的綿掌，掌力綿密，中者內腑受震。",
       "difficulty": 0.95,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "飄雪穿雲掌",
+          "level": 20
+        }
+      ],
       "moves": [
         "金頂禮佛",
         "綿裡藏針",
@@ -12071,10 +12875,18 @@
       "name": "迴風拂柳劍",
       "sect": "峨嵋",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "峨嵋入門劍法，劍勢如風拂柳枝，輕柔中暗藏殺著。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "迴風舞柳",
         "拂柳穿花",
@@ -12086,10 +12898,21 @@
       "name": "峨嵋九陽功",
       "sect": "峨嵋",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "峨嵋派的上乘內功，與武當、少林的九陽功同出一源。滅絕師太只傳一級，其餘要自己苦修。",
       "difficulty": 1.1,
       "cap": 100,
+      "study_cap": 80,
+      "learn_cap": 1,
+      "requires": [
+        {
+          "skill": "斷惡",
+          "level": 50
+        }
+      ],
       "moves": []
     },
     "滅劍": {
@@ -12097,10 +12920,27 @@
       "name": "滅劍",
       "sect": "峨嵋",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "滅絕師太的獨門劍法，劍劍狠辣，專斬邪魔。",
       "difficulty": 1.1,
       "cap": 100,
+      "study_cap": 90,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "迴風拂柳劍",
+          "level": 30
+        },
+        {
+          "skill": "峨嵋九陽功",
+          "level": 1
+        }
+      ],
       "moves": [
         "滅魔一劍",
         "劍滅邪蹤",
@@ -12112,10 +12952,23 @@
       "name": "絕劍",
       "sect": "峨嵋",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "與滅劍並稱的峨嵋絕學，出劍不留餘地。",
       "difficulty": 1.1,
       "cap": 100,
+      "study_cap": 80,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "迴風拂柳劍",
+          "level": 50
+        }
+      ],
       "moves": [
         "斷情絕念",
         "絕壁孤松",
@@ -12127,10 +12980,28 @@
       "name": "佛光普照掌",
       "sect": "峨嵋",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "峨嵋掌法的最高境界，一掌拍出，掌力如佛光籠罩四方。",
       "difficulty": 1.1,
       "cap": 100,
+      "study_cap": 80,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "金頂綿掌",
+          "level": 50
+        },
+        {
+          "skill": "峨嵋九陽功",
+          "level": 1
+        }
+      ],
       "moves": [
         "佛光初照",
         "佛光普照"
@@ -12141,10 +13012,16 @@
       "name": "古墓心法",
       "sect": "古墓",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "古墓派入門內功，心如止水，清寂自守。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "玉女劍法": {
@@ -12152,10 +13029,18 @@
       "name": "玉女劍法",
       "sect": "古墓",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "林朝英所創的劍法，招式輕盈飄逸，一劍之間籠罩對手周身。",
       "difficulty": 0.96,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "浪跡天涯",
         "花前月下",
@@ -12167,10 +13052,24 @@
       "name": "美女拳法",
       "sect": "古墓",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "每一招都化自古代美女的姿態，出拳婀娜卻暗藏勁力，拳勁直線遠送。",
       "difficulty": 0.86,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "清心",
+          "level": 5
+        }
+      ],
       "moves": [
         "貴妃回眸",
         "西施捧心",
@@ -12182,10 +13081,21 @@
       "name": "天羅地網勢身法",
       "sect": "古墓",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "源自捕捉麻雀的身法，身形翻飛，四面八方都是自己的影子。",
       "difficulty": 0.84,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "清心",
+          "level": 5
+        }
+      ],
       "moves": []
     },
     "玉女心經": {
@@ -12193,10 +13103,25 @@
       "name": "玉女心經",
       "sect": "古墓",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "古墓派上乘內功，專克全真武功，練成後內力綿長。",
       "difficulty": 1.2,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "清心",
+          "level": 30
+        },
+        {
+          "skill": "古墓心法",
+          "level": 40
+        }
+      ],
       "moves": []
     },
     "天羅地網勢掌法": {
@@ -12204,10 +13129,28 @@
       "name": "天羅地網勢掌法",
       "sect": "古墓",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "雙掌翻飛如網，把身周的敵人都罩在掌影之中，攻守兼備。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "清心",
+          "level": 30
+        },
+        {
+          "skill": "美女拳法",
+          "level": 40
+        }
+      ],
       "moves": [
         "網羅八方",
         "天羅罩頂",
@@ -12219,10 +13162,25 @@
       "name": "迎風拂柳步",
       "sect": "古墓",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "步法如柳枝迎風，飄忽難測。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "清心",
+          "level": 30
+        },
+        {
+          "skill": "天羅地網勢身法",
+          "level": 40
+        }
+      ],
       "moves": []
     },
     "銀索金鈴": {
@@ -12230,10 +13188,27 @@
       "name": "銀索金鈴",
       "sect": "古墓",
       "category": "WHIP",
+      "role": "EXTERNAL",
       "base": "基本鞭法",
+      "weapon_types": [
+        "WHIP"
+      ],
+      "basic": false,
       "desc": "銀絲軟索末端繫著金鈴，鈴聲擾敵心神，金球專打穴道。",
       "difficulty": 1.1,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "清心",
+          "level": 50
+        },
+        {
+          "skill": "基本鞭法",
+          "level": 40
+        }
+      ],
       "moves": [
         "金鈴索命",
         "銀索飛舞",
@@ -12245,10 +13220,23 @@
       "name": "玉女素心劍法",
       "sect": "古墓",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "玉女劍法與全真劍法雙劍合璧，須一男一女心意相通方能施展。",
       "difficulty": 1.3,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "玉女劍法",
+          "level": 60
+        }
+      ],
       "moves": [
         "雙劍合璧",
         "素心照影"
@@ -12259,10 +13247,16 @@
       "name": "九陰真經",
       "sect": "古墓",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "刻在古墓石室頂上的武學總綱，沒有師父可教，只能自行參悟。",
       "difficulty": 1.5,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 1,
+      "requires": [],
       "moves": []
     },
     "恆山心法": {
@@ -12270,10 +13264,16 @@
       "name": "恆山心法",
       "sect": "恆山",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "恆山派入門內功，以佛門清淨之心調息，平和綿長。",
       "difficulty": 0.6,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "恆山身法": {
@@ -12281,10 +13281,21 @@
       "name": "恆山身法",
       "sect": "恆山",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "恆山弟子在峭壁間練成的步法，身形飄忽如雲。",
       "difficulty": 0.82,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "慈悲",
+          "level": 10
+        }
+      ],
       "moves": []
     },
     "恆山劍法": {
@@ -12292,10 +13303,18 @@
       "name": "恆山劍法",
       "sect": "恆山",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "恆山派入門劍法，綿密嚴謹，劍勢籠罩身前一片。",
       "difficulty": 0.83,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "白雲出岫",
         "峰迴路轉",
@@ -12307,10 +13326,21 @@
       "name": "恆山醫法",
       "sect": "恆山",
       "category": "MEDIC",
+      "role": "UTILITY",
       "base": "基本醫術",
+      "weapon_types": [],
+      "basic": false,
       "desc": "恆山派獨門醫術，止血療傷，可同時照顧身旁數人。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "基本醫術",
+          "level": 10
+        }
+      ],
       "moves": [
         "回春妙手",
         "慈雲遍覆"
@@ -12321,10 +13351,28 @@
       "name": "天長掌法",
       "sect": "恆山",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "恆山三定之一定逸師太所傳的掌法，守中帶攻，掌勢綿延不絕。",
       "difficulty": 0.86,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "慈悲",
+          "level": 30
+        },
+        {
+          "skill": "恆山心法",
+          "level": 30
+        }
+      ],
       "moves": [
         "天長地久",
         "慈航普渡",
@@ -12336,10 +13384,31 @@
       "name": "萬花劍法",
       "sect": "恆山",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "恆山掌門親傳的劍法，劍光散開如萬花齊放，一劍可及數人。",
       "difficulty": 1.48,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "慈悲",
+          "level": 50
+        },
+        {
+          "skill": "恆山心法",
+          "level": 50
+        },
+        {
+          "skill": "恆山劍法",
+          "level": 50
+        }
+      ],
       "moves": [
         "萬花齊放",
         "落英繽紛",
@@ -12351,10 +13420,16 @@
       "name": "逍遙心法",
       "sect": "靈鷲宮",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "逍遙派一脈相傳的內功根基，氣息綿長，運轉時心境空明。",
       "difficulty": 0.84,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "月影舞步": {
@@ -12362,10 +13437,16 @@
       "name": "月影舞步",
       "sect": "靈鷲宮",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "步法如月下起舞，飄忽難測，練到高處能越過障礙。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "天山折梅手": {
@@ -12373,10 +13454,19 @@
       "name": "天山折梅手",
       "sect": "靈鷲宮",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "童姥親傳的擒拿手法，招中含掌、抓、點穴諸般變化，出手如折梅枝。",
       "difficulty": 1.25,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "寒梅初綻",
         "梅枝橫斜",
@@ -12388,10 +13478,27 @@
       "name": "天羽奇劍",
       "sect": "靈鷲宮",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "劍招輕靈迅捷，劍光如漫天羽毛四散飄落。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "逍遙心法",
+          "level": 10
+        },
+        {
+          "skill": "定性",
+          "level": 20
+        }
+      ],
       "moves": [
         "羽落無聲",
         "天羽紛飛",
@@ -12403,10 +13510,27 @@
       "name": "如意刀法",
       "sect": "靈鷲宮",
       "category": "BLADE",
+      "role": "EXTERNAL",
       "base": "基本刀法",
+      "weapon_types": [
+        "BLADE"
+      ],
+      "basic": false,
       "desc": "刀隨意轉、收發如意的刀法，一刀劈出，刀氣直貫前方。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "逍遙心法",
+          "level": 10
+        },
+        {
+          "skill": "定性",
+          "level": 10
+        }
+      ],
       "moves": [
         "隨心所欲",
         "如意橫波",
@@ -12418,10 +13542,28 @@
       "name": "天山六陽掌",
       "sect": "靈鷲宮",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "以至陽內力發出的掌法，掌力綿綿不絕，也是化解生死符的唯一法門。",
       "difficulty": 2.27,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "天山折梅手",
+          "level": 90
+        },
+        {
+          "skill": "定性",
+          "level": 50
+        }
+      ],
       "moves": [
         "陽歌天鈞",
         "六陽融雪",
@@ -12433,10 +13575,25 @@
       "name": "八荒六合唯我獨尊功",
       "sect": "靈鷲宮",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "童姥的獨門神功，每三十年返老還童一次，功力深不可測。須完成童姥交代的事件才能修習。",
       "difficulty": 1.5,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "逍遙心法",
+          "level": 80
+        },
+        {
+          "skill": "定性",
+          "level": 50
+        }
+      ],
       "moves": []
     },
     "全真心法": {
@@ -12444,10 +13601,16 @@
       "name": "全真心法",
       "sect": "全真",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "全真教內功根基，以清靜無為養氣，運功療傷的效果比他派強。",
       "difficulty": 0.8,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "全真劍法": {
@@ -12455,10 +13618,18 @@
       "name": "全真劍法",
       "sect": "全真",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "全真教入門劍法，劍招連綿，一招打出劍風籠罩前方一片。古墓派也傳這套劍法。",
       "difficulty": 0.74,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "定陽針",
         "探海斬蛟",
@@ -12470,10 +13641,19 @@
       "name": "昊天掌",
       "sect": "全真",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "全真教的掌法，掌力渾厚，出手比劍法更快，掌風四面八方掃開。",
       "difficulty": 0.95,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "昊天正氣",
         "天外飛雲",
@@ -12485,10 +13665,16 @@
       "name": "金雁功",
       "sect": "全真",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "全真教輕功，身似金雁橫空，增加戰鬥中的移動距離。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "天罡北斗陣": {
@@ -12496,10 +13682,41 @@
       "name": "天罡北斗陣",
       "sect": "全真",
       "category": "FORMATION",
+      "role": "UTILITY",
       "base": "基本陣法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "全真教鎮教陣法，須七名男弟子依北斗七星方位站定，由一人佈陣。陣勢範圍極大、守禦堅固，有一人倒下陣便破了。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "全真心法",
+          "level": 80
+        },
+        {
+          "skill": "全真劍法",
+          "level": 70
+        },
+        {
+          "skill": "養生",
+          "level": 90
+        },
+        {
+          "skill": "基本內功",
+          "level": 70
+        },
+        {
+          "skill": "基本劍法",
+          "level": 60
+        },
+        {
+          "skill": "基本陣法",
+          "level": 1
+        }
+      ],
       "moves": [
         "北斗七星",
         "天罡合璧"
@@ -12510,10 +13727,29 @@
       "name": "先天氣功",
       "sect": "全真",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "全真教上乘內功，返本還原、歸於先天，療傷逼毒都勝過全真心法。",
       "difficulty": 1.2,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "全真心法",
+          "level": 90
+        },
+        {
+          "skill": "養生",
+          "level": 100
+        },
+        {
+          "skill": "基本內功",
+          "level": 80
+        }
+      ],
       "moves": []
     },
     "同歸劍法": {
@@ -12521,10 +13757,39 @@
       "name": "同歸劍法",
       "sect": "全真",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "招招拚命、與敵偕亡的劍法，劍勢呈扇形向前橫掃。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "全真心法",
+          "level": 60
+        },
+        {
+          "skill": "全真劍法",
+          "level": 50
+        },
+        {
+          "skill": "養生",
+          "level": 70
+        },
+        {
+          "skill": "基本內功",
+          "level": 50
+        },
+        {
+          "skill": "基本劍法",
+          "level": 40
+        }
+      ],
       "moves": [
         "同歸於盡",
         "玉石俱焚",
@@ -12536,10 +13801,36 @@
       "name": "三花聚頂掌",
       "sect": "全真",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "精、氣、神三花聚於頂門，掌力向前呈扇形推出，中者氣血翻湧。",
       "difficulty": 1.25,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "昊天掌",
+          "level": 70
+        },
+        {
+          "skill": "全真心法",
+          "level": 70
+        },
+        {
+          "skill": "基本內功",
+          "level": 60
+        },
+        {
+          "skill": "搏擊格鬥",
+          "level": 60
+        }
+      ],
       "moves": [
         "精花初綻",
         "氣貫三關",
@@ -12551,10 +13842,35 @@
       "name": "重陽劍法",
       "sect": "全真",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "祖師王重陽所傳的七星七絕劍，要循著百花谷、漱流隱士、雲遊道士一路求得劍譜才能修習（M3b 任務）。",
       "difficulty": 2.25,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "全真心法",
+          "level": 70
+        },
+        {
+          "skill": "基本劍法",
+          "level": 60
+        },
+        {
+          "skill": "基本內功",
+          "level": 60
+        },
+        {
+          "skill": "養生",
+          "level": 80
+        }
+      ],
       "moves": [
         "七星聚首",
         "北斗回旋",
@@ -12566,10 +13882,36 @@
       "name": "空明拳",
       "sect": "全真",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "以柔克剛、以空擊實的拳法，傳授者是誰江湖上說法不一（M3b 任務）。",
       "difficulty": 2.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "昊天掌",
+          "level": 70
+        },
+        {
+          "skill": "搏擊格鬥",
+          "level": 80
+        },
+        {
+          "skill": "全真心法",
+          "level": 80
+        },
+        {
+          "skill": "養生",
+          "level": 90
+        }
+      ],
       "moves": [
         "空碗盛飯",
         "空屋住人",
@@ -12581,10 +13923,27 @@
       "name": "日月鞭法",
       "sect": "少林",
       "category": "WHIP",
+      "role": "EXTERNAL",
       "base": "基本鞭法",
+      "weapon_types": [
+        "WHIP"
+      ],
+      "basic": false,
       "desc": "少林二階鞭法，長鞭舞開如日月輪轉，也是金剛伏魔圈的根基。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "佛法",
+          "level": 30
+        },
+        {
+          "skill": "少林心法",
+          "level": 35
+        }
+      ],
       "moves": [
         "日月同輝",
         "橫掃千軍",
@@ -12596,10 +13955,29 @@
       "name": "金剛伏魔圈",
       "sect": "少林",
       "category": "FORMATION",
+      "role": "UTILITY",
       "base": "基本陣法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "三位少林高僧持鞭結成的伏魔圈，三人站定方位，攻守渾然一體。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "佛法",
+          "level": 70
+        },
+        {
+          "skill": "日月鞭法",
+          "level": 50
+        },
+        {
+          "skill": "基本陣法",
+          "level": 1
+        }
+      ],
       "moves": [
         "伏魔金剛圈"
       ]
@@ -12609,10 +13987,16 @@
       "name": "武當心法",
       "sect": "武當",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "武當派入門內功，講究以靜制動、綿綿不絕。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "武當身法": {
@@ -12620,10 +14004,16 @@
       "name": "武當身法",
       "sect": "武當",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "武當弟子的入門步法，身形飄逸，進退有度。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "武當長拳": {
@@ -12631,10 +14021,19 @@
       "name": "武當長拳",
       "sect": "武當",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "武當入門拳法，拳勢舒展，一拳打出四面皆顧。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "沖天炮",
         "雙風貫耳",
@@ -12646,10 +14045,18 @@
       "name": "繞指柔劍",
       "sect": "武當",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "以內力催動劍身，劍走弧線，可以繞過敵人的守勢。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "白蛇吐信",
         "柔絲纏腕",
@@ -12661,10 +14068,18 @@
       "name": "玄虛刀法",
       "sect": "武當",
       "category": "BLADE",
+      "role": "EXTERNAL",
       "base": "基本刀法",
+      "weapon_types": [
+        "BLADE"
+      ],
+      "basic": false,
       "desc": "武當入門刀法，虛實相生，一刀劈出直貫一線。新弟子多半先練這套，練到十五級便可向宋大俠請纓剿匪。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "玄天一劈",
         "虛實相生",
@@ -12676,10 +14091,21 @@
       "name": "太極神功",
       "sect": "武當",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "武當心法練到五十級後才能修習的內功，陰陽相濟，生生不息。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "武當心法",
+          "level": 50
+        }
+      ],
       "moves": []
     },
     "綿掌": {
@@ -12687,10 +14113,24 @@
       "name": "綿掌",
       "sect": "武當",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "掌力綿軟，看似無力，勁道卻直透臟腑，中掌者常受內傷。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "武當長拳",
+          "level": 30
+        }
+      ],
       "moves": [
         "綿裡藏針",
         "柔掌化勁"
@@ -12701,10 +14141,23 @@
       "name": "柔雲劍法",
       "sect": "武當",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "繞指柔劍練到四十級後才能修習，劍勢如雲舒捲，一劍罩住四方。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "繞指柔劍",
+          "level": 40
+        }
+      ],
       "moves": [
         "柔雲出岫",
         "雲橫秦嶺"
@@ -12715,10 +14168,19 @@
       "name": "絕戶虎爪手",
       "sect": "武當",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "出手狠辣的爪法，專拿敵人要害，武當弟子非到萬不得已不輕易使用。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "虎爪擒拿",
         "絕戶一抓"
@@ -12729,10 +14191,21 @@
       "name": "純陽無極功",
       "sect": "武當",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "張三丰的純陽內功，要先解開「真假黑玉斷續膏之謎」才能修習（M3b 開放）。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "俠義",
+          "level": 40
+        }
+      ],
       "moves": []
     },
     "梯雲縱": {
@@ -12740,10 +14213,21 @@
       "name": "梯雲縱",
       "sect": "武當",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "武當上乘輕功，左腳踏右腳借力，身子便能一路拔高。要先完成「殷六俠的迷思」（M3b 開放）。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "俠義",
+          "level": 30
+        }
+      ],
       "moves": []
     },
     "太極拳": {
@@ -12751,10 +14235,24 @@
       "name": "太極拳",
       "sect": "武當",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "以柔克剛、以靜制動的拳法，要先完成「太極拳與太極劍」（M3b 開放）。",
       "difficulty": 1.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "俠義",
+          "level": 40
+        }
+      ],
       "moves": [
         "攬雀尾",
         "白鶴亮翅",
@@ -12766,10 +14264,23 @@
       "name": "太極劍法",
       "sect": "武當",
       "category": "SWORD",
+      "role": "EXTERNAL",
       "base": "基本劍法",
+      "weapon_types": [
+        "SWORD"
+      ],
+      "basic": false,
       "desc": "劍招圓轉如意，一招一式都畫著圓圈，要先完成「太極拳與太極劍」（M3b 開放）。",
       "difficulty": 1.43,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "俠義",
+          "level": 40
+        }
+      ],
       "moves": [
         "三環套月",
         "大魁星",
@@ -12780,11 +14291,24 @@
       "id": "wd_yitian",
       "name": "倚天屠龍筆法",
       "sect": "武當",
-      "category": "STAB",
-      "base": "基本刺術",
+      "category": "SPEAR",
+      "role": "EXTERNAL",
+      "base": "基本槍法",
+      "weapon_types": [
+        "SPEAR"
+      ],
+      "basic": false,
       "desc": "張三丰從二十四個字裡悟出的筆法，以筆代劍，一筆一劃都是殺招（M3b 開放）。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "俠義",
+          "level": 30
+        }
+      ],
       "moves": [
         "武林至尊",
         "號令天下",
@@ -12796,10 +14320,21 @@
       "name": "真武七截陣",
       "sect": "武當",
       "category": "FORMATION",
+      "role": "UTILITY",
       "base": "基本陣法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "七人結陣的武當陣法，七人如一，攻守互補；要先完成「龍門遺案」（M3b 開放）。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "俠義",
+          "level": 50
+        }
+      ],
       "moves": [
         "真武七截"
       ]
@@ -12809,10 +14344,16 @@
       "name": "星宿心法",
       "sect": "星宿",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "星宿派的入門內功，練到深處能以內力逼出體內毒素。",
       "difficulty": 0.5,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "星宿身法": {
@@ -12820,10 +14361,16 @@
       "name": "星宿身法",
       "sect": "星宿",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "閃躲縱躍",
+      "weapon_types": [],
+      "basic": false,
       "desc": "飄忽詭異的步法，練的是閃躲縱躍的功夫。",
       "difficulty": 0.83,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "抽髓掌": {
@@ -12831,10 +14378,19 @@
       "name": "抽髓掌",
       "sect": "星宿",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "以毒為本的掌法，掌風帶著腥甜的氣味，中掌者往往跟著中毒。",
       "difficulty": 0.87,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "腐骨穿心",
         "抽髓吸血",
@@ -12846,10 +14402,32 @@
       "name": "三陰蜈蚣爪",
       "sect": "星宿",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "陰毒狠辣的爪功，爪尖淬毒，練到四十級以後一爪抓出，四面八方都是爪影。",
       "difficulty": 1.43,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "星宿心法",
+          "level": 20
+        },
+        {
+          "skill": "諂媚",
+          "level": 30
+        },
+        {
+          "skill": "基本毒術",
+          "level": 40
+        }
+      ],
       "moves": [
         "蜈蚣探路",
         "三陰奪魄",
@@ -12861,10 +14439,27 @@
       "name": "天山杖法",
       "sect": "星宿",
       "category": "STAFF",
+      "role": "EXTERNAL",
       "base": "基本棍法",
+      "weapon_types": [
+        "STAFF"
+      ],
+      "basic": false,
       "desc": "丁春秋得自天山的杖法，杖頭藏毒，一掃便是一大片。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "星宿心法",
+          "level": 10
+        },
+        {
+          "skill": "基本棍法",
+          "level": 10
+        }
+      ],
       "moves": [
         "橫掃千軍",
         "天山雪崩",
@@ -12876,10 +14471,21 @@
       "name": "放毒法",
       "sect": "星宿",
       "category": "POISON",
+      "role": "UTILITY",
       "base": "基本毒術",
+      "weapon_types": [],
+      "basic": false,
       "desc": "星宿派的看家本事：走到敵人面前，光明正大地把毒放出去。眼尖的人看得見，也躲得開。",
       "difficulty": 0.96,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "基本毒術",
+          "level": 1
+        }
+      ],
       "moves": [
         "化骨綿香",
         "腐屍毒煙"
@@ -12890,10 +14496,29 @@
       "name": "飛星術",
       "sect": "星宿",
       "category": "HIDDEN",
+      "role": "UTILITY",
       "base": "基本暗器",
+      "weapon_types": [],
+      "basic": false,
       "desc": "把淬了毒的暗器像流星一般打出，中者傷口發黑。",
       "difficulty": 0.59,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "星宿心法",
+          "level": 50
+        },
+        {
+          "skill": "諂媚",
+          "level": 40
+        },
+        {
+          "skill": "基本毒術",
+          "level": 50
+        }
+      ],
       "moves": [
         "流星趕月",
         "滿天星斗"
@@ -12904,10 +14529,16 @@
       "name": "血刀心法",
       "sect": "血刀門",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "血刀門入門內功，運功時血氣上湧，臉色泛紅。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "血刀刀法": {
@@ -12915,10 +14546,18 @@
       "name": "血刀刀法",
       "sect": "血刀門",
       "category": "BLADE",
+      "role": "EXTERNAL",
       "base": "基本刀法",
+      "weapon_types": [
+        "BLADE"
+      ],
+      "basic": false,
       "desc": "血刀門的看家刀法，刀勢詭異狠辣，專走偏鋒。2001 年初版極強，後來被削弱。",
       "difficulty": 1.6,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "流星經天",
         "血浪翻湧",
@@ -12930,10 +14569,19 @@
       "name": "滅仙掌",
       "sect": "血刀門",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "血刀門掌法，掌力陰狠，專打要害。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": [
         "天魔指路",
         "滅仙斷魂",
@@ -12945,10 +14593,16 @@
       "name": "雪遁步行",
       "sect": "血刀門",
       "category": "LIGHTNESS",
+      "role": "MOVEMENT",
       "base": "基本身法",
+      "weapon_types": [],
+      "basic": false,
       "desc": "在雪地裡練出來的步法，踏雪無痕，進退飄忽。",
       "difficulty": 0.9,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "血海魔功": {
@@ -12956,10 +14610,29 @@
       "name": "血海魔功",
       "sect": "血刀門",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "血刀門二階內功，以血養氣，功成之後內力兇猛。",
       "difficulty": 1.6,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "基本內功",
+          "level": 60
+        },
+        {
+          "skill": "基本刀法",
+          "level": 50
+        },
+        {
+          "skill": "威嚇",
+          "level": 50
+        }
+      ],
       "moves": []
     },
     "紫霞神功": {
@@ -12967,10 +14640,16 @@
       "name": "紫霞神功",
       "sect": "華山",
       "category": "INNER",
+      "role": "INNER",
       "base": "基本內功",
+      "weapon_types": [],
+      "basic": false,
       "desc": "華山氣宗的鎮派內功，練到深處紫氣自生、百脈俱通。要先揭穿內奸勞德諾，岳不群才傳入門口訣，之後全靠自己苦修。",
       "difficulty": 1.2,
       "cap": 100,
+      "study_cap": 65,
+      "learn_cap": 1,
+      "requires": [],
       "moves": []
     },
     "化功大法": {
@@ -12978,10 +14657,24 @@
       "name": "化功大法",
       "sect": "星宿",
       "category": "FIST",
-      "base": "基本拳腳",
+      "role": "EXTERNAL",
+      "base": "搏擊格鬥",
+      "weapon_types": [
+        "UNARMED",
+        "CLAW"
+      ],
+      "basic": false,
       "desc": "丁春秋的獨門邪功，掌力沾身，對方的內力便如雪遇火，一點一點化去。",
       "difficulty": 1.5,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [
+        {
+          "skill": "星宿心法",
+          "level": 5
+        }
+      ],
       "moves": [
         "化功銷骨",
         "雪消冰融",
@@ -12993,10 +14686,16 @@
       "name": "佛法",
       "sect": "少林",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "儒風": {
@@ -13004,10 +14703,16 @@
       "name": "儒風",
       "sect": "華山",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "斷惡": {
@@ -13015,10 +14720,16 @@
       "name": "斷惡",
       "sect": "峨嵋",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "清心": {
@@ -13026,10 +14737,16 @@
       "name": "清心",
       "sect": "古墓",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "慈悲": {
@@ -13037,10 +14754,16 @@
       "name": "慈悲",
       "sect": "恆山",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "定性": {
@@ -13048,10 +14771,16 @@
       "name": "定性",
       "sect": "靈鷲宮",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "養生": {
@@ -13059,10 +14788,16 @@
       "name": "養生",
       "sect": "全真",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "俠義": {
@@ -13070,10 +14805,16 @@
       "name": "俠義",
       "sect": "武當",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "諂媚": {
@@ -13081,10 +14822,16 @@
       "name": "諂媚",
       "sect": "星宿",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     },
     "威嚇": {
@@ -13092,10 +14839,16 @@
       "name": "威嚇",
       "sect": "血刀門",
       "category": "SECT",
+      "role": "UTILITY",
       "base": "",
+      "weapon_types": [],
+      "basic": false,
       "desc": "本門修養，影響師父是否願意傳授更深武學。",
       "difficulty": 1.0,
       "cap": 100,
+      "study_cap": 100,
+      "learn_cap": 0,
+      "requires": [],
       "moves": []
     }
   },
@@ -13104,7 +14857,7 @@
       "place": "少林寺・少林山門",
       "master": "知客僧",
       "basic": "少林長拳",
-      "advanced": "金剛伏魔圈",
+      "advanced": "日月鞭法",
       "hp": 20,
       "attack": 3,
       "style": "佛法立身，循師承逐級學藝",
@@ -13117,8 +14870,8 @@
     "華山": {
       "place": "華山・華山山門",
       "master": "岳不群",
-      "basic": "華山心法",
-      "advanced": "紫霞神功",
+      "basic": "華山劍法",
+      "advanced": "劈石破玉拳",
       "hp": 20,
       "attack": 3,
       "style": "儒風立身，循師承逐級學藝",
@@ -13132,7 +14885,7 @@
     "峨嵋": {
       "place": "峨嵋派・峨嵋山門",
       "master": "滅絕師太",
-      "basic": "峨嵋心法",
+      "basic": "飄雪穿雲掌",
       "advanced": "佛光普照掌",
       "hp": 20,
       "attack": 3,
@@ -13146,8 +14899,8 @@
     "古墓": {
       "place": "古墓派・活死人墓入口",
       "master": "古墓派掌門人",
-      "basic": "古墓心法",
-      "advanced": "九陰真經",
+      "basic": "玉女劍法",
+      "advanced": "玉女素心劍法",
       "hp": 20,
       "attack": 3,
       "style": "清心立身，循師承逐級學藝",
@@ -13160,7 +14913,7 @@
     "恆山": {
       "place": "恆山派・恆山山門",
       "master": "定閒師太",
-      "basic": "恆山心法",
+      "basic": "恆山劍法",
       "advanced": "萬花劍法",
       "hp": 20,
       "attack": 3,
@@ -13174,8 +14927,8 @@
     "靈鷲宮": {
       "place": "靈鷲宮・靈鷲宮山門",
       "master": "天山童姥",
-      "basic": "逍遙心法",
-      "advanced": "八荒六合唯我獨尊功",
+      "basic": "天山折梅手",
+      "advanced": "天山六陽掌",
       "hp": 20,
       "attack": 3,
       "style": "定性立身，循師承逐級學藝",
@@ -13188,7 +14941,7 @@
     "全真": {
       "place": "全真教・全真教山門",
       "master": "丘處機",
-      "basic": "全真心法",
+      "basic": "全真劍法",
       "advanced": "空明拳",
       "hp": 20,
       "attack": 3,
@@ -13202,8 +14955,8 @@
     "武當": {
       "place": "武當派・武當山門",
       "master": "張三丰",
-      "basic": "武當心法",
-      "advanced": "真武七截陣",
+      "basic": "武當長拳",
+      "advanced": "倚天屠龍筆法",
       "hp": 20,
       "attack": 3,
       "style": "俠義立身，循師承逐級學藝",
@@ -13216,7 +14969,7 @@
     "星宿": {
       "place": "星宿派・星宿海外景",
       "master": "丁春秋",
-      "basic": "星宿心法",
+      "basic": "抽髓掌",
       "advanced": "化功大法",
       "hp": 20,
       "attack": 3,
@@ -13231,8 +14984,8 @@
     "血刀門": {
       "place": "血刀門・血刀門口",
       "master": "血刀老祖",
-      "basic": "血刀心法",
-      "advanced": "血海魔功",
+      "basic": "血刀刀法",
+      "advanced": "滅仙掌",
       "hp": 20,
       "attack": 3,
       "style": "威嚇立身，循師承逐級學藝",

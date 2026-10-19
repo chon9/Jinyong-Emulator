@@ -55,7 +55,8 @@ static func _static_init() -> void:
 		if not place in PLACES["揚州城"].exits: PLACES["揚州城"].exits.append(place)
 		if not "揚州城" in PLACES[place].exits: PLACES[place].exits.append("揚州城")
 	for name in ["太祖長拳", "逍遙遊", "混天功", "降龍十八掌", "打狗棒法"]:
-		SKILLS[name] = {"name": name, "sect": "丐幫", "category": "FIST", "base": "基本拳腳", "desc": "丐幫相傳之學，以扶危濟困為立身根本。", "difficulty": 1.2, "cap": 100, "moves": []}
+		var category: String = "STAFF" if name == "打狗棒法" else ("INNER" if name == "混天功" else "FIST")
+		SKILLS[name] = {"name": name, "sect": "丐幫", "category": category, "role": "INNER" if category == "INNER" else "EXTERNAL", "weapon_types": ["STAFF"] if category == "STAFF" else (["UNARMED", "CLAW"] if category == "FIST" else []), "base": "基本棍法" if category == "STAFF" else ("基本內功" if category == "INNER" else "搏擊格鬥"), "desc": "丐幫相傳之學；此分舵的師承與數值為模擬器改編。", "difficulty": 1.2, "cap": 100, "study_cap": 100, "moves": []}
 	SKILLS["乞討"] = {"name": "乞討", "sect": "丐幫", "category": "SECT", "base": "", "desc": "知人情冷暖，行江湖正道。", "difficulty": 1.0, "cap": 100, "moves": []}
 	SECTS["丐幫"]["virtue"] = "乞討"
 	NPCS["yx_hongqigong"] = {"name": "洪七公", "place": "丐幫分舵", "desc": "九指神丐抱著酒葫蘆，目光炯炯。", "kind": "MASTER", "dialogue": ["洪七公笑道：武功高低倒在其次，若仗著本事欺負窮人，老叫化第一個不饒！", "洪七公拈起一根竹枝：棒是尋常竹，心卻不可偏。看清敵人的退路，才知這一棒該落在哪裡。"], "teach": []}
@@ -69,6 +70,28 @@ static func _static_init() -> void:
 		SHOP[name]["quest"] = false
 		SHOP[name]["sellable"] = true
 		SHOP[name]["restore"] = {"hp": 70} if name == "金創藥" else ({"mp": 45} if name == "養氣丹" else {})
+	SHOP["精鋼劍"]["weapon_type"] = "SWORD"
+	# 補齊原匯入商店缺少的武器類；名稱與數值為本作練習兵器。
+	for entry in [["練習長槍", "SPEAR"], ["練習鐵爪", "CLAW"]]:
+		SHOP[entry[0]] = {"id": "yx_" + entry[1], "type": "WEAPON", "weapon_type": entry[1], "price": 30, "attack": 5, "defense": 0, "quest": false, "sellable": true, "restore": {}, "desc": "本作練習兵器，僅為相容的外功提供兵器加成。"}
+
+static func role(skill: String) -> String:
+	return str(SKILLS.get(skill, {}).get("role", "UTILITY"))
+
+static func category_label(category: String) -> String:
+	return str({"FIST": "搏擊拳掌", "STAB": "刺術指法", "BLADE": "刀法", "SWORD": "劍法", "STAFF": "棍杖", "SPEAR": "槍法", "WHIP": "鞭法", "CLAW": "搏擊兵器（爪）", "UNARMED": "徒手", "INNER": "內功", "LIGHTNESS": "輕功", "DODGE": "閃躲", "PARRY": "拆招", "FORMATION": "陣法", "HIDDEN": "暗器", "POISON": "毒術", "MEDIC": "醫術", "SECT": "門派修養"}.get(category, "生活技藝"))
+
+static func weapon_type(weapon: String) -> String:
+	return "UNARMED" if weapon == "" else str(SHOP.get(weapon, {}).get("weapon_type", "UNKNOWN"))
+
+static func fits(skill: String, weapon: String) -> bool:
+	return role(skill) == "EXTERNAL" and weapon_type(weapon) in SKILLS.get(skill, {}).get("weapon_types", [])
+
+static func requirement_text(skill: String) -> String:
+	var art: Dictionary = SKILLS.get(skill, {})
+	var types: PackedStringArray = []
+	for kind in art.get("weapon_types", []): types.append(category_label(kind))
+	return category_label(str(art.get("category", ""))) + (" · 需 " + "／".join(types) if not types.is_empty() else " · 不作外功攻擊")
 
 static func local_npcs(place: String) -> Array:
 	return PLACES.get(place, {}).get("npcs", [])

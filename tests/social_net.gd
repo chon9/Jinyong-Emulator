@@ -46,6 +46,16 @@ func run() -> void:
 	else:
 		session.join_lan("127.0.0.1")
 		if not await wait_until(func(): return not session.state.is_empty(), "Client connected"): finish(); return
+		await tx("說", "SYNC_MARTIAL")
+		await wait_until(func(): return session.state.player.skills.has("基本劍法"), "Martial fixture replicated from host")
+		await tx("裝備", "木劍")
+		check(session.state.player.weapon == "木劍" and session.state.player.equipped == "基本劍法", "Host selects compatible sword art over RPC")
+		await tx("裝備", "打狗棒法")
+		check(session.state.player.equipped == "基本劍法", "Host rejects remote sword and staff mismatch")
+		await tx("裝備", "基本內功")
+		check(session.state.player.inner == "基本內功" and session.state.player.equipped == "基本劍法", "Remote inner slot does not replace external art")
+		await tx("卸下", "weapon")
+		check(session.state.player.weapon == "" and session.state.player.equipped == "搏擊格鬥", "Host applies remote weapon removal")
 		await tx("說", "SYNC_PARTY")
 		if not await wait_until(func(): return invitation("組隊") > 0, "Host invitation replicated"): finish(); return
 		await tx("接受邀請", str(invitation("組隊")))
@@ -90,7 +100,12 @@ func _message(channel: String, text: String) -> void:
 	for id in session.world.players:
 		if id != 1: target = id
 	if target == 0: return
-	if "SYNC_PARTY" in text:
+	if "SYNC_MARTIAL" in text:
+		var p: Dictionary = session.world.players[target]
+		p.skills.merge({"基本劍法": 1, "打狗棒法": 1}, true)
+		p.inventory["木劍"] = 1
+		session._publish()
+	elif "SYNC_PARTY" in text:
 		session.world.players[target].auto_heal = false
 		session.send("組隊邀請", str(target))
 	elif "SYNC_TRAVEL" in text:

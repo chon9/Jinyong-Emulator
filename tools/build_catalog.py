@@ -26,15 +26,32 @@ def build(source):
         all_skills.append({'id': s['sect_skill'], 'name': s['sect_skill_name'], 'sect_id': sid,
                            'category': 'SECT', 'desc': '本門修養，影響師父是否願意傳授更深武學。'})
     skill_names = {s['id']: s['name'] for s in all_skills}
-    skill_names['basic_fist'] = '基本拳腳'
+    basic_categories = {'basic_blade': 'BLADE', 'basic_sword': 'SWORD', 'basic_whip': 'WHIP',
+                        'basic_staff': 'STAFF', 'basic_spear': 'SPEAR', 'basic_fist': 'FIST',
+                        'basic_stab': 'STAB', 'basic_inner': 'INNER', 'basic_body': 'LIGHTNESS',
+                        'basic_dodge': 'DODGE', 'basic_parry': 'PARRY', 'basic_hidden': 'HIDDEN',
+                        'basic_poison': 'POISON', 'basic_medic': 'MEDIC', 'basic_formation': 'FORMATION'}
     arts = {}
     for a in all_skills:
         if a.get('monster_only'): continue
         name = skill_names[a['id']]
+        category = a.get('category', basic_categories.get(a['id'], 'UTILITY'))
+        base = skill_names.get(a.get('base_skill'), '')
+        # 官方武學限制表歸為槍法；原專案的 STAB 是筆法的暫代分類。
+        if a['id'] == 'wd_yitian': category, base = 'SPEAR', skill_names['basic_spear']
+        role = ('EXTERNAL' if category in ['FIST', 'STAB', 'BLADE', 'SWORD', 'STAFF', 'SPEAR', 'WHIP']
+                else 'INNER' if category == 'INNER' else 'MOVEMENT' if category in ['LIGHTNESS', 'DODGE']
+                else 'UTILITY')
         arts[name] = {'id': a['id'], 'name': name, 'sect': sects.get(a.get('sect_id'), {}).get('name', ''),
-                      'category': a.get('category', 'BASIC'), 'base': skill_names.get(a.get('base_skill'), ''),
+                      'category': category, 'role': role, 'base': base,
+                      'weapon_types': (['UNARMED', 'CLAW'] if category in ['FIST', 'STAB'] else [category]) if role == 'EXTERNAL' else [],
+                      'basic': a['id'].startswith('basic_'),
                       'desc': a.get('desc', '紮穩根基，方能登堂入室。'),
-                      'difficulty': a.get('difficulty', 1.0), 'cap': 100,
+                      'difficulty': a.get('difficulty', 1.0), 'cap': a.get('max_level', 100),
+                      'study_cap': a.get('self_study_cap', 0) or a.get('max_level', 100),
+                      'learn_cap': 1 if a['id'] in ['hs_zixia', 'em_jiuyang', 'gm_jiuyin'] else 0,
+                      'requires': [{'skill': skill_names[r['skill']], 'level': r['value']} for r in a.get('requires', [])
+                                   if r['type'] == 'skill_min' and r['skill'] in skill_names],
                       'moves': [m['name'] for m in a.get('moves', [])]}
     item_names = {i['id']: i['name'] for i in rows('items')}
     items = {}
@@ -126,7 +143,8 @@ def build(source):
         for req in m.get('requires', []):
             if req['type'] == 'skill_min' and req['skill'] in skill_names:
                 requirements.append({'skill': skill_names[req['skill']], 'level': req['value']})
-        npcs[m['npc_id']]['teach'].append({'skill': skill, 'cap': min(100, m['cap']),
+        requirements += [r for r in arts[skill]['requires'] if r not in requirements]
+        npcs[m['npc_id']]['teach'].append({'skill': skill, 'cap': arts[skill]['learn_cap'] or min(arts[skill]['cap'], m['cap']),
                                          'price': max(1, m.get('price', 1)), 'requires': requirements})
     sect_data = {}
     for sid, s in sects.items():
@@ -134,7 +152,8 @@ def build(source):
         if not own: continue
         head = npcs.get(s['head_npc'])
         sect_data[s['name']] = {'place': names[s['gate_room']], 'master': head['name'] if head else s['name'] + '掌門',
-                                'basic': own[0]['name'], 'advanced': own[-1]['name'], 'hp': 20, 'attack': 3,
+                                'basic': next((a['name'] for a in own if a['role'] == 'EXTERNAL'), own[0]['name']),
+                                'advanced': next((a['name'] for a in reversed(own) if a['role'] == 'EXTERNAL'), own[-1]['name']), 'hp': 20, 'attack': 3,
                                 'style': s['sect_skill_name'] + '立身，循師承逐級學藝',
                                 'virtue': s['sect_skill_name'], 'gender': s.get('gender', []),
                                 'note': '本作允許自由選派；不套用原版性別限制。'}
@@ -152,8 +171,10 @@ def build(source):
             if own_sect['head_npc'] in npcs: instructor = own_sect['head_npc']
         elif skill == '九陰真經': instructor = 'n_gm_xiaolongnu'
         required = art['base'] or '基本內功'
-        npcs[instructor]['teach'].append({'skill': skill, 'cap': 60, 'price': 5,
-                                          'requires': [{'skill': required, 'level': 20}] if required != skill else []})
+        requirements = [{'skill': required, 'level': 20}] if required != skill else []
+        requirements += [r for r in art['requires'] if r not in requirements]
+        npcs[instructor]['teach'].append({'skill': skill, 'cap': art['learn_cap'] or 60, 'price': 5,
+                                          'requires': requirements})
     # 確保 100+ 種遭遇均可在地圖實際遇見，保留原本遭遇，另加輪替池。
     wilds = [v for v in places.values() if not v['safe']]
     for i, name in enumerate(enemies):
