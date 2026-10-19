@@ -1,0 +1,11 @@
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.ttf binary
+*.mp3 binary
+*.dll binary
+*.so binary
+assets/fonts/OFL.txt -whitespace
+scripts/classic/jy_button.gd whitespace=-blank-at-eof
+scripts/classic/ui_frame.gd whitespace=-blank-at-eof
+scripts/classic/ui_theme.gd whitespace=-blank-at-eof

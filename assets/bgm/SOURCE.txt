@@ -1,0 +1,4 @@
+Soundtrack files supplied by the project owner from the JY-Mini OL project.
+Original filenames are retained; playback timing and gain settings are adapted from its BgmPlayer.
+Music copyright remains with the respective soundtrack owners. No code or font license grants rights to these recordings.
+Scene-to-track assignments are simulator design choices, not verified original-game placements.

@@ -1,0 +1,35 @@
+extends SceneTree
+
+func _init() -> void:
+	call_deferred("run")
+
+func capture(name: String) -> void:
+	await process_frame
+	await RenderingServer.frame_post_draw
+	get_root().get_texture().get_image().save_png("res://docs/screenshots/" + name + ".png")
+
+func run() -> void:
+	DirAccess.make_dir_recursive_absolute("res://docs/screenshots")
+	var session = root.get_node("Session")
+	session.world.add_player(1, "青衫游俠")
+	session.world.add_player(2, "墨客")
+	session.world.add_player(3, "燕十三")
+	session.world.act(1, "前往", session.world.Data.SECTS["武當"].place)
+	session.world.act(1, "拜師", "武當")
+	for id in [2, 3]: session.world.players[id].place = session.world.players[1].place
+	session.world.act(1, "組隊邀請", "2")
+	session.world.act(2, "接受邀請", "1")
+	session.world.act(3, "切磋", "1")
+	session._publish()
+	var ui = load("res://scenes/main.tscn").instantiate()
+	root.add_child(ui)
+	ui._message("隊伍", "墨客加入隊伍。五湖四海，從此有人同行。")
+	await capture("jianghu")
+	ui.selected_peer = 2
+	ui.tabs.current_tab = 6
+	ui._refresh()
+	await capture("multiplayer")
+	ui.tabs.current_tab = 5
+	ui._refresh()
+	await capture("music")
+	quit()
