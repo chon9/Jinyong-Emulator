@@ -67,6 +67,18 @@ func run() -> void:
 		await wait_until(func(): return int(session.state.player.potential) <= 96, "Host completes remote five-second self-study cycle", 8)
 		await tx("停止")
 		check(int(session.state.player.potential) == 96, "Remote self-study consumes exactly three points per cycle")
+		await tx("說", "SYNC_LIFE")
+		await wait_until(func(): return session.state.player.place == session.world.Data.NPCS["n_xw_fisher"].place, "Remote life teacher fixture synchronized")
+		await tx("生活學習", "life_fishing|n_xw_fisher")
+		check(int(session.state.player.life_levels.get("life_fishing", 0)) == 1 and int(session.state.player.inventory.get("魚竿", 0)) == 1 and int(session.state.player.silver) == 450, "Host charges remote lesson and grants initial fishing tool")
+		var place: String = session.world.Life.locations("life_fishing", "", session.state.player.place)[0].place
+		if place != session.state.player.place:
+			await tx("尋路", place)
+			await wait_until(func(): return session.state.player.place == place and session.state.player.travel_target == "", "Remote actor reaches fishing water")
+		await tx("生活工作", "life_fishing||1|休息")
+		check(session.state.player.life_work.active and session.state.player.life_work.auto_rest and int(session.state.player.life_work.done) == 0, "Remote start replicates rest setting and grants no immediate product")
+		await wait_until(func(): return int(session.state.player.life_work.get("done", 0)) == 1, "Host completes the remote timed work cycle", 7)
+		check(not session.state.player.life_work.active and int(session.state.player.energy) == 95 and int(session.state.player.life_prof.life_fishing) in [4, 7], "Host replicates life energy, proficiency and exact batch stop")
 		await tx("說", "SYNC_PARTY")
 		if not await wait_until(func(): return invitation("組隊") > 0, "Host invitation replicated"): finish(); return
 		await tx("接受邀請", str(invitation("組隊")))
@@ -137,6 +149,15 @@ func _message(channel: String, text: String) -> void:
 		session.world.players[target].place = "揚州城"
 		session.world.players[target].auto_heal = false
 		session.send("組隊邀請", str(target))
+	elif "SYNC_LIFE" in text:
+		var p: Dictionary = session.world.players[target]
+		p.place = session.world.Data.NPCS["n_xw_fisher"].place
+		p.energy = 100
+		p.silver = 500
+		p.life_levels.erase("life_fishing")
+		p.life_prof.erase("life_fishing")
+		p.inventory.erase("魚竿")
+		session._publish()
 	elif "SYNC_TRAVEL" in text:
 		session.send("前往", "城郊荒野")
 		session.send("打怪")

@@ -1,0 +1,1651 @@
+{
+  "skills": {
+    "life_farming": {
+      "id": "life_farming",
+      "name": "種田",
+      "feature": "FIELD",
+      "tool": "鋤頭",
+      "verb": "耕作",
+      "jing_cost": 5,
+      "cooldown_s": 5,
+      "yield": [
+        {
+          "item": "米",
+          "chance": 1.0,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ],
+      "recipes": [
+        {
+          "id": "rc_zhong_ma",
+          "name": "種麻",
+          "inputs": [
+            {
+              "item": "麻種子",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "麻",
+            "n": 2
+          },
+          "min_level": 10,
+          "feature": "FIELD",
+          "src_note": "官方農夫（後期頁）只寫「種子、鋤頭，先種稻或麥」；種麻 10 級、一份種子收 2 麻照 §4.5【設計提案】"
+        },
+        {
+          "id": "rc_zhong_mian",
+          "name": "種棉",
+          "inputs": [
+            {
+              "item": "棉花種子",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "棉花",
+            "n": 2
+          },
+          "min_level": 20,
+          "feature": "FIELD",
+          "src_note": "§4.5：種棉 20 級、一份種子收 2 棉花【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "desc": "在田地裡耕作，收成稻米；手藝熟了也能種麻、種棉，供布莊紡線織布。（官方名「農夫」）",
+      "era": "1.0A",
+      "src": "verified",
+      "mode": "GATHER",
+      "tools": [],
+      "teachers": [
+        {
+          "id": "ms_taoyun_farming",
+          "npc_id": "n_taoyun",
+          "skill_id": "life_farming",
+          "cap": 100,
+          "price": 50,
+          "tool": "鋤頭",
+          "requires": [],
+          "era": "1.0A",
+          "src": "verified"
+        },
+        {
+          "id": "ms_em_nongfu_farming",
+          "npc_id": "n_em_nongfu",
+          "skill_id": "life_farming",
+          "cap": 100,
+          "price": 50,
+          "tool": "鋤頭",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal"
+        }
+      ],
+      "src_note": "既有列替換（§4.5）：保留稻米收成，加種麻、種棉兩條配方；官方名農夫（index_jy1-1-6，後期頁）"
+    },
+    "life_woodcut": {
+      "id": "life_woodcut",
+      "name": "樵夫",
+      "feature": "WOOD",
+      "tool": "柴刀",
+      "verb": "砍柴",
+      "jing_cost": 5,
+      "cooldown_s": 5,
+      "yield": [
+        {
+          "item": "木材",
+          "chance": 1.0,
+          "n": [
+            1,
+            2
+          ]
+        }
+      ],
+      "recipes": [
+        {
+          "id": "rc_shaotan",
+          "name": "燒炭",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "木炭",
+            "n": 1
+          },
+          "min_level": 20,
+          "feature": "KILN",
+          "src_note": "官方伐木：「燒炭爐→木炭」（後期頁）；木材 ×3 → 木炭 ×1、20 級照 §4.5【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "desc": "在林子裡砍柴，得到木材；到打鐵舖後頭的炭窯，還能把木材燒成木炭。（官方名「伐木」）",
+      "era": "1.0A",
+      "src": "verified",
+      "mode": "GATHER",
+      "tools": [],
+      "teachers": [
+        {
+          "id": "ms_woodcutter_woodcut",
+          "npc_id": "n_xw_woodcutter",
+          "skill_id": "life_woodcut",
+          "cap": 100,
+          "price": 50,
+          "tool": "柴刀",
+          "requires": [],
+          "era": "1.0A",
+          "src": "verified"
+        }
+      ],
+      "src_note": "既有列替換（§4.5）：保留採木材，加燒炭配方；官方名伐木（index_jy1-1-6，後期頁）"
+    },
+    "life_fishing": {
+      "id": "life_fishing",
+      "name": "釣魚",
+      "feature": "WATER",
+      "tool": "魚竿",
+      "verb": "垂釣",
+      "jing_cost": 5,
+      "cooldown_s": 5,
+      "yield": [
+        {
+          "item": "魚",
+          "chance": 1.0,
+          "n": [
+            1,
+            1
+          ]
+        }
+      ],
+      "recipes": [],
+      "cap": 100,
+      "desc": "在水邊垂釣，釣起魚來。",
+      "era": "1.0A",
+      "src": "verified",
+      "mode": "GATHER",
+      "teachers": [
+        {
+          "id": "ms_fisher_fishing",
+          "npc_id": "n_xw_fisher",
+          "skill_id": "life_fishing",
+          "cap": 100,
+          "price": 50,
+          "tool": "魚竿",
+          "requires": [],
+          "era": "1.0A",
+          "src": "verified"
+        }
+      ]
+    },
+    "life_cooking": {
+      "id": "life_cooking",
+      "name": "廚師",
+      "feature": "STOVE",
+      "tool": "",
+      "verb": "烹煮",
+      "jing_cost": 5,
+      "cooldown_s": 5,
+      "yield": [],
+      "recipes": [
+        {
+          "id": "rc_baifan",
+          "name": "白飯",
+          "inputs": [
+            {
+              "item": "米",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "白飯",
+            "n": 1
+          },
+          "min_level": 1
+        },
+        {
+          "id": "rc_kaoyu",
+          "name": "烤魚",
+          "inputs": [
+            {
+              "item": "魚",
+              "n": 1
+            },
+            {
+              "item": "木材",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "烤魚",
+            "n": 1
+          },
+          "min_level": 5
+        }
+      ],
+      "cap": 100,
+      "desc": "在灶前把食材做成料理。",
+      "era": "1.0A",
+      "src": "verified",
+      "mode": "CRAFT",
+      "teachers": [
+        {
+          "id": "ms_xxcook_cooking",
+          "npc_id": "n_xx_cook",
+          "skill_id": "life_cooking",
+          "cap": 100,
+          "price": 50,
+          "tool": "",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal"
+        },
+        {
+          "id": "ms_dlcook_cooking",
+          "npc_id": "n_dl_cook",
+          "skill_id": "life_cooking",
+          "cap": 100,
+          "price": 50,
+          "tool": "",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal"
+        }
+      ]
+    },
+    "life_mining": {
+      "id": "life_mining",
+      "name": "挖礦",
+      "feature": "MINE",
+      "tool": "十字鎬",
+      "verb": "挖礦",
+      "jing_cost": 8,
+      "cooldown_s": 6,
+      "mode": "GATHER",
+      "tools": [],
+      "yield": [
+        {
+          "item": "鐵礦石",
+          "chance": 0.7,
+          "n": [
+            1,
+            1
+          ],
+          "min_level": 1
+        },
+        {
+          "item": "礦砂",
+          "chance": 0.5,
+          "n": [
+            1,
+            2
+          ],
+          "min_level": 1
+        },
+        {
+          "item": "綠石礦",
+          "chance": 0.25,
+          "n": [
+            1,
+            1
+          ],
+          "min_level": 20
+        },
+        {
+          "item": "紫石礦",
+          "chance": 0.12,
+          "n": [
+            1,
+            1
+          ],
+          "min_level": 40
+        }
+      ],
+      "recipes": [
+        {
+          "id": "rc_taoxi_tie",
+          "name": "淘洗礦砂",
+          "inputs": [
+            {
+              "item": "礦砂",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "鐵礦石",
+            "n": 1
+          },
+          "min_level": 5,
+          "tools": [
+            "採沙器"
+          ],
+          "src_note": "官方「採沙器分離礦砂」（後期頁）；3 礦砂 → 1 鐵礦石、5 級【設計提案】（M3b 審查 3：4→3，淘洗才有加值）"
+        },
+        {
+          "id": "rc_taoxi_lv",
+          "name": "細篩礦砂",
+          "inputs": [
+            {
+              "item": "礦砂",
+              "n": 8
+            }
+          ],
+          "output": {
+            "item": "綠石礦",
+            "n": 1
+          },
+          "min_level": 25,
+          "tools": [
+            "採沙器"
+          ],
+          "src_note": "同上；8 礦砂 → 1 綠石礦、25 級【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "teachers": [
+        {
+          "id": "ms_ls_kuanggong_mining",
+          "npc_id": "n_ls_kuanggong",
+          "skill_id": "life_mining",
+          "cap": 30,
+          "price": 50,
+          "tool": "十字鎬",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】"
+        }
+      ],
+      "desc": "在礦場掄起十字鎬挖礦，挖出鐵礦石與礦砂；功夫深了才挖得到綠石礦、紫石礦。用採沙器淘洗礦砂，還能篩出礦石。（官方名「採礦」）",
+      "era": "1.0A",
+      "src": "later",
+      "src_note": "官方生活技能頁（index_jy1-1-6，後期頁）：採礦在礦場、十字鎬、採沙器分離礦砂；存在於 1.0A 的旁證：2001-09 大理「礦石大王」、阿火的礦（17173 other.htm）。礦石等級門檻 1／20／40 照 §4.5【設計提案】（官方材料鏈：礦 → 打鐵／鑄劍；線軸 → 布匹 → 裁縫；獸皮 → 皮革）"
+    },
+    "life_smithing": {
+      "id": "life_smithing",
+      "name": "打鐵",
+      "feature": "FORGE",
+      "tool": "打鐵鎚",
+      "verb": "打鐵",
+      "jing_cost": 10,
+      "cooldown_s": 8,
+      "mode": "CRAFT",
+      "tools": [],
+      "yield": [],
+      "recipes": [
+        {
+          "id": "rc_tiekuai_1",
+          "name": "煉鐵塊",
+          "inputs": [
+            {
+              "item": "鐵礦石",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "鐵塊",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方「一個鐵塊要 3 個同等級礦石」（後期頁）【後期版】"
+        },
+        {
+          "id": "rc_tiekuai_2",
+          "name": "煉綠紋鐵塊",
+          "inputs": [
+            {
+              "item": "綠石礦",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "綠紋鐵塊",
+            "n": 1
+          },
+          "min_level": 20,
+          "src_note": "同上；20 級【設計提案】"
+        },
+        {
+          "id": "rc_tiekuai_3",
+          "name": "煉紫紋鐵塊",
+          "inputs": [
+            {
+              "item": "紫石礦",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "紫紋鐵塊",
+            "n": 1
+          },
+          "min_level": 40,
+          "src_note": "同上；40 級【設計提案】"
+        },
+        {
+          "id": "rc_chaidao",
+          "name": "打柴刀",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "柴刀",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "§4.5：鐵塊＋木炭 → 柴刀；材料數【設計提案】；M3b 審查 3：回到官方鏈（礦 → 鐵塊（3 礦）→ 打鐵；線軸 → 布匹 → 裁縫），改價錢而不是跳過鐵塊／布匹【設計提案】"
+        },
+        {
+          "id": "rc_shizigao",
+          "name": "打十字鎬",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 1
+            },
+            {
+              "item": "木炭",
+              "n": 1
+            },
+            {
+              "item": "木材",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "十字鎬",
+            "n": 1
+          },
+          "min_level": 5,
+          "src_note": "§4.5：鐵塊＋木炭 → 十字鎬；材料數【設計提案】；M3b 審查 3：回到官方鏈（礦 → 鐵塊（3 礦）→ 打鐵；線軸 → 布匹 → 裁縫），改價錢而不是跳過鐵塊／布匹【設計提案】"
+        },
+        {
+          "id": "rc_chutou",
+          "name": "打鋤頭",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 1
+            },
+            {
+              "item": "木材",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "鋤頭",
+            "n": 1
+          },
+          "min_level": 5,
+          "src_note": "§4.5：鐵塊＋木炭 → 鋤頭；材料數【設計提案】；M3b 審查 3：回到官方鏈（礦 → 鐵塊（3 礦）→ 打鐵；線軸 → 布匹 → 裁縫），改價錢而不是跳過鐵塊／布匹【設計提案】"
+        },
+        {
+          "id": "rc_tiechui",
+          "name": "打打鐵鎚",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 1
+            },
+            {
+              "item": "木炭",
+              "n": 1
+            },
+            {
+              "item": "木材",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "打鐵鎚",
+            "n": 1
+          },
+          "min_level": 10,
+          "src_note": "§4.5：鐵塊＋木炭 → 打鐵鎚；材料數【設計提案】；M3b 審查 3：回到官方鏈（礦 → 鐵塊（3 礦）→ 打鐵；線軸 → 布匹 → 裁縫），改價錢而不是跳過鐵塊／布匹【設計提案】"
+        },
+        {
+          "id": "rc_caishaqi",
+          "name": "打採沙器",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 1
+            },
+            {
+              "item": "木材",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "採沙器",
+            "n": 1
+          },
+          "min_level": 15,
+          "src_note": "採沙器的鐵篩【設計提案】；M3b 審查 3：回到官方鏈（礦 → 鐵塊（3 礦）→ 打鐵；線軸 → 布匹 → 裁縫），改價錢而不是跳過鐵塊／布匹【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "teachers": [
+        {
+          "id": "ms_ls_zhangtie_smithing",
+          "npc_id": "n_xx_zhangtie",
+          "skill_id": "life_smithing",
+          "cap": 30,
+          "price": 50,
+          "tool": "打鐵鎚",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】"
+        }
+      ],
+      "desc": "在打鐵爐前掄鎚，把三塊同等級的礦石煉成一塊鐵塊，再打成十字鎬、鋤頭、柴刀這些傢伙。",
+      "era": "1.0A",
+      "src": "later",
+      "src_note": "官方生活技能頁（後期頁）：打鐵在打鐵舖、打鐵鎚、打鐵爐；一個鐵塊要 3 個同等級礦石。存在於 1.0A：十大技能 2001-08-09（研究既有）（官方材料鏈：礦 → 打鐵／鑄劍；線軸 → 布匹 → 裁縫；獸皮 → 皮革）"
+    },
+    "life_swordsmith": {
+      "id": "life_swordsmith",
+      "name": "鑄劍",
+      "feature": "CAST",
+      "tool": "打鐵鎚",
+      "verb": "鑄劍",
+      "jing_cost": 12,
+      "cooldown_s": 10,
+      "mode": "CRAFT",
+      "tools": [],
+      "yield": [],
+      "recipes": [
+        {
+          "id": "rc_tiejian",
+          "name": "鑄鐵劍",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 2
+            },
+            {
+              "item": "木炭",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "鐵劍",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方「用礦做兵器」（後期頁）；材料數【設計提案】"
+        },
+        {
+          "id": "rc_dandao",
+          "name": "鑄單刀",
+          "inputs": [
+            {
+              "item": "鐵塊",
+              "n": 1
+            },
+            {
+              "item": "木炭",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "單刀",
+            "n": 1
+          },
+          "min_level": 5,
+          "src_note": "材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_gangdao",
+          "name": "鑄鋼刀",
+          "inputs": [
+            {
+              "item": "綠紋鐵塊",
+              "n": 2
+            },
+            {
+              "item": "木炭",
+              "n": 1
+            },
+            {
+              "item": "焦炭",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "鋼刀",
+            "n": 1
+          },
+          "min_level": 15,
+          "src_note": "§4.5：鐵塊＋木炭（＋焦炭）→ 鋼刀；材料數【設計提案】"
+        },
+        {
+          "id": "rc_qingfeng",
+          "name": "鑄青鋒劍",
+          "inputs": [
+            {
+              "item": "綠紋鐵塊",
+              "n": 2
+            },
+            {
+              "item": "木炭",
+              "n": 1
+            },
+            {
+              "item": "焦炭",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "青鋒劍",
+            "n": 1
+          },
+          "min_level": 20,
+          "src_note": "§4.5：青鋒劍；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_lengning",
+          "name": "鑄冷凝劍",
+          "inputs": [
+            {
+              "item": "紫紋鐵塊",
+              "n": 1
+            },
+            {
+              "item": "綠紋鐵塊",
+              "n": 2
+            },
+            {
+              "item": "焦炭",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "冷凝劍",
+            "n": 1
+          },
+          "min_level": 30,
+          "jing_cost": 20,
+          "prof": 2,
+          "src_note": "冷凝劍事件（第四話 2001-08-08）；「鑄劍 30 級」是後期攻略【後期版】；材料【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "teachers": [
+        {
+          "id": "ms_ls_zhujian_swordsmith",
+          "npc_id": "n_ls_dl_zhujian",
+          "skill_id": "life_swordsmith",
+          "cap": 30,
+          "price": 50,
+          "tool": "打鐵鎚",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】"
+        }
+      ],
+      "desc": "在鑄劍爐前把鐵塊鑄成刀劍。功夫到了三十級，據說能鑄出寒氣逼人的冷凝劍。",
+      "era": "1.0A",
+      "src": "later",
+      "src_note": "官方生活技能頁（後期頁）：鑄劍用鑄劍爐、打鐵鎚，用礦做兵器；運鐵事件（2001-07-23 攻略，未重抓）的獎勵有鑄劍熟練 → 1.0A 已有鑄劍（官方材料鏈：礦 → 打鐵／鑄劍；線軸 → 布匹 → 裁縫；獸皮 → 皮革）"
+    },
+    "life_carpentry": {
+      "id": "life_carpentry",
+      "name": "工匠",
+      "feature": "",
+      "tool": "鋸子",
+      "verb": "製作",
+      "jing_cost": 6,
+      "cooldown_s": 6,
+      "mode": "CRAFT",
+      "tools": [],
+      "yield": [],
+      "recipes": [
+        {
+          "id": "rc_mudao",
+          "name": "做木刀",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "木刀",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方工匠頁：鋸子做木刀【已證實 1.0B】；材料數【設計提案】"
+        },
+        {
+          "id": "rc_mujian",
+          "name": "做木劍",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "木劍",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方工匠頁：木劍【已證實 1.0B】；材料數【設計提案】"
+        },
+        {
+          "id": "rc_muzhang",
+          "name": "做木杖",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "木杖",
+            "n": 1
+          },
+          "min_level": 5,
+          "src_note": "官方工匠頁：木杖；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_douli",
+          "name": "編斗笠",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "斗笠",
+            "n": 1
+          },
+          "min_level": 10,
+          "src_note": "官方工匠頁：斗笠；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_muzhua",
+          "name": "做木爪",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "木爪",
+            "n": 1
+          },
+          "min_level": 10,
+          "src_note": "官方工匠頁：木爪；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_muzan",
+          "name": "刻木簪",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "木簪",
+            "n": 1
+          },
+          "min_level": 15,
+          "src_note": "官方工匠頁：木簪；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_xuanmuzhang",
+          "name": "做玄木杖",
+          "inputs": [
+            {
+              "item": "木材",
+              "n": 6
+            },
+            {
+              "item": "木炭",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "玄木杖",
+            "n": 1
+          },
+          "min_level": 30,
+          "jing_cost": 12,
+          "prof": 2,
+          "src_note": "官方工匠頁：玄木杖；材料（木炭燻木）與等級【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "teachers": [
+        {
+          "id": "ms_ls_mujiang_carpentry",
+          "npc_id": "n_ls_jc_mujiang",
+          "skill_id": "life_carpentry",
+          "cap": 30,
+          "price": 50,
+          "tool": "鋸子",
+          "requires": [],
+          "era": "1.0B",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】"
+        }
+      ],
+      "desc": "帶著鋸子，隨地就能把木材做成木刀、木劍、木杖、斗笠、木簪之類的東西。",
+      "era": "1.0B",
+      "src": "verified",
+      "src_note": "官方第二片資料片工匠頁 index_jy1-2-3-1：工匠（1.0B）用鋸子在裝備欄做 木刀、木劍、木杖、玄木杖、木爪、木靈護腕、木製護頸、斗笠、木簪、旋木簪【已證實】；刨刀與總壇萬用工匠機（箭塔、城牆、家具）留 M5（O19）；護腕、護頸、旋木簪本作沒有對應裝備欄，不做"
+    },
+    "life_weaving": {
+      "id": "life_weaving",
+      "name": "織布",
+      "feature": "LOOM",
+      "tool": "",
+      "verb": "紡織",
+      "jing_cost": 6,
+      "cooldown_s": 6,
+      "mode": "CRAFT",
+      "tools": [],
+      "yield": [],
+      "recipes": [
+        {
+          "id": "rc_xianzhou",
+          "name": "紡麻線",
+          "inputs": [
+            {
+              "item": "麻",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "線軸",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方「紡紗機做線軸」（後期頁）；材料數【設計提案】（M3b 審查 3：2 麻→1 麻，讓布衣能走線軸 → 布匹 → 裁縫的官方鏈）"
+        },
+        {
+          "id": "rc_mabu",
+          "name": "織麻布",
+          "inputs": [
+            {
+              "item": "線軸",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "麻布",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方「織布機做布匹」（後期頁）；材料數【設計提案】"
+        },
+        {
+          "id": "rc_mianbu",
+          "name": "織棉布",
+          "inputs": [
+            {
+              "item": "線軸",
+              "n": 1
+            },
+            {
+              "item": "棉花",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "棉布",
+            "n": 1
+          },
+          "min_level": 20,
+          "src_note": "棉布配方與等級【設計提案】"
+        },
+        {
+          "id": "rc_pige",
+          "name": "硝皮革",
+          "inputs": [
+            {
+              "item": "獸皮",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "皮革",
+            "n": 1
+          },
+          "min_level": 1,
+          "feature": "TANNERY",
+          "src_note": "官方「獸皮在烘皮爐做皮革」（後期頁）；材料數【設計提案】"
+        },
+        {
+          "id": "rc_pige_lang",
+          "name": "硝狼皮",
+          "inputs": [
+            {
+              "item": "狼皮",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "皮革",
+            "n": 1
+          },
+          "min_level": 10,
+          "feature": "TANNERY",
+          "src_note": "狼皮也能硝成皮革【設計提案】"
+        },
+        {
+          "id": "rc_pige_tu",
+          "name": "硝兔皮",
+          "inputs": [
+            {
+              "item": "兔皮",
+              "n": 3
+            }
+          ],
+          "output": {
+            "item": "皮革",
+            "n": 1
+          },
+          "min_level": 5,
+          "feature": "TANNERY",
+          "src_note": "兔皮也能硝成皮革【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "teachers": [
+        {
+          "id": "ms_ls_fangzhi_weaving",
+          "npc_id": "n_ls_xx_fangzhi",
+          "skill_id": "life_weaving",
+          "cap": 30,
+          "price": 50,
+          "tool": "",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】"
+        }
+      ],
+      "desc": "在布莊的紡車上把麻紡成線軸，再上織機織成麻布、棉布；後院的烘皮爐能把獸皮硝成皮革。",
+      "era": "1.0A",
+      "src": "later",
+      "src_note": "官方生活技能頁（後期頁）：織布在布莊；紡紗機做線軸、織布機做布匹；獸皮在烘皮爐做皮革。懷舊指南有「紡織女」（官方材料鏈：礦 → 打鐵／鑄劍；線軸 → 布匹 → 裁縫；獸皮 → 皮革）"
+    },
+    "life_tailoring": {
+      "id": "life_tailoring",
+      "name": "裁縫",
+      "feature": "",
+      "tool": "針線包",
+      "verb": "縫製",
+      "jing_cost": 8,
+      "cooldown_s": 8,
+      "mode": "CRAFT",
+      "tools": [],
+      "yield": [],
+      "recipes": [
+        {
+          "id": "rc_bupao",
+          "name": "縫布衣",
+          "inputs": [
+            {
+              "item": "麻布",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "布衣",
+            "n": 1
+          },
+          "min_level": 1,
+          "src_note": "官方裁縫：布匹 → 衣物（後期頁）；一塊麻布縫一件布衣、練手用【設計提案】；M3b 審查 3：回到官方鏈（礦 → 鐵塊（3 礦）→ 打鐵；線軸 → 布匹 → 裁縫），改價錢而不是跳過鐵塊／布匹【設計提案】"
+        },
+        {
+          "id": "rc_cubudaopao",
+          "name": "縫粗布道袍",
+          "inputs": [
+            {
+              "item": "麻布",
+              "n": 2
+            },
+            {
+              "item": "線軸",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "粗布道袍",
+            "n": 1
+          },
+          "min_level": 15,
+          "src_note": "§4.5：布匹 → 粗布道袍；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_tupimao",
+          "name": "縫兔皮帽",
+          "inputs": [
+            {
+              "item": "大兔皮",
+              "n": 2
+            },
+            {
+              "item": "線軸",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "兔皮帽",
+            "n": 1
+          },
+          "min_level": 15,
+          "src_note": "§4.5：大兔皮 → 兔皮帽【設計提案】"
+        },
+        {
+          "id": "rc_pijia",
+          "name": "縫皮甲",
+          "inputs": [
+            {
+              "item": "皮革",
+              "n": 3
+            },
+            {
+              "item": "線軸",
+              "n": 1
+            }
+          ],
+          "output": {
+            "item": "皮甲",
+            "n": 1
+          },
+          "min_level": 20,
+          "src_note": "§4.5：皮革 → 皮甲；材料數與等級【設計提案】"
+        },
+        {
+          "id": "rc_mianao",
+          "name": "縫棉襖",
+          "inputs": [
+            {
+              "item": "棉布",
+              "n": 2
+            },
+            {
+              "item": "棉花",
+              "n": 2
+            }
+          ],
+          "output": {
+            "item": "棉襖",
+            "n": 1
+          },
+          "min_level": 30,
+          "jing_cost": 12,
+          "prof": 2,
+          "src_note": "棉布 → 棉襖【設計提案】"
+        }
+      ],
+      "cap": 100,
+      "teachers": [
+        {
+          "id": "ms_ls_licaifeng_tailoring",
+          "npc_id": "n_dl_licaifeng",
+          "skill_id": "life_tailoring",
+          "cap": 30,
+          "price": 50,
+          "tool": "針線包",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】；李裁縫 2001-09-01 n959_875542【已證實名】，教裁縫【待考證】"
+        }
+      ],
+      "desc": "帶著針線包，隨地就能把布匹、皮革縫成衣裳、皮甲。",
+      "era": "1.0A",
+      "src": "later",
+      "src_note": "官方生活技能頁（後期頁）：裁縫在裝備欄、針線包右鍵；2001 大理有李裁縫（17173 2001-09-01 n959_875542）；靈鷲宮門派技能〈裁縫〉是本派練裁縫的管道（index_jy1-1-1-10）（官方材料鏈：礦 → 打鐵／鑄劍；線軸 → 布匹 → 裁縫；獸皮 → 皮革）"
+    },
+    "life_hunting": {
+      "id": "life_hunting",
+      "name": "獵人",
+      "feature": "HUNT",
+      "tool": "",
+      "verb": "打獵",
+      "jing_cost": 10,
+      "cooldown_s": 10,
+      "mode": "HUNT",
+      "tools": [],
+      "yield": [],
+      "recipes": [],
+      "cap": 100,
+      "hunt": {
+        "drops": [
+          {
+            "item": "野味",
+            "chance": 0.6,
+            "n": [
+              1,
+              2
+            ],
+            "min_level": 1,
+            "monsters": []
+          },
+          {
+            "item": "獸皮",
+            "chance": 0.5,
+            "n": [
+              1,
+              1
+            ],
+            "min_level": 1,
+            "monsters": [
+              "野狼",
+              "山豬",
+              "雪狐"
+            ]
+          },
+          {
+            "item": "兔皮",
+            "chance": 0.5,
+            "n": [
+              1,
+              2
+            ],
+            "min_level": 1,
+            "monsters": [
+              "野兔",
+              "大野兔"
+            ]
+          },
+          {
+            "item": "大兔皮",
+            "chance": 0.3,
+            "n": [
+              1,
+              1
+            ],
+            "min_level": 10,
+            "monsters": [
+              "大野兔"
+            ]
+          },
+          {
+            "item": "豬肉",
+            "chance": 0.5,
+            "n": [
+              1,
+              1
+            ],
+            "min_level": 1,
+            "monsters": [
+              "山豬"
+            ]
+          },
+          {
+            "item": "狼皮",
+            "chance": 0.3,
+            "n": [
+              1,
+              1
+            ],
+            "min_level": 15,
+            "monsters": [
+              "野狼"
+            ]
+          },
+          {
+            "item": "雪狐皮",
+            "chance": 0.25,
+            "n": [
+              1,
+              1
+            ],
+            "min_level": 20,
+            "monsters": [
+              "雪狐"
+            ]
+          }
+        ]
+      },
+      "teachers": [
+        {
+          "id": "ms_ls_hunter_hunting",
+          "npc_id": "n_lj_hunter",
+          "skill_id": "life_hunting",
+          "cap": 30,
+          "price": 50,
+          "tool": "",
+          "requires": [],
+          "era": "1.0A",
+          "src": "proposal",
+          "src_note": "教學 NPC 官方沒寫（研究 開放問題）；教到 30 級之後自練【設計提案】；既有老獵戶（天山腳下，旁邊就是雪谷獵場）"
+        }
+      ],
+      "desc": "到打獵專區用自己的武功獵野獸，打贏了能多剝下獸皮、割下野味。",
+      "era": "1.0A",
+      "src": "later",
+      "src_note": "官方生活技能頁（後期頁）：獵人在打獵專區、工具是自己的武功、得肉與皮。打獵專區的位置【設計提案】（§3.3：荒草坡、天山雪谷、蒼山林道）"
+    }
+  },
+  "facilities": {
+    "大理・大理客棧": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "大理・大理打鐵舖": {
+      "features": [
+        "FORGE",
+        "CAST"
+      ],
+      "hunt_table": []
+    },
+    "大理郊外・城北河畔": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "大理郊外・陶耘稻田": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "大理郊外・洱海岸": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "大理郊外・蒼山林道": {
+      "features": [
+        "HUNT"
+      ],
+      "hunt_table": [
+        {
+          "enemy": "山豬",
+          "w": 65
+        },
+        {
+          "enemy": "野狼",
+          "w": 35
+        }
+      ]
+    },
+    "大理郊外・東邊樹林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "大漠邊緣・綠洲": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "大漠邊緣・大漠礦場": {
+      "features": [
+        "MINE"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋派・菜園": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋派・廚房": {
+      "features": [
+        "STOVE",
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋迷宮・迷林入口": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋迷宮・迷林深處": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋迷宮・猿啼谷": {
+      "features": [
+        "WOOD",
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋迷宮・迷林盡頭": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋道・竹林山徑": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋道・清音閣山道": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "峨嵋道・峨嵋西林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "古墓派・送飯石室": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "古墓派・墓後花園": {
+      "features": [
+        "FIELD",
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "恆山派・恆山灶房": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "恆山派・柴房": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "恆山派・後山菜田": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "恆山山麓・恆山外稻田": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "恆山山麓・恆山岸邊": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "衡山・衡山下": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "衡山・上山路口海邊": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "衡陽古道・湘江渡口": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "華陰道・華山水池": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "京城・京城客棧": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "京城・京城布莊": {
+      "features": [
+        "LOOM",
+        "TANNERY"
+      ],
+      "hunt_table": []
+    },
+    "京城・京城打鐵舖": {
+      "features": [
+        "FORGE",
+        "CAST",
+        "KILN"
+      ],
+      "hunt_table": []
+    },
+    "全真教・重陽宮": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "全真教・重陽宮後山": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "全真教・後山菜園": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "河川古道・河灣": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "河川古道・雪山東岸": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "少林寺・齋堂": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "少林寺・菜園": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "少林寺・後山竹林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "嵩山古道・嵩山松林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "天山道・獵戶小屋": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "天山道・天山雪谷": {
+      "features": [
+        "HUNT"
+      ],
+      "hunt_table": [
+        {
+          "enemy": "雪狐",
+          "w": 55
+        },
+        {
+          "enemy": "野狼",
+          "w": 45
+        }
+      ]
+    },
+    "武當派・稻田": {
+      "features": [
+        "FIELD"
+      ],
+      "hunt_table": []
+    },
+    "武當派・後山松林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "武當山下・武當山下樹林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "星宿派・星宿海外景": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "星宿海邊・星宿海邊": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "星宿海邊・毒沼": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "西夏・西夏客棧": {
+      "features": [
+        "STOVE"
+      ],
+      "hunt_table": []
+    },
+    "西夏・西夏打鐵舖": {
+      "features": [
+        "FORGE",
+        "CAST",
+        "KILN"
+      ],
+      "hunt_table": []
+    },
+    "西夏・西夏布莊": {
+      "features": [
+        "LOOM",
+        "TANNERY"
+      ],
+      "hunt_table": []
+    },
+    "西夏東郊・礦區": {
+      "features": [
+        "MINE"
+      ],
+      "hunt_table": []
+    },
+    "西夏東郊・黑龍潭": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "西夏東郊・潭東河岸": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "西夏南坡・溪口淺灘": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "西夏郊外・荒草坡": {
+      "features": [
+        "HUNT"
+      ],
+      "hunt_table": [
+        {
+          "enemy": "野兔",
+          "w": 70
+        },
+        {
+          "enemy": "大野兔",
+          "w": 30
+        }
+      ]
+    },
+    "西夏郊外・胡楊林": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    },
+    "西夏郊外・小溪邊": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "大漠雪山道・牧民帳篷": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "終南山下・終南山西北河灘": {
+      "features": [
+        "WATER"
+      ],
+      "hunt_table": []
+    },
+    "終南山下・終南後山": {
+      "features": [
+        "WOOD"
+      ],
+      "hunt_table": []
+    }
+  }
+}

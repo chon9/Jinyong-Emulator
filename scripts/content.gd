@@ -36,6 +36,8 @@ static var STORIES: Array = []
 static var QUESTS: Dictionary = {}
 static var RANKS: Array = []
 static var DUNGEONS: Dictionary = {}
+static var LIFE: Dictionary = {}
+static var FACILITIES: Dictionary = {}
 
 static func _static_init() -> void:
 	var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/catalog.json"))
@@ -50,6 +52,9 @@ static func _static_init() -> void:
 	STORIES = JSON.parse_string(FileAccess.get_file_as_string("res://data/stories.json"))
 	QUESTS = JSON.parse_string(FileAccess.get_file_as_string("res://data/learning_quests.json"))
 	DUNGEONS = JSON.parse_string(FileAccess.get_file_as_string("res://data/dungeons.json"))
+	var life: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/life_skills.json"))
+	LIFE = life.skills
+	FACILITIES = life.facilities
 	SHOP.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/quest_support.json")).get("items", {}), true)
 	for old in ["少林寺", "武當山", "峨眉山"]:
 		PLACES.erase(old)

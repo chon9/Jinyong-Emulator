@@ -64,7 +64,7 @@ func click(control: Control) -> bool:
 	await process_frame
 	if is_button:
 		var hovered: Control = root.gui_get_hovered_control()
-		check(clicked.value, "Mouse click reaches button; hovered " + str(hovered))
+		check(clicked.value, "Mouse click reaches button %s; hovered %s" % [str(control.text) if is_instance_valid(control) else "(freed)", str(hovered)])
 	return true
 
 func click_named(prefix: String) -> void:
@@ -94,7 +94,7 @@ func run() -> void:
 	root.add_child(ui)
 	await process_frame
 	await process_frame
-	check(ui.nav_buttons.size() == 9, "Nine permanent labeled destinations")
+	check(ui.nav_buttons.size() == 10, "Ten permanent labeled destinations including life work")
 	await click(ui.nav_buttons[3])
 	check(ui.tabs.current_tab == 3, "Task navigation opens the quest journal")
 	check(find_button("驛站送信\n") != null, "A sect member can discover common quests")

@@ -1,4 +1,4 @@
-# 網金游俠模擬器 · v0.5.0
+# 網金游俠模擬器 · v0.6.0
 
 Godot 4.6.3 的文字武俠模擬器，可單機、Steam Spacewar 480 與區網聯機。經典介面、字型、地景與音樂沿用使用者提供的 JY-Mini OL 資源。
 
@@ -8,9 +8,9 @@ Godot 4.6.3 的文字武俠模擬器，可單機、Steam Spacewar 480 與區網�
 
 ## Windows 遊玩
 
-解壓縮 `build/Youxia-0.5.0-Windows-x64.zip`，雙擊 `Youxia.exe`。不需安裝 Godot、Python 或 PowerShell。請保留 DLL、steam_appid.txt 及授權文件。
+解壓縮 `build/Youxia-0.6.0-Windows-x64.zip`，雙擊 `Youxia.exe`。不需安裝 Godot、Python 或 PowerShell。請保留 DLL、steam_appid.txt 及授權文件。
 
-快捷鍵：F1 自修、F2 打坐、F3 尋敵、F4 金創藥、F5 存檔、F6 江湖、F7 人際、F8 音樂與聯機。Ctrl+1–9 依序切換江湖、任務、副本、商店、行囊、武學、地圖、人際、系統；Esc 返回江湖。
+快捷鍵：F1 自修、F2 打坐、F3 尋敵、F4 金創藥、F5 存檔、F6 江湖、F7 人際、F8 音樂與聯機。Ctrl+1–9 依序切換江湖、任務、副本、商店、行囊、武學、地圖、人際、系統；Ctrl+0 開啟生活；Esc 返回江湖。
 
 ## 前十分鐘
 
@@ -35,13 +35,19 @@ Godot 4.6.3 的文字武俠模擬器，可單機、Steam Spacewar 480 與區網�
 
 新增 20 條來源故事，並補回場景互動、採集、時辰戰鬥與累計擊殺。26 條主驗收路徑已走完；不代表來源專案全部 86 個任務或所有分支已補齊。可重複委託與副本以現實時間冷卻；等待任務保存世界時間，離線不跳時。
 
+## 生活技能掛機
+
+按上方「生活」或 Ctrl+0，選擇技能後按「尋師」，到達付費學習並領取工具，再前往工作地點。支援 11 技能、38 配方與 62 設施地點。選配方及次數後開工，可選精力不足自動打坐續作；缺材料、工具或其他條件不足仍會自停。成品與收成能直接開出售頁。詳細流程、來源與限制見 [生活技能規則](LIFE_SKILLS.md)。
+
+工作每次完整等待才結算；停止不補未完成產物。熟練與物品保存，沒有離線收益。狩獵使用自己的武功實戰，撤退或戰敗自停。
+
 ## 多人互動
 
 最多五人組隊，同地點共同刷怪，獎勵平分、掉落只擲一次。隊員可跟隨隊長，使用自己的金創藥援護隊友，並用隊伍頻道或私聊。
 
 切磋須雙方同意，結束恢復開戰前氣血內力。野外 PK 須雙方開啟，安全區禁止；敗者送回揚州並關閉 PK。交易在接受時重新驗證數量、裝備及銀兩，售價零即贈送。
 
-所有人使用 v0.5.0，協議 6，Steam 大廳標記 youxia_text_v6。先開 Steam，再用 F8 開房或輸入大廳 ID。區網使用房主 IP，UDP 24780；同機可用 127.0.0.1。自動測試涵蓋雙程序真實連線；兩個 Steam 帳號跨機測試仍未完成。
+所有人使用 v0.6.0，協議 7，Steam 大廳標記 youxia_text_v7。先開 Steam，再用 F8 開房或輸入大廳 ID。區網使用房主 IP，UDP 24780；同機可用 127.0.0.1。自動測試涵蓋雙程序真實連線；兩個 Steam 帳號跨機測試仍未完成。
 
 主機計算移動、消點、自修、任務、戰鬥與交易，並保存客人的進度。客戶端只發指令，不提交角色數值或任務旗標。沒有主機遷移。
 
@@ -62,13 +68,14 @@ Godot 4.6.3 的文字武俠模擬器，可單機、Steam Spacewar 480 與區網�
 
 可用 `-Godot 'D:\Godot\Godot_v4.6.3-stable_win64_console.exe'` 指定引擎。匯出需要 Godot 4.6.3 標準版及相同版本 Windows export template。GodotSteam 4.23 已附在 addons/godotsteam。
 
-tools/run.ps1 將開發快取及存檔隔離到 .tools，不影響 EXE 的標準存檔。匯出產物放在 build/windows-0.5.0 與 Windows ZIP，不提交 Git。
+tools/run.ps1 將開發快取及存檔隔離到 .tools，不影響 EXE 的標準存檔。匯出產物放在 build/windows-0.6.0 與 Windows ZIP，不提交 Git。
 
 | 模組 | 位置 |
 | --- | --- |
 | 學習、條件、熟練遷移 | scripts/progression.gd |
 | 攻防、命中、招式與消耗 | scripts/combat_rules.gd |
 | 學藝機緣、對話、物品與考較 | scripts/learning_quests.gd |
+| 生活技藝、配方與自動工作 | scripts/life_skills.gd、data/life_skills.json |
 | 副本、準備、關卡與首通 | scripts/dungeons.gd、data/dungeons.json |
 | 世界指令、移動與獎勵 | scripts/world.gd |
 | 組隊、交易與 PvP | scripts/social.gd |
@@ -77,6 +84,6 @@ tools/run.ps1 將開發快取及存檔隔離到 .tools，不影響 EXE 的標準
 | 來源轉換 | tools/build_catalog.py（唯讀來源專案） |
 | 任務增補與驗收路徑 | tools/build_quest_pack.py、tests/fixtures/quest_paths.json |
 
-更新來源資料時依序執行 `python tools/build_catalog.py` 與 `python tools/build_quest_pack.py`，再執行測試。第二步保留場景動作與新增的 20 條任務，不應省略。`tools/test.ps1 -DungeonNetwork -NetworkOnly` 可單跑雙程序副本驗證。
+更新來源資料時依序執行 `python tools/build_catalog.py` 與 `python tools/build_quest_pack.py`，及 `python tools/build_life_pack.py --source <來源 data 目錄>`，再執行測試。第二步保留場景動作與新增的 20 條任務，不應省略。`tools/test.ps1 -DungeonNetwork -NetworkOnly` 可單跑雙程序副本驗證。
 
-發布前將變更加入 Git，執行 `python tools/check_sensitive.py --asset build/Youxia-0.5.0-Windows-x64.zip`。掃描確切上傳清單、圖片中繼資料、原始碼與 ZIP；私人存檔、工具快取及測試輸出不得提交。
+發布前將變更加入 Git，執行 `python tools/check_sensitive.py --asset build/Youxia-0.6.0-Windows-x64.zip`。掃描確切上傳清單、圖片中繼資料、原始碼與 ZIP；私人存檔、工具快取及測試輸出不得提交。

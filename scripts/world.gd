@@ -9,9 +9,11 @@ const Combat = preload("res://scripts/combat_rules.gd")
 const Quests = preload("res://scripts/learning_quests.gd")
 const Market = preload("res://scripts/market.gd")
 const Dungeons = preload("res://scripts/dungeons.gd")
+const Life = preload("res://scripts/life_skills.gd")
 var social
 var quests
 var dungeons
+var life
 var players: Dictionary = {}
 var tick: int = 0
 var rng := RandomNumberGenerator.new()
@@ -21,6 +23,7 @@ func _init() -> void:
 	social = Social.new(self)
 	quests = Quests.new(self)
 	dungeons = Dungeons.new(self)
+	life = Life.new(self)
 
 func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 	var p := {
@@ -40,6 +43,7 @@ func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 	p.merge({"attrs": {"str": 25, "con": 25, "wit": 30, "agi": 25, "cal": 25, "guts": 25, "luck": 25}, "gender": "M", "combat_xp": 0, "morality": 0, "fame": 0, "lilian": 0, "sect_master": "", "sect_rank": 1, "flags": {}, "learning_quests": {}, "quests_done": {}, "power": 5, "rules_version": 4})
 	p["attributes_locked"] = false
 	p.merge({"dungeon": 0, "dungeon_clears": {}, "dungeon_cooldowns": {}, "quest_history": {}})
+	p.merge({"life_levels": {}, "life_prof": {}, "life_work": {}, "life_hunt": {}})
 	players[id] = p
 	return p
 
@@ -116,6 +120,9 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			other.hp = mini(int(other.max_hp), int(other.hp) + 70)
 			dungeons.announce(run, "%s消耗金創藥，為%s恢復氣血。" % [p.name, other.name])
 			return true
+	if command in Life.COMMANDS: return life.act(id, command, arg)
+	if command in ["前往", "尋路", "停止", "拜師", "裝備", "卸下", "消點", "練功", "自修", "打怪", "打坐", "休息", "掛機", "對話", "接受任務", "任務行動", "任務結局", "任務對話", "任務緣起", "任務場景", "故事選擇", "搜查", "交付", "跟隨"]:
+		life.stop(id, "已選擇其他活動。")
 	if command in ["接受任務", "任務行動", "任務結局", "任務對話", "任務緣起", "任務場景"]:
 		if not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先結束戰鬥，再處理任務。")
 		p.travel_target = ""
@@ -326,6 +333,7 @@ func act(id: int, command: String, arg: String = "") -> bool:
 				quests.fight_result(id, previous.quest_id, previous.quest_objective, previous.get("quest_flee", previous.get("quest_any", false)))
 				return true
 			p.enemy = {}
+			life.hunt_result(id, false)
 			p.auto = "停止"
 			p.hp = maxi(1, int(p.hp) - 12)
 			tell(id, "你虛晃一招脫身，損失 12 氣血。", "戰鬥")
@@ -496,6 +504,7 @@ func step() -> void:
 	tick += 1
 	for id in players.keys():
 		var p: Dictionary = players[id]
+		life.guard(id)
 		if int(p.hp) > 0 and p.auto_heal and int(p.hp) * 100 <= int(p.max_hp) * int(p.heal_at) and int(p.inventory.get("金創藥", 0)) > 0:
 			use_item(id, "金創藥")
 		if int(p.fight) != 0: continue
@@ -512,6 +521,8 @@ func step() -> void:
 				tell(id, "潛能、精力不足或武學已滿級，自動練功已停止。", "游俠")
 		elif p.auto == "自修":
 			self_study(id)
+		elif p.auto == "生活":
+			life.step(id)
 		elif p.auto == "打坐":
 			p.hp = mini(int(p.max_hp), int(p.hp) + 9)
 			p.mp = mini(int(p.max_mp), int(p.mp) + 7)
@@ -589,6 +600,7 @@ func defeat(id: int) -> void:
 	p.deaths += 1
 	p.enemy = {}
 	p.fight = 0
+	life.hunt_result(id, false)
 	p.auto = "停止"
 	p.place = "揚州城"
 	p.hp = maxi(1, int(p.max_hp) / 2)
@@ -626,6 +638,7 @@ func victory(id: int, reward: Dictionary = {}, loot: bool = true) -> void:
 			p.inventory[drop.item] = int(p.inventory.get(drop.item, 0)) + 1
 			tell(id, "你拾得%s。" % drop.item, "收穫")
 	p.enemy = {}
+	life.hunt_result(id, true)
 	# Original progression is martial proficiency and lifetime combat XP;
 	# retained legacy character level no longer grants attack, HP or healing.
 	p.combat_xp += int(e.get("combat_xp", e.exp))

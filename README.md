@@ -53,6 +53,21 @@ Each remaining participant receives one clear reward; the first clear also grant
 
 Four linked **討伐委託** are available from 揚州城's 江湖懸賞使. Their quest panels link directly to the dungeon page. Complete the instance, then return to the quest journal for the separate bounty.
 
+## 採一簍礦，打一柄自己的劍
+
+**v0.6.0 adds life-skill automation.** Open **生活** in the top bar or press **Ctrl+0**. Choose a skill, follow **尋師** to its teacher, pay the lesson fee and receive its starter tool. The page finds the nearest suitable workplace and shows tools, ingredients, proficiency, success chance and the next action.
+
+**11 skills · 38 recipes · 62 workplaces:** 種田、樵夫、釣魚、廚師、挖礦、打鐵、鑄劍、工匠、織布、裁縫、獵人。
+
+- Choose **1 / 10 / 30 / 100 attempts** or keep working until stopped. Optional **自動打坐** restores energy and resumes work; missing materials or tools still stop the job.
+- Turn ore into bars, bars into weapons and tools; spin hemp into thread, weave cloth, then sew clothes. Missing materials link to their gathering skill, recipe or shop. Finished products and harvested goods link directly to selling.
+- Each completed attempt spends energy. Success earns proficiency and products; failed crafts keep their ingredients. Hunting uses your actual martial arts in a solo battle, with meat and hides awarded after victory.
+- The host owns timers, checks, consumption and rewards in multiplayer. Stop, travel, battle interruptions or loading a save cancel pending work. Proficiency and inventory persist; **there are no offline earnings**.
+
+![Life automation showing mining, timed attempts, proficiency, materials and stop controls](docs/screenshots/life-skills.png)
+
+The life data comes from the supplied JY-Mini OL project. Its proposed recipes, teacher placements and numerical rules retain their source labels; this is not a claim of exact official-server economy. See [life rules and verification](docs/LIFE_SKILLS.md).
+
 ## Learn the art. Find your way.
 
 - **門派與師承** — Join 少林、武當、峨嵋、華山、恆山、全真、古墓、靈鷲宮、星宿、血刀門 or 丐幫. Find teachers, meet prerequisites, and work through their teaching limits.
@@ -115,7 +130,7 @@ Keep the bundled DLLs and `steam_appid.txt` next to the EXE. The game opens in s
 | **F3** | 尋敵 · seek enemies | **F7** | Player interactions |
 | **F4** | Use 金創藥 | **F8** | Music & connections |
 
-**Ctrl+1–9** opens 江湖、任務、副本、商店、行囊、武學、地圖、人際、系統; **Esc** returns to the world. The command line also accepts commands such as `拜師 武當`, `自修 基本內功`, `掛機 刷怪`, and `幫助`.
+**Ctrl+1–9** opens 江湖、任務、副本、商店、行囊、武學、地圖、人際、系統; **Ctrl+0** opens 生活; **Esc** returns to the world. The command line also accepts commands such as `拜師 武當`, `自修 基本內功`, `掛機 刷怪`, and `幫助`.
 
 ## Play with friends
 
@@ -153,7 +168,7 @@ The standalone Windows game saves to:
 %APPDATA%\Godot\app_userdata\網金游俠模擬器\
 ```
 
-Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat, unfinished dungeon runs and incomplete study cycles reset on load. Awarded dungeon rewards and clear records persist. Quest waits retain elapsed world time; repeat cooldowns use real time. Everyone in a multiplayer session must use **v0.5.0 / protocol 6**.
+Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat, unfinished dungeon runs and incomplete study or life-work cycles reset on load. Life proficiency, awarded dungeon rewards and clear records persist. Quest waits retain elapsed world time; repeat cooldowns use real time. Everyone in a multiplayer session must use **v0.6.0 / protocol 7**.
 
 ## Build from source
 
@@ -181,10 +196,11 @@ The launcher isolates development saves and editor caches under `.tools/`; they 
 | Host authority, snapshots, persistence | [`scripts/session.gd`](scripts/session.gd) |
 | Steam lobbies and invites | [`scripts/steam_bridge.gd`](scripts/steam_bridge.gd) |
 | Music playback and preferences | [`scripts/bgm.gd`](scripts/bgm.gd) |
+| Life work, recipes, learning and automation | [`scripts/life_skills.gd`](scripts/life_skills.gd), [`data/life_skills.json`](data/life_skills.json) |
 | Classic UI and controls | [`scripts/classic/`](scripts/classic/) |
 | World catalog and stories | [`data/`](data/) |
 
-See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.5.0.md) for this build.
+See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.6.0.md) for this build.
 
 ## Project notes & credits
 

@@ -72,6 +72,11 @@ var shop_query := ""
 var shop_quantity := 1
 var show_shop_directory := false
 var selected_dungeon := "blackwind"
+var life_skill := "life_fishing"
+var life_recipe := ""
+var life_count := 10
+var life_rest := true
+var life_timer: Label
 
 func _ready() -> void:
 	_build_theme()
@@ -82,7 +87,7 @@ func _ready() -> void:
 	_refresh_music()
 	_refresh()
 	_message("江湖", "一人，一劍，一段自己的江湖。先赴門派拜師，再向師父消點，或挑一門已學武功潛心自修。")
-	_message("系統", "上方「任務」可接取與追蹤任務；「商店」可買賣與尋找商人。按「前往」即自動趕路，到達後可直接與人物互動。")
+	_message("系統", "上方「任務」可接取與追蹤任務；「商店」可買賣；「生活」可尋師、採集、製作與掛機。按「前往」即自動趕路。")
 	if "--capture" in OS.get_cmdline_user_args(): _capture.call_deferred()
 
 func _build_theme() -> void:
@@ -208,6 +213,7 @@ func _refresh() -> void:
 		"行囊": signature = str([p.place, p.inventory, p.weapon, p.armor])
 		"商店": signature = str([p.place, p.inventory, p.silver, p.weapon, p.armor, p.enemy.is_empty(), p.fight, shop_mode, shop_item, shop_query, show_shop_directory])
 		"副本": signature = str([Session.state.get("dungeon", {}), selected_dungeon, p.place, p.dungeon_clears, p.dungeon_cooldowns, p.party, p.combat_xp, p.hp, p.inventory, Session.state.get("social", {}).get("party", {}), int(Session.state.tick) / 10])
+		"生活": signature = str([p.place, p.life_levels, p.life_prof, p.life_work, p.inventory, p.energy, p.silver, p.enemy.is_empty(), p.fight, p.dungeon, p.follow, p.travel_target, life_skill, life_recipe, life_rest])
 		"人際": signature = str([selected_peer, p.party, p.follow, p.pk_enabled, Session.state.get("social", {}).get("requests", []), Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place, r.party, r.fight])])
 	if signatures.get(selected, "") != signature:
 		signatures[selected] = signature
@@ -222,12 +228,15 @@ func _refresh() -> void:
 			"人際": _social_page(p)
 			"商店": Activities.shop(self, clear_page("商店"), p)
 			"副本": preload("res://scripts/classic/dungeon_page.gd").build(self, clear_page("副本"), p)
+			"生活": preload("res://scripts/classic/life_page.gd").build(self, clear_page("生活"), p)
 		if had_focus and is_instance_valid(activity_search):
 			activity_search.grab_focus()
 			activity_search.caret_column = caret
 	if selected == "武學":
 		for skill in skill_labels:
 			if is_instance_valid(skill_labels[skill]): skill_labels[skill].text = _skill_text(p, skill)
+	if selected == "生活" and is_instance_valid(life_timer):
+		life_timer.text = ("調息中 · 精力回滿後續作" if p.life_work.get("resting", false) else "%d 息後嘗試" % maxi(0, int(p.life_work.get("due", 0)) - int(Session.state.tick))) if p.life_work.get("active", false) and p.enemy.is_empty() else ""
 	refresh_lock = false
 
 func _world_page(p: Dictionary) -> void:
@@ -755,6 +764,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif event.ctrl_pressed and event.keycode >= KEY_1 and event.keycode <= KEY_9:
 		tabs.current_tab = [0, 3, 8, 7, 2, 1, 4, 6, 5][event.keycode - KEY_1]
+	elif event.ctrl_pressed and event.keycode == KEY_0: tabs.current_tab = 9
 	elif event.keycode == KEY_ESCAPE: tabs.current_tab = 0
 
 func _capture() -> void:

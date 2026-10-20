@@ -208,6 +208,7 @@ func start_pvp(id: int, target: int, kind: String) -> bool:
 	battle_sequence += 1
 	battles[battle_sequence] = {"kind": kind, "members": [id, target], "rounds": 0, "saved": {id: {"hp": p.hp, "mp": p.mp}, target: {"hp": q.hp, "mp": q.mp}}}
 	for member in [id, target]:
+		world.life.stop(member, "開始對戰。")
 		world.players[member].fight = battle_sequence
 		world.players[member].auto = "停止"
 	notify([id, target], "%s與%s開始%s。可改變策略、用藥或認輸。" % [p.name, q.name, kind], kind)
@@ -251,6 +252,7 @@ func party_hunt(id: int, enemy: Dictionary) -> bool:
 	shared.max_hp = shared.hp
 	battles[battle_sequence] = {"kind": "PVE", "members": allies, "enemy": shared, "rounds": 0, "place": world.players[id].place, "participants": allies.size()}
 	for member in allies:
+		world.life.stop(member, "隊伍開始迎戰。")
 		world.players[member].fight = battle_sequence
 		world.players[member].enemy = shared
 	notify(allies, "隊伍共同迎戰%s！氣血 %d，勝利後平分獎勵。" % [shared.name, shared.hp], "戰鬥")

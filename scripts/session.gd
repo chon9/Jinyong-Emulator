@@ -5,7 +5,7 @@ signal message(channel: String, text: String)
 const Rules = preload("res://scripts/world.gd")
 const SAVE := "user://youxia_save.json"
 const PORT := 24780
-const PROTOCOL := 6
+const PROTOCOL := 7
 var world = Rules.new()
 var state: Dictionary = {}
 var mode := "單機"
@@ -102,6 +102,8 @@ func _restore(id: int, data: Dictionary) -> void:
 	p.study_ticks = 0
 	p.quest_restore = {}
 	p.dungeon = 0
+	p.life_work = {}
+	p.life_hunt = {}
 	p.cooldown = -1
 	p.session_kills = 0
 	p.session_silver = 0

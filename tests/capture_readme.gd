@@ -83,4 +83,23 @@ func run() -> void:
 	session.world.act(1, "副本開戰")
 	session._publish()
 	await capture("dungeon-combat")
+	session.world.act(1, "副本離開")
+	for timer in session.get_children():
+		if timer is Timer: timer.stop()
+	p.place = session.world.Life.locations("life_mining", "", "揚州城")[0].place
+	p.life_levels = {"life_mining": 25, "life_fishing": 12, "life_smithing": 20, "life_woodcut": 20}
+	p.life_prof = {"life_mining": 1250, "life_fishing": 288, "life_smithing": 800, "life_woodcut": 800}
+	p.energy = 100
+	p.inventory["十字鎬"] = 1
+	session.world.rng.seed = 42
+	if not session.world.act(1, "生活工作", "life_mining||10|休息"):
+		push_error("Screenshot fixture failed to start mining")
+		quit(1)
+		return
+	for i in 18: session.world.step()
+	session._publish()
+	ui.life_skill = "life_mining"
+	ui.life_recipe = ""
+	ui.open_page(9)
+	await capture("life-skills")
 	quit()

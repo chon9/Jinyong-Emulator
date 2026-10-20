@@ -43,6 +43,7 @@ func act(id: int, command: String, arg: String) -> bool:
 		for member in allies:
 			var player: Dictionary = world.players[member]
 			player.dungeon = sequence
+			world.life.stop(member, "進入副本。")
 			player.auto = "停止"
 			player.travel_target = ""
 			player.travel_route = []
