@@ -7,6 +7,7 @@ const Social = preload("res://scripts/social.gd")
 const Training = preload("res://scripts/progression.gd")
 const Combat = preload("res://scripts/combat_rules.gd")
 const Quests = preload("res://scripts/learning_quests.gd")
+const Market = preload("res://scripts/market.gd")
 var social
 var quests
 var players: Dictionary = {}
@@ -275,23 +276,9 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			tell(id, "你盤膝調息，氣血、內力與精力逐漸恢復。", "修行")
 		"使用": return use_item(id, arg)
 		"購買":
-			if not Data.SHOP.has(arg): return reject(id, "商店沒有這件物品。")
-			if p.place != "揚州城" and not arg in Data.PLACES[p.place].get("shop", []): return reject(id, "當地商店沒有販售這件物品。")
-			if Data.SHOP[arg].get("quest", false): return reject(id, "任務信物只能從江湖歷練取得。")
-			var price: int = Data.SHOP[arg].price
-			if p.silver < price: return reject(id, "銀兩不足。")
-			p.silver -= price
-			p.inventory[arg] = int(p.inventory.get(arg, 0)) + 1
-			tell(id, "花費 %d 兩，購得%s。" % [price, arg], "行囊")
+			return Market.transact(self, id, false, arg)
 		"出售":
-			if p.place != "揚州城" and Data.PLACES[p.place].get("shop", []).is_empty(): return reject(id, "此處沒有收購物品的商人。")
-			if int(p.inventory.get(arg, 0)) < 1 or not Data.SHOP.has(arg): return false
-			if not Data.SHOP[arg].get("sellable", false) or Data.SHOP[arg].get("quest", false): return reject(id, "此物不可出售。")
-			if arg in [p.weapon, p.armor] and int(p.inventory[arg]) == 1: return reject(id, "這是你身上最後一件已裝備的物品。")
-			p.inventory[arg] -= 1
-			var value := maxi(1, int(Data.SHOP[arg].price) / 3)
-			p.silver += value
-			tell(id, "售出%s，獲得 %d 兩。" % [arg, value], "行囊")
+			return Market.transact(self, id, true, arg)
 		"掛機":
 			if not arg in ["刷怪", "練功", "消點", "自修", "打坐"]: return reject(id, "掛機可選：刷怪、消點、自修、打坐。")
 			if arg == "刷怪" and Data.PLACES[p.place].safe: return reject(id, "城內與門派不能刷怪，先去城郊荒野。")

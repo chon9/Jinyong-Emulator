@@ -254,6 +254,8 @@ def build(source):
             elif key == 'skill' and isinstance(v, str): out[key] = skill_names.get(v, v)
             elif key in ['learn', 'learn_add', 'skill_prof'] and isinstance(v, dict): out[key] = {skill_names.get(s, s): n for s, n in v.items()}
             else: out[key] = script_value(v)
+        if value.get('do') == 'tell' and value.get('key') in texts:
+            out['text'] = texts[value['key']]
         return out
     for q in quest_rows:
         if q['id'] not in selected or q.get('giver') not in npcs: continue
@@ -288,7 +290,8 @@ def build(source):
                 objectives.append(o)
             stages.append({'id': stage['id'], 'title': stage['title'], 'log': stage.get('log', ''),
                            'place': stage.get('runtime_place', names.get(stage.get('hint_room'), '')), 'objectives': objectives,
-                           'next': script_value(stage.get('next', '')), 'on_enter': script_value(stage.get('on_enter', []))})
+                           'next': script_value(stage.get('next', '')), 'on_enter': script_value(stage.get('on_enter', [])),
+                           'on_complete': script_value(stage.get('on_complete', []))})
         outcomes = {}
         for key, outcome in q.get('outcomes', {}).items():
             reward = dict(outcome.get('rewards', {}))

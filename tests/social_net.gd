@@ -99,6 +99,13 @@ func run() -> void:
 		await tx("認輸")
 		await wait_until(func(): return session.state.player.place == "揚州城", "PK defeat moves remote client to town")
 		check(not session.state.player.pk_enabled and int(session.state.player.fight) == 0, "Remote PK state resets after loss")
+		money = int(session.state.player.silver)
+		items = int(session.state.player.inventory["金創藥"])
+		var unit: int = session.world.Data.SHOP["金創藥"].price
+		await tx("購買", "金創藥|3")
+		check(int(session.state.player.silver) == money - unit * 3 and int(session.state.player.inventory["金創藥"]) == items + 3, "Remote bulk purchase synchronizes quantity and total price")
+		await tx("出售", "金創藥|2")
+		check(int(session.state.player.silver) == money - unit * 3 + maxi(1, unit / 3) * 2 and int(session.state.player.inventory["金創藥"]) == items + 1, "Remote bulk sale synchronizes inventory and silver")
 		await tx("私聊", "1|SOCIAL_PRIVATE")
 		await tx("說", "SOCIAL_DONE")
 	finish()

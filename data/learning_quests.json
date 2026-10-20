@@ -2241,7 +2241,19 @@
           }
         ],
         "next": "s_ybq2",
-        "on_enter": []
+        "on_enter": [],
+        "on_complete": [
+          {
+            "do": "give",
+            "item": "氣宗武譜",
+            "n": 1
+          },
+          {
+            "do": "tell",
+            "key": "tell_q_hs_spy_wupu",
+            "text": "勞德諾踉蹌倒地，懷中掉出一本手抄的冊子，封面寫著「氣宗武譜」四個字。你把它收了起來。"
+          }
+        ]
       },
       {
         "id": "s_ybq2",
@@ -3007,7 +3019,24 @@
           }
         ],
         "next": "s_yu1",
-        "on_enter": []
+        "on_enter": [],
+        "on_complete": [
+          {
+            "do": "take",
+            "item": "張三丰的委託信",
+            "n": 1
+          },
+          {
+            "do": "give",
+            "item": "假黑玉斷續膏",
+            "n": 1
+          },
+          {
+            "do": "tell",
+            "key": "tell_wd_heiyu_jiagao",
+            "text": "阿大扔給你一個小盒：「黑玉斷續膏，拿去！」盒子裡的藥膏烏黑發亮。"
+          }
+        ]
       },
       {
         "id": "s_yu1",
@@ -3074,7 +3103,29 @@
           }
         ],
         "next": "s_zhaomin",
-        "on_enter": []
+        "on_enter": [],
+        "on_complete": [
+          {
+            "do": "take",
+            "item": "病危令",
+            "n": 1
+          },
+          {
+            "do": "give",
+            "item": "黑玉斷續膏",
+            "n": 1
+          },
+          {
+            "do": "give",
+            "item": "郡主手令",
+            "n": 1
+          },
+          {
+            "do": "tell",
+            "key": "tell_wd_heiyu_zhengao",
+            "text": "阿大又掏出一盒藥膏和一張蓋了王府印信的手令：「真藥在此。要用它，先去見郡主。」"
+          }
+        ]
       },
       {
         "id": "s_zhaomin",
@@ -6004,7 +6055,19 @@
           }
         ],
         "next": "s_laozu",
-        "on_enter": []
+        "on_enter": [],
+        "on_complete": [
+          {
+            "do": "give",
+            "item": "叛徒的血刀",
+            "n": 1
+          },
+          {
+            "do": "tell",
+            "key": "tell_xd_xuehai_dao",
+            "text": "你從叛徒身上奪回了那柄刻著本門記號的血刀。"
+          }
+        ]
       },
       {
         "id": "s_laozu",

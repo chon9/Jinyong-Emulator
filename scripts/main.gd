@@ -3,6 +3,9 @@ extends Control
 const Data = preload("res://scripts/content.gd")
 const Rules = preload("res://scripts/world.gd")
 const Training = preload("res://scripts/progression.gd")
+const Market = preload("res://scripts/market.gd")
+const Guide = preload("res://scripts/quest_guide.gd")
+const Activities = preload("res://scripts/classic/activity_pages.gd")
 const GOLD := Color("e6c77a")
 const INK := Color("24180f")
 const MUTED := Color("c8bc9c")
@@ -52,6 +55,22 @@ var music_label: Label
 var music_toggle: CheckBox
 var music_volume: HSlider
 var navigation_query := ""
+var nav_buttons: Dictionary = {}
+var activity_search: LineEdit
+var activity_notice: Label
+var activity_context := "quest"
+var activity_notice_tag := ""
+var quest_message := "選擇左側任務，右側會顯示條件、目的地與下一步。"
+var market_message := "選擇物品與數量，確認總價後購買或出售。"
+var journal_mode := 0
+var quest_filter := 1
+var quest_query := ""
+var selected_quest := ""
+var shop_mode := 0
+var shop_item := ""
+var shop_query := ""
+var shop_quantity := 1
+var show_shop_directory := false
 
 func _ready() -> void:
 	_build_theme()
@@ -62,7 +81,7 @@ func _ready() -> void:
 	_refresh_music()
 	_refresh()
 	_message("江湖", "一人，一劍，一段自己的江湖。先赴門派拜師，再向師父消點，或挑一門已學武功潛心自修。")
-	_message("系統", "F1 自修、F2 打坐、F3 尋敵、F4 金創藥、F5 存檔、F7 人際。點右側燈籠開啟武功、裝備與聯機選單。")
+	_message("系統", "上方「任務」可接取與追蹤任務；「商店」可買賣與尋找商人。按「前往」即自動趕路，到達後可直接與人物互動。")
 	if "--capture" in OS.get_cmdline_user_args(): _capture.call_deferred()
 
 func _build_theme() -> void:
@@ -165,7 +184,7 @@ func _refresh() -> void:
 	auto_skill.select(maxi(0, skills.find(p.auto_skill)))
 	var job := "未接懸賞"
 	if not p.job.is_empty(): job = "%s  %d/%d" % [p.job.name, p.job.count, p.job.need]
-	task_text.text = "探索 %d/%d · 訪談 %d/%d\n%s · 本次刷怪 %d" % [p.visited.size(), Data.PLACES.size(), p.talked.size(), Data.NPCS.size(), job, p.session_kills]
+	task_text.text = "任務進行中 %d · 已完成 %d\n%s · 探索 %d/%d" % [p.learning_quests.size(), p.quests_done.size(), job, p.visited.size(), Data.PLACES.size()]
 	var names: PackedStringArray = []
 	var party: Dictionary = Session.state.get("social", {}).get("party", {})
 	for member in Session.state.roster:
@@ -177,17 +196,21 @@ func _refresh() -> void:
 	var seconds: int = Session.state.tick
 	clock_label.text = "江湖第 %d 日 · 第 %d 息    %d 人在線" % [seconds / 1440 + 1, seconds % 1440, Session.state.roster.size()]
 	var selected := tabs.get_tab_title(tabs.current_tab)
+	for index in nav_buttons: nav_buttons[index].set_pressed_no_signal(tabs.current_tab == index)
 	_classic_workspace(selected, p.place)
 	var signature := "static"
 	match selected:
-		"江湖": signature = str([p.place, p.sect, p.job, p.searched, p.deliveries, target, p.travel_target, Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place])])
+		"江湖": signature = str([p.place, p.sect, p.job, p.searched, p.deliveries, p.inventory, p.learning_quests, p.quests_done, p.enemy.is_empty(), p.fight, target, p.travel_target, p.flags, p.attrs, p.morality, selected_quest, Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place])])
 		"武學": signature = str([p.place, p.sect, p.skills, p.equipped, p.inner, p.movement, p.parry, p.weapon, p.armor, p.gender, p.sect_master, p.flags, p.attrs, p.attributes_locked])
 		"圖鑑": signature = str([p.place, p.sect])
-		"故事": signature = str([p.stories, p.story_choices, p.place, p.learning_quests, p.quests_done])
+		"故事": signature = str([p.stories, p.story_choices, p.place, p.learning_quests, p.quests_done, p.inventory, p.skills, p.flags, p.attrs, p.morality, p.fame, p.lilian, p.sect, p.gender, p.enemy.is_empty(), p.fight, int(Session.state.tick) / 120, journal_mode, quest_filter, quest_query, selected_quest])
 		"行囊": signature = str([p.place, p.inventory, p.weapon, p.armor])
+		"商店": signature = str([p.place, p.inventory, p.silver, p.weapon, p.armor, p.enemy.is_empty(), p.fight, shop_mode, shop_item, shop_query, show_shop_directory])
 		"人際": signature = str([selected_peer, p.party, p.follow, p.pk_enabled, Session.state.get("social", {}).get("requests", []), Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place, r.party, r.fight])])
 	if signatures.get(selected, "") != signature:
 		signatures[selected] = signature
+		var had_focus := is_instance_valid(activity_search) and activity_search.has_focus()
+		var caret := activity_search.caret_column if had_focus else 0
 		match selected:
 			"江湖": _world_page(p)
 			"武學": _skills_page(p)
@@ -195,6 +218,10 @@ func _refresh() -> void:
 			"故事": _story_page(p)
 			"圖鑑": _catalog_page(p)
 			"人際": _social_page(p)
+			"商店": Activities.shop(self, clear_page("商店"), p)
+		if had_focus and is_instance_valid(activity_search):
+			activity_search.grab_focus()
+			activity_search.caret_column = caret
 	if selected == "武學":
 		for skill in skill_labels:
 			if is_instance_valid(skill_labels[skill]): skill_labels[skill].text = _skill_text(p, skill)
@@ -202,6 +229,17 @@ func _refresh() -> void:
 
 func _world_page(p: Dictionary) -> void:
 	var body := clear_page("江湖")
+	var quick := Activities.flow(body)
+	button("任務清單 · 接取／追蹤／領獎", func(): open_page(3), quick)
+	button("當地商店 · 購買／出售" if Market.has_shop(p.place) else "尋找附近商店", func(): open_market(), quick)
+	button("行囊 · 使用／裝備", func(): open_page(2), quick)
+	if selected_quest != "" and Data.QUESTS.has(selected_quest):
+		var tracked: Dictionary = Data.QUESTS[selected_quest]
+		if not p.quests_done.has(tracked.id):
+			var o := Guide.current_objective(p, tracked)
+			var goal: String = o.get("text", "與發起人接取任務") if not p.learning_quests.has(tracked.id) or not o.is_empty() else "任務達成，請領取獎勵"
+			body.add_child(paragraph("追蹤 · %s：%s" % [tracked.name, goal], GOLD))
+			button("開啟追蹤任務", func(): open_quest(tracked.id), body)
 	var travel := row(body)
 	button("去哪裡？搜尋地點／人物／武功", func():
 		tabs.current_tab = 4
@@ -221,14 +259,6 @@ func _world_page(p: Dictionary) -> void:
 			var preview := button("查看完整路線", func(): _message("行路", str(p.place) + " → " + " → ".join(route)), go)
 			preview.tooltip_text = str(p.place) + " → " + " → ".join(route)
 		button("清除目的地", func(): Session.send("停止"); target = ""; signatures.clear(); _refresh(), body)
-	body.add_child(label("山 川 有 路", 15, GOLD))
-	var exits := HFlowContainer.new()
-	exits.add_theme_constant_override("h_separation", 6)
-	exits.add_theme_constant_override("v_separation", 6)
-	body.add_child(exits)
-	for destination in Data.PLACES[p.place].exits:
-		var shortcut: bool = p.place == "揚州城" and Data.SECTS.values().any(func(s: Dictionary): return s.place == destination)
-		action(("驛站 · " if shortcut else "") + destination, "前往", destination, exits)
 	for sect in Data.SECTS:
 		if Data.SECTS[sect].place == p.place and p.sect == "江湖散人":
 			action("拜入" + sect + " · " + Data.SECTS[sect].style, "拜師", sect, body)
@@ -245,15 +275,34 @@ func _world_page(p: Dictionary) -> void:
 		var line := row(body)
 		action("交談 · " + npc.name, "對話", npc_id, line)
 		if not npc.teach.is_empty(): button("請教武學", func(): tabs.current_tab = 1, line)
-		if Data.QUESTS.values().any(func(q: Dictionary): return q.giver == npc_id): button("學藝機緣", func(): tabs.current_tab = 3; _refresh(), line)
+		if npc.get("kind", "") == "SHOP" and Market.has_shop(p.place): button("購買／出售", func(): open_market(), line)
 		if not npc.teach.is_empty() and Data.SECTS.get(p.sect, {}).get("personal_master", false): action("投師門下", "投師", npc_id, line)
 		body.add_child(paragraph(npc.desc))
+		for q in Guide.at_npc(p, npc_id):
+			var quests_row := Activities.flow(body)
+			if p.learning_quests.has(q.id):
+				button("繼續任務 · " + str(q.name), func(): open_quest(q.id), quests_row)
+			else:
+				var reason := Guide.support_reason(q)
+				if reason == "": reason = Training.check(p, q.conditions, int(Session.state.tick))
+				var accept := button("接任務 · " + str(q.name), func(): accept_quest(q.id), quests_row)
+				accept.disabled = reason != "" or not p.enemy.is_empty() or int(p.fight) != 0
+				button("查看條件與獎勵", func(): open_quest(q.id), quests_row)
+				if reason != "": body.add_child(paragraph("暫不可接：" + reason))
 		for request in npc.get("requests", []):
 			if p.deliveries.has(npc_id + "|" + request.item): continue
 			body.add_child(paragraph("%s託你尋找%s。線索：%s；酬謝 %d 兩與 %d 學點。" % [npc.name, request.item, request.place, request.silver, request.points]))
 			var choices := row(body)
 			button("尋找 " + request.item, func(): _navigate(request.place), choices)
 			action("交付 " + request.item, "交付", npc_id + "|" + request.item, choices)
+	body.add_child(label("山 川 有 路", 15, GOLD))
+	var exits := HFlowContainer.new()
+	exits.add_theme_constant_override("h_separation", 6)
+	exits.add_theme_constant_override("v_separation", 6)
+	body.add_child(exits)
+	for destination in Data.PLACES[p.place].exits:
+		var shortcut: bool = p.place == "揚州城" and Data.SECTS.values().any(func(s: Dictionary): return s.place == destination)
+		action(("驛站 · " if shortcut else "") + destination, "前往", destination, exits)
 	if not Data.PLACES[p.place].safe:
 		var enemies: Array = Data.PLACES[p.place].get("enemies", [Data.PLACES[p.place].enemy])
 		body.add_child(paragraph("可能遭遇：" + "、".join(enemies)))
@@ -275,8 +324,8 @@ func _classic_workspace(selected: String, place: String) -> void:
 	var home := selected == "江湖"
 	narrative.visible = home
 	scene_panel.visible = home
-	workspace.position = Vector2(20, 422) if home else Vector2(20, 74)
-	workspace.size = Vector2(1000, 280) if home else Vector2(1000, 628)
+	workspace.position = Vector2(20, 404) if home else Vector2(20, 110)
+	workspace.size = Vector2(1000, 298) if home else Vector2(1000, 592)
 	workspace.add_theme_stylebox_override("panel", ClassicFrame.style(ClassicFrame.Kind.SCROLL_SMALL if home else ClassicFrame.Kind.JADE))
 	var image_name := "bg_dali_wild"
 	if "少林" in place: image_name = "bg_shaolin"
@@ -454,8 +503,13 @@ func _skill_text(p: Dictionary, skill: String) -> String:
 
 func _inventory_page(p: Dictionary) -> void:
 	var body := clear_page("行囊")
+	body.add_child(label("行囊 · 物品、裝備與補給", 22, GOLD))
+	var shortcuts := row(body)
+	button("購買物品", func(): open_market(), shortcuts)
+	button("出售物品", func(): open_market(true), shortcuts)
 	body.add_child(paragraph("已裝備：%s ／ %s" % [p.weapon if p.weapon != "" else "徒手", p.armor if p.armor != "" else "布衣"]))
 	if p.weapon != "": action("卸下兵器 · 改用拳掌", "卸下", "weapon", body)
+	if p.armor != "": action("卸下防具", "卸下", "armor", body)
 	for item in p.inventory:
 		if int(p.inventory[item]) < 1: continue
 		var line := row(body)
@@ -467,24 +521,15 @@ func _inventory_page(p: Dictionary) -> void:
 		if Data.SHOP.has(item):
 			if Data.SHOP[item].type in ["WEAPON", "ARMOR"]: action("裝備", "裝備", item, line)
 			elif not Data.SHOP[item].get("restore", {}).is_empty(): action("使用", "使用", item, line)
-			action("出售", "出售", item, line)
+			if definition.get("sellable", false) and not definition.get("quest", false):
+				button("出售 · %d 兩/件" % maxi(1, int(definition.price) / 3), func(): open_market(true, item), line)
+			else: line.add_child(label("任務信物" if definition.get("quest", false) else "不可出售", 14, MUTED))
 			body.add_child(paragraph(Data.SHOP[item].desc))
-	body.add_child(label("當 地 商 店", 17, GOLD))
-	var stock: Array = Data.SHOP.keys() if p.place == "揚州城" else Data.PLACES[p.place].get("shop", [])
-	if stock.is_empty(): body.add_child(paragraph("當地沒有商店，可回揚州城採購。"))
-	for item in stock:
-		if Data.SHOP[item].get("quest", false): continue
-		var line := row(body)
-		var kind := " · " + Data.category_label(Data.weapon_type(item)) if Data.SHOP[item].type == "WEAPON" else ""
-		var text := label("%s · %d 兩%s" % [item, Data.SHOP[item].price, kind], 15)
-		text.tooltip_text = Data.SHOP[item].desc
-		text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		line.add_child(text)
-		action("購買", "購買", item, line)
 
 func _story_page(p: Dictionary) -> void:
 	var body := clear_page("故事")
-	_learning_routes(body, p)
+	Activities.quests(self, body, p)
+	if journal_mode == 0: return
 	body.add_child(paragraph("江湖拾遺：以金庸人物與故事脈絡重新撰寫的訪談支線。跨作品人物共處一個模擬江湖；並非原著逐字內容，也不對應單一歷史時間線。", TEXT))
 	for story in Data.STORIES:
 		var stage := int(p.stories.get(story.id, 0))
@@ -497,53 +542,6 @@ func _story_page(p: Dictionary) -> void:
 		else:
 			var npc: Dictionary = Data.NPCS[story.npcs[stage]]
 			button("拜訪 " + npc.name + " · " + npc.place, func(): _navigate(npc.place), body)
-		body.add_child(HSeparator.new())
-
-func _learning_routes(body: VBoxContainer, p: Dictionary) -> void:
-	body.add_child(label("學 藝 機 緣 · 任 務 解 鎖", 20, GOLD))
-	body.add_child(paragraph("先滿足條件，再依階段交談、交付或接受真實考較。完成後選擇結局，才會取得武功或解鎖旗標。這些是來源任務的文字改編；未開放的特殊步驟會明確停止，不能跳過。"))
-	for q in Data.QUESTS.values():
-		if p.quests_done.has(q.id): continue
-		var reason := Training.check(p, q.conditions, int(Session.state.tick))
-		var own := false
-		for condition in q.conditions:
-			if condition.get("type", "") == "sect" and condition.sect == p.sect: own = true
-		if not own and not p.learning_quests.has(q.id) and p.sect != "江湖散人": continue
-		body.add_child(label(q.name, 18, GOLD))
-		if not p.learning_quests.has(q.id):
-			var line := row(body)
-			button("拜訪 " + str(Data.NPCS[q.giver].name), func(): _navigate(Data.NPCS[q.giver].place), line)
-			var accept := action("接受機緣", "接受任務", q.id, line)
-			accept.disabled = reason != "" or p.place != Data.NPCS[q.giver].place
-			accept.tooltip_text = reason if reason != "" else "到發起人身邊接受"
-			if reason != "": body.add_child(paragraph("尚缺：" + reason, MUTED))
-			continue
-		var state: Dictionary = p.learning_quests[q.id]
-		if int(state.stage) == 0 and q.get("dialogues", {}).has("d_offer"):
-			var origin := row(body)
-			button("回發起人", func(): _navigate(Data.NPCS[q.giver].place), origin)
-			action("詢問機緣緣起", "任務緣起", q.id, origin)
-		if int(state.stage) >= q.stages.size():
-			for key in q.outcomes:
-				if str(state.get("outcome", key)) == key: action(q.outcomes[key].label, "任務結局", q.id + "|" + key, body)
-			continue
-		if state.get("dialogue", "") != "":
-			var node: Dictionary = q.get("dialogues", {}).get(state.dialogue, {}).get("nodes", {}).get(state.get("node", ""), {})
-			body.add_child(paragraph(str(node.get("text", "")), TEXT))
-			for option in node.get("choices", []):
-				var choose := action(option.label, "任務對話", q.id + "|" + option.id, body)
-				var lock := Training.check(p, option.get("requires", []), int(Session.state.tick))
-				choose.disabled = lock != ""
-				choose.tooltip_text = lock
-		var stage: Dictionary = q.stages[int(state.stage)]
-		body.add_child(paragraph("%d/%d · %s\n%s" % [int(state.stage) + 1, q.stages.size(), stage.title, stage.log]))
-		for objective in stage.objectives:
-			if state.done.has(objective.id): continue
-			var line := row(body)
-			var npc: String = objective.get("npc", objective.get("target", ""))
-			var place: String = Data.NPCS.get(npc, {}).get("place", stage.place)
-			if place != "": button("前往 · " + place, func(): _navigate(place), line)
-			action(objective.get("text", objective.type), "任務行動", q.id + "|" + objective.id, line)
 		body.add_child(HSeparator.new())
 
 func _catalog_page(_p: Dictionary) -> void:
@@ -599,7 +597,45 @@ func _navigate(place: String) -> void:
 	target = place
 	signatures.clear()
 	tabs.current_tab = 0
+	Session.send("尋路", place)
 	_refresh()
+
+func open_page(index: int) -> void:
+	if index == 3: activity_context = "quest"
+	elif index == 7: activity_context = "market"
+	tabs.current_tab = index
+	_refresh()
+
+func open_quest(quest: String, change_filter: bool = true) -> void:
+	selected_quest = quest
+	journal_mode = 0
+	if change_filter: quest_filter = 0 if Session.state.player.learning_quests.has(quest) else (3 if Session.state.player.quests_done.has(quest) else 2)
+	signatures.erase("故事")
+	open_page(3)
+
+func accept_quest(quest: String) -> void:
+	activity_context = "quest"
+	selected_quest = quest
+	quest_filter = 0
+	journal_mode = 0
+	Session.send("接受任務", quest)
+	signatures.erase("故事")
+	open_page(3)
+
+func claim_quest(quest: String, outcome: String) -> void:
+	Session.send("任務結局", quest + "|" + outcome)
+	quest_filter = 3
+	signatures.erase("故事")
+	_refresh()
+
+func open_market(selling: bool = false, item: String = "") -> void:
+	shop_mode = 1 if selling else 0
+	shop_item = item
+	shop_query = ""
+	shop_quantity = 1
+	show_shop_directory = false
+	signatures.erase("商店")
+	open_page(7)
 
 func _build_network(body: VBoxContainer) -> void:
 	body.add_child(label("江湖聲韻 · 背景音樂", 22, GOLD))
@@ -667,6 +703,11 @@ func _refresh_music() -> void:
 	music_volume.set_value_no_signal(Bgm.volume * 100)
 
 func _message(channel: String, text: String) -> void:
+	if channel in ["機緣", "行囊", "提示", "委託"]:
+		var context := "market" if channel == "行囊" else ("quest" if channel in ["機緣", "委託"] else activity_context)
+		if context == "market": market_message = text
+		else: quest_message = text
+		if is_instance_valid(activity_notice) and activity_notice_tag == context: activity_notice.text = text
 	var time := Time.get_time_string_from_system().left(5)
 	var entry := {"channel": channel, "text": "%s  〔%s〕 %s" % [time, channel, text]}
 	if channel in ["世界", "隊聊", "私聊"]:
@@ -709,8 +750,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode >= KEY_F1 and event.keycode <= KEY_F8:
 		hot_actions[event.keycode - KEY_F1].call()
 		get_viewport().set_input_as_handled()
-	elif event.ctrl_pressed and event.keycode >= KEY_1 and event.keycode <= KEY_7:
-		tabs.current_tab = [0, 1, 2, 3, 4, 6, 5][event.keycode - KEY_1]
+	elif event.ctrl_pressed and event.keycode >= KEY_1 and event.keycode <= KEY_8:
+		tabs.current_tab = [0, 3, 7, 2, 1, 4, 6, 5][event.keycode - KEY_1]
 	elif event.keycode == KEY_ESCAPE: tabs.current_tab = 0
 
 func _capture() -> void:

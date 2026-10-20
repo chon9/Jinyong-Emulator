@@ -5,7 +5,7 @@ signal message(channel: String, text: String)
 const Rules = preload("res://scripts/world.gd")
 const SAVE := "user://youxia_save.json"
 const PORT := 24780
-const PROTOCOL := 4
+const PROTOCOL := 5
 var world = Rules.new()
 var state: Dictionary = {}
 var mode := "單機"

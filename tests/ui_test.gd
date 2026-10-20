@@ -15,7 +15,7 @@ func run() -> void:
 	var ui = load("res://scenes/main.tscn").instantiate()
 	root.add_child(ui)
 	await process_frame
-	for i in 7:
+	for i in 8:
 		ui.tabs.current_tab = i
 		await process_frame
 		check(ui.page_bodies[ui.tabs.get_tab_title(i)].get_child_count() > 0, "Tab populated: " + str(i))
@@ -51,9 +51,9 @@ func run() -> void:
 	ui._command("幫助")
 	ui._command("改名 測試名號")
 	check(p.name == "測試名號", "Command line reaches real game actions")
-	ui.tabs.current_tab = 2
+	ui.tabs.current_tab = 7
 	await process_frame
-	check(ui.page_bodies["行囊"].get_child_count() > 50, "Real catalog stock is visible in shop")
+	check(ui.nav_buttons.has(7) and ui.shop_item != "", "Shop has a permanent navigation entry and selectable stock")
 	var result := {"checks": checks, "failures": failures}
 	var file := FileAccess.open("res://test-results/ui.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(result, "  "))

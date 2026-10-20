@@ -32,7 +32,19 @@ static func build(ui) -> void:
 	at(ui.label("網 金 游 俠", 30, ui.GOLD), Rect2(28, 15, 300, 42), ui)
 	ui.clock_label = ui.label("", 16)
 	at(ui.clock_label, Rect2(450, 24, 530, 30), ui)
-	ui.narrative = panel(Rect2(20, 74, 1000, 222), ClassicFrame.Kind.INK, ui)
+	var navigation := HBoxContainer.new()
+	navigation.add_theme_constant_override("separation", 7)
+	at(navigation, Rect2(20, 64, 1000, 36), ui)
+	var navigation_names := ["江湖", "任務", "商店", "行囊", "武學", "地圖", "人際", "系統"]
+	var navigation_indexes := [0, 3, 7, 2, 1, 4, 6, 5]
+	for i in navigation_names.size():
+		var index: int = navigation_indexes[i]
+		var nav: Button = ui.button(navigation_names[i], func(): ui.open_page(index), navigation)
+		nav.custom_minimum_size = Vector2(114, 34)
+		nav.toggle_mode = true
+		nav.tooltip_text = "Ctrl+" + str(i + 1)
+		ui.nav_buttons[index] = nav
+	ui.narrative = panel(Rect2(20, 110, 1000, 142), ClassicFrame.Kind.INK, ui)
 	var journal := column(ui.narrative, 6)
 	var log_header = ui.row(journal)
 	log_header.add_child(ui.label("江湖紀事", 17, ui.GOLD))
@@ -44,7 +56,7 @@ static func build(ui) -> void:
 	ui.log_view = ui.rich()
 	ui.log_view.scroll_following = true
 	journal.add_child(ui.log_view)
-	ui.scene_panel = panel(Rect2(20, 310, 1000, 105), ClassicFrame.Kind.SCROLL_SMALL, ui)
+	ui.scene_panel = panel(Rect2(20, 264, 1000, 128), ClassicFrame.Kind.SCROLL_SMALL, ui)
 	var location := column(ui.scene_panel, 2)
 	ui.location_label = ui.label("", 23, Color("9e3728"))
 	location.add_child(ui.location_label)
@@ -52,12 +64,12 @@ static func build(ui) -> void:
 	location.add_child(ui.location_desc)
 	ui.encounter = ui.label("", 14, Color("665332"))
 	location.add_child(ui.encounter)
-	ui.workspace = panel(Rect2(20, 422, 1000, 280), ClassicFrame.Kind.SCROLL_SMALL, ui)
+	ui.workspace = panel(Rect2(20, 404, 1000, 298), ClassicFrame.Kind.SCROLL_SMALL, ui)
 	ui.tabs = TabContainer.new()
 	ui.tabs.tabs_visible = false
 	ui.tabs.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	ui.workspace.add_child(ui.tabs)
-	for title in ["江湖", "武學", "行囊", "故事", "圖鑑", "聯機", "人際"]:
+	for title in ["江湖", "武學", "行囊", "故事", "圖鑑", "聯機", "人際", "商店"]:
 		var scroll := ScrollContainer.new()
 		scroll.name = title
 		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -114,11 +126,11 @@ static func build(ui) -> void:
 	var lanterns := VBoxContainer.new()
 	lanterns.add_theme_constant_override("separation", 6)
 	at(lanterns, Rect2(1368, 38, 54, 650), ui)
-	var names := ["江湖", "武功", "裝備", "故事", "地圖", "人際", "系統"]
-	var indexes := [0, 1, 2, 3, 4, 6, 5]
+	var names := navigation_names
+	var indexes := navigation_indexes
 	for i in names.size():
 		var lantern := ClassicButton.new(ClassicButton.Style.LANTERN, names[i])
-		lantern.custom_minimum_size = Vector2(52, 76)
+		lantern.custom_minimum_size = Vector2(52, 70)
 		lantern.tooltip_text = names[i] + "（Ctrl+" + str(i + 1) + "）"
 		var selected: int = indexes[i]
 		lantern.pressed.connect(func(): ui.tabs.current_tab = selected)

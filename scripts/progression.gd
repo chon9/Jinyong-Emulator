@@ -47,6 +47,9 @@ static func condition_text(c: Dictionary) -> String:
 	match str(c.get("type", "")):
 		"sect": return str(c.sect) + "弟子"
 		"no_sect": return "尚未加入門派"
+		"not_enemy_of": return "未與" + str(c.get("sect", "此門派")) + "結怨"
+		"unmarried": return "尚未婚配"
+		"not_flag": return "尚未完成：" + Data.flag_name(str(c.flag))
 		"gender": return "男性" if c.value == "M" else "女性"
 		"attr_min": return "%s至少 %d" % [ATTRS.get(c.attr, c.attr), value]
 		"skill_min": return "%s至少 %d 級" % [c.skill, value]
@@ -63,7 +66,7 @@ static func condition_text(c: Dictionary) -> String:
 		"has_item": return "持有 " + str(c.get("item", ""))
 		"quest_var": return "完成當前任務步驟"
 		"any_of": return "滿足任一前置條件"
-	return "前置條件：" + str(c.get("type", "未知"))
+	return "其他學習條件"
 
 static func check(p: Dictionary, conditions: Array, tick: int = 0) -> String:
 	for c in conditions:

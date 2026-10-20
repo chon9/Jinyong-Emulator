@@ -20,6 +20,18 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 | **270** connected locations | **292** NPCs with distinct dialogue | **174** items | **137** enemy types |
 | **11** sects | **12** character storylines | **124** martial arts | **71** artifact commissions |
 
+## 接任務、買補給，從這裡開始
+
+The permanent top bar puts **任務 · 商店 · 行囊** within one click. You can also use the matching lantern menus.
+
+- **任務** — Browse available, active, locked and completed quests. Select one to see its requirements, rewards and next step. Common quests remain visible after joining a sect. Press **前往接任務**, then accept beside the NPC; delivery and reward buttons live in the same journal.
+- **商店** — Choose **購買物品** or **出售物品**, select an item and quantity, and confirm the displayed total. Missing money, protected quest items and equipped gear have visible explanations. If no merchant is nearby, the shop finder lists reachable stores and starts travel when selected.
+- **行囊** — Use medicine, equip or remove gear, or jump directly to its sale. The shop can also remove equipped gear before you sell it.
+
+![Quest journal with conversation choices, progress and next actions](docs/screenshots/quests.png)
+
+![A dedicated shop with item details, quantity and the exact transaction price](docs/screenshots/shop.png)
+
 ## Learn the art. Find your way.
 
 - **門派與師承** — Join 少林、武當、峨嵋、華山、恆山、全真、古墓、靈鷲宮、星宿、血刀門 or 丐幫. Find teachers, meet prerequisites, and work through their teaching limits.
@@ -33,17 +45,17 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 
 ### Find the person. Learn the art.
 
-**v0.4.0 restores point-based training and makes travel explicit.** Search the map for a place, person, martial art or learning event. Searching **武當心法** finds its actual teacher; an event art can point to its quest giver. Results show the exact room and distance.
+**Find a teacher or a quest giver by name or martial art.** Search the map for a place, person, martial art or learning event. Searching **武當心法** finds its actual teacher; an event art can point to its quest giver. Results show the exact room and distance.
 
-Choose a result to preview the destination and next stop, then press **自動前往目的地**. Travel follows adjacent rooms one step at a time, stops on arrival, and can be cancelled with **停止**. Changing destination cancels the old journey.
+Choose a result to **start travelling immediately**. The world page shows the destination, next stop and full route. Travel follows adjacent rooms one step at a time, stops on arrival, and can be cancelled with **停止**. Changing destination cancels the old journey.
 
 ![Find a martial arts teacher by the art they teach](docs/screenshots/navigation.png)
 
-![Preview the exact destination and next step, then start or cancel travel](docs/screenshots/route.png)
+![Follow the exact destination and next step, or cancel travel](docs/screenshots/route.png)
 
 Instruction now spends **one point for proficiency**, rather than granting a full level. Self-study spends **three points every five seconds**, with no credit for an interrupted cycle. Train 讀書識字 to improve 悟性, build lifetime 實戰, meet the teacher's prerequisites, and complete learning events to unlock advanced arts. The 武功 page shows what is missing.
 
-The **29 source quest routes** include recommendation letters, conversations, items, trials and learning rewards. Some special steps and missing historical events remain unavailable and are marked as such. External, internal, lightness and parry arts have separate selections; combat includes corresponding basic skills, equipment scaling, dodge, move unlocks and inner-power costs.
+The **29 imported quest definitions** include recommendation letters, conversations, items, trials and learning rewards. Some special steps and missing historical events remain unavailable and are marked as such. External, internal, lightness and parry arts have separate selections; combat includes corresponding basic skills, equipment scaling, dodge, move unlocks and inner-power costs.
 
 See the [research and implementation audit](docs/RESTORATION.md) for sources, historical differences and reconstructed coefficients. This build does not claim exact official-server parity.
 
@@ -73,7 +85,7 @@ The original basic name **搏擊格鬥** replaces the prototype's 基本拳腳. 
 
 Keep the bundled DLLs and `steam_appid.txt` next to the EXE. The game opens in single-player mode and remains playable when Steam is unavailable.
 
-**First steps:** open 地圖 and search **基本刀法** or **基本劍法** to find a武館 teacher. Learn a basic art, return to 揚州城 for the beginner bounty, then work toward your chosen sect's entry requirements. Set gender in 武功 before joining; 武當 and 華山 also need their entry events. Press **F8** for music settings and multiplayer connections.
+**First steps:** open **任務 → 可接任務** and choose a beginner delivery. Press **前往接任務**, accept at the NPC, follow the next step and claim the reward. Open **商店** for supplies and selling loot. For training, open 地圖 and search **基本刀法** or **基本劍法** to find a武館 teacher. Learn a basic art, return to 揚州城 for the beginner bounty, then work toward your chosen sect's entry requirements. Set gender in 武功 before joining; 武當 and 華山 also need their entry events. Press **F8** for music settings and multiplayer connections.
 
 | Key | Action | Key | Action |
 | --- | --- | --- | --- |
@@ -82,7 +94,7 @@ Keep the bundled DLLs and `steam_appid.txt` next to the EXE. The game opens in s
 | **F3** | 尋敵 · seek enemies | **F7** | Player interactions |
 | **F4** | Use 金創藥 | **F8** | Music & connections |
 
-**Ctrl+1–7** opens the lantern menus; **Esc** returns to the world. The command line also accepts commands such as `拜師 武當`, `自修 基本內功`, `掛機 刷怪`, and `幫助`.
+**Ctrl+1–8** opens 江湖、任務、商店、行囊、武學、地圖、人際、系統; **Esc** returns to the world. The command line also accepts commands such as `拜師 武當`, `自修 基本內功`, `掛機 刷怪`, and `幫助`.
 
 ## Play with friends
 
@@ -120,7 +132,7 @@ The standalone Windows game saves to:
 %APPDATA%\Godot\app_userdata\網金游俠模擬器\
 ```
 
-Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat and incomplete study cycles reset on load. Everyone in a multiplayer session must use **v0.4.0 / protocol 4**.
+Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat and incomplete study cycles reset on load. Everyone in a multiplayer session must use **v0.4.1 / protocol 5**.
 
 ## Build from source
 
@@ -151,7 +163,7 @@ The launcher isolates development saves and editor caches under `.tools/`; they 
 | Classic UI and controls | [`scripts/classic/`](scripts/classic/) |
 | World catalog and stories | [`data/`](data/) |
 
-See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.4.0.md) for this build.
+See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.4.1.md) for this build.
 
 ## Project notes & credits
 

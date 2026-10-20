@@ -1,10 +1,11 @@
-param([string]$Godot = 'K:\Godot\Godot_v4.6.3-stable_win64_console.exe', [switch]$SocialNetwork)
+param([string]$Godot = 'K:\Godot\Godot_v4.6.3-stable_win64_console.exe', [switch]$SocialNetwork, [switch]$NetworkOnly)
 $ErrorActionPreference = 'Stop'
 $youxiaRoot = Split-Path -Parent $PSScriptRoot
 $env:APPDATA = Join-Path $youxiaRoot '.tools\appdata'
 $env:LOCALAPPDATA = Join-Path $youxiaRoot '.tools\localappdata'
 New-Item -ItemType Directory -Path (Join-Path $youxiaRoot 'test-results'),$env:APPDATA,$env:LOCALAPPDATA -Force | Out-Null
-foreach ($youxiaSuite in @('world_test.gd','martial_test.gd','restoration_test.gd','social_test.gd','bgm_test.gd','ui_test.gd')) {
+$youxiaSuites = if ($NetworkOnly) { @() } else { @('world_test.gd','martial_test.gd','restoration_test.gd','social_test.gd','bgm_test.gd','ui_test.gd','ui_flow_test.gd') }
+foreach ($youxiaSuite in $youxiaSuites) {
     & $Godot --headless --path $youxiaRoot --script "res://tests/$youxiaSuite" -- --no-steam --test-profile=unit
     if ($LASTEXITCODE -ne 0) { throw "Failed: $youxiaSuite" }
 }

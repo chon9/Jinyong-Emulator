@@ -52,4 +52,21 @@ func run() -> void:
 	await capture("navigation")
 	ui._navigate(session.world.Data.NPCS["n_wd_yudaiyan"].place)
 	await capture("route")
+	p.enemy = {}
+	p.travel_target = ""
+	p.travel_route = []
+	p.skills.merge({"武當身法": 40, "俠義": 40}, true)
+	p.place = session.world.Data.NPCS[session.world.Data.QUESTS.q_wd_yinliu.giver].place
+	if not session.world.act(1, "接受任務", "q_wd_yinliu"):
+		push_error("Screenshot fixture failed to accept quest")
+		quit(1)
+		return
+	session._publish()
+	ui.open_quest("q_wd_yinliu")
+	await capture("quests")
+	p.place = "揚州城"
+	p.silver = 1000
+	session._publish()
+	ui.open_market(false, "金創藥")
+	await capture("shop")
 	quit()
