@@ -35,6 +35,7 @@ static var SKILLS: Dictionary = {}
 static var STORIES: Array = []
 static var QUESTS: Dictionary = {}
 static var RANKS: Array = []
+static var DUNGEONS: Dictionary = {}
 
 static func _static_init() -> void:
 	var catalog: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/catalog.json"))
@@ -48,6 +49,8 @@ static func _static_init() -> void:
 	RANKS = catalog.get("ranks", [])
 	STORIES = JSON.parse_string(FileAccess.get_file_as_string("res://data/stories.json"))
 	QUESTS = JSON.parse_string(FileAccess.get_file_as_string("res://data/learning_quests.json"))
+	DUNGEONS = JSON.parse_string(FileAccess.get_file_as_string("res://data/dungeons.json"))
+	SHOP.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/quest_support.json")).get("items", {}), true)
 	for old in ["少林寺", "武當山", "峨眉山"]:
 		PLACES.erase(old)
 		PLACES["揚州城"].exits.erase(old)
@@ -78,11 +81,21 @@ static func _static_init() -> void:
 	# 補齊原匯入商店缺少的武器類；名稱與數值為本作練習兵器。
 	for entry in [["練習長槍", "SPEAR"], ["練習鐵爪", "CLAW"]]:
 		SHOP[entry[0]] = {"id": "yx_" + entry[1], "type": "WEAPON", "weapon_type": entry[1], "price": 30, "attack": 5, "defense": 0, "quest": false, "sellable": true, "restore": {}, "desc": "本作練習兵器，僅為相容的外功提供兵器加成。"}
+	NPCS["yx_bounty"] = {"id": "yx_bounty", "name": "江湖懸賞使", "place": "揚州城", "kind": "QUEST", "desc": "手持討伐簿的差人，替各地百姓張貼剿匪與試煉委託。", "dialogue": ["懸賞使指著榜文：先看清入口與敵情，備好藥再動身。組隊時，等所有人準備好再開戰。"], "teach": []}
+	if not PLACES["揚州城"].has("npcs"): PLACES["揚州城"]["npcs"] = []
+	PLACES["揚州城"].npcs.append("yx_bounty")
+	for key in DUNGEONS:
+		var dungeon: Dictionary = DUNGEONS[key]
+		var flag := "yx_dungeon_" + str(key)
+		var qid := "q_" + flag
+		QUESTS[qid] = {"id": qid, "name": "討伐委託 · " + str(dungeon.name), "giver": "yx_bounty", "conditions": [{"type": "combat_xp_min", "value": dungeon.min_xp}], "give_items": [], "dialogues": {}, "stages": [{"id": "s_clear", "title": "完成副本挑戰", "log": "在副本頁選擇" + str(dungeon.name) + "，通過所有關卡後回任務頁領賞。", "place": dungeon.entry, "objectives": [{"id": "o_clear", "type": "STATE", "dungeon": key, "text": "通關" + str(dungeon.name), "requires": [{"type": "quest_flag", "flag": flag}]}], "next": "END:default"}], "outcomes": {"default": {"label": "領取討伐賞金", "rewards": {"money": int(dungeon.rewards.silver), "learn_points": int(dungeon.rewards.points), "fame": 10}}}, "source_status": "proposal"}
 
 static func role(skill: String) -> String:
 	return str(SKILLS.get(skill, {}).get("role", "UTILITY"))
 
 static func flag_name(flag: String) -> String:
+	for key in DUNGEONS:
+		if flag == "yx_dungeon_" + str(key): return "通關" + str(DUNGEONS[key].name)
 	for quest in QUESTS.values():
 		for outcome in quest.outcomes.values():
 			if flag in outcome.rewards.get("flags", []): return quest.name

@@ -17,18 +17,21 @@ func act(id: int, command: String, arg: String) -> bool:
 	var q: Dictionary = Data.QUESTS[parts[0]]
 	if command == "任務對話": return choose(id, q, parts[1] if parts.size() > 1 else "")
 	if command == "接受任務":
-		if p.quests_done.has(q.id) or p.learning_quests.has(q.id): return world.reject(id, "已接受或已完成此機緣。")
-		if Guide.support_reason(q) != "": return world.reject(id, Guide.support_reason(q))
+		if p.learning_quests.has(q.id): return world.reject(id, "已接受此任務。")
 		if not q.giver in Data.local_npcs(p.place): return world.reject(id, "請先到任務發起人身邊。")
-		var reason := Training.check(p, q.conditions, world.tick)
+		var reason := Guide.accept_reason(p, q, world.tick)
 		if reason != "": return world.reject(id, "機緣需要：" + reason)
 		p.learning_quests[q.id] = {"stage": 0, "done": {}, "started": world.tick, "vars": {}, "effects": {}, "dialogue": "", "node": "", "npc": ""}
+		for index in q.stages.size():
+			if q.stages[index].id == q.get("start", ""): p.learning_quests[q.id].stage = index
 		for item in q.get("give_items", []): p.inventory[item.item] = int(p.inventory.get(item.item, 0)) + int(item.n)
+		if not effects(id, q, q.stages[int(p.learning_quests[q.id].stage)].get("on_enter", []), "stage-enter"): return false
 		world.tell(id, "接受【%s】：%s" % [q.name, q.stages[0].log], "機緣")
 		if q.get("dialogues", {}).has("d_offer"): return act(id, "任務緣起", q.id)
 		return true
 	if not p.learning_quests.has(q.id): return world.reject(id, "請先接受這份學藝機緣。")
 	var state: Dictionary = p.learning_quests[q.id]
+	if command == "任務場景": return room_action(id, q, parts[1] if parts.size() > 1 else "")
 	if command == "任務緣起":
 		if int(state.stage) != 0 or not q.giver in Data.local_npcs(p.place): return world.reject(id, "請到發起人身邊詢問。")
 		if not q.get("dialogues", {}).has("d_offer"): return false
@@ -51,9 +54,13 @@ func act(id: int, command: String, arg: String) -> bool:
 		for skill in rewards.get("skill_prof", {}): Training.add_prof(p, skill, int(rewards.skill_prof[skill]), Training.xp_cap(p))
 		for pair in [["money", "silver"], ["learn_points", "potential"], ["combat_xp", "combat_xp"], ["fame", "fame"], ["lilian", "lilian"], ["morality", "morality"]]:
 			if rewards.has(pair[0]): p[pair[1]] += int(rewards[pair[0]])
-		if rewards.has("sect_rank"): p.sect_rank = maxi(int(p.sect_rank), int(rewards.sect_rank))
+		if rewards.has("sect_rank"):
+			var rank: Variant = rewards.sect_rank
+			p.sect_rank = maxi(int(p.sect_rank), int(rank.get("rank", 0)) if rank is Dictionary else int(rank))
 		for item in rewards.get("items", []): p.inventory[item.item] = int(p.inventory.get(item.item, 0)) + int(item.n)
 		p.quests_done[q.id] = parts[1]
+		var count := int(p.quest_history.get(q.id, {}).get("count", 0))
+		p.quest_history[q.id] = {"count": count + 1, "until": int(Time.get_unix_time_from_system()) + ceili(float(q.get("repeat", {}).get("cooldown_days", 0)) * 1440)}
 		p.learning_quests.erase(q.id)
 		world.tell(id, "完成【%s】：%s。" % [q.name, outcome.label], "機緣")
 		return true
@@ -65,7 +72,9 @@ func act(id: int, command: String, arg: String) -> bool:
 	if objective.is_empty() or state.done.has(objective.id): return false
 	var npc: String = Guide.npc_of(objective)
 	if npc != "" and not npc in Data.local_npcs(p.place): return world.reject(id, "請先前往這一步的指定人物身邊。")
-	if npc == "" and stage.place != "" and p.place != stage.place: return world.reject(id, "請先前往" + stage.place)
+	var destination := Guide.place_of(stage, objective)
+	if npc == "" and destination != "" and p.place != destination: return world.reject(id, "請先前往" + destination)
+	if not objective.get("hours", []).is_empty() and Training.check(p, [{"type": "hour_in", "hours": objective.hours}], world.tick) != "": return world.reject(id, "時辰尚未到。")
 	var reason := Training.check(p, objective.get("requires", []), world.tick)
 	if reason != "": return world.reject(id, reason)
 	match str(objective.type):
@@ -82,25 +91,20 @@ func act(id: int, command: String, arg: String) -> bool:
 		"WAIT":
 			var seconds := ceili(float(objective.get("days", 0)) * 1440)
 			if world.tick - int(state.started) < seconds: return world.reject(id, "尚需等待 %d 息。" % (seconds - world.tick + int(state.started)))
+		"KILL":
+			if int(state.get("counts", {}).get(objective.id, 0)) < int(objective.get("count", 1)): return world.reject(id, "尚未擊敗足夠的指定敵人。")
 		"COLLECT", "DELIVER", "BUY":
 			var item: String = objective.get("item", "")
 			var count := int(objective.get("count", objective.get("n", 1)))
 			if int(p.inventory.get(item, 0)) < count: return world.reject(id, "需要%s × %d，尚未取得。" % [item, count])
 			if objective.type == "DELIVER": p.inventory[item] -= count
 		"FIGHT":
-			for earlier in stage.objectives:
-				if earlier.type == "TALK" and not state.done.has(earlier.id): return world.reject(id, "先和考較人物交談。")
-			var enemies: Array = objective.get("enemies", []).duplicate()
-			if objective.get("target", "").begins_with("m_") and enemies.size() == 1:
-				for repeat in maxi(0, int(objective.get("count", 1)) - 1): enemies.append(enemies[0])
-			if enemies.is_empty(): return world.reject(id, "這段考較的敵人資料尚未開放，不能略過。")
-			var enemy: Dictionary = Data.ENEMIES[enemies[0]].duplicate(true)
-			enemy.merge({"name": "機緣考較 · " + str(enemies[0]), "max_hp": enemy.hp, "quest_id": q.id, "quest_objective": objective.id, "quest_any": objective.get("win", "WIN") == "ANY", "quest_enemies": enemies.slice(1), "exp": 0, "combat_xp": 0, "potential": 0, "silver": 0, "drops": []}, true)
-			p.quest_restore = {"hp": p.hp, "mp": p.mp, "place": p.place}
-			p.enemy = enemy
-			p.auto = "停止"
-			world.tell(id, "開始【%s】考較。%s" % [q.name, "勝負不拘，可逃跑結束考較。" if enemy.quest_any else "必須勝出。"], "戰鬥")
-			return true
+			if q.dialogues.has(objective.get("dialogue", "")):
+				state.dialogue = objective.dialogue
+				state.npc = npc
+				state.node = q.dialogues[objective.dialogue].get("start", "n0")
+				return present(id, q)
+			return begin_fight(id, q, objective)
 		_: return world.reject(id, "這段護送或特殊互動流程尚未開放，不能直接跳過。")
 	state.done[objective.id] = true
 	advance(id, q.id)
@@ -132,6 +136,9 @@ func advance(id: int, quest: String) -> void:
 	state.dialogue = ""
 	state.node = ""
 	state.npc = ""
+	state["room_used"] = {}
+	state["counts"] = {}
+	if int(state.stage) < q.stages.size(): effects(id, q, q.stages[int(state.stage)].get("on_enter", []), "stage-enter")
 	world.tell(id, "【%s】%s" % [q.name, q.stages[int(state.stage)].log if int(state.stage) < q.stages.size() else "考較完成，請在機緣頁選擇結局並領取傳授。"], "機緣")
 
 func choose(id: int, q: Dictionary, choice: String) -> bool:
@@ -175,8 +182,10 @@ func effects(id: int, q: Dictionary, actions: Array, context: String) -> bool:
 	if not state.has("effects"): state.effects = {}
 	# Check all inventory deductions before applying a dialogue action batch.
 	var deductions := {}
-	for action in actions:
-		if action.get("do", "") == "take": deductions[action.item] = int(deductions.get(action.item, 0)) + int(action.get("n", 1))
+	for index in actions.size():
+		var action: Dictionary = actions[index]
+		var key := "%d|%s|%s|%d" % [int(state.stage), state.dialogue, context, index]
+		if not state.effects.has(key) and action.get("do", "") == "take": deductions[action.item] = int(deductions.get(action.item, 0)) + int(action.get("n", 1))
 	for item in deductions:
 		if int(p.inventory.get(item, 0)) < int(deductions[item]): return world.reject(id, "尚缺 " + str(item))
 	for index in actions.size():
@@ -197,7 +206,15 @@ func effects(id: int, q: Dictionary, actions: Array, context: String) -> bool:
 				p.skills[action.skill] = maxi(int(p.skills.get(action.skill, 0)), int(action.get("level", 1)))
 			"fight":
 				state.effects[key] = true
-				return act(id, "任務行動", q.id + "|" + str(action.obj))
+				for o in q.stages[int(state.stage)].objectives:
+					if o.id == action.get("obj", ""): return begin_fight(id, q, o, action.get("enemies", []))
+				return world.reject(id, "此戰鬥沒有可用的任務目標。")
+			"reward":
+				var rewards: Dictionary = action.get("rewards", action)
+				for pair in [["money", "silver"], ["learn_points", "potential"], ["combat_xp", "combat_xp"], ["fame", "fame"], ["lilian", "lilian"], ["morality", "morality"]]:
+					p[pair[1]] += int(rewards.get(pair[0], 0))
+				for skill in rewards.get("skill_prof", {}): Training.add_prof(p, skill, int(rewards.skill_prof[skill]), Training.xp_cap(p))
+				for item in rewards.get("items", []): p.inventory[item.item] = int(p.inventory.get(item.item, 0)) + int(item.n)
 			"fail":
 				p.learning_quests.erase(q.id)
 				world.tell(id, "這次機緣未能完成，可重新接受。", "機緣")
@@ -206,6 +223,69 @@ func effects(id: int, q: Dictionary, actions: Array, context: String) -> bool:
 			_: return world.reject(id, "此特殊對話效果尚未開放，沒有跳過。")
 		state.effects[key] = true
 	return true
+
+func begin_fight(id: int, q: Dictionary, objective: Dictionary, specified: Array = []) -> bool:
+	var p: Dictionary = world.players[id]
+	var state: Dictionary = p.learning_quests[q.id]
+	for earlier in q.stages[int(state.stage)].objectives:
+		if earlier.type == "TALK" and not state.done.has(earlier.id): return world.reject(id, "先和考較人物交談。")
+	var enemies: Array = specified.duplicate() if not specified.is_empty() else objective.get("enemies", []).duplicate()
+	if objective.get("target", "").begins_with("m_") and enemies.size() == 1:
+		for repeat in maxi(0, int(objective.get("count", 1)) - 1): enemies.append(enemies[0])
+	if enemies.is_empty() or enemies.any(func(name): return not Data.ENEMIES.has(name)): return world.reject(id, "這段考較的敵人資料尚未開放。")
+	var enemy: Dictionary = Data.ENEMIES[enemies[0]].duplicate(true)
+	var rule: String = objective.get("win", "WIN")
+	enemy.merge({"name": "機緣考較 · " + str(enemies[0]), "source_name": enemies[0], "max_hp": enemy.hp, "quest_id": q.id, "quest_objective": objective.id, "quest_any": rule == "ANY", "quest_flee": rule in ["ANY", "WIN_OR_FLEE"], "quest_no_flee": objective.get("no_flee", false), "quest_enemies": enemies.slice(1), "exp": 0, "combat_xp": 0, "potential": 0, "silver": 0, "drops": []}, true)
+	p.quest_restore = {"hp": p.hp, "mp": p.mp, "place": p.place}
+	p.enemy = enemy
+	p.auto = "停止"
+	world.tell(id, "開始【%s】考較。%s" % [q.name, "勝出或逃離皆可。" if enemy.quest_flee else "必須勝出。"], "戰鬥")
+	return true
+
+func room_action(id: int, q: Dictionary, action_id: String) -> bool:
+	var p: Dictionary = world.players[id]
+	var state: Dictionary = p.learning_quests[q.id]
+	if int(state.stage) >= q.stages.size(): return false
+	for a in q.stages[int(state.stage)].get("room_actions", []):
+		if a.id != action_id: continue
+		if p.place != a.room: return world.reject(id, "請先前往" + str(a.room))
+		if not a.get("hours", []).is_empty() and Training.check(p, [{"type": "hour_in", "hours": a.hours}], world.tick) != "": return world.reject(id, "時辰尚未到。")
+		var reason := Training.check(p, a.get("requires", []), world.tick)
+		if reason != "": return world.reject(id, reason)
+		if not state.has("room_used"): state.room_used = {}
+		if not a.get("repeat", true) and state.room_used.has(a.id): return world.reject(id, "這項互動已完成。")
+		state["action_seq"] = int(state.get("action_seq", 0)) + 1
+		if not effects(id, q, a.get("do", []), "room:%s:%d" % [a.id, state.action_seq]): return false
+		state.room_used[a.id] = true
+		if p.enemy.is_empty(): settle(id, q.id)
+		return true
+	return false
+
+func on_kill(id: int, enemy: String) -> void:
+	var p: Dictionary = world.players[id]
+	for qid in p.learning_quests:
+		var state: Dictionary = p.learning_quests[qid]
+		var q: Dictionary = Data.QUESTS[qid]
+		if int(state.stage) >= q.stages.size(): continue
+		if not state.has("counts"): state.counts = {}
+		for o in q.stages[int(state.stage)].objectives:
+			if o.type != "KILL" or o.get("enemy_name", "") != enemy: continue
+			state.counts[o.id] = mini(int(o.get("count", 1)), int(state.counts.get(o.id, 0)) + 1)
+			if int(state.counts[o.id]) >= int(o.get("count", 1)): state.done[o.id] = true
+
+func settle(id: int, qid: String) -> void:
+	var p: Dictionary = world.players[id]
+	if not p.learning_quests.has(qid) or not p.enemy.is_empty() or int(p.fight) != 0: return
+	var state: Dictionary = p.learning_quests[qid]
+	if state.get("dialogue", "") != "": return
+	var q: Dictionary = Data.QUESTS[qid]
+	if int(state.stage) >= q.stages.size(): return
+	var stage: Dictionary = q.stages[int(state.stage)]
+	for o in stage.objectives:
+		if o.type == "COLLECT" and int(p.inventory.get(o.get("item", ""), 0)) >= int(o.get("count", 1)): state.done[o.id] = true
+		if o.type == "STATE" and not o.get("requires", []).is_empty() and Training.check(p, o.requires, world.tick) == "": state.done[o.id] = true
+		if o.type == "WAIT" and world.tick - int(state.started) >= ceili(float(o.get("days", 0)) * 1440): state.done[o.id] = true
+	advance(id, qid)
 
 func fight_result(id: int, quest: String, objective: String, success: bool) -> void:
 	var p: Dictionary = world.players[id]

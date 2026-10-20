@@ -59,6 +59,7 @@ static func condition_text(c: Dictionary) -> String:
 		"quest_done": return "完成任務：" + str(Data.QUESTS.get(c.quest, {}).get("name", c.quest))
 		"sect_rank_min": return "門派位階至少 %d" % value
 		"combat_xp_min": return "實戰至少 %d" % value
+		"combat_xp_max": return "實戰最多 %d" % value
 		"morality_min": return "善惡至少 %d" % value
 		"morality_max": return "善惡最多 %d" % value
 		"lilian_min": return "江湖歷練至少 %d" % value

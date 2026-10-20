@@ -69,4 +69,18 @@ func run() -> void:
 	session._publish()
 	ui.open_market(false, "金創藥")
 	await capture("shop")
+	session.world.social.leave_party(1)
+	p.place = "黑風林"
+	p.dungeon_cooldowns = {}
+	session._publish()
+	ui.open_page(8)
+	await capture("dungeons")
+	if not session.world.act(1, "副本進入", "blackwind"):
+		push_error("Screenshot fixture failed to enter dungeon")
+		quit(1)
+		return
+	session.world.act(1, "副本準備")
+	session.world.act(1, "副本開戰")
+	session._publish()
+	await capture("dungeon-combat")
 	quit()

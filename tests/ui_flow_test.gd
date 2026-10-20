@@ -94,7 +94,7 @@ func run() -> void:
 	root.add_child(ui)
 	await process_frame
 	await process_frame
-	check(ui.nav_buttons.size() == 8, "Eight permanent labeled destinations")
+	check(ui.nav_buttons.size() == 9, "Nine permanent labeled destinations")
 	await click(ui.nav_buttons[3])
 	check(ui.tabs.current_tab == 3, "Task navigation opens the quest journal")
 	check(find_button("驛站送信\n") != null, "A sect member can discover common quests")

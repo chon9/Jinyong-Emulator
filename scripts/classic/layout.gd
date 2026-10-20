@@ -35,12 +35,12 @@ static func build(ui) -> void:
 	var navigation := HBoxContainer.new()
 	navigation.add_theme_constant_override("separation", 7)
 	at(navigation, Rect2(20, 64, 1000, 36), ui)
-	var navigation_names := ["江湖", "任務", "商店", "行囊", "武學", "地圖", "人際", "系統"]
-	var navigation_indexes := [0, 3, 7, 2, 1, 4, 6, 5]
+	var navigation_names := ["江湖", "任務", "副本", "商店", "行囊", "武學", "地圖", "人際", "系統"]
+	var navigation_indexes := [0, 3, 8, 7, 2, 1, 4, 6, 5]
 	for i in navigation_names.size():
 		var index: int = navigation_indexes[i]
 		var nav: Button = ui.button(navigation_names[i], func(): ui.open_page(index), navigation)
-		nav.custom_minimum_size = Vector2(114, 34)
+		nav.custom_minimum_size = Vector2(104, 34)
 		nav.toggle_mode = true
 		nav.tooltip_text = "Ctrl+" + str(i + 1)
 		ui.nav_buttons[index] = nav
@@ -69,7 +69,7 @@ static func build(ui) -> void:
 	ui.tabs.tabs_visible = false
 	ui.tabs.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
 	ui.workspace.add_child(ui.tabs)
-	for title in ["江湖", "武學", "行囊", "故事", "圖鑑", "聯機", "人際", "商店"]:
+	for title in ["江湖", "武學", "行囊", "故事", "圖鑑", "聯機", "人際", "商店", "副本"]:
 		var scroll := ScrollContainer.new()
 		scroll.name = title
 		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -130,7 +130,7 @@ static func build(ui) -> void:
 	var indexes := navigation_indexes
 	for i in names.size():
 		var lantern := ClassicButton.new(ClassicButton.Style.LANTERN, names[i])
-		lantern.custom_minimum_size = Vector2(52, 70)
+		lantern.custom_minimum_size = Vector2(52, 62)
 		lantern.tooltip_text = names[i] + "（Ctrl+" + str(i + 1) + "）"
 		var selected: int = indexes[i]
 		lantern.pressed.connect(func(): ui.tabs.current_tab = selected)

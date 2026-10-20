@@ -71,6 +71,7 @@ var shop_item := ""
 var shop_query := ""
 var shop_quantity := 1
 var show_shop_directory := false
+var selected_dungeon := "blackwind"
 
 func _ready() -> void:
 	_build_theme()
@@ -194,7 +195,7 @@ func _refresh() -> void:
 	if not pending.is_empty(): names.append("〔%d 份邀請待回覆 · 按 F7〕" % pending.size())
 	roster.text = "\n".join(names)
 	var seconds: int = Session.state.tick
-	clock_label.text = "江湖第 %d 日 · 第 %d 息    %d 人在線" % [seconds / 1440 + 1, seconds % 1440, Session.state.roster.size()]
+	clock_label.text = "江湖第 %d 日 · %s時 · 第 %d 息    %d 人在線" % [seconds / 1440 + 1, ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"][posmod(seconds / 120, 12)], seconds % 1440, Session.state.roster.size()]
 	var selected := tabs.get_tab_title(tabs.current_tab)
 	for index in nav_buttons: nav_buttons[index].set_pressed_no_signal(tabs.current_tab == index)
 	_classic_workspace(selected, p.place)
@@ -203,9 +204,10 @@ func _refresh() -> void:
 		"江湖": signature = str([p.place, p.sect, p.job, p.searched, p.deliveries, p.inventory, p.learning_quests, p.quests_done, p.enemy.is_empty(), p.fight, target, p.travel_target, p.flags, p.attrs, p.morality, selected_quest, Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place])])
 		"武學": signature = str([p.place, p.sect, p.skills, p.equipped, p.inner, p.movement, p.parry, p.weapon, p.armor, p.gender, p.sect_master, p.flags, p.attrs, p.attributes_locked])
 		"圖鑑": signature = str([p.place, p.sect])
-		"故事": signature = str([p.stories, p.story_choices, p.place, p.learning_quests, p.quests_done, p.inventory, p.skills, p.flags, p.attrs, p.morality, p.fame, p.lilian, p.sect, p.gender, p.enemy.is_empty(), p.fight, int(Session.state.tick) / 120, journal_mode, quest_filter, quest_query, selected_quest])
+		"故事": signature = str([p.stories, p.story_choices, p.place, p.learning_quests, p.quests_done, p.quest_history, p.inventory, p.skills, p.flags, p.attrs, p.morality, p.fame, p.lilian, p.sect, p.gender, p.enemy.is_empty(), p.fight, int(Session.state.tick) / 10, journal_mode, quest_filter, quest_query, selected_quest])
 		"行囊": signature = str([p.place, p.inventory, p.weapon, p.armor])
 		"商店": signature = str([p.place, p.inventory, p.silver, p.weapon, p.armor, p.enemy.is_empty(), p.fight, shop_mode, shop_item, shop_query, show_shop_directory])
+		"副本": signature = str([Session.state.get("dungeon", {}), selected_dungeon, p.place, p.dungeon_clears, p.dungeon_cooldowns, p.party, p.combat_xp, p.hp, p.inventory, Session.state.get("social", {}).get("party", {}), int(Session.state.tick) / 10])
 		"人際": signature = str([selected_peer, p.party, p.follow, p.pk_enabled, Session.state.get("social", {}).get("requests", []), Session.state.roster.map(func(r: Dictionary): return [r.id, r.name, r.place, r.party, r.fight])])
 	if signatures.get(selected, "") != signature:
 		signatures[selected] = signature
@@ -219,6 +221,7 @@ func _refresh() -> void:
 			"圖鑑": _catalog_page(p)
 			"人際": _social_page(p)
 			"商店": Activities.shop(self, clear_page("商店"), p)
+			"副本": preload("res://scripts/classic/dungeon_page.gd").build(self, clear_page("副本"), p)
 		if had_focus and is_instance_valid(activity_search):
 			activity_search.grab_focus()
 			activity_search.caret_column = caret
@@ -233,9 +236,10 @@ func _world_page(p: Dictionary) -> void:
 	button("任務清單 · 接取／追蹤／領獎", func(): open_page(3), quick)
 	button("當地商店 · 購買／出售" if Market.has_shop(p.place) else "尋找附近商店", func(): open_market(), quick)
 	button("行囊 · 使用／裝備", func(): open_page(2), quick)
+	button("副本挑戰 · 單人／組隊", func(): open_page(8), quick)
 	if selected_quest != "" and Data.QUESTS.has(selected_quest):
 		var tracked: Dictionary = Data.QUESTS[selected_quest]
-		if not p.quests_done.has(tracked.id):
+		if not p.quests_done.has(tracked.id) or p.learning_quests.has(tracked.id):
 			var o := Guide.current_objective(p, tracked)
 			var goal: String = o.get("text", "與發起人接取任務") if not p.learning_quests.has(tracked.id) or not o.is_empty() else "任務達成，請領取獎勵"
 			body.add_child(paragraph("追蹤 · %s：%s" % [tracked.name, goal], GOLD))
@@ -283,8 +287,7 @@ func _world_page(p: Dictionary) -> void:
 			if p.learning_quests.has(q.id):
 				button("繼續任務 · " + str(q.name), func(): open_quest(q.id), quests_row)
 			else:
-				var reason := Guide.support_reason(q)
-				if reason == "": reason = Training.check(p, q.conditions, int(Session.state.tick))
+				var reason := Guide.accept_reason(p, q, int(Session.state.tick))
 				var accept := button("接任務 · " + str(q.name), func(): accept_quest(q.id), quests_row)
 				accept.disabled = reason != "" or not p.enemy.is_empty() or int(p.fight) != 0
 				button("查看條件與獎勵", func(): open_quest(q.id), quests_row)
@@ -750,8 +753,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event.keycode >= KEY_F1 and event.keycode <= KEY_F8:
 		hot_actions[event.keycode - KEY_F1].call()
 		get_viewport().set_input_as_handled()
-	elif event.ctrl_pressed and event.keycode >= KEY_1 and event.keycode <= KEY_8:
-		tabs.current_tab = [0, 3, 7, 2, 1, 4, 6, 5][event.keycode - KEY_1]
+	elif event.ctrl_pressed and event.keycode >= KEY_1 and event.keycode <= KEY_9:
+		tabs.current_tab = [0, 3, 8, 7, 2, 1, 4, 6, 5][event.keycode - KEY_1]
 	elif event.keycode == KEY_ESCAPE: tabs.current_tab = 0
 
 func _capture() -> void:

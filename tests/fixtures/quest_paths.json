@@ -1,0 +1,873 @@
+{
+  "q_liu_jinpen": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@衡山・衡山下",
+      "accept@n_hn_liugongzi",
+      "choose@n_hn_liugongzi:n0:c_help",
+      "walk@衡山・上山路口海邊",
+      "wait:hour=申",
+      "talk@n_hn_moda",
+      "choose@n_hn_moda:n0:c_tie",
+      "choose@n_hn_moda:n1:c_ask",
+      "choose@n_hn_moda:n2:c_take2",
+      "walk@衡山・衡山下",
+      "talk@n_hn_liugongzi",
+      "choose@n_hn_liugongzi:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_liu_jinpen_2": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@衡山・衡山下方小島",
+      "accept@n_hn_lulianrong",
+      "choose@n_hn_lulianrong:n0:c_help",
+      "choose@n_hn_lulianrong:n1:c_ming",
+      "walk@衡山・衡山小茶店",
+      "act@q_liu_jinpen_2:a_rest",
+      "talk@n_hn_mimike",
+      "choose@n_hn_mimike:n0:c_w1",
+      "talk@n_hn_mimike",
+      "choose@n_hn_mimike:n0:c_sun",
+      "choose@n_hn_mimike:n1:c_chan",
+      "choose@n_hn_mimike:n2:c_what",
+      "fight:FLEE",
+      "walk@衡山・衡山下方小島",
+      "talk@n_hn_lulianrong",
+      "choose@n_hn_lulianrong:n0:c_wait",
+      "choose@n_hn_lulianrong:n_wait:c_trap2",
+      "choose@n_hn_lulianrong:n1:c_next"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_yuner": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@西夏・民房",
+      "accept@n_xx_yuner",
+      "choose@n_xx_yuner:n0:c_ask",
+      "choose@n_xx_yuner:n2:c_help",
+      "walk@西夏・回春藥鋪",
+      "talk@n_xx_litaian",
+      "choose@n_xx_litaian:n0:c_li_yuner",
+      "choose@n_xx_litaian:n2:c_li_abao",
+      "choose@n_xx_litaian:n4:c_li_ok",
+      "walk@西夏北郊・城北山坡",
+      "talk@n_xx_abao",
+      "choose@n_xx_abao:n0:c_ab_yuner",
+      "choose@n_xx_abao:n2:c_ab_heart",
+      "choose@n_xx_abao:n4:c_ab_ok",
+      "walk@西夏・民房",
+      "talk@n_xx_yuner",
+      "choose@n_xx_yuner:n0:c_pick_abao",
+      "choose@n_xx_yuner:n_ask_abao:c_abao",
+      "walk@西夏北郊・城北山坡",
+      "talk@n_xx_abao",
+      "choose@n_xx_abao:n0:c_tell",
+      "choose@n_xx_abao:n2:c_take"
+    ],
+    "outcome": "abao",
+    "expect_items": {
+      "紫石礦": 3,
+      "綠石礦": 3
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_lj_chengqingshuang": {
+    "setup": {
+      "sect": "靈鷲宮",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@靈鷲宮・西側織房",
+      "wait:hour=戌",
+      "accept@n_lj_chengqingshuang",
+      "choose@n_lj_chengqingshuang:n0:c_no",
+      "reopen@n_lj_chengqingshuang",
+      "choose@n_lj_chengqingshuang:n0:c_ask",
+      "choose@n_lj_chengqingshuang:n1:c_yes",
+      "walk@大理・五華樓前",
+      "talk@n_lj_baiyong",
+      "choose@n_lj_baiyong:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "千年人參": 1
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_yangkang": {
+    "setup": {
+      "sect": "全真",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@全真教・三清殿",
+      "accept@n_qz_qiuchuji",
+      "choose@n_qz_qiuchuji:n0:c_ask",
+      "choose@n_qz_qiuchuji:n1:c_yes",
+      "walk@西夏・皇宮密道",
+      "talk@n_qz_yangkang",
+      "choose@n_qz_yangkang:n0:c_shouyu",
+      "choose@n_qz_yangkang:n1:c_fight",
+      "fight:WIN",
+      "walk@全真教・三清殿",
+      "talk@n_qz_qiuchuji",
+      "choose@n_qz_qiuchuji:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "丘處機手諭": 0,
+      "郭靖匕首": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_mailu_shangren": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@衡陽古道・衡陽古道",
+      "accept@n_hn_maiyi",
+      "choose@n_hn_maiyi:n0:c_ask",
+      "choose@n_hn_maiyi:n1:c_help",
+      "walk@大理・五華樓前",
+      "talk@n_dl_furen",
+      "choose@n_dl_furen:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "賣藝人的家書": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_liangfa": {
+    "setup": {
+      "sect": "華山",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@華山・正氣堂",
+      "accept@n_liangfa",
+      "choose@n_liangfa:n0:c_you",
+      "choose@n_liangfa:n1:c_help",
+      "walk@峨嵋道・峨嵋茶棚",
+      "talk@n_em_yingyueer",
+      "choose@n_em_yingyueer:n0:c_give",
+      "walk@華山・正氣堂",
+      "talk@n_liangfa",
+      "choose@n_liangfa:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "梁發學武函": 1,
+      "梁發的信": 0,
+      "瑩月兒的回信": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_qingwei": {
+    "setup": {
+      "items": {
+        "柴刀": 1
+      },
+      "sect": "江湖散人",
+      "skills": {}
+    },
+    "path": [
+      "walk@峨嵋道・崆峒橋",
+      "accept@n_em_qingwei",
+      "choose@n_em_qingwei:n0:c_ask",
+      "choose@n_em_qingwei:n1:c_help",
+      "walk@大理郊外・東邊樹林",
+      "act@q_qingwei:a_kan",
+      "act@q_qingwei:a_kan",
+      "act@q_qingwei:a_kan",
+      "act@q_qingwei:a_kan",
+      "act@q_qingwei:a_kan",
+      "walk@峨嵋道・崆峒橋",
+      "talk@n_em_qingwei",
+      "choose@n_em_qingwei:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "實木刀": 1,
+      "杉木": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_qz_paotui": {
+    "setup": {
+      "sect": "全真",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@全真教・三清殿",
+      "accept@n_qz_sunbuer",
+      "choose@n_qz_sunbuer:n0:c_yes",
+      "walk@西夏・西大街",
+      "talk@n_xx_buzhuang",
+      "choose@n_xx_buzhuang:n0:c_give",
+      "walk@全真教・三清殿",
+      "talk@n_qz_sunbuer",
+      "choose@n_qz_sunbuer:n0:c_done"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "布莊的貨單": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_qz_jiangqingrui": {
+    "setup": {
+      "sect": "全真",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@全真教・後山菜園",
+      "accept@n_qz_jiangqingrui",
+      "choose@n_qz_jiangqingrui:n0:c_yes",
+      "walk@西夏・西夏廣場",
+      "talk@n_xx_caishang",
+      "choose@n_xx_caishang:n0:c_give",
+      "walk@全真教・後山菜園",
+      "talk@n_qz_jiangqingrui",
+      "choose@n_qz_jiangqingrui:n0:c_done"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "江清睿的信": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_qz_wangchuyi": {
+    "setup": {
+      "sect": "全真",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@全真教・三清殿",
+      "accept@n_qz_wangchuyi",
+      "choose@n_qz_wangchuyi:n0:c_yes",
+      "walk@西夏・回春藥鋪",
+      "talk@n_xx_litaian",
+      "choose@n_xx_litaian:n0:c_give",
+      "wait:days=0.125",
+      "talk@n_xx_litaian",
+      "choose@n_xx_litaian:n0:c_take",
+      "walk@全真教・三清殿",
+      "talk@n_qz_wangchuyi",
+      "choose@n_qz_wangchuyi:n0:c_done"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "王處一有病的信": 0,
+      "王處一的藥": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_gb_xin": {
+    "setup": {
+      "sect": "丐幫",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@西夏・回春藥鋪",
+      "accept@n_gb_youqiming",
+      "choose@n_gb_youqiming:n0:c_take",
+      "walk@大理・五華樓前",
+      "talk@n_gb_dl_qigai"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "丐幫書信": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": true
+  },
+  "q_jc_zhangyuanwai": {
+    "setup": {
+      "items": {
+        "紫石礦": 3
+      },
+      "sect": "江湖散人",
+      "skills": {}
+    },
+    "path": [
+      "walk@大理・五華樓前",
+      "accept@n_jc_zhangyuanwai",
+      "choose@n_jc_zhangyuanwai:n2:c_yes",
+      "talk@n_jc_zhangyuanwai"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_ym_tuoyin": {
+    "setup": {
+      "items": {
+        "麻布": 2,
+        "焦炭": 2
+      },
+      "sect": "江湖散人",
+      "skills": {}
+    },
+    "path": [
+      "walk@大理・五華樓前",
+      "accept@n_lj_baiyong",
+      "choose@n_lj_baiyong:n0:c_ask",
+      "choose@n_lj_baiyong:n1:c_yes",
+      "walk@雁門關・刻字石碑",
+      "talk@n_ym_keshi",
+      "choose@n_ym_keshi:n0:c_give",
+      "walk@大理・五華樓前",
+      "talk@n_lj_baiyong",
+      "choose@n_lj_baiyong:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "麻布": -2,
+      "焦炭": -2,
+      "拓印": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_ym_xiaofeng": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@雁門關・雁門關內",
+      "accept@n_ym_azhu",
+      "choose@n_ym_azhu:n0:c_why",
+      "choose@n_ym_azhu:n1:c_yes",
+      "walk@西夏・西夏客棧",
+      "talk@n_xx_qiaofeng",
+      "choose@n_xx_qiaofeng:n0:c_azhu",
+      "walk@雁門關・雁門關內",
+      "talk@n_ym_azhu",
+      "choose@n_ym_azhu:n0:c_tell"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_sm_esi_nongfu": {
+    "setup": {
+      "items": {
+        "饅頭": 2
+      },
+      "sect": "江湖散人",
+      "skills": {}
+    },
+    "path": [
+      "walk@大理郊外・陶耘稻田",
+      "accept@n_sm_qiaofu_dl",
+      "choose@n_sm_qiaofu_dl:n0:c_ask",
+      "choose@n_sm_qiaofu_dl:n2:c_ok",
+      "talk@n_sm_qiaofu_dl",
+      "choose@n_sm_qiaofu_dl:n0:c_mantou",
+      "walk@恆山山麓・恆山外稻田",
+      "talk@n_sm_qiaofu_xx",
+      "choose@n_sm_qiaofu_xx:n0:c_mantou"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "饅頭": -2
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_sm_ahuo": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@大漠邊緣・大漠礦場",
+      "accept@n_sm_ahuo",
+      "choose@n_sm_ahuo:n0:c_ask",
+      "choose@n_sm_ahuo:n2:c_ok",
+      "walk@大理・五華樓前",
+      "talk@n_sm_kuangye",
+      "choose@n_sm_kuangye:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "一袋礦石": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": true
+  },
+  "q_sm_ahong": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@天山道・獵戶小屋",
+      "accept@n_sm_ahong",
+      "choose@n_sm_ahong:n0:c_ask",
+      "choose@n_sm_ahong:n2:c_ok",
+      "walk@大理郊外・洱海岸",
+      "talk@n_sm_zhangqing",
+      "choose@n_sm_zhangqing:n0:c_give",
+      "walk@天山道・獵戶小屋",
+      "talk@n_sm_ahong",
+      "choose@n_sm_ahong:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "阿鴻的家書": 0,
+      "張箐的回信": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": true
+  },
+  "q_sm_rixing": {
+    "setup": {
+      "items": {
+        "金創藥": 1
+      },
+      "sect": "江湖散人",
+      "skills": {}
+    },
+    "path": [
+      "walk@大理郊外・東邊樹林",
+      "accept@n_sm_shangqiaofu",
+      "choose@n_sm_shangqiaofu:n0:c_ask",
+      "choose@n_sm_shangqiaofu:n2:c_ok",
+      "talk@n_sm_shangqiaofu",
+      "choose@n_sm_shangqiaofu:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "金創藥": -1
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_sm_litong": {
+    "setup": {
+      "sect": "江湖散人",
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@華陰道・華山水池",
+      "accept@n_sm_litong",
+      "choose@n_sm_litong:n0:c_ask",
+      "choose@n_sm_litong:n2:c_ok",
+      "walk@華山・玉女峰練武場",
+      "talk@n_ludayou",
+      "choose@n_ludayou:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "李同的親書": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_wd_heiyu": {
+    "setup": {
+      "sect": "武當",
+      "skills": {
+        "武當心法": 40
+      },
+      "attrs": {
+        "wit": 28,
+        "con": 25
+      },
+      "items": {}
+    },
+    "path": [
+      "walk@武當派・內堂",
+      "accept@n_wd_zhangsanfeng",
+      "choose@n_wd_zhangsanfeng:n0:c_ask",
+      "choose@n_wd_zhangsanfeng:n1:c_yes",
+      "walk@西夏・皇宮門口",
+      "talk@n_xx_ada",
+      "choose@n_xx_ada:n0:c_letter",
+      "choose@n_xx_ada:n1:c_fight",
+      "fight:WIN",
+      "walk@武當派・練武場",
+      "talk@n_wd_yudaiyan",
+      "choose@n_wd_yudaiyan:n0:c_give",
+      "walk@武當派・內堂",
+      "talk@n_wd_zhangsanfeng",
+      "choose@n_wd_zhangsanfeng:n0:c_sorry",
+      "walk@西夏・皇宮門口",
+      "talk@n_xx_ada",
+      "choose@n_xx_ada:n0:c_ling",
+      "choose@n_xx_ada:n1:c_fight",
+      "fight:WIN",
+      "walk@西夏郊外・胡楊林",
+      "talk@n_wd_zhaomin",
+      "choose@n_wd_zhaomin:n0:c_ling",
+      "choose@n_wd_zhaomin:n1:c_why",
+      "walk@西夏・客棧二樓",
+      "talk@n_zhangwuji",
+      "choose@n_zhangwuji:n0:c_letter",
+      "choose@n_zhangwuji:n1:c_ask",
+      "walk@西夏東郊・黑龍潭",
+      "act@q_wd_heiyu:a_banchan",
+      "fight:WIN",
+      "walk@西夏北郊・城北山坡",
+      "act@q_wd_heiyu:a_wugong",
+      "fight:WIN",
+      "walk@天山道・雪原小徑",
+      "act@q_wd_heiyu:a_fengyi",
+      "fight:WIN",
+      "walk@星宿海邊・毒沼",
+      "act@q_wd_heiyu:a_chixie",
+      "fight:WIN",
+      "walk@大理郊外・城北河畔",
+      "act@q_wd_heiyu:a_qingshe",
+      "fight:WIN",
+      "walk@大理郊外・蒼山林道",
+      "act@q_wd_heiyu:a_hua",
+      "walk@武當山下・武當山下樹林",
+      "act@q_wd_heiyu:a_heizhu",
+      "fight:WIN",
+      "walk@恆山山麓・恆山岔路",
+      "act@q_wd_heiyu:a_caie",
+      "fight:WIN",
+      "walk@西夏・客棧二樓",
+      "talk@n_zhangwuji",
+      "choose@n_zhangwuji:n0:c_give",
+      "walk@武當派・練武場",
+      "talk@n_wd_yudaiyan",
+      "choose@n_wd_yudaiyan:n0:c_give",
+      "walk@武當派・內堂",
+      "talk@n_wd_zhangsanfeng",
+      "choose@n_wd_zhangsanfeng:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [
+      "wd_q_heiyu"
+    ],
+    "repeat_cooldown": false
+  },
+  "q_wd_longmen": {
+    "setup": {
+      "sect": "武當",
+      "attrs": {
+        "wit": 25,
+        "cal": 25
+      },
+      "skills": {},
+      "items": {}
+    },
+    "path": [
+      "walk@武當派・後山松林",
+      "accept@n_wd_moshenggu",
+      "choose@n_wd_moshenggu:n0:c_heard",
+      "choose@n_wd_moshenggu:n1:c_yes",
+      "wait:hour=辰",
+      "walk@衡山・衡山小茶店",
+      "talk@n_hn_longmen",
+      "choose@n_hn_longmen:n0:c_ask",
+      "choose@n_hn_longmen:n1:c_who",
+      "walk@嵩山古道・嵩陽茶棚",
+      "wait:hour=辰",
+      "talk@n_wd_yuanyin",
+      "choose@n_wd_yuanyin:n0:c_ask",
+      "choose@n_wd_yuanyin:n1:c_proof",
+      "talk@n_wd_yuanye",
+      "choose@n_wd_yuanye:n0:c_calm",
+      "choose@n_wd_yuanye:n1:c_look",
+      "walk@武當派・大殿後屋",
+      "talk@n_wd_yulianzhou",
+      "choose@n_wd_yulianzhou:n0:c_give",
+      "walk@大理郊外・東邊樹林",
+      "act@q_wd_longmen:a_xiang",
+      "fight:WIN",
+      "walk@峨嵋道・竹林山徑",
+      "act@q_wd_longmen:a_baiyuan",
+      "fight:WIN",
+      "walk@終南山下・終南後山",
+      "act@q_wd_longmen:a_liebao",
+      "fight:WIN",
+      "walk@嵩山古道・嵩山松林",
+      "act@q_wd_longmen:a_menghu",
+      "fight:WIN",
+      "walk@西夏郊外・狼嚎丘",
+      "act@q_wd_longmen:a_elang",
+      "fight:WIN",
+      "walk@天山道・天山雪谷",
+      "act@q_wd_longmen:a_heixiong",
+      "fight:WIN",
+      "walk@星宿海邊・毒沼",
+      "act@q_wd_longmen:a_dadushe",
+      "fight:WIN",
+      "walk@武當派・大殿",
+      "talk@n_wd_songyuanqiao",
+      "choose@n_wd_songyuanqiao:n0:c_humble"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [
+      "wd_q_longmen"
+    ],
+    "repeat_cooldown": false
+  },
+  "q_gb_dai1": {
+    "setup": {
+      "sect": "丐幫",
+      "sect_rank": 0,
+      "fame": 250,
+      "lilian": 250,
+      "combat_xp": 30000,
+      "skills": {
+        "搏擊格鬥": 60,
+        "太祖長拳": 60,
+        "基本內功": 60,
+        "丐幫心法": 60,
+        "閃躲縱躍": 60,
+        "拆招卸力": 60
+      },
+      "items": {}
+    },
+    "path": [
+      "walk@丐幫總舵・破廟正殿",
+      "accept@n_gb_chen",
+      "choose@n_gb_chen:n0:c_ask",
+      "choose@n_gb_chen:n1:c_take",
+      "walk@西夏・回春藥鋪",
+      "talk@n_gb_youqiming",
+      "choose@n_gb_youqiming:n0:c_ask",
+      "choose@n_gb_youqiming:n1:c_ok",
+      "walk@大理・大理武館",
+      "talk@n_gb_pan",
+      "choose@n_gb_pan:n0:c_ask",
+      "choose@n_gb_pan:n1:c_ok",
+      "walk@大理・雜貨鋪",
+      "talk@n_gb_shenyi",
+      "choose@n_gb_shenyi:n0:c_ask",
+      "choose@n_gb_shenyi:n1:c_ok",
+      "walk@京城・京城兵器鋪",
+      "talk@n_gb_jc_informant",
+      "choose@n_gb_jc_informant:n0:c_ask",
+      "choose@n_gb_jc_informant:n1:c_take",
+      "walk@雁門關・關外橋邊",
+      "wait:hour=酉",
+      "act@q_gb_dai1:a_amb_ym",
+      "fight:WIN",
+      "walk@河川古道・過河石橋",
+      "wait:hour=卯",
+      "act@q_gb_dai1:a_amb_rr",
+      "fight:WIN",
+      "walk@京城北郊・北郊山道",
+      "wait:hour=午",
+      "act@q_gb_dai1:a_amb_jcn",
+      "fight:WIN",
+      "walk@丐幫總舵・破廟正殿",
+      "talk@n_gb_chen",
+      "choose@n_gb_chen:n0:c_report",
+      "choose@n_gb_chen:n1:c_thanks"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "邪教密函": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_gb_dai2": {
+    "setup": {
+      "sect": "丐幫",
+      "sect_rank": 1,
+      "fame": 500,
+      "lilian": 500,
+      "combat_xp": 300000,
+      "skills": {
+        "搏擊格鬥": 120,
+        "太祖長拳": 100,
+        "基本內功": 120,
+        "丐幫心法": 100,
+        "閃躲縱躍": 120,
+        "拆招卸力": 120
+      },
+      "attrs": {
+        "str": 30,
+        "con": 30,
+        "agi": 30
+      },
+      "items": {}
+    },
+    "path": [
+      "walk@京城・京城廣場",
+      "accept@n_gb_jiang",
+      "choose@n_gb_jiang:n0:c_ask",
+      "choose@n_gb_jiang:n1:c_more",
+      "choose@n_gb_jiang:n2:c_take",
+      "walk@丐幫總舵・破廟後院",
+      "talk@n_gb_zhanggun",
+      "choose@n_gb_zhanggun:n0:c_report",
+      "choose@n_gb_zhanggun:n1:c_take",
+      "walk@西夏・回春藥鋪",
+      "talk@n_gb_youqiming",
+      "walk@大理・大理武館",
+      "talk@n_gb_pan",
+      "walk@京城・京城兵器鋪",
+      "talk@n_gb_jc_informant",
+      "walk@京城北郊・嶺上古道",
+      "act@q_gb_dai2:a_mb_jcn",
+      "fight:WIN",
+      "walk@大理郊外・蒼山林道",
+      "act@q_gb_dai2:a_mb_dl",
+      "fight:WIN",
+      "walk@西夏郊外・狼嚎丘",
+      "act@q_gb_dai2:a_mb_xx",
+      "fight:WIN",
+      "walk@丐幫總舵・破廟正殿",
+      "talk@n_gb_chen",
+      "choose@n_gb_chen:n0:c_report",
+      "choose@n_gb_chen:n1:c_thanks"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "掌棍長老的書信": 0
+    },
+    "expect_flags": [],
+    "repeat_cooldown": false
+  },
+  "q_hs_spy": {
+    "setup": {
+      "sect": "華山",
+      "after": "q_hs_jianqi:qizong",
+      "skills": {
+        "華山心法": 50,
+        "讀書識字": 30,
+        "儒風": 30,
+        "華山劍法": 60
+      },
+      "attrs": {
+        "wit": 30
+      },
+      "items": {}
+    },
+    "path": [
+      "walk@西夏・西夏客棧",
+      "accept@n_xx_laodenuo",
+      "choose@n_xx_laodenuo:n0:c_ask",
+      "choose@n_xx_laodenuo:n2:c_accept",
+      "walk@華陰道・華山水池",
+      "wait:hour=巳",
+      "talk@n_hs_linghuchong",
+      "choose@n_hs_linghuchong:n0:c_tell",
+      "choose@n_hs_linghuchong:n2:c_ok",
+      "walk@西夏・西夏客棧",
+      "talk@n_xx_laodenuo",
+      "choose@n_xx_laodenuo:n0:c_fuyan",
+      "walk@華陰道・華山水池",
+      "wait:hour=巳",
+      "talk@n_hs_linghuchong",
+      "choose@n_hs_linghuchong:n0:c_tell",
+      "walk@華山・玉女峰練武場",
+      "talk@n_yuebuqun",
+      "choose@n_yuebuqun:n0:c_give",
+      "walk@西夏・西夏客棧",
+      "talk@n_xx_laodenuo",
+      "choose@n_xx_laodenuo:n0:c_fight",
+      "fight:FLEE",
+      "expect_stage:s_fight",
+      "act@q_hs_spy:a_fight",
+      "fight:WIN",
+      "walk@華山・玉女峰練武場",
+      "talk@n_yuebuqun",
+      "choose@n_yuebuqun:n0:c_give"
+    ],
+    "outcome": "default",
+    "expect_items": {
+      "氣宗武譜": 0,
+      "華山密函": 0
+    },
+    "expect_flags": {
+      "hs_zixia_ok": true
+    },
+    "repeat_cooldown": false
+  },
+  "q_xd_xuehai": {
+    "setup": {
+      "sect": "血刀門",
+      "skills": {
+        "基本內功": 60,
+        "基本刀法": 50,
+        "威嚇": 50
+      },
+      "lilian": 100,
+      "items": {}
+    },
+    "path": [
+      "walk@血刀門・血刀本堂",
+      "accept@n_xd_laozu",
+      "choose@n_xd_laozu:n0:c_yes",
+      "choose@n_xd_laozu:n1:c_ok",
+      "walk@大漠雪山道・雪原",
+      "talk@n_xd_pantu",
+      "choose@n_xd_pantu:n0:c_kill",
+      "fight:WIN",
+      "walk@血刀門・血刀本堂",
+      "talk@n_xd_laozu",
+      "choose@n_xd_laozu:n0:c_next",
+      "choose@n_xd_laozu:n1:c_go",
+      "fight:FLEE",
+      "walk@血刀門・血池",
+      "talk@n_xd_xuehai",
+      "choose@n_xd_xuehai:n0:c_ask"
+    ],
+    "outcome": "default",
+    "expect_items": {},
+    "expect_flags": [
+      "xd_xuehai_lv1"
+    ],
+    "repeat_cooldown": false
+  }
+}

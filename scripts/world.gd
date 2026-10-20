@@ -8,8 +8,10 @@ const Training = preload("res://scripts/progression.gd")
 const Combat = preload("res://scripts/combat_rules.gd")
 const Quests = preload("res://scripts/learning_quests.gd")
 const Market = preload("res://scripts/market.gd")
+const Dungeons = preload("res://scripts/dungeons.gd")
 var social
 var quests
+var dungeons
 var players: Dictionary = {}
 var tick: int = 0
 var rng := RandomNumberGenerator.new()
@@ -18,6 +20,7 @@ func _init() -> void:
 	rng.randomize()
 	social = Social.new(self)
 	quests = Quests.new(self)
+	dungeons = Dungeons.new(self)
 
 func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 	var p := {
@@ -36,6 +39,7 @@ func add_player(id: int, title: String = "無名少俠") -> Dictionary:
 	p.merge({"travel_target": "", "travel_route": [], "study_ticks": 0, "quest_restore": {}})
 	p.merge({"attrs": {"str": 25, "con": 25, "wit": 30, "agi": 25, "cal": 25, "guts": 25, "luck": 25}, "gender": "M", "combat_xp": 0, "morality": 0, "fame": 0, "lilian": 0, "sect_master": "", "sect_rank": 1, "flags": {}, "learning_quests": {}, "quests_done": {}, "power": 5, "rules_version": 4})
 	p["attributes_locked"] = false
+	p.merge({"dungeon": 0, "dungeon_clears": {}, "dungeon_cooldowns": {}, "quest_history": {}})
 	players[id] = p
 	return p
 
@@ -97,7 +101,22 @@ func act(id: int, command: String, arg: String = "") -> bool:
 	if not players.has(id):
 		return false
 	var p: Dictionary = players[id]
-	if command in ["接受任務", "任務行動", "任務結局", "任務對話", "任務緣起"]:
+	if command in Dungeons.COMMANDS: return dungeons.act(id, command, arg)
+	if int(p.dungeon) != 0:
+		if not command in ["使用", "逃跑", "打坐", "休息", "停止", "招式", "出力", "隊伍說", "私聊", "治療隊友"]: return reject(id, "請先退出副本，再進行江湖活動。")
+		var run: Dictionary = dungeons.current(id)
+		if id in run.get("down", []) and not command in ["隊伍說", "私聊", "逃跑"]: return reject(id, "本關已失去戰力，請等待隊友過關或退出副本。")
+		if command == "逃跑": dungeons.leave(id); return true
+		if command == "治療隊友":
+			var target := arg.to_int()
+			if not target in run.members or target in run.down or int(p.inventory.get("金創藥", 0)) < 1: return reject(id, "需有金創藥，且對方是仍有戰力的副本隊友。")
+			var other: Dictionary = players[target]
+			if int(other.hp) >= int(other.max_hp): return reject(id, "隊友氣血已滿。")
+			p.inventory["金創藥"] -= 1
+			other.hp = mini(int(other.max_hp), int(other.hp) + 70)
+			dungeons.announce(run, "%s消耗金創藥，為%s恢復氣血。" % [p.name, other.name])
+			return true
+	if command in ["接受任務", "任務行動", "任務結局", "任務對話", "任務緣起", "任務場景"]:
 		if not p.enemy.is_empty() or int(p.fight) != 0: return reject(id, "先結束戰鬥，再處理任務。")
 		p.travel_target = ""
 		p.travel_route = []
@@ -302,8 +321,9 @@ func act(id: int, command: String, arg: String = "") -> bool:
 			if p.enemy.is_empty(): return reject(id, "你並未陷入戰鬥。")
 			if p.enemy.has("quest_id"):
 				var previous: Dictionary = p.enemy
+				if previous.get("quest_no_flee", false): return reject(id, "這場考較不能逃跑。")
 				p.enemy = {}
-				quests.fight_result(id, previous.quest_id, previous.quest_objective, previous.get("quest_any", false))
+				quests.fight_result(id, previous.quest_id, previous.quest_objective, previous.get("quest_flee", previous.get("quest_any", false)))
 				return true
 			p.enemy = {}
 			p.auto = "停止"
@@ -476,7 +496,7 @@ func step() -> void:
 	tick += 1
 	for id in players.keys():
 		var p: Dictionary = players[id]
-		if p.auto_heal and int(p.hp) * 100 <= int(p.max_hp) * int(p.heal_at) and int(p.inventory.get("金創藥", 0)) > 0:
+		if int(p.hp) > 0 and p.auto_heal and int(p.hp) * 100 <= int(p.max_hp) * int(p.heal_at) and int(p.inventory.get("金創藥", 0)) > 0:
 			use_item(id, "金創藥")
 		if int(p.fight) != 0: continue
 		if p.travel_target != "":
@@ -504,6 +524,9 @@ func step() -> void:
 			p.energy = mini(100, int(p.energy) + 1)
 			p.mp = mini(int(p.max_mp), int(p.mp) + 1)
 	social.step()
+	dungeons.step()
+	for id in players:
+		for qid in players[id].learning_quests.keys(): quests.settle(id, qid)
 
 func travel_step(id: int) -> void:
 	var p: Dictionary = players[id]
@@ -574,11 +597,12 @@ func defeat(id: int) -> void:
 func victory(id: int, reward: Dictionary = {}, loot: bool = true) -> void:
 	var p: Dictionary = players[id]
 	var e: Dictionary = p.enemy if reward.is_empty() else reward
+	quests.on_kill(id, str(e.get("source_name", e.get("name", ""))))
 	if e.has("quest_id"):
 		var remaining: Array = e.get("quest_enemies", [])
 		if not remaining.is_empty():
 			var next: Dictionary = Data.ENEMIES[remaining[0]].duplicate(true)
-			next.merge({"name": "機緣考較 · " + str(remaining[0]), "max_hp": next.hp, "quest_id": e.quest_id, "quest_objective": e.quest_objective, "quest_any": e.quest_any, "quest_enemies": remaining.slice(1), "exp": 0, "combat_xp": 0, "potential": 0, "silver": 0, "drops": []}, true)
+			next.merge({"name": "機緣考較 · " + str(remaining[0]), "source_name": remaining[0], "max_hp": next.hp, "quest_id": e.quest_id, "quest_objective": e.quest_objective, "quest_any": e.quest_any, "quest_flee": e.get("quest_flee", false), "quest_no_flee": e.get("quest_no_flee", false), "quest_enemies": remaining.slice(1), "exp": 0, "combat_xp": 0, "potential": 0, "silver": 0, "drops": []}, true)
 			p.enemy = next
 			return
 		p.enemy = {}
@@ -614,4 +638,4 @@ func snapshot(id: int) -> Dictionary:
 	for peer in players:
 		var p: Dictionary = players[peer]
 		roster.append({"id": peer, "name": p.name, "sect": p.sect, "level": p.level, "combat_xp": p.combat_xp, "place": p.place, "hp": p.hp, "max_hp": p.max_hp, "party": p.party, "fight": p.fight, "pk_enabled": p.pk_enabled, "pvp_wins": p.pvp_wins})
-	return {"player": players[id].duplicate(true), "roster": roster, "tick": tick, "social": social.snapshot(id), "self_id": id}
+	return {"player": players[id].duplicate(true), "roster": roster, "tick": tick, "social": social.snapshot(id), "dungeon": dungeons.snapshot(id), "self_id": id}

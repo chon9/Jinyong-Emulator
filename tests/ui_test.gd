@@ -15,7 +15,7 @@ func run() -> void:
 	var ui = load("res://scenes/main.tscn").instantiate()
 	root.add_child(ui)
 	await process_frame
-	for i in 8:
+	for i in 9:
 		ui.tabs.current_tab = i
 		await process_frame
 		check(ui.page_bodies[ui.tabs.get_tab_title(i)].get_child_count() > 0, "Tab populated: " + str(i))

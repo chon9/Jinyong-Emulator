@@ -982,7 +982,7 @@
         "id": "s_letter",
         "title": "送家書到西夏",
         "log": "把靜觀師姐的家書送到西夏，交給她俗家的妹妹雲兒。出峨嵋山門往南到峨嵋山腳，往西經峨嵋西林、清音閣山道、峨嵋茶棚、竹林山徑，過崆峒橋到崆峒道口，再往西穿過東邊樹林、陶耘稻田到大理北門外大道。\n從北門外大道往北到城北河畔，過石橋，沿河川古道經綠洲、大漠邊緣、南坡，順著小溪走到荒草坡，往西就是西夏東門。\n雲兒住在東門進城左手邊（往南）第一間民房。",
-        "place": "西夏・民房",
+        "hint_room": "西夏・民房",
         "objectives": [
           {
             "id": "o_yuner",
@@ -995,13 +995,16 @@
           }
         ],
         "next": "s_reveal",
-        "on_enter": []
+        "place": "西夏・民房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_reveal",
         "title": "雲兒的回信",
         "log": "雲兒託你把回信帶回峨嵋，交給金頂大殿的靜觀師姐。從西夏東門出城到荒草坡，往南順著小溪經南坡、溪口淺灘、沙丘邊緣、大漠邊緣到綠洲，沿河川古道過石橋到大理城北河畔，往南到北門外大道，再往東經陶耘稻田、東邊樹林到崆峒道口，往東北過崆峒橋、竹林山徑、峨嵋茶棚、清音閣山道、峨嵋西林回到峨嵋山腳，往北進山門，穿過練武場就是大殿。",
-        "place": "峨嵋派・金頂大殿",
+        "hint_room": "峨嵋派・金頂大殿",
         "objectives": [
           {
             "id": "o_reveal",
@@ -1014,13 +1017,16 @@
           }
         ],
         "next": "s_villager",
-        "on_enter": []
+        "place": "峨嵋派・金頂大殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_villager",
         "title": "大理打聽消息",
         "log": "靜觀師姐要你到大理查探明教的動靜。照原路下山到崆峒道口，往西經東邊樹林、陶耘稻田到北門外大道，往南進大理北門，在五華樓前的廣場向村民打聽。",
-        "place": "大理・五華樓前",
+        "hint_room": "大理・五華樓前",
         "objectives": [
           {
             "id": "o_cunmin",
@@ -1033,13 +1039,17 @@
           }
         ],
         "next": "s_official",
-        "on_enter": []
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_official",
         "title": "再問一個人",
         "log": "村民說大理城西的沙漠洞窟常有白袍怪人出入。再找個消息靈通的人問問：五華樓前廣場往東是大理客棧，王大富人在那兒喝酒；往東南是雜貨鋪，李裁縫在裡頭做針線。問其中一個就行。",
-        "place": "大理・大理客棧",
+        "hint_room": "大理・大理客棧",
+        "any": true,
         "objectives": [
           {
             "id": "o_wangdafu",
@@ -1048,7 +1058,6 @@
             "dialogue": "d_wangdafu",
             "text": "向客棧裡的王大富人打聽沙漠洞窟",
             "src": "verified",
-            "src_note": "人名：2001-9-1 n959_875542；位置【設計提案】",
             "requires": [],
             "enemies": []
           },
@@ -1059,19 +1068,22 @@
             "dialogue": "d_licaifeng",
             "text": "或者向雜貨鋪的李裁縫打聽沙漠洞窟",
             "src": "verified",
-            "src_note": "人名：2001-9-1 n959_875542；位置【設計提案】",
             "requires": [],
             "enemies": []
           }
         ],
         "next": "s_cave",
-        "on_enter": []
+        "src": "verified",
+        "place": "大理・大理客棧",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_cave",
         "title": "沙漠洞窟裡的人",
         "log": "出大理北門到北門外大道，往西到洱海岸，再一直往西走到底，就是大理西邊的沙漠洞窟。洞裡有野狼和山賊出沒，帶夠金創藥。找到洞窟深處那個詭異的人。",
-        "place": "大理郊外・大理西沙漠洞窟",
+        "hint_room": "大理郊外・大理西沙漠洞窟",
         "objectives": [
           {
             "id": "o_meet",
@@ -1084,13 +1096,16 @@
           }
         ],
         "next": "s_fight",
-        "on_enter": []
+        "place": "大理郊外・大理西沙漠洞窟",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_fight",
         "title": "明教分舵主",
         "log": "詭異的人原來是明教的分舵主。在大理西沙漠洞窟裡打敗他。打輸了就回城養好傷，再回洞窟找他動手。",
-        "place": "大理郊外・大理西沙漠洞窟",
+        "hint_room": "大理郊外・大理西沙漠洞窟",
         "objectives": [
           {
             "id": "o_fight",
@@ -1100,17 +1115,43 @@
             "requires": [],
             "enemies": [
               "明教分舵主"
+            ],
+            "no_flee": false,
+            "place": "大理郊外・大理西沙漠洞窟",
+            "action": "a_refight",
+            "hours": []
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_refight",
+            "room": "大理郊外・大理西沙漠洞窟",
+            "label": "再找詭異的人動手",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "明教分舵主"
+                ],
+                "obj": "o_fight",
+                "npc": "n_dlw_guiyi"
+              }
             ]
           }
         ],
         "next": "s_after",
-        "on_enter": []
+        "place": "大理郊外・大理西沙漠洞窟",
+        "on_enter": [],
+        "on_complete": []
       },
       {
         "id": "s_after",
         "title": "他並不壞？",
         "log": "明教分舵主落敗，似乎還有話要說。在沙漠洞窟裡再跟詭異的人談一談。",
-        "place": "大理郊外・大理西沙漠洞窟",
+        "hint_room": "大理郊外・大理西沙漠洞窟",
         "objectives": [
           {
             "id": "o_after",
@@ -1123,13 +1164,16 @@
           }
         ],
         "next": "s_report",
-        "on_enter": []
+        "place": "大理郊外・大理西沙漠洞窟",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_report",
         "title": "回報靜觀師姐",
         "log": "回峨嵋金頂大殿，把大理的經過告訴靜觀師姐。從洱海岸往東到北門外大道，經陶耘稻田、東邊樹林到崆峒道口，往東北過崆峒橋、竹林山徑、峨嵋茶棚、清音閣山道、峨嵋西林，回到峨嵋山腳往北上山。",
-        "place": "峨嵋派・金頂大殿",
+        "hint_room": "峨嵋派・金頂大殿",
         "objectives": [
           {
             "id": "o_report",
@@ -1142,13 +1186,16 @@
           }
         ],
         "next": "s_miejue",
-        "on_enter": []
+        "place": "峨嵋派・金頂大殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_miejue",
         "title": "稟報師父",
         "log": "靜觀師姐要你親自向師父稟報。金頂大殿往北就是滅絕師太的居所。",
-        "place": "峨嵋派・滅絕師太居所",
+        "hint_room": "峨嵋派・滅絕師太居所",
         "objectives": [
           {
             "id": "o_miejue",
@@ -1176,7 +1223,10 @@
             "goto": "END:silent"
           }
         ],
-        "on_enter": []
+        "place": "峨嵋派・滅絕師太居所",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [
@@ -1565,8 +1615,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_dl_mingjiao"
+                    "enemies": [
+                      "明教分舵主"
                     ],
                     "obj": "o_fight",
                     "npc": "n_dlw_guiyi"
@@ -1889,7 +1939,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_letter",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_hs_jianqi": {
     "id": "q_hs_jianqi",
@@ -1915,8 +1971,8 @@
       {
         "id": "s_choose",
         "title": "劍宗還是氣宗",
+        "hint_room": "華山・思過崖破劍洞",
         "log": "回思過崖破劍洞（華山山門往北，經玉女峰練武場、正氣堂再往北）答覆成不憂：改投劍宗，或婉拒堅守氣宗。一旦選定便不能更改。",
-        "place": "華山・思過崖破劍洞",
         "objectives": [
           {
             "id": "o_choose",
@@ -1944,7 +2000,10 @@
             "goto": "END:qizong"
           }
         ],
-        "on_enter": []
+        "place": "華山・思過崖破劍洞",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -2108,7 +2167,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_choose",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_hs_spy": {
     "id": "q_hs_spy",
@@ -2148,8 +2213,8 @@
       {
         "id": "s_lhc1",
         "title": "大師兄的疑心",
+        "hint_room": "華陰道・華山水池",
         "log": "到華山水池找大師兄令狐沖，他只在巳、午、未三個時辰在池邊練劍。走法：出西夏東門往東北官道，經礦區、黑龍潭、潭東河岸、恆山外稻田、路邊茶棚、恆山岸邊到恆山岔路，往東南走華陰道到華山腳下，再往東就是華山水池。",
-        "place": "華陰道・華山水池",
         "objectives": [
           {
             "id": "o_lhc1",
@@ -2161,14 +2226,18 @@
             "enemies": []
           }
         ],
+        "src": "verified",
         "next": "s_ldn2",
-        "on_enter": []
+        "place": "華陰道・華山水池",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_ldn2",
         "title": "敷衍一下",
+        "hint_room": "西夏・西夏客棧",
         "log": "回西夏客棧（西夏廣場往北）找勞德諾，順著他的話敷衍一下，套出他背後的人。",
-        "place": "西夏・西夏客棧",
         "objectives": [
           {
             "id": "o_ldn2",
@@ -2180,14 +2249,18 @@
             "enemies": []
           }
         ],
+        "src": "verified",
         "next": "s_lhc2",
-        "on_enter": []
+        "place": "西夏・西夏客棧",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_lhc2",
         "title": "華山密函",
+        "hint_room": "華陰道・華山水池",
         "log": "回華山水池（只在巳、午、未時）把勞德諾的話告訴令狐沖。",
-        "place": "華陰道・華山水池",
         "objectives": [
           {
             "id": "o_lhc2",
@@ -2200,13 +2273,16 @@
           }
         ],
         "next": "s_ybq1",
-        "on_enter": []
+        "place": "華陰道・華山水池",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_ybq1",
         "title": "稟報掌門",
+        "hint_room": "華山・玉女峰練武場",
         "log": "把華山密函親手交給掌門岳不群。從華山水池往西回華山腳下，往北上華山山門，再往北就是玉女峰練武場。",
-        "place": "華山・玉女峰練武場",
         "objectives": [
           {
             "id": "o_ybq1",
@@ -2219,13 +2295,16 @@
           }
         ],
         "next": "s_fight",
-        "on_enter": []
+        "place": "華山・玉女峰練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_fight",
         "title": "清理門戶",
+        "hint_room": "西夏・西夏客棧",
         "log": "持追擊令回西夏客棧（西夏廣場往北），在客棧裡攔下勞德諾，打贏他。打輸或逃走了，就再找他一次。",
-        "place": "西夏・西夏客棧",
         "objectives": [
           {
             "id": "o_fight",
@@ -2237,11 +2316,46 @@
             "requires": [],
             "enemies": [
               "勞德諾"
+            ],
+            "no_flee": false,
+            "place": "西夏・西夏客棧",
+            "action": "a_fight",
+            "hours": []
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_fight",
+            "room": "西夏・西夏客棧",
+            "label": "持追擊令攔下勞德諾",
+            "hours": [],
+            "requires": [
+              {
+                "type": "has_item",
+                "item": "追擊令",
+                "n": 1
+              }
+            ],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "tell_q_hs_spy_confront",
+                "text": "你亮出追擊令，喝道：「勞德諾！師父有令，拿你回華山發落！」勞德諾臉色大變，推開酒桌拔劍而起：「好，既然撕破了臉，那就手底下見真章！」"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "勞德諾"
+                ],
+                "obj": "o_fight",
+                "npc": "n_xx_laodenuo",
+                "no_flee": false,
+                "solo": false
+              }
             ]
           }
         ],
-        "next": "s_ybq2",
-        "on_enter": [],
         "on_complete": [
           {
             "do": "give",
@@ -2253,13 +2367,17 @@
             "key": "tell_q_hs_spy_wupu",
             "text": "勞德諾踉蹌倒地，懷中掉出一本手抄的冊子，封面寫著「氣宗武譜」四個字。你把它收了起來。"
           }
-        ]
+        ],
+        "src": "verified",
+        "next": "s_ybq2",
+        "place": "西夏・西夏客棧",
+        "on_enter": []
       },
       {
         "id": "s_ybq2",
         "title": "繳回武譜",
+        "hint_room": "華山・玉女峰練武場",
         "log": "帶著氣宗武譜回華山（西夏東門出城，照原路經恆山岔路、華陰道到華山腳下，往北上山門），到玉女峰練武場向岳不群覆命。",
-        "place": "華山・玉女峰練武場",
         "objectives": [
           {
             "id": "o_ybq2",
@@ -2272,7 +2390,10 @@
           }
         ],
         "next": "END:default",
-        "on_enter": []
+        "place": "華山・玉女峰練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -2555,8 +2676,8 @@
             "do": [
               {
                 "do": "fight",
-                "monsters": [
-                  "m_xx_laodenuo"
+                "enemies": [
+                  "勞德諾"
                 ],
                 "obj": "o_fight",
                 "npc": "n_xx_laodenuo",
@@ -2641,7 +2762,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_lhc1",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_wd_yinliu": {
     "id": "q_wd_yinliu",
@@ -2671,8 +2798,7 @@
         "type": "skill_min",
         "skill": "俠義",
         "value": 40,
-        "src": "later",
-        "src_note": "後期攻略：俠義 ≥ 40 才給信（研究 殷六俠的迷思 line 113）"
+        "src": "later"
       }
     ],
     "stages": [
@@ -2680,7 +2806,6 @@
         "id": "s_letter",
         "title": "峨嵋西林的紀姑娘",
         "log": "殷梨亭的信要親手交給紀曉芙。出武當山門往北到武當山下，往西南經終南東麓、終南山腳、終南山麓、終南山道口，往西過峨嵋山腳就是峨嵋西林，紀曉芙一個人待在林子裡。",
-        "place": "峨嵋道・峨嵋西林",
         "objectives": [
           {
             "id": "o_ji",
@@ -2692,14 +2817,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋道・峨嵋西林",
         "next": "s_back",
-        "on_enter": []
+        "place": "峨嵋道・峨嵋西林",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_back",
         "title": "回覆殷六俠",
         "log": "帶著紀曉芙的回信，循原路回武當：峨嵋山腳往東經終南山一帶到武當山下，上山穿過練武場、大殿、大殿後屋，殷梨亭在後山松林。",
-        "place": "武當派・後山松林",
         "objectives": [
           {
             "id": "o_back",
@@ -2711,6 +2839,7 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・後山松林",
         "next": [
           {
             "if": [
@@ -2727,7 +2856,10 @@
             "goto": "END:comfort"
           }
         ],
-        "on_enter": []
+        "place": "武當派・後山松林",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -2964,7 +3096,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_letter",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_wd_heiyu": {
     "id": "q_wd_heiyu",
@@ -2996,7 +3134,6 @@
         "id": "s_ada1",
         "title": "皇宮門口的阿大",
         "log": "帶著委託信去西夏皇宮門口找阿大討黑玉斷續膏。出武當山門往北經武當山下、古道南岔到武當岔路，往西走東行古道到華山水池，再往西經華山腳下、華陰道到恆山岔路，往西經恆山岸邊、路邊茶棚、恆山外稻田、潭東河岸、黑龍潭、礦區、東北官道，進西夏東門，經廣場往西到西大街，皇宮門口在西大街西北。阿大不好惹，帶足金創藥。",
-        "place": "西夏・皇宮門口",
         "objectives": [
           {
             "id": "o_ada1",
@@ -3015,11 +3152,12 @@
             "requires": [],
             "enemies": [
               "阿大"
-            ]
+            ],
+            "no_flee": false
           }
         ],
+        "hint_room": "西夏・皇宮門口",
         "next": "s_yu1",
-        "on_enter": [],
         "on_complete": [
           {
             "do": "take",
@@ -3036,13 +3174,15 @@
             "key": "tell_wd_heiyu_jiagao",
             "text": "阿大扔給你一個小盒：「黑玉斷續膏，拿去！」盒子裡的藥膏烏黑發亮。"
           }
-        ]
+        ],
+        "place": "西夏・皇宮門口",
+        "on_enter": [],
+        "room_actions": []
       },
       {
         "id": "s_yu1",
         "title": "給俞三俠敷藥",
         "log": "把黑玉斷續膏帶回武當。原路回到武當山門，往南進練武場，俞岱巖在練武場。",
-        "place": "武當派・練武場",
         "objectives": [
           {
             "id": "o_yu1",
@@ -3054,14 +3194,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・練武場",
         "next": "s_zsf1",
-        "on_enter": []
+        "place": "武當派・練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_zsf1",
         "title": "藥是假的",
         "log": "俞三俠敷了藥，傷勢反而轉劇。快到三清宮後面的內堂稟告張三丰真人（練武場往南到大殿，往東三清宮，再往南就是內堂）。",
-        "place": "武當派・內堂",
         "objectives": [
           {
             "id": "o_zsf1",
@@ -3073,14 +3216,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・內堂",
         "next": "s_ada2",
-        "on_enter": []
+        "place": "武當派・內堂",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_ada2",
         "title": "再闖皇宮門口",
         "log": "帶著病危令再去西夏皇宮門口，這回非要阿大交出真藥不可。路線同前：武當山下往北，經華山、恆山岔路一帶往西進西夏東門，皇宮門口在西大街西北。",
-        "place": "西夏・皇宮門口",
         "objectives": [
           {
             "id": "o_ada2",
@@ -3099,11 +3245,12 @@
             "requires": [],
             "enemies": [
               "阿大"
-            ]
+            ],
+            "no_flee": false
           }
         ],
+        "hint_room": "西夏・皇宮門口",
         "next": "s_zhaomin",
-        "on_enter": [],
         "on_complete": [
           {
             "do": "take",
@@ -3125,13 +3272,15 @@
             "key": "tell_wd_heiyu_zhengao",
             "text": "阿大又掏出一盒藥膏和一張蓋了王府印信的手令：「真藥在此。要用它，先去見郡主。」"
           }
-        ]
+        ],
+        "place": "西夏・皇宮門口",
+        "on_enter": [],
+        "room_actions": []
       },
       {
         "id": "s_zhaomin",
         "title": "胡楊林裡的郡主",
         "log": "阿大說：要用真藥，得先見過郡主。出西夏東門到東門外官道，往東到荒草坡，再往北進胡楊林，一位搖著摺扇的公子在等你。",
-        "place": "西夏郊外・胡楊林",
         "objectives": [
           {
             "id": "o_zhaomin",
@@ -3143,14 +3292,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "西夏郊外・胡楊林",
         "next": "s_wuji1",
-        "on_enter": []
+        "place": "西夏郊外・胡楊林",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_wuji1",
         "title": "客棧樓上的大夫",
         "log": "趙敏要你把思慕函送給「那位大夫」。回西夏東門，經廣場往北進客棧，上二樓找張無忌。",
-        "place": "西夏・客棧二樓",
         "objectives": [
           {
             "id": "o_wuji1",
@@ -3162,14 +3314,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "西夏・客棧二樓",
         "next": "s_seven",
-        "on_enter": []
+        "place": "西夏・客棧二樓",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_seven",
         "title": "七蟲七花",
         "log": "張無忌要七蟲七花做藥引。七種毒蟲各捕一隻（到了地點按「捕捉」）：黑龍潭的斑蟾（西夏東門外往東北經礦區往東）、星宿毒沼的赤蠍（荒草坡往南經小溪邊、南坡、溪口淺灘到沙丘邊緣，往西蛇骨小徑再往南）、城北山坡的蜈蚣（荒草坡往北經胡楊林）、大理城北河畔的青蛇、武當山下樹林的黑蛛（古道南岔往西）、雪原小徑的蜂蟻（城北山坡往北到雪地再往西）、恆山岔路的彩蛾。\n七花在大理城北河畔往東的蒼山林道採。",
-        "place": "",
         "objectives": [
           {
             "id": "o_banchan",
@@ -3177,7 +3332,13 @@
             "win": "WIN",
             "text": "捕獲黑龍潭的斑蟾",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "毒蟾蜍"
+            ],
+            "no_flee": false,
+            "place": "西夏東郊・黑龍潭",
+            "action": "a_banchan",
+            "hours": []
           },
           {
             "id": "o_chixie",
@@ -3185,7 +3346,13 @@
             "win": "WIN",
             "text": "捕獲星宿毒沼的赤蠍",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "毒蠍"
+            ],
+            "no_flee": false,
+            "place": "星宿海邊・毒沼",
+            "action": "a_chixie",
+            "hours": []
           },
           {
             "id": "o_wugong",
@@ -3193,7 +3360,13 @@
             "win": "WIN",
             "text": "捕獲西夏城北山坡的蜈蚣",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "蜈蚣"
+            ],
+            "no_flee": false,
+            "place": "西夏北郊・城北山坡",
+            "action": "a_wugong",
+            "hours": []
           },
           {
             "id": "o_qingshe",
@@ -3201,7 +3374,13 @@
             "win": "WIN",
             "text": "捕獲大理城北河畔的青蛇",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "毒蛇"
+            ],
+            "no_flee": false,
+            "place": "大理郊外・城北河畔",
+            "action": "a_qingshe",
+            "hours": []
           },
           {
             "id": "o_heizhu",
@@ -3209,7 +3388,13 @@
             "win": "WIN",
             "text": "捕獲武當山下樹林的黑蛛",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "毒蜘蛛"
+            ],
+            "no_flee": false,
+            "place": "武當山下・武當山下樹林",
+            "action": "a_heizhu",
+            "hours": []
           },
           {
             "id": "o_fengyi",
@@ -3217,7 +3402,13 @@
             "win": "WIN",
             "text": "捕獲雪原小徑的蜂蟻",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "蜂蟻"
+            ],
+            "no_flee": false,
+            "place": "天山道・雪原小徑",
+            "action": "a_fengyi",
+            "hours": []
           },
           {
             "id": "o_caie",
@@ -3225,7 +3416,13 @@
             "win": "WIN",
             "text": "捕獲恆山岔路的彩蛾",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "彩蛾"
+            ],
+            "no_flee": false,
+            "place": "恆山山麓・恆山岔路",
+            "action": "a_caie",
+            "hours": []
           },
           {
             "id": "o_hua",
@@ -3237,14 +3434,156 @@
             "enemies": []
           }
         ],
+        "room_actions": [
+          {
+            "id": "a_banchan",
+            "room": "西夏東郊・黑龍潭",
+            "label": "捕捉斑蟾",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "毒蟾蜍"
+                ],
+                "obj": "o_banchan"
+              }
+            ]
+          },
+          {
+            "id": "a_chixie",
+            "room": "星宿海邊・毒沼",
+            "label": "捕捉赤蠍",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "毒蠍"
+                ],
+                "obj": "o_chixie"
+              }
+            ]
+          },
+          {
+            "id": "a_wugong",
+            "room": "西夏北郊・城北山坡",
+            "label": "捕捉蜈蚣",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "蜈蚣"
+                ],
+                "obj": "o_wugong"
+              }
+            ]
+          },
+          {
+            "id": "a_qingshe",
+            "room": "大理郊外・城北河畔",
+            "label": "捕捉青蛇",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "毒蛇"
+                ],
+                "obj": "o_qingshe"
+              }
+            ]
+          },
+          {
+            "id": "a_heizhu",
+            "room": "武當山下・武當山下樹林",
+            "label": "捕捉黑蛛",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "毒蜘蛛"
+                ],
+                "obj": "o_heizhu"
+              }
+            ]
+          },
+          {
+            "id": "a_fengyi",
+            "room": "天山道・雪原小徑",
+            "label": "捕捉蜂蟻",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "蜂蟻"
+                ],
+                "obj": "o_fengyi"
+              }
+            ]
+          },
+          {
+            "id": "a_caie",
+            "room": "恆山山麓・恆山岔路",
+            "label": "捕捉彩蛾",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "彩蛾"
+                ],
+                "obj": "o_caie"
+              }
+            ]
+          },
+          {
+            "id": "a_hua",
+            "room": "大理郊外・蒼山林道",
+            "label": "採摘七色奇花",
+            "hours": [],
+            "requires": [],
+            "repeat": false,
+            "do": [
+              {
+                "do": "give",
+                "item": "七色奇花",
+                "n": 1
+              },
+              {
+                "do": "tell",
+                "key": "tell_wd_heiyu_hua",
+                "text": "你在蒼山林道間採齊了紅、橙、黃、綠、青、藍、紫七色奇花，用油紙仔細包好。"
+              }
+            ]
+          }
+        ],
         "next": "s_wuji2",
-        "on_enter": []
+        "place": "",
+        "on_enter": [],
+        "on_complete": []
       },
       {
         "id": "s_wuji2",
         "title": "調製藥引",
         "log": "七蟲七花都齊了，回西夏客棧二樓找張無忌調藥。",
-        "place": "西夏・客棧二樓",
         "objectives": [
           {
             "id": "o_wuji2",
@@ -3256,14 +3595,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "西夏・客棧二樓",
         "next": "s_yu2",
-        "on_enter": []
+        "place": "西夏・客棧二樓",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_yu2",
         "title": "續骨",
         "log": "帶著黑玉斷續膏和藥引回武當，到練武場替俞岱巖敷藥。",
-        "place": "武當派・練武場",
         "objectives": [
           {
             "id": "o_yu2",
@@ -3275,14 +3617,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・練武場",
         "next": "s_zsf2",
-        "on_enter": []
+        "place": "武當派・練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_zsf2",
         "title": "回稟真人",
         "log": "把俞岱巖的感謝函呈給內堂的張三丰（練武場往南大殿，往東三清宮，再往南內堂）。",
-        "place": "武當派・內堂",
         "objectives": [
           {
             "id": "o_zsf2",
@@ -3294,8 +3639,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・內堂",
         "next": "END",
-        "on_enter": []
+        "place": "武當派・內堂",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -3384,8 +3733,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_wd_ada"
+                    "enemies": [
+                      "阿大"
                     ],
                     "obj": "o_fight1",
                     "npc": "n_xx_ada"
@@ -3512,8 +3861,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_wd_ada"
+                    "enemies": [
+                      "阿大"
                     ],
                     "obj": "o_fight2",
                     "npc": "n_xx_ada"
@@ -3785,7 +4134,13 @@
       }
     },
     "source_status": "later",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_ada1",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_wd_longmen": {
     "id": "q_wd_longmen",
@@ -3812,7 +4167,6 @@
         "id": "s_orphan",
         "title": "衡山小茶店",
         "log": "持龍門事件令去衡山小茶店找龍門遺孤。出武當山門往北到武當山下、古道南岔，往東南走衡陽古道、湘江渡口，往南到衡山下，再往東就是小茶店。龍門遺孤只在白天（卯時到申時）在店裡幫忙。",
-        "place": "衡山・衡山小茶店",
         "objectives": [
           {
             "id": "o_orphan",
@@ -3824,14 +4178,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "衡山・衡山小茶店",
         "next": "s_monks",
-        "on_enter": []
+        "place": "衡山・衡山小茶店",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_monks",
         "title": "兩位少林僧",
         "log": "遺孤說當年作證的是少林的圓音、圓業。他們常在辰時、巳時到嵩陽茶棚歇腳：從衡山下往北回古道南岔，再往北到武當岔路，往東就是嵩陽茶棚。",
-        "place": "嵩山古道・嵩陽茶棚",
         "objectives": [
           {
             "id": "o_yuanyin",
@@ -3852,14 +4209,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "嵩山古道・嵩陽茶棚",
         "next": "s_yu",
-        "on_enter": []
+        "place": "嵩山古道・嵩陽茶棚",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_yu",
         "title": "二俠的判斷",
         "log": "把兩件鐵證帶回武當，交給大殿後屋的俞蓮舟（練武場往南到大殿，再往南）。",
-        "place": "武當派・大殿後屋",
         "objectives": [
           {
             "id": "o_yu",
@@ -3871,14 +4231,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・大殿後屋",
         "next": "s_beasts",
-        "on_enter": []
+        "place": "武當派・大殿後屋",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_beasts",
         "title": "七獸練陣",
         "log": "俞蓮舟要你先降服七頭猛獸，體會七人如一的道理（到了地點按「追捕」）：大理東邊樹林的野象（大理北門外大道往東經陶耘稻田）、西夏狼嚎丘的惡狼（荒草坡往東）、峨嵋竹林山徑的白猿（崆峒橋往東）、嵩山松林的猛虎（嵩陽茶棚往東）、天山雪谷的黑熊（雪原小徑往西到獵戶小屋再往南）、終南後山的獵豹（終南山腳往東）、星宿毒沼的大毒蛇。",
-        "place": "",
         "objectives": [
           {
             "id": "o_xiang",
@@ -3886,7 +4249,13 @@
             "win": "WIN",
             "text": "降服大理東邊樹林的野象",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "野象"
+            ],
+            "no_flee": false,
+            "place": "大理郊外・東邊樹林",
+            "action": "a_xiang",
+            "hours": []
           },
           {
             "id": "o_elang",
@@ -3894,7 +4263,13 @@
             "win": "WIN",
             "text": "降服西夏狼嚎丘的惡狼",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "惡狼"
+            ],
+            "no_flee": false,
+            "place": "西夏郊外・狼嚎丘",
+            "action": "a_elang",
+            "hours": []
           },
           {
             "id": "o_baiyuan",
@@ -3902,7 +4277,13 @@
             "win": "WIN",
             "text": "降服峨嵋竹林山徑的白猿",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "白猿"
+            ],
+            "no_flee": false,
+            "place": "峨嵋道・竹林山徑",
+            "action": "a_baiyuan",
+            "hours": []
           },
           {
             "id": "o_menghu",
@@ -3910,7 +4291,13 @@
             "win": "WIN",
             "text": "降服嵩山松林的猛虎",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "猛虎"
+            ],
+            "no_flee": false,
+            "place": "嵩山古道・嵩山松林",
+            "action": "a_menghu",
+            "hours": []
           },
           {
             "id": "o_heixiong",
@@ -3918,7 +4305,13 @@
             "win": "WIN",
             "text": "降服天山雪谷的黑熊",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "黑熊"
+            ],
+            "no_flee": false,
+            "place": "天山道・天山雪谷",
+            "action": "a_heixiong",
+            "hours": []
           },
           {
             "id": "o_liebao",
@@ -3926,7 +4319,13 @@
             "win": "WIN",
             "text": "降服終南後山的獵豹",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "獵豹"
+            ],
+            "no_flee": false,
+            "place": "終南山下・終南後山",
+            "action": "a_liebao",
+            "hours": []
           },
           {
             "id": "o_dadushe",
@@ -3934,17 +4333,145 @@
             "win": "WIN",
             "text": "降服星宿毒沼的大毒蛇",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "大毒蛇"
+            ],
+            "no_flee": false,
+            "place": "星宿海邊・毒沼",
+            "action": "a_dadushe",
+            "hours": []
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_xiang",
+            "room": "大理郊外・東邊樹林",
+            "label": "追捕野象",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "野象"
+                ],
+                "obj": "o_xiang"
+              }
+            ]
+          },
+          {
+            "id": "a_elang",
+            "room": "西夏郊外・狼嚎丘",
+            "label": "追捕惡狼",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "惡狼"
+                ],
+                "obj": "o_elang"
+              }
+            ]
+          },
+          {
+            "id": "a_baiyuan",
+            "room": "峨嵋道・竹林山徑",
+            "label": "追捕白猿",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "白猿"
+                ],
+                "obj": "o_baiyuan"
+              }
+            ]
+          },
+          {
+            "id": "a_menghu",
+            "room": "嵩山古道・嵩山松林",
+            "label": "追捕猛虎",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "猛虎"
+                ],
+                "obj": "o_menghu"
+              }
+            ]
+          },
+          {
+            "id": "a_heixiong",
+            "room": "天山道・天山雪谷",
+            "label": "追捕黑熊",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "黑熊"
+                ],
+                "obj": "o_heixiong"
+              }
+            ]
+          },
+          {
+            "id": "a_liebao",
+            "room": "終南山下・終南後山",
+            "label": "追捕獵豹",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "獵豹"
+                ],
+                "obj": "o_liebao"
+              }
+            ]
+          },
+          {
+            "id": "a_dadushe",
+            "room": "星宿海邊・毒沼",
+            "label": "追捕大毒蛇",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "fight",
+                "enemies": [
+                  "大毒蛇"
+                ],
+                "obj": "o_dadushe"
+              }
+            ]
           }
         ],
         "next": "s_song",
-        "on_enter": []
+        "place": "",
+        "on_enter": [],
+        "on_complete": []
       },
       {
         "id": "s_song",
         "title": "大師伯的學習令",
         "log": "七獸都降服了，回武當大殿見宋遠橋（練武場往南）。",
-        "place": "武當派・大殿",
         "objectives": [
           {
             "id": "o_song",
@@ -3956,8 +4483,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・大殿",
         "next": "END",
-        "on_enter": []
+        "place": "武當派・大殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -4253,7 +4784,13 @@
       }
     },
     "source_status": "later",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_orphan",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_wd_yitian": {
     "id": "q_wd_yitian",
@@ -4289,7 +4826,6 @@
         "id": "s_song",
         "title": "書房的四師伯",
         "log": "張三丰要你先去書房找張松溪學寫字。書房在練武場東邊。",
-        "place": "武當派・書房",
         "objectives": [
           {
             "id": "o_song",
@@ -4301,14 +4837,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・書房",
         "next": "s_copy",
-        "on_enter": []
+        "place": "武當派・書房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_copy",
         "title": "閉門臨帖",
         "log": "在書房閉門臨摹那二十四個字，至少要寫上半天（約半個遊戲日）。",
-        "place": "武當派・書房",
         "objectives": [
           {
             "id": "o_wait",
@@ -4319,14 +4858,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・書房",
         "next": "s_test",
-        "on_enter": []
+        "place": "武當派・書房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_test",
         "title": "真人考字",
         "log": "寫熟了，到內堂請張三丰考校（練武場往南到大殿，往東三清宮，再往南）。",
-        "place": "武當派・內堂",
         "objectives": [
           {
             "id": "o_test",
@@ -4338,8 +4880,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・內堂",
         "next": "END",
-        "on_enter": []
+        "place": "武當派・內堂",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -4492,7 +5038,13 @@
       }
     },
     "source_status": "proposal",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_song",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_wd_taiji": {
     "id": "q_wd_taiji",
@@ -4529,7 +5081,6 @@
         "id": "s_quan",
         "title": "四師伯的拳",
         "log": "在書房接下張松溪的考較。撐不住就退開（逃），也算過了這一關。",
-        "place": "武當派・書房",
         "objectives": [
           {
             "id": "o_quan",
@@ -4548,17 +5099,21 @@
             "requires": [],
             "enemies": [
               "張松溪"
-            ]
+            ],
+            "no_flee": false
           }
         ],
+        "hint_room": "武當派・書房",
         "next": "s_jian",
-        "on_enter": []
+        "place": "武當派・書房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_jian",
         "title": "二師伯的劍",
         "log": "到大殿後屋接下俞蓮舟的劍法考較（練武場往南到大殿，再往南）。勝負不拘，撐不住就退開。",
-        "place": "武當派・大殿後屋",
         "objectives": [
           {
             "id": "o_jian",
@@ -4577,17 +5132,21 @@
             "requires": [],
             "enemies": [
               "俞蓮舟"
-            ]
+            ],
+            "no_flee": false
           }
         ],
+        "hint_room": "武當派・大殿後屋",
         "next": "s_back",
-        "on_enter": []
+        "place": "武當派・大殿後屋",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_back",
         "title": "說說心得",
         "log": "回書房把兩場考較的心得說給張松溪聽。",
-        "place": "武當派・書房",
         "objectives": [
           {
             "id": "o_back",
@@ -4599,8 +5158,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "武當派・書房",
         "next": "END",
-        "on_enter": []
+        "place": "武當派・書房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -4675,8 +5238,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_wd_zhangsongxi"
+                    "enemies": [
+                      "張松溪"
                     ],
                     "obj": "o_quan_f",
                     "solo": true,
@@ -4723,8 +5286,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_wd_yulianzhou"
+                    "enemies": [
+                      "俞蓮舟"
                     ],
                     "obj": "o_jian_f",
                     "solo": true,
@@ -4795,7 +5358,13 @@
       }
     },
     "source_status": "later",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_quan",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_em_shougongsha": {
     "id": "q_em_shougongsha",
@@ -4835,7 +5404,6 @@
         "id": "s_cert",
         "title": "靜照師太驗砂",
         "log": "到練武場東邊的易理房，請靜照師太驗明守宮砂。",
-        "place": "峨嵋派・易理房",
         "objectives": [
           {
             "id": "o_cert",
@@ -4847,14 +5415,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋派・易理房",
         "next": "s_miejue",
-        "on_enter": []
+        "place": "峨嵋派・易理房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_miejue",
         "title": "拜見師父",
         "log": "帶著守宮砂證明去見滅絕師太：練武場往北進金頂大殿，再往北就是師父的居所。",
-        "place": "峨嵋派・滅絕師太居所",
         "objectives": [
           {
             "id": "o_miejue",
@@ -4866,8 +5437,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋派・滅絕師太居所",
         "next": "END",
-        "on_enter": []
+        "place": "峨嵋派・滅絕師太居所",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -5015,7 +5590,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_cert",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_em_shandu": {
     "id": "q_em_shandu",
@@ -5037,7 +5618,6 @@
         "id": "s_ding",
         "title": "丁師姐的脾氣",
         "log": "在練武場找丁敏君，看她肯不肯把東西交出來。",
-        "place": "峨嵋派・練武場",
         "objectives": [
           {
             "id": "o_ding",
@@ -5049,6 +5629,7 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋派・練武場",
         "next": [
           {
             "if": [
@@ -5065,13 +5646,15 @@
             "goto": "s_jiuyang"
           }
         ],
-        "on_enter": []
+        "place": "峨嵋派・練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_cool",
         "title": "等她消氣",
         "log": "丁敏君氣你不肯順著她說話，把你晾在一邊。等她消消氣（約半個遊戲日），再回練武場找她。",
-        "place": "峨嵋派・練武場",
         "objectives": [
           {
             "id": "o_cool",
@@ -5082,14 +5665,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋派・練武場",
         "next": "s_ding2",
-        "on_enter": []
+        "place": "峨嵋派・練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_ding2",
         "title": "再找丁師姐",
         "log": "回練武場再找丁敏君。",
-        "place": "峨嵋派・練武場",
         "objectives": [
           {
             "id": "o_ding2",
@@ -5101,14 +5687,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋派・練武場",
         "next": "s_jiuyang",
-        "on_enter": []
+        "place": "峨嵋派・練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_jiuyang",
         "title": "九陽十級",
         "log": "師父說要九陽功練到十級，才能學滅劍。把峨嵋九陽功練到 10 級，再帶著掌門指環去見滅絕師太（金頂大殿往北）。",
-        "place": "峨嵋派・滅絕師太居所",
         "objectives": [
           {
             "id": "o_jy",
@@ -5133,8 +5722,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "峨嵋派・滅絕師太居所",
         "next": "END",
-        "on_enter": []
+        "place": "峨嵋派・滅絕師太居所",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -5336,7 +5929,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_ding",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_sl_riyuebian": {
     "id": "q_sl_riyuebian",
@@ -5375,7 +5974,6 @@
         "id": "s_fetch",
         "title": "藏經閣取經",
         "log": "到藏經閣向渡厄大師取經（羅漢堂往東回大雄寶殿，再往東就是藏經閣；做這個任務時藏經閣特准你進去）。渡厄給你哪一部就是哪一部，玄淨要的是「東方淨琉璃世界教主」所說的那一部。",
-        "place": "少林寺・藏經閣",
         "objectives": [
           {
             "id": "o_fetch",
@@ -5387,14 +5985,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "少林寺・藏經閣",
         "next": "s_return",
-        "on_enter": []
+        "place": "少林寺・藏經閣",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_return",
         "title": "呈經",
         "log": "把經卷帶回羅漢堂交給玄淨（大雄寶殿往西）。",
-        "place": "少林寺・羅漢堂",
         "objectives": [
           {
             "id": "o_return",
@@ -5406,8 +6007,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "少林寺・羅漢堂",
         "next": "END",
-        "on_enter": []
+        "place": "少林寺・羅漢堂",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -5642,7 +6247,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_fetch",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_xh_huagong": {
     "id": "q_xh_huagong",
@@ -5664,7 +6275,6 @@
         "id": "s_shuanger",
         "title": "雙兒的提點",
         "log": "韋小寶教了你拍馬屁神功（諂媚 5 級）。旁邊的雙兒好像有話要說，跟她談談。",
-        "place": "大理・大理衙門",
         "objectives": [
           {
             "id": "o_shuanger",
@@ -5676,14 +6286,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "大理・大理衙門",
         "next": "s_flatter",
-        "on_enter": []
+        "place": "大理・大理衙門",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_flatter",
         "title": "吹捧星宿老仙",
         "log": "回星宿海，到大殿拍師父的馬屁。從大理出北門往北到城北河畔，過河石橋沿河川古道往西北到綠洲，再往西北到沙漠山洞外，往北經大漠邊緣到沙丘邊緣，往西經蛇骨小徑、星宿海邊到星宿海外景，往北就是大殿。",
-        "place": "星宿派・星宿大殿",
         "objectives": [
           {
             "id": "o_flatter",
@@ -5695,14 +6308,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "星宿派・星宿大殿",
         "next": "s_shuanger2",
-        "on_enter": []
+        "place": "星宿派・星宿大殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_shuanger2",
         "title": "再求雙兒",
         "log": "師父還是不高興。回大理衙門求雙兒幫忙（路線倒過來走）。",
-        "place": "大理・大理衙門",
         "objectives": [
           {
             "id": "o_shuanger2",
@@ -5714,14 +6330,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "大理・大理衙門",
         "next": "s_wxb2",
-        "on_enter": []
+        "place": "大理・大理衙門",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_wxb2",
         "title": "神功十級",
         "log": "雙兒替你說了好話。找韋小寶把拍馬屁神功學到 10 級（諂媚 10 級）。",
-        "place": "大理・大理衙門",
         "objectives": [
           {
             "id": "o_wxb2",
@@ -5746,14 +6365,17 @@
             "enemies": []
           }
         ],
+        "hint_room": "大理・大理衙門",
         "next": "s_ding",
-        "on_enter": []
+        "place": "大理・大理衙門",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_ding",
         "title": "老仙大悅",
         "log": "回星宿大殿，再拍一次師父的馬屁。",
-        "place": "星宿派・星宿大殿",
         "objectives": [
           {
             "id": "o_ding",
@@ -5765,8 +6387,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "星宿派・星宿大殿",
         "next": "END",
-        "on_enter": []
+        "place": "星宿派・星宿大殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -5996,7 +6622,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_shuanger",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_xd_xuehai": {
     "id": "q_xd_xuehai",
@@ -6032,7 +6664,6 @@
         "id": "s_hunt",
         "title": "雪原追叛徒",
         "log": "出血刀門口往東到雪谷，往東北上大雪山，再往西就是雪原。找到叛徒，清理門戶。",
-        "place": "大漠雪山道・雪原",
         "objectives": [
           {
             "id": "o_find",
@@ -6051,11 +6682,12 @@
             "requires": [],
             "enemies": [
               "血刀叛徒"
-            ]
+            ],
+            "no_flee": false
           }
         ],
+        "hint_room": "大漠雪山道・雪原",
         "next": "s_laozu",
-        "on_enter": [],
         "on_complete": [
           {
             "do": "give",
@@ -6067,13 +6699,15 @@
             "key": "tell_xd_xuehai_dao",
             "text": "你從叛徒身上奪回了那柄刻著本門記號的血刀。"
           }
-        ]
+        ],
+        "place": "大漠雪山道・雪原",
+        "on_enter": [],
+        "room_actions": []
       },
       {
         "id": "s_laozu",
         "title": "接老祖一刀",
         "log": "把叛徒的血刀帶回本堂交給血刀老祖，接下老祖的試鍊。撐不住就退開，老祖只看你有沒有膽子。",
-        "place": "血刀門・血刀本堂",
         "objectives": [
           {
             "id": "o_laozu",
@@ -6092,17 +6726,21 @@
             "requires": [],
             "enemies": [
               "血刀老祖"
-            ]
+            ],
+            "no_flee": false
           }
         ],
+        "hint_room": "血刀門・血刀本堂",
         "next": "s_xuehai",
-        "on_enter": []
+        "place": "血刀門・血刀本堂",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_xuehai",
         "title": "血池",
         "log": "到本堂後面的血池見血海老祖（本堂往北）。",
-        "place": "血刀門・血池",
         "objectives": [
           {
             "id": "o_xuehai",
@@ -6114,8 +6752,12 @@
             "enemies": []
           }
         ],
+        "hint_room": "血刀門・血池",
         "next": "END",
-        "on_enter": []
+        "place": "血刀門・血池",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -6175,8 +6817,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_xd_pantu"
+                    "enemies": [
+                      "血刀叛徒"
                     ],
                     "obj": "o_kill",
                     "npc": "n_xd_pantu"
@@ -6242,8 +6884,8 @@
                   },
                   {
                     "do": "fight",
-                    "monsters": [
-                      "m_xd_laozu_trial"
+                    "enemies": [
+                      "血刀老祖"
                     ],
                     "obj": "o_trial",
                     "solo": true,
@@ -6306,7 +6948,13 @@
       }
     },
     "source_status": "later",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_hunt",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_gb_dai1": {
     "id": "q_gb_dai1",
@@ -6330,27 +6978,30 @@
       {
         "id": "s_xixia",
         "title": "西夏的風聲",
-        "log": "陳長老要你先去西夏打聽。出京城南門，經南郊岔路往西下到華山腳下，再沿東路一路往西回西夏城；從西夏廣場往西到西大街，北邊的回春藥鋪門口蹲著丐幫弟子游啟明。",
-        "place": "西夏・回春藥鋪",
+        "hint_room": "西夏・回春藥鋪",
+        "log": "陳長老要你先去西夏打聽。最省事是到京城驛站（京城廣場往西到大街，再往西）搭車到西夏，車資一百二十兩；要走路就出京城南門，經南郊岔路往西下到華山腳下，再沿東路一路往西回西夏城；從西夏廣場往西到西大街，北邊的回春藥鋪門口蹲著丐幫弟子游啟。",
         "objectives": [
           {
             "id": "o_you",
             "type": "TALK",
             "npc": "n_gb_youqiming",
             "dialogue": "d_you",
-            "text": "到西夏回春藥鋪找游啟明",
+            "text": "到西夏回春藥鋪找游啟",
             "requires": [],
             "enemies": []
           }
         ],
         "next": "s_pan",
-        "on_enter": []
+        "place": "西夏・回春藥鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_pan",
         "title": "大理武館門口",
-        "log": "游啟明說大理武館門口的潘乞兒也聽到些風聲。到大理五華樓前（可在西夏驛站搭車），往西南就是大理武館。",
-        "place": "大理・大理武館",
+        "hint_room": "大理・大理武館",
+        "log": "游啟說大理武館門口的潘乞兒也聽到些風聲。到大理五華樓前（可在西夏驛站搭車），往西南就是大理武館。",
         "objectives": [
           {
             "id": "o_pan",
@@ -6363,13 +7014,16 @@
           }
         ],
         "next": "s_shenyi",
-        "on_enter": []
+        "place": "大理・大理武館",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_shenyi",
         "title": "神醫的字條",
+        "hint_room": "大理・雜貨鋪",
         "log": "潘乞兒要你去問雜貨鋪裡那位神醫，他救過一個被邪教砍傷的漢子。雜貨鋪在大理五華樓前往東南。",
-        "place": "大理・雜貨鋪",
         "objectives": [
           {
             "id": "o_shenyi",
@@ -6382,13 +7036,16 @@
           }
         ],
         "next": "s_informant",
-        "on_enter": []
+        "place": "大理・雜貨鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_informant",
         "title": "兵器鋪轉角",
+        "hint_room": "京城・京城兵器鋪",
         "log": "神醫說那漢子往京城去了，字條上寫著「京城兵器鋪轉角」。回京城，從廣場往北上北大街，西邊就是京城兵器鋪。",
-        "place": "京城・京城兵器鋪",
         "objectives": [
           {
             "id": "o_informant",
@@ -6401,13 +7058,23 @@
           }
         ],
         "next": "s_ambush",
-        "on_enter": []
+        "place": "京城・京城兵器鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_ambush",
         "title": "三處埋伏",
-        "log": "密函上寫著邪教的三處埋伏，各只在一個時辰出現：\n酉時，雁門關外橋邊——出京城北門經北郊山路上嶺，往西接雁門古道，北到雁門關口，再往東南就是橋邊。\n卯時，大理城北的過河石橋——出大理北門到城北河畔，往西北上橋。\n午時，京城北郊山道——出京城北門，過山路岔口再往北。\n每處都有七個邪教門徒，打起來休想逃跑；打不過就等明天同一個時辰再來。三處都打退、一共除掉二十個以上，再回破廟向陳長老稟報。",
-        "place": "雁門關・關外橋邊",
+        "hint_room": "雁門關・關外橋邊",
+        "log": "密函上寫著邪教的三處埋伏，各只在一個時辰出現：\n酉時，雁門關外橋邊——出京城北門經北郊山路上嶺，往西接雁門古道，北到雁門關口，再往東南就是橋邊。\n卯時，大理城北的過河石橋——出大理北門到城北河畔，往西北上橋。\n午時，京城北郊山道——出京城北門，過山路岔口再往北。\n每處都有七個邪教門徒；打不過可以逃，但埋伏的人會散去，要等明天同一個時辰再來。三處都打退、一共除掉二十個以上，再回破廟向陳長老稟報。",
+        "on_enter": [
+          {
+            "do": "tell",
+            "key": "gb_tell_mixin",
+            "text": "你拆開密函，上頭歪歪斜斜寫著三處地名與時辰，墨跡還沒乾透。"
+          }
+        ],
         "objectives": [
           {
             "id": "o_amb_ym",
@@ -6415,7 +7082,21 @@
             "win": "WIN",
             "text": "酉時在雁門關外橋邊打退邪教埋伏",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒"
+            ],
+            "no_flee": false,
+            "place": "雁門關・關外橋邊",
+            "action": "a_amb_ym",
+            "hours": [
+              "酉"
+            ]
           },
           {
             "id": "o_amb_rr",
@@ -6423,7 +7104,21 @@
             "win": "WIN",
             "text": "卯時在大理城北過河石橋打退邪教埋伏",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒"
+            ],
+            "no_flee": false,
+            "place": "河川古道・過河石橋",
+            "action": "a_amb_rr",
+            "hours": [
+              "卯"
+            ]
           },
           {
             "id": "o_amb_jcn",
@@ -6431,7 +7126,21 @@
             "win": "WIN",
             "text": "午時在京城北郊山道打退邪教埋伏",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒",
+              "邪教門徒"
+            ],
+            "no_flee": false,
+            "place": "京城北郊・北郊山道",
+            "action": "a_amb_jcn",
+            "hours": [
+              "午"
+            ]
           },
           {
             "id": "o_kill",
@@ -6440,22 +7149,117 @@
             "count": 20,
             "text": "除掉二十個邪教門徒",
             "requires": [],
-            "enemies": []
+            "enemies": [],
+            "enemy_name": "邪教門徒"
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_amb_ym",
+            "room": "雁門關・關外橋邊",
+            "label": "察看橋下的動靜",
+            "hours": [
+              "酉"
+            ],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "gb_tell_amb_ym",
+                "text": "橋頭亂石後頭忽然竄出七條黑影，鋼刀映著夕陽：「臭叫化，等你好久了！」"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒"
+                ],
+                "retry_days": 1,
+                "solo": false,
+                "obj": "o_amb_ym"
+              }
+            ]
+          },
+          {
+            "id": "a_amb_rr",
+            "room": "河川古道・過河石橋",
+            "label": "守在石橋頭",
+            "hours": [
+              "卯"
+            ],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "gb_tell_amb_rr",
+                "text": "晨霧裡橋頭兩端同時冒出人來，前後一堵，七個黑衣人把你圍在橋心。"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒"
+                ],
+                "retry_days": 1,
+                "solo": false,
+                "obj": "o_amb_rr"
+              }
+            ]
+          },
+          {
+            "id": "a_amb_jcn",
+            "room": "京城北郊・北郊山道",
+            "label": "搜查山道兩旁",
+            "hours": [
+              "午"
+            ],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "gb_tell_amb_jcn",
+                "text": "正午的山道上靜得出奇，兩旁亂石後猛地跳出七個蒙面人，一聲呼哨便撲了上來！"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒",
+                  "邪教門徒"
+                ],
+                "retry_days": 1,
+                "solo": false,
+                "obj": "o_amb_jcn"
+              }
+            ]
           }
         ],
         "next": "s_report",
-        "on_enter": [
-          {
-            "do": "tell",
-            "key": "gb_tell_mixin"
-          }
-        ]
+        "place": "雁門關・關外橋邊",
+        "on_complete": []
       },
       {
         "id": "s_report",
         "title": "回總舵稟報",
+        "hint_room": "丐幫總舵・破廟正殿",
         "log": "三處埋伏都打退了。帶著密函回京城北郊的丐幫破廟（出京城北門，山路岔口往東），向陳長老稟報。",
-        "place": "丐幫總舵・破廟正殿",
         "objectives": [
           {
             "id": "o_report",
@@ -6468,7 +7272,10 @@
           }
         ],
         "next": "END",
-        "on_enter": []
+        "place": "丐幫總舵・破廟正殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -6494,7 +7301,7 @@
           },
           "n1": {
             "speaker": "npc",
-            "text": "「咱們丐幫弟子遍布天下，消息最是靈通。你先到西夏回春藥鋪門口找游啟明，他那裡有些風聲。把邪教的底細摸清楚了，再回來稟報。」",
+            "text": "「咱們丐幫弟子遍布天下，消息最是靈通。你先到西夏回春藥鋪門口找游啟，他那裡有些風聲。把邪教的底細摸清楚了，再回來稟報。」",
             "choices": [
               {
                 "id": "c_take",
@@ -6526,7 +7333,7 @@
         "nodes": {
           "n0": {
             "speaker": "npc",
-            "text": "游啟明蹲在藥鋪門口，捧著缺了口的破碗：「這位兄弟面生得很……喲，背後插著竹棒，是自家人？」",
+            "text": "游啟蹲在藥鋪門口，捧著缺了口的破碗：「這位兄弟面生得很……喲，背後插著竹棒，是自家人？」",
             "choices": [
               {
                 "id": "c_ask",
@@ -6542,7 +7349,7 @@
           },
           "n1": {
             "speaker": "npc",
-            "text": "游啟明壓低聲音：「那夥人穿得人模人樣，專挑落單的叫化子下手。前幾天我在這門口聽兩個行商嘀咕，說他們在大理也有人手。你去大理武館門口找潘乞兒，他鼻子比狗還靈。」",
+            "text": "游啟壓低聲音：「那夥人穿得人模人樣，專挑落單的叫化子下手。前幾天我在這門口聽兩個行商嘀咕，說他們在大理也有人手。你去大理武館門口找潘乞兒，他鼻子比狗還靈。」",
             "choices": [
               {
                 "id": "c_ok",
@@ -6569,7 +7376,7 @@
             "choices": [
               {
                 "id": "c_ask",
-                "label": "游啟明叫我來找你，問邪教的事。",
+                "label": "游啟叫我來找你，問邪教的事。",
                 "goto": "n1"
               },
               {
@@ -6681,7 +7488,7 @@
           },
           "n2": {
             "speaker": "npc",
-            "text": "「酉時，雁門關外橋邊；卯時，大理城北的過河石橋；午時，京城北郊的山道。那些人下手狠，一旦撞上，休想逃得掉。你……多保重。」",
+            "text": "「酉時，雁門關外橋邊；卯時，大理城北的過河石橋；午時，京城北郊的山道。那些人下手狠，真打不過就先逃，他們散了得等明天同一個時辰才會再出現。你……多保重。」",
             "goto": "END"
           }
         }
@@ -6700,7 +7507,7 @@
                 "requires": [
                   {
                     "type": "has_item",
-                    "item": "i_gb_mixin",
+                    "item": "邪教密函",
                     "n": 1
                   }
                 ],
@@ -6754,7 +7561,13 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_xixia",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
   },
   "q_gb_dai2": {
     "id": "q_gb_dai2",
@@ -6783,8 +7596,8 @@
       {
         "id": "s_zhanggun",
         "title": "稟報掌棍長老",
+        "hint_room": "丐幫總舵・破廟後院",
         "log": "把蠻族探子的事稟報掌棍長老。出京城北門，經北郊山路到山路岔口往東進破廟，從正殿往東就是後院。",
-        "place": "丐幫總舵・破廟後院",
         "objectives": [
           {
             "id": "o_zhanggun",
@@ -6797,13 +7610,16 @@
           }
         ],
         "next": "s_letters",
-        "on_enter": []
+        "place": "丐幫總舵・破廟後院",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_letters",
         "title": "三封書信",
-        "log": "把掌棍長老的三封書信分別送到：西夏回春藥鋪門口的游啟明（西大街北邊）、大理武館門口的潘乞兒（五華樓前往西南）、京城兵器鋪轉角的漢子（北大街西邊）。",
-        "place": "西夏・回春藥鋪",
+        "hint_room": "西夏・回春藥鋪",
+        "log": "把掌棍長老的三封書信分別送到：西夏回春藥鋪門口的游啟（西大街北邊）、大理武館門口的潘乞兒（五華樓前往西南）、京城兵器鋪轉角的漢子（北大街西邊）。",
         "objectives": [
           {
             "id": "o_xin_xx",
@@ -6811,7 +7627,7 @@
             "npc": "n_gb_youqiming",
             "item": "掌棍長老的書信",
             "count": 1,
-            "text": "把書信交給西夏的游啟明",
+            "text": "把書信交給西夏的游啟",
             "requires": [],
             "enemies": []
           },
@@ -6837,13 +7653,23 @@
           }
         ],
         "next": "s_manbing",
-        "on_enter": []
+        "place": "西夏・回春藥鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       },
       {
         "id": "s_manbing",
         "title": "三路蠻兵",
-        "log": "三處都回了消息：蠻兵分三路潛了過來——京城北郊的嶺上古道（出北門一路往北上嶺）、大理的蒼山林道（出大理北門到城北河畔再往東）、西夏的狼嚎丘（出西夏東門經荒草坡往東）。蠻兵皮粗肉厚，單打獨鬥極難取勝，最好邀幾位幫手同去。三路都打退了，回破廟找陳長老。",
-        "place": "京城北郊・嶺上古道",
+        "hint_room": "京城北郊・嶺上古道",
+        "log": "三處都回了消息：蠻兵分三路潛了過來——京城北郊的嶺上古道（出北門一路往北上嶺）、大理的蒼山林道（出大理北門到城北河畔再往東）、西夏的狼嚎丘（出西夏東門經荒草坡往東）。蠻兵皮粗肉厚，單打獨鬥、兩個人都難取勝，要邀齊三人（每人實戰兩萬上下）同去。三路都打退了，回破廟找陳長老。",
+        "on_enter": [
+          {
+            "do": "tell",
+            "key": "gb_tell_manbing",
+            "text": "三處兄弟的回信都到了：蠻兵分成三路，正往咱們的地頭摸過來。"
+          }
+        ],
         "objectives": [
           {
             "id": "o_mb_jcn",
@@ -6851,7 +7677,13 @@
             "win": "WIN",
             "text": "打退京城北郊嶺上古道的蠻兵",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "蠻兵"
+            ],
+            "no_flee": false,
+            "place": "京城北郊・嶺上古道",
+            "action": "a_mb_jcn",
+            "hours": []
           },
           {
             "id": "o_mb_dl",
@@ -6859,7 +7691,13 @@
             "win": "WIN",
             "text": "打退大理蒼山林道的蠻兵",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "蠻兵"
+            ],
+            "no_flee": false,
+            "place": "大理郊外・蒼山林道",
+            "action": "a_mb_dl",
+            "hours": []
           },
           {
             "id": "o_mb_xx",
@@ -6867,22 +7705,98 @@
             "win": "WIN",
             "text": "打退西夏狼嚎丘的蠻兵",
             "requires": [],
-            "enemies": []
+            "enemies": [
+              "蠻兵"
+            ],
+            "no_flee": false,
+            "place": "西夏郊外・狼嚎丘",
+            "action": "a_mb_xx",
+            "hours": []
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_mb_jcn",
+            "room": "京城北郊・嶺上古道",
+            "label": "攔住蠻兵",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "gb_tell_manbing_meet",
+                "text": "一個披著獸皮的蠻族大漢掄著開山刀從林子裡衝出來，嘴裡吼著你聽不懂的話！"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "蠻兵"
+                ],
+                "no_flee": false,
+                "solo": false,
+                "obj": "o_mb_jcn"
+              }
+            ]
+          },
+          {
+            "id": "a_mb_dl",
+            "room": "大理郊外・蒼山林道",
+            "label": "攔住蠻兵",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "gb_tell_manbing_meet",
+                "text": "一個披著獸皮的蠻族大漢掄著開山刀從林子裡衝出來，嘴裡吼著你聽不懂的話！"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "蠻兵"
+                ],
+                "no_flee": false,
+                "solo": false,
+                "obj": "o_mb_dl"
+              }
+            ]
+          },
+          {
+            "id": "a_mb_xx",
+            "room": "西夏郊外・狼嚎丘",
+            "label": "攔住蠻兵",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "gb_tell_manbing_meet",
+                "text": "一個披著獸皮的蠻族大漢掄著開山刀從林子裡衝出來，嘴裡吼著你聽不懂的話！"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "蠻兵"
+                ],
+                "no_flee": false,
+                "solo": false,
+                "obj": "o_mb_xx"
+              }
+            ]
           }
         ],
         "next": "s_report",
-        "on_enter": [
-          {
-            "do": "tell",
-            "key": "gb_tell_manbing"
-          }
-        ]
+        "place": "京城北郊・嶺上古道",
+        "on_complete": []
       },
       {
         "id": "s_report",
         "title": "回總舵覆命",
+        "hint_room": "丐幫總舵・破廟正殿",
         "log": "三路蠻兵都打退了。回京城北郊的丐幫破廟（出京城北門，山路岔口往東）向陳長老覆命。",
-        "place": "丐幫總舵・破廟正殿",
         "objectives": [
           {
             "id": "o_report",
@@ -6895,7 +7809,10 @@
           }
         ],
         "next": "END",
-        "on_enter": []
+        "place": "丐幫總舵・破廟正殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
       }
     ],
     "give_items": [],
@@ -6970,7 +7887,7 @@
           },
           "n1": {
             "speaker": "npc",
-            "text": "掌棍長老濃眉一擰：「蠻族？哼，我早聽說他們在邊上蠢蠢欲動。這三封信，你分頭送到西夏的游啟明、大理的潘乞兒，還有京城兵器鋪轉角那位朋友手上，叫他們留神蠻兵的動靜。」",
+            "text": "掌棍長老濃眉一擰：「蠻族？哼，我早聽說他們在邊上蠢蠢欲動。這三封信，你分頭送到西夏的游啟、大理的潘乞兒，還有京城兵器鋪轉角那位朋友手上，叫他們留神蠻兵的動靜。」",
             "choices": [
               {
                 "id": "c_take",
@@ -7053,6 +7970,4566 @@
       }
     },
     "source_status": "verified",
-    "note": "來源任務改編為逐步交談、交付與實際考較；非原版對話逐字或全流程重製。"
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "start": "s_zhanggun",
+    "offer": "d_offer",
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    }
+  },
+  "q_gb_xin": {
+    "id": "q_gb_xin",
+    "name": "丐幫送信",
+    "giver": "n_gb_youqiming",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "丐幫"
+      }
+    ],
+    "start": "s_go",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_go",
+        "title": "送信到大理",
+        "hint_room": "大理・五華樓前",
+        "log": "把丐幫書信送到大理五華樓前的丐幫弟子手上。可從西夏驛站搭車到大理，出驛站往東就是五華樓前。",
+        "objectives": [
+          {
+            "id": "o_deliver",
+            "type": "DELIVER",
+            "npc": "n_gb_dl_qigai",
+            "item": "丐幫書信",
+            "count": 1,
+            "text": "把書信交給大理五華樓前的丐幫弟子",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "游啟從懷裡摸出一封皺巴巴的信：「兄弟來得正好。這封信要送到大理五華樓前的自家兄弟手上，你腿腳快，替我跑一趟？」",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "交給我吧。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "今天走不開。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「咱們丐幫弟子運不了鏢，名聲就靠這兩條腿一點一點跑出來。路上小心那些追著叫化子咬的黃狗。」",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 0,
+      "cooldown_days": 0.5
+    },
+    "give_items": [
+      {
+        "item": "丐幫書信",
+        "n": 1
+      }
+    ],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "書信送到",
+        "rewards": {
+          "fame": 1,
+          "lilian": 1
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_jc_zhangyuanwai": {
+    "id": "q_jc_zhangyuanwai",
+    "name": "愛好礦石的張員外",
+    "giver": "n_jc_zhangyuanwai",
+    "conditions": [],
+    "start": "s_give",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_give",
+        "title": "三塊紫石礦",
+        "hint_room": "大理・五華樓前",
+        "log": "湊齊三塊紫石礦交給大理廣場的張員外。紫石礦要挖礦練到相當火候才挖得到，有些江湖事件也會拿來當謝禮。",
+        "objectives": [
+          {
+            "id": "o_give",
+            "type": "DELIVER",
+            "npc": "n_jc_zhangyuanwai",
+            "item": "紫石礦",
+            "count": 3,
+            "text": "交給張員外 3 塊紫石礦",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（張員外手裡的兩顆石球轉得咯咯響）這位朋友，你可識得礦石？",
+            "goto": "n1"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "老夫平生沒別的嗜好，就愛收集奇石。那種泛著紫光的紫石礦，越看越愛……可惜礦工都嫌難挖，一年也見不到幾塊。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "你若弄得到三塊紫石礦，老夫出三百六十兩收，比鐵匠舖給的價錢強多了。如何？",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "員外等著，我這就去弄。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "石頭有什麼好看的。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好，好！老夫天天在這廣場上曬太陽，你隨時來。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "（張員外搖頭晃腦）俗人，俗人。"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 0,
+      "cooldown_days": 1
+    },
+    "give_items": [],
+    "source_status": "proposal",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "張員外收下紫石礦",
+        "rewards": {
+          "money": 360,
+          "fame": 1
+        },
+        "src": "proposal"
+      }
+    }
+  },
+  "q_liangfa": {
+    "id": "q_liangfa",
+    "name": "痴情的梁發",
+    "giver": "n_liangfa",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "華山"
+      }
+    ],
+    "start": "s_ying",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_ying",
+        "title": "峨嵋茶棚的瑩月兒",
+        "hint_room": "峨嵋道・峨嵋茶棚",
+        "log": "把梁發的信交給峨嵋茶棚的瑩月兒：出華山山門往南下到華山腳下，往東經華山水池、東行古道到武當岔路，往南經古道南岔到武當山下，往西南經終南東麓、終南山腳到終南山麓，往西經終南山道口、峨嵋山腳到峨嵋西林，往西南到清音閣山道，再往西就是峨嵋茶棚。",
+        "objectives": [
+          {
+            "id": "o_ying",
+            "type": "TALK",
+            "npc": "n_em_yingyueer",
+            "dialogue": "d_ying",
+            "text": "把信交給峨嵋茶棚的瑩月兒",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "峨嵋道・峨嵋茶棚",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "回信",
+        "hint_room": "華山・正氣堂",
+        "log": "把瑩月兒的回信帶回華山正氣堂給梁發（照原路回去：峨嵋茶棚往東經清音閣山道、峨嵋西林、峨嵋山腳，往東經終南一帶到武當山下，往北到武當岔路，往西經東行古道、華山水池到華山腳下，往北上山）。",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_liangfa",
+            "dialogue": "d_back",
+            "text": "把回信交給梁發",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "華山・正氣堂",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（梁發把你拉到一旁，壓低聲音。）{shidi}……你在江湖上走動，有沒有看到一位叫瑩月兒的姑娘？",
+            "choices": [
+              {
+                "id": "c_you",
+                "label": "有....",
+                "goto": "n1"
+              },
+              {
+                "id": "c_mei",
+                "label": "沒見過。",
+                "goto": "n_no"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（梁發眼睛一亮。）真的？她……她還在峨嵋茶棚嗎？我寫了封信，一直找不到人捎去。你替我交給她，好不好？",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "師兄放心，我替你送到。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "梁發的信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "這種事，師兄還是自己去吧。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好{shidi}！路上千萬別拆開看……也、也別跟師父說。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "（梁發撓撓頭，把信又塞回懷裡。）"
+          }
+        }
+      },
+      "d_ying": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（瑩月兒正在理竹簍裡的東西。）你是……華山派的？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "梁發師兄託我把這封信交給妳。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "梁發的信",
+                    "n": 1
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "梁發的信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "（改天再說。）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（她看完信，臉一下子紅了，好一會兒才小聲說。）他老是託人帶信來……你等等，我寫封回信，你替我帶給他。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（她把一封摺得方方正正的信塞到你手裡。）別、別拆開看喔。",
+            "do": [
+              {
+                "do": "give",
+                "item": "瑩月兒的回信",
+                "n": 1
+              },
+              {
+                "do": "complete",
+                "obj": "o_ying"
+              }
+            ]
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "{shidi}回來了！她……她怎麼說？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "這是瑩月兒姑娘的回信。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "瑩月兒的回信",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "瑩月兒的回信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_later",
+                "label": "還沒送到，我再去一趟。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（梁發背過身去看信，看完把信貼身收好，轉過來時笑得合不攏嘴。）好{shidi}！師兄沒什麼好謝你的，這封學武函你收著，往後用得上。"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "替梁發和瑩月兒捎了信",
+        "rewards": {
+          "items": [
+            {
+              "item": "梁發學武函",
+              "n": 1
+            }
+          ]
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_liu_jinpen": {
+    "id": "q_liu_jinpen",
+    "name": "劉二爺金盆洗手（上）",
+    "giver": "n_hn_liugongzi",
+    "conditions": [],
+    "start": "s_moda",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_moda",
+        "title": "黃昏海邊的琴聲",
+        "log": "劉公子把武林帖交給你，要你送到衡山掌門莫大先生手上。莫大先生行蹤不定，只在黃昏時分（申時、酉時）到上山路口的海邊獨坐拉胡琴。從衡山下往東北走到上山路口海邊候著；別的時辰去只見江風不見人，黃昏時分再來。",
+        "hint_room": "衡山・上山路口海邊",
+        "objectives": [
+          {
+            "id": "o_moda",
+            "type": "TALK",
+            "npc": "n_hn_moda",
+            "dialogue": "d_moda",
+            "hours": [
+              "申",
+              "酉"
+            ],
+            "text": "申、酉時到上山路口海邊，把武林帖交給莫大先生",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_return",
+        "place": "衡山・上山路口海邊",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_return",
+        "title": "帖子留在衡山",
+        "log": "莫大先生不肯收帖，只說「衡山派的帖子，留在衡山便是」。從海邊往西南回到衡山下，把武林帖交還池塘邊的劉公子。",
+        "hint_room": "衡山・衡山下",
+        "objectives": [
+          {
+            "id": "o_return",
+            "type": "TALK",
+            "npc": "n_hn_liugongzi",
+            "dialogue": "d_return",
+            "text": "回衡山下，把武林帖交還劉公子",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "衡山・衡山下",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（池塘邊一位錦衣少年拱手為禮。）這位{honorific}請了。在下姓劉，家父便是衡山派的劉二爺。家父厭倦了江湖上的打打殺殺，決意擇個吉日金盆洗手，從此退隱林泉。武林帖都已寫好，各路英雄的帖子也陸續送出了，只是……本派掌門莫大師伯這一份，卻怎麼也送不出去。師伯行蹤飄忽，誰也不知道他人在哪裡。",
+            "choices": [
+              {
+                "id": "c_why",
+                "label": "聽說莫掌門與令尊不和？",
+                "goto": "n_why"
+              },
+              {
+                "id": "c_help",
+                "label": "這份帖子，我替你送去。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_ok"
+              },
+              {
+                "id": "c_no",
+                "label": "我還有要事在身。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_why": {
+            "speaker": "npc",
+            "text": "（劉公子苦笑一聲。）師伯和家父性子不合，一個愛清靜，一個好結交朋友，這些年是少了往來。可同門終究是同門，金盆洗手這等大事，總不能不知會掌門一聲。",
+            "choices": [
+              {
+                "id": "c_help2",
+                "label": "既是如此，帖子交給我吧。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_ok"
+              },
+              {
+                "id": "c_no2",
+                "label": "這是你們衡山派的家務事，我不便插手。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_ok": {
+            "speaker": "npc",
+            "text": "多謝！聽本派弟子說，莫師伯黃昏時分常在衡山北邊大江口、上山路口的海邊獨坐拉琴。申時、酉時到那裡候著，或許碰得上他老人家。",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "是在下唐突了。閣下若是改了主意，我一直在這池塘邊等著。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_moda": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（礁石上坐著一個瘦削的老者，身穿洗得發白的青布長衫，手裡一把破舊胡琴，咿咿呀呀拉著一曲〈瀟湘夜雨〉。琴聲淒淒切切，像一場下不完的夜雨。）",
+            "choices": [
+              {
+                "id": "c_tie",
+                "label": "晚輩奉劉公子之託，送劉二爺的武林帖給莫掌門。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "（不敢打擾，悄悄退開）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（琴聲一停。老者瞇著眼瞧了瞧帖上的字，嘿嘿冷笑。）金盆洗手？洗手便洗手，大宴賓客、廣發帖子，鬧得天下皆知，這也叫洗手麼？江湖上的事，從來不是一盆清水洗得乾淨的。劉師弟交朋友交得太雜，總有一天要吃大虧。",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "莫掌門這話是什麼意思？",
+                "goto": "n2"
+              },
+              {
+                "id": "c_take",
+                "label": "那這份帖子……",
+                "goto": "n3"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（莫大搖了搖頭，又拉了兩下胡琴。）小娃兒，有些事你不知道，比知道的好。",
+            "choices": [
+              {
+                "id": "c_take2",
+                "label": "晚輩明白。那這份帖子……",
+                "goto": "n3"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "帖子我不收。你拿回去，就說衡山派的帖子，留在衡山便是。到了那一天，我莫大自會知道。（話聲未落，琴聲又起。你一轉眼，礁石上已空無一人，只剩江風颯颯。）",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_moda"
+              }
+            ],
+            "goto": "END"
+          }
+        }
+      },
+      "d_return": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（劉公子迎了上來。）怎麼樣？見著莫師伯了麼？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "莫掌門不肯收帖，要我把帖子留在衡山。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "武林帖",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "武林帖",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_return"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "還沒找著，我再去候候看。",
+                "goto": "n_later"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（劉公子接過帖子，怔了半晌，長嘆一聲。）師伯肯見你一面，也就算是知道了。他不來便不來，家父那邊，我自會稟明。這一趟辛苦了，這一千兩銀子是家父的一點心意，請務必收下。洗手那天，閣下若路過衡山城，也來喝一杯水酒。",
+            "goto": "END"
+          },
+          "n_later": {
+            "speaker": "npc",
+            "text": "莫師伯只在黃昏時分出沒，申時、酉時到東北邊上山路口的海邊候著便是。",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [
+      {
+        "item": "武林帖",
+        "n": 1
+      }
+    ],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "武林帖留在了衡山",
+        "rewards": {
+          "money": 1000
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_liu_jinpen_2": {
+    "id": "q_liu_jinpen_2",
+    "name": "劉二爺金盆洗手（下）",
+    "giver": "n_hn_lulianrong",
+    "conditions": [
+      {
+        "type": "quest_done",
+        "quest": "q_liu_jinpen"
+      }
+    ],
+    "start": "s_rest",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_rest",
+        "title": "茶店候客",
+        "log": "魯連榮打聽到那秘密組織在衡山小茶店接頭。從衡山下往東走進小茶店，坐下「休息」，等他們自己找上門來。暗語：問你天上兩盞燈，答「太陽月亮」；問你遇上對頭怎麼辦，答「剷平他」。",
+        "hint_room": "衡山・衡山小茶店",
+        "room_actions": [
+          {
+            "id": "a_rest",
+            "room": "衡山・衡山小茶店",
+            "label": "休息",
+            "hours": [],
+            "requires": [],
+            "repeat": false,
+            "do": [
+              {
+                "do": "tell",
+                "key": "tell_q_liu_jinpen_2_rest",
+                "text": "你在茶店角落揀了張空桌坐下，叫了一壺粗茶，慢慢喝著。過了好一陣子，一個頭戴斗笠的漢子走了進來，在隔壁桌坐下，有意無意地朝你看了幾眼。"
+              },
+              {
+                "do": "var",
+                "name": "rested",
+                "value": true
+              },
+              {
+                "do": "complete",
+                "obj": "o_rest"
+              }
+            ]
+          }
+        ],
+        "objectives": [
+          {
+            "id": "o_rest",
+            "type": "STATE",
+            "requires": [
+              {
+                "type": "quest_var",
+                "quest": "q_liu_jinpen_2",
+                "var": "rested",
+                "value": true
+              }
+            ],
+            "text": "在衡山小茶店坐下「休息」",
+            "enemies": [],
+            "place": "衡山・衡山小茶店",
+            "action": "a_rest",
+            "hours": []
+          }
+        ],
+        "next": "s_mimike",
+        "place": "衡山・衡山小茶店",
+        "on_enter": [],
+        "on_complete": []
+      },
+      {
+        "id": "s_mimike",
+        "title": "對暗語",
+        "log": "茶店角落多了一個頭戴斗笠的秘密客。上前搭話，對上魯連榮給的暗語。答錯了他便不理你，再找他搭話重來一次。",
+        "hint_room": "衡山・衡山小茶店",
+        "objectives": [
+          {
+            "id": "o_mimike",
+            "type": "TALK",
+            "npc": "n_hn_mimike",
+            "dialogue": "d_mimike",
+            "text": "在衡山小茶店找秘密客對暗語",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_fight",
+        "place": "衡山・衡山小茶店",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_fight",
+        "title": "魔教伏擊",
+        "log": "秘密組織是魔教設下的圈套！魔教教徒一擁而上，打不過就逃，逃出去也算數。若是被打倒了，回衡山小茶店再找秘密客算帳。",
+        "hint_room": "衡山・衡山小茶店",
+        "on_enter": [
+          {
+            "do": "tell",
+            "key": "tell_q_liu_jinpen_2_ambush",
+            "text": "茶店門口人影一晃，六名黑巾裹頭的魔教教徒刀光霍霍，把你團團圍住！打不過就快逃！"
+          },
+          {
+            "do": "fight",
+            "enemies": [
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒"
+            ],
+            "no_flee": false,
+            "solo": false,
+            "obj": "o_fight",
+            "npc": "n_hn_mimike"
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_refight",
+            "room": "衡山・衡山小茶店",
+            "label": "找秘密客算帳",
+            "hours": [],
+            "requires": [],
+            "repeat": true,
+            "do": [
+              {
+                "do": "tell",
+                "key": "tell_q_liu_jinpen_2_ambush",
+                "text": "茶店門口人影一晃，六名黑巾裹頭的魔教教徒刀光霍霍，把你團團圍住！打不過就快逃！"
+              },
+              {
+                "do": "fight",
+                "enemies": [
+                  "魔教教徒",
+                  "魔教教徒",
+                  "魔教教徒",
+                  "魔教教徒",
+                  "魔教教徒",
+                  "魔教教徒"
+                ],
+                "no_flee": false,
+                "solo": false,
+                "obj": "o_fight",
+                "npc": "n_hn_mimike"
+              }
+            ]
+          }
+        ],
+        "objectives": [
+          {
+            "id": "o_fight",
+            "type": "FIGHT",
+            "win": "WIN_OR_FLEE",
+            "text": "擊退或逃離 6 名魔教教徒",
+            "requires": [],
+            "enemies": [
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒",
+              "魔教教徒"
+            ],
+            "no_flee": false,
+            "place": "衡山・衡山小茶店",
+            "action": "a_refight",
+            "hours": []
+          }
+        ],
+        "next": "s_report",
+        "place": "衡山・衡山小茶店",
+        "on_complete": []
+      },
+      {
+        "id": "s_report",
+        "title": "魔教的圈套",
+        "log": "不管打贏還是逃脫，都得讓魯連榮知道這是魔教的圈套。從衡山小茶店往西回衡山下，再往東南過小島石橋，往南到小島上找他。",
+        "hint_room": "衡山・衡山下方小島",
+        "objectives": [
+          {
+            "id": "o_report",
+            "type": "TALK",
+            "npc": "n_hn_lulianrong",
+            "dialogue": "d_lu_report",
+            "text": "回衡山下方小島，告訴魯連榮這是魔教的圈套",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "衡山・衡山下方小島",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（一個身材魁梧的漢子盤坐在島上大石上，一雙金眼滴溜溜亂轉，正自生悶氣。）哼！你就是替劉師弟送帖子的那個？算你還有點用處。老子跟你說件事：這些日子江湖上傳得沸沸揚揚，說有個秘密組織專在衡山一帶聚頭，要趁劉師弟金盆洗手、各路英雄齊聚的時候搞出名堂。衡山派的地頭，豈容這些鼠輩撒野？",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "幫他",
+                "goto": "n1"
+              },
+              {
+                "id": "c_refuse",
+                "label": "不關我的事。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "好！有骨氣！不過這事半點聲張不得。劉師弟的大日子在即，要是走漏了風聲、嚇跑了魚兒，老子唯你是問。聽清楚了沒有？",
+            "choices": [
+              {
+                "id": "c_ming",
+                "label": "明白",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n2"
+              },
+              {
+                "id": "c_bu",
+                "label": "這……我得再想想。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "老子打聽到了，那些人在衡山小茶店接頭，見了面要對兩句暗語：人家問你天上兩盞燈，你答『太陽月亮』；問你遇上對頭怎麼辦，你答『剷平他』。你去茶店坐下歇著，等他們自己找上門來，摸清楚是什麼來頭，再回來告訴我。",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "哼，膽小鬼！滾滾滾，別礙著老子。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_mimike": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（角落裡一個頭戴斗笠的漢子放下茶碗，壓低了嗓子。）朋友，天上兩盞燈，一盞白日亮，一盞夜裡明，照的是哪一家？",
+            "choices": [
+              {
+                "id": "c_sun",
+                "label": "太陽月亮，一統江湖。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_w1",
+                "label": "天地日月，正氣長存。",
+                "goto": "n_bad"
+              },
+              {
+                "id": "c_w2",
+                "label": "我只是來喝茶的。",
+                "goto": "n_bad"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（斗笠下的目光一閃。）嘿，自己人。那我再問你：路上遇著了對頭，怎麼辦？",
+            "choices": [
+              {
+                "id": "c_chan",
+                "label": "剷平他！",
+                "goto": "n2"
+              },
+              {
+                "id": "c_w3",
+                "label": "能饒人處且饒人。",
+                "goto": "n_bad"
+              },
+              {
+                "id": "c_w4",
+                "label": "繞道走就是了。",
+                "goto": "n_bad"
+              }
+            ]
+          },
+          "n_bad": {
+            "speaker": "npc",
+            "text": "（那漢子端起茶碗自顧自地喝茶，再也不朝你看一眼。）",
+            "goto": "END"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（秘密客仰天大笑，一把掀開斗笠。）好，好一個『剷平他』！可惜啊可惜——",
+            "choices": [
+              {
+                "id": "c_what",
+                "label": "可惜什麼？",
+                "goto": "n3"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "什麼秘密組織？那是教主故意放出去的風聲！暗語也是咱們自己洩出去的。對得上暗語的，全是自以為是、送上門來的正道蠢材——今日正好拿你祭旗！兄弟們，動手！",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_mimike"
+              }
+            ],
+            "goto": "END"
+          }
+        }
+      },
+      "d_lu_report": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（魯連榮臉色蠟黃，左肩纏著布條，滲出一大片血跡。）你……你也回來了？他奶奶的，老子在島上被幾個蒙面人偷襲，挨了一掌。",
+            "choices": [
+              {
+                "id": "c_trap",
+                "label": "這是魔教的圈套！",
+                "goto": "n1"
+              },
+              {
+                "id": "c_wait",
+                "label": "前輩傷勢要緊麼？",
+                "goto": "n_wait"
+              }
+            ]
+          },
+          "n_wait": {
+            "speaker": "npc",
+            "text": "死不了！你等等，讓老子先運一口氣……（他盤膝坐下，閉目調息了好一會兒，才睜開眼來。）說吧，茶店那邊怎麼樣了？",
+            "choices": [
+              {
+                "id": "c_trap2",
+                "label": "這是魔教的圈套！",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "什麼？那秘密組織根本是魔教放的風聲，暗語也是他們故意洩的？……好毒的計策！專釣我們這些愛管閒事的正道中人。偷襲老子的那幾個，八成也是一夥的。",
+            "choices": [
+              {
+                "id": "c_next",
+                "label": "前輩打算怎麼辦？",
+                "goto": "n2"
+              }
+            ]
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（魯連榮一拳搥在石上。）劉師弟的大日子就要到了，魔教的人卻在衡山出沒，這事決不簡單。老子這就去稟告掌門師兄。你這回立了功，衡山派上下都記下了。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_report"
+              }
+            ],
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "later",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "識破魔教的圈套",
+        "rewards": {
+          "fame": 40,
+          "lilian": 40
+        },
+        "src": "later"
+      }
+    }
+  },
+  "q_lj_chengqingshuang": {
+    "id": "q_lj_chengqingshuang",
+    "name": "程清霜的煩惱",
+    "giver": "n_lj_chengqingshuang",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "靈鷲宮"
+      },
+      {
+        "type": "hour_in",
+        "hours": [
+          "戌"
+        ]
+      }
+    ],
+    "start": "s_deliver",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_deliver",
+        "title": "送藥到大理",
+        "log": "把藥送到大理，交給在五華樓前等人的白勇。出靈鷲宮山門往南到縹緲峰山腳，往東南到獵戶小屋，往東經雪原小徑、雪地到城北山坡，往南經胡楊林到荒草坡，再往南經小溪邊、南坡、溪口淺灘、沙丘邊緣、大漠邊緣到綠洲，沿河川古道往東南過石橋到大理城北，往南進北門。",
+        "objectives": [
+          {
+            "id": "o_deliver",
+            "type": "TALK",
+            "npc": "n_lj_baiyong",
+            "dialogue": "d_baiyong",
+            "text": "把藥交給大理五華樓前的白勇",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "hint_room": "大理・五華樓前",
+        "next": "END",
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（戌時的燈下，程清霜捧著一包藥發呆。）師妹，妳……能幫我一個忙嗎？",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "師姐請說。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "我還有事，改天吧。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "海外的霍島主是我們靈鷲宮的舊識，聽說他病了。我配了一帖藥，可童姥不許我們隨便下山……他的人在大理接應，叫白勇。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "我替師姐跑這一趟。",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "程清霜的藥",
+                    "n": 1
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no2",
+                "label": "童姥知道了會怪罪的。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "謝謝妳！白勇在五華樓前那一帶等著。路上小心，藥包別淋濕了。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "嗯……也是，那就算了吧。"
+          }
+        }
+      },
+      "d_baiyong": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（白勇上下打量你。）靈鷲宮來的？是程姑娘叫妳來的？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "這是程師姐給霍島主配的藥。",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "程清霜的藥",
+                    "n": 1
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "島主出海去了，不在大理。藥我先收著，等島主回來一定交到他手上。程姑娘有心了。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "這支老山參是島主留下的，說要是靈鷲宮有人來，就當作謝禮。妳收下吧。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_deliver"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "把藥送到了大理",
+        "rewards": {
+          "items": [
+            {
+              "item": "千年人參",
+              "n": 1
+            }
+          ]
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_mailu_shangren": {
+    "id": "q_mailu_shangren",
+    "name": "迷路的江湖賣藝商人",
+    "giver": "n_hn_maiyi",
+    "conditions": [],
+    "start": "s_letter",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_letter",
+        "title": "送家書到大理",
+        "hint_room": "大理・五華樓前",
+        "log": "把賣藝人的家書交給大理五華樓前的婦人。從衡陽古道往西北到古道南岔，往南到武當山下，往西南經終南東麓、終南山腳到終南山麓，往西經終南山道口、峨嵋山腳到峨嵋西林，往西南到清音閣山道，往西經峨嵋茶棚、竹林山徑到崆峒橋，往西南到崆峒道口，往西經東邊樹林、陶耘稻田到北門外大道，往南進大理北門就是五華樓前。",
+        "objectives": [
+          {
+            "id": "o_furen",
+            "type": "TALK",
+            "npc": "n_dl_furen",
+            "dialogue": "d_furen",
+            "text": "把家書交給五華樓前的婦人",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（賣藝人一見你，像見了救星。）這位大俠，請問往大理怎麼走？我在這古道上轉了三天，越走越不對……",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "你去大理做什麼？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "我也不熟，你問別人吧。",
+                "goto": "n_no"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "我家婆娘在大理等我回去。我本想趕在月底到家，誰知道迷了路……大俠若順路，能不能替我把這封家書捎給她？她就在五華樓前等著，一眼就認得出來——整天望著北門的那個就是。",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "好，信交給我吧。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "賣藝人的家書",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "我不往大理去。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "多謝大俠！告訴她，我認得路了就回去，叫她別再站在風口上等。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "（賣藝人嘆了口氣，牽著猴子又往岔路上走。）"
+          }
+        }
+      },
+      "d_furen": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（婦人看見你走近，攥緊了手帕。）這位……您是打北邊來的？可曾見過一個牽著猴子賣藝的漢子？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "他託我帶了封家書給妳。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "賣藝人的家書",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_furen"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "賣藝人的家書",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "沒見過。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（她拆開信，看著看著就笑了，眼淚卻掉了下來。）這死鬼，連字都寫不全，還畫了隻猴子……他說他迷了路，認得路就回來。謝謝您，謝謝您跑這一趟！"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "家書送到了婦人手上",
+        "rewards": {
+          "fame": 3,
+          "lilian": 7
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_qingwei": {
+    "id": "q_qingwei",
+    "name": "尋找木材的清為",
+    "giver": "n_em_qingwei",
+    "conditions": [],
+    "start": "s_wood",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_wood",
+        "title": "砍杉木",
+        "hint_room": "大理郊外・東邊樹林",
+        "log": "從崆峒橋往西南到崆峒道口，再往西就是東邊樹林。帶著柴刀（大理雜貨鋪、西夏兵器鋪有賣）在林子裡按「砍杉木」，砍 5 段。",
+        "objectives": [
+          {
+            "id": "o_wood",
+            "type": "COLLECT",
+            "item": "杉木",
+            "count": 5,
+            "text": "在東邊樹林砍 5 段杉木",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "room_actions": [
+          {
+            "id": "a_kan",
+            "room": "大理郊外・東邊樹林",
+            "label": "砍杉木",
+            "hours": [],
+            "repeat": true,
+            "requires": [
+              {
+                "type": "has_item",
+                "item": "柴刀",
+                "n": 1
+              }
+            ],
+            "do": [
+              {
+                "do": "give",
+                "item": "杉木",
+                "n": 1
+              },
+              {
+                "do": "tell",
+                "key": "tell_qw_kan",
+                "text": "你掄起柴刀，砍下一段筆直的杉木。"
+              }
+            ],
+            "src": "proposal"
+          }
+        ],
+        "next": "s_return",
+        "place": "大理郊外・東邊樹林",
+        "on_enter": [],
+        "on_complete": []
+      },
+      {
+        "id": "s_return",
+        "title": "交木料",
+        "hint_room": "峨嵋道・崆峒橋",
+        "log": "把 5 段杉木帶回崆峒橋給清為：從東邊樹林往東到崆峒道口，再往東北就是崆峒橋。",
+        "objectives": [
+          {
+            "id": "o_return",
+            "type": "TALK",
+            "npc": "n_em_qingwei",
+            "dialogue": "d_return",
+            "text": "把杉木交給清為",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "峨嵋道・崆峒橋",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（清為一手拿著斧頭，一手拿著一段斷掉的木刀。）阿彌陀佛。施主，你身上可帶著柴刀？",
+            "choices": [
+              {
+                "id": "c_again",
+                "label": "又要杉木了？",
+                "goto": "n_again",
+                "requires": [
+                  {
+                    "type": "quest_done",
+                    "quest": "q_qingwei"
+                  }
+                ],
+                "hide_if_locked": true
+              },
+              {
+                "id": "c_ask",
+                "label": "大師要柴刀做什麼？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "（搖搖頭走開。）",
+                "goto": "END"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "小僧是少林的火工僧，想做一把燃木刀練刀，可這一帶的木頭不是太脆就是太軟。東邊樹林裡有杉木，施主若能替小僧砍 5 段來，小僧做一把實木刀送你，比鐵刀還好使。",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "好，我去砍。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "我沒空砍柴。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_again": {
+            "speaker": "npc",
+            "text": "施主好眼力，上回那把刀做得還行吧？小僧又想再做一把，還是 5 段杉木。",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "好，我再去砍。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "改天吧。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "善哉。記得帶柴刀，徒手可砍不動。"
+          }
+        }
+      },
+      "d_return": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "杉木砍來了？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "（交出 5 段杉木）",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "杉木",
+                    "n": 5
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_return"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "杉木",
+                    "n": 5
+                  }
+                ]
+              },
+              {
+                "id": "c_later",
+                "label": "還不夠，我再去砍。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（清為把杉木架在石頭上，斧劈刀削，不一會兒就削出一把木刀，往石頭上一劈，石屑紛飛，刀口卻一點沒捲。）施主，這把實木刀給你。用不慣，拿去賣也值幾個錢。"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 0,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "清為做了一把實木刀",
+        "rewards": {
+          "items": [
+            {
+              "item": "實木刀",
+              "n": 1
+            }
+          ]
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_qz_jiangqingrui": {
+    "id": "q_qz_jiangqingrui",
+    "name": "江清睿的信",
+    "giver": "n_qz_jiangqingrui",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "全真"
+      }
+    ],
+    "start": "s_go",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_go",
+        "title": "下山到西夏",
+        "hint_room": "西夏・西夏廣場",
+        "log": "把江清睿的信送給西夏廣場的菜商。從後山菜園往南經重陽宮後山、重陽宮、全真大廣場、重陽宮山道到山門，\n出全真教山門往南下到終南山腳，往東北經終南東麓到武當山下，往北經古道南岔到武當岔路，往西走東行古道、華山水池到華山腳下，往西是華陰道，往西北到恆山岔路，\n再往西經恆山岸邊、路邊茶棚、恆山外稻田，往西北到潭東河岸，往西經黑龍潭、礦區到東北官道，往西南到東門外官道，往西進西夏東門就是廣場。",
+        "objectives": [
+          {
+            "id": "o_go",
+            "type": "TALK",
+            "npc": "n_xx_caishang",
+            "dialogue": "d_go",
+            "text": "把信交給西夏廣場的菜商",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "西夏・西夏廣場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "回山覆命",
+        "hint_room": "全真教・後山菜園",
+        "log": "回全真教後山菜園找江清睿。照原路回全真教：出西夏東門到東門外官道，往東北到東北官道，往東經礦區、黑龍潭到潭東河岸，往東南到恆山外稻田，往東經路邊茶棚、恆山岸邊到恆山岔路，\n往東南經華陰道、華山腳下、華山水池、東行古道到武當岔路，往南經古道南岔到武當山下，往西南經終南東麓到終南山腳，往北進全真教山門。\n再往北經重陽宮山道、全真大廣場、重陽宮、重陽宮後山就是後山菜園。",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_qz_jiangqingrui",
+            "dialogue": "d_back",
+            "text": "向江清睿覆命",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "全真教・後山菜園",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（江清睿從菜畦裡直起腰。）師兄弟，下山嗎？幫我把這封信捎給西夏廣場賣菜的老張，今年的菜價得跟他說清楚。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "交給我吧。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "江清睿的信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "不順路。",
+                "goto": "END"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "多謝！他嗓門大，到了廣場一聽就找得到。"
+          }
+        }
+      },
+      "d_go": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "青菜、蘿蔔、大白菜——客官要點什麼？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "全真教江師兄的信。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "江清睿的信",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_go"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "江清睿的信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "隨便看看。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（菜商看完信，一拍大腿。）漲價？好好好，全真教的菜又鮮又嫩，值這個價！回去跟江道長說，老張照收不誤。"
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "信送到了？老張怎麼說？",
+            "choices": [
+              {
+                "id": "c_done",
+                "label": "他說照收不誤。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ]
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "哈哈，今年菜園的香油錢有著落了。辛苦你了！"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "江清睿的信送到了菜商手上",
+        "rewards": {
+          "fame": 5,
+          "lilian": 5
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_qz_paotui": {
+    "id": "q_qz_paotui",
+    "name": "孫不二的新任務",
+    "giver": "n_qz_sunbuer",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "全真"
+      }
+    ],
+    "start": "s_go",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_go",
+        "title": "下山到西夏",
+        "hint_room": "西夏・西大街",
+        "log": "把貨單送到西夏西大街的布莊攤子。出全真教山門往南下到終南山腳，往東北經終南東麓到武當山下，往北經古道南岔到武當岔路，往西走東行古道、華山水池到華山腳下，往西是華陰道，往西北到恆山岔路，再往西經恆山岸邊、路邊茶棚、恆山外稻田，往西北到潭東河岸，往西經黑龍潭、礦區到東北官道，往西南到東門外官道，往西進西夏東門就是廣場。從廣場往西就是西大街。",
+        "objectives": [
+          {
+            "id": "o_go",
+            "type": "TALK",
+            "npc": "n_xx_buzhuang",
+            "dialogue": "d_go",
+            "text": "把貨單交給西大街的布莊老闆",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "西夏・西大街",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "回山覆命",
+        "hint_room": "全真教・三清殿",
+        "log": "回全真教三清殿向孫不二覆命。照原路回全真教：出西夏東門到東門外官道，往東北到東北官道，往東經礦區、黑龍潭到潭東河岸，往東南到恆山外稻田，往東經路邊茶棚、恆山岸邊到恆山岔路，往東南經華陰道、華山腳下、華山水池、東行古道到武當岔路，往南經古道南岔到武當山下，往西南經終南東麓到終南山腳，往北進全真教山門。三清殿在重陽宮山道往西。",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_qz_sunbuer",
+            "dialogue": "d_back",
+            "text": "向孫不二覆命",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "全真教・三清殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（孫不二放下手中的拂塵。）你來得正好。教中弟子的道袍都穿舊了，我開了張貨單，你替我送到西夏的布莊去。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子這就去。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "布莊的貨單",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "弟子另有要事。",
+                "goto": "END"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "布莊在西夏西大街。路上別貪玩，早去早回。"
+          }
+        }
+      },
+      "d_go": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "客官要買布？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "全真教孫道長的貨單。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "布莊的貨單",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_go"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "布莊的貨單",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "隨便看看。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（老闆接過貨單，眼睛一亮。）全真教的大生意！請回稟孫道長，半個月內一定把布送上山。"
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "貨單送到了？",
+            "choices": [
+              {
+                "id": "c_done",
+                "label": "送到了，布莊說半個月內把布送上山。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ]
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "好。你辦事穩當，往後跑腿的差事，我還找你。"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "貨單送到了西夏布莊",
+        "rewards": {
+          "fame": 5,
+          "lilian": 5
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_qz_wangchuyi": {
+    "id": "q_qz_wangchuyi",
+    "name": "王處一有病的信",
+    "giver": "n_qz_wangchuyi",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "全真"
+      }
+    ],
+    "start": "s_go",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_go",
+        "title": "西夏藥房",
+        "hint_room": "西夏・回春藥鋪",
+        "log": "把王處一的信送到西夏回春藥鋪。出全真教山門往南下到終南山腳，往東北經終南東麓到武當山下，往北經古道南岔到武當岔路，往西走東行古道、華山水池到華山腳下，往西是華陰道，往西北到恆山岔路，\n再往西經恆山岸邊、路邊茶棚、恆山外稻田，往西北到潭東河岸，往西經黑龍潭、礦區到東北官道，往西南到東門外官道，往西進西夏東門就是廣場。\n從廣場往西到西大街，往北就是回春藥鋪，信交給配藥的李台安。",
+        "objectives": [
+          {
+            "id": "o_go",
+            "type": "TALK",
+            "npc": "n_xx_litaian",
+            "dialogue": "d_go",
+            "text": "把信交給回春藥鋪的李台安",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_wait",
+        "place": "西夏・回春藥鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_wait",
+        "title": "等藥配好",
+        "hint_room": "西夏・回春藥鋪",
+        "log": "李台安說藥要配上十二刻（一個半時辰）。在西夏城裡逛逛，過了十二刻再回回春藥鋪取藥。",
+        "objectives": [
+          {
+            "id": "o_wait",
+            "type": "WAIT",
+            "days": 0.125,
+            "text": "等十二刻（一個半時辰）",
+            "src": "verified",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_fetch",
+        "place": "西夏・回春藥鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_fetch",
+        "title": "取藥",
+        "hint_room": "西夏・回春藥鋪",
+        "log": "藥該配好了。回回春藥鋪向李台安取藥（西大街往北）。",
+        "objectives": [
+          {
+            "id": "o_fetch",
+            "type": "TALK",
+            "npc": "n_xx_litaian",
+            "dialogue": "d_fetch",
+            "text": "向李台安取藥",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "西夏・回春藥鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "送藥回山",
+        "hint_room": "全真教・三清殿",
+        "log": "把藥帶回全真教三清殿交給王處一。照原路回全真教：出西夏東門到東門外官道，往東北到東北官道，往東經礦區、黑龍潭到潭東河岸，往東南到恆山外稻田，往東經路邊茶棚、恆山岸邊到恆山岔路，往東南經華陰道、華山腳下、華山水池、東行古道到武當岔路，往南經古道南岔到武當山下，往西南經終南東麓到終南山腳，往北進全真教山門。三清殿在重陽宮山道往西。",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_qz_wangchuyi",
+            "dialogue": "d_back",
+            "text": "把藥交給王處一",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "全真教・三清殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（王處一按著胸口咳了幾聲。）老毛病了……你下山的話，替我把這封信送到西夏的藥房，請他們照方配藥。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "師叔保重，弟子這就去。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "王處一有病的信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "弟子另有要事。",
+                "goto": "END"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "西夏回春藥鋪的方子最靈。去吧。"
+          }
+        }
+      },
+      "d_go": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（李台安從藥碾子旁抬起頭。）客官抓藥？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "全真教王道長的信，請照方配藥。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "王處一有病的信",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_go"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "王處一有病的信",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "隨便看看。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（他看完信，眉頭一皺。）這幾味藥得慢火煎，少說要十二刻。客官先去忙，過了十二刻再來取。"
+          }
+        }
+      },
+      "d_fetch": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "藥配好了，用油紙包了三層，路上別受潮。替我問王道長好。",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "多謝。",
+                "goto": "END",
+                "do": [
+                  {
+                    "do": "give",
+                    "item": "王處一的藥",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_fetch"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "藥取回來了？",
+            "choices": [
+              {
+                "id": "c_done",
+                "label": "回春藥鋪配的藥，請師叔服用。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "王處一的藥",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "王處一的藥",
+                    "n": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（王處一服了藥，運功調息片刻，臉色紅潤了些。）好藥。你也坐下，跟我一起調息一會兒——養生之道，就在這一呼一吸之間。"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "王處一的藥送到了",
+        "rewards": {
+          "skill_prof": {
+            "養生": 30
+          }
+        },
+        "src": "verified",
+        "field_src": {
+          "skill_prof": "proposal"
+        }
+      }
+    }
+  },
+  "q_sm_ahong": {
+    "id": "q_sm_ahong",
+    "name": "離鄉的阿鴻",
+    "giver": "n_sm_ahong",
+    "conditions": [],
+    "start": "s_send",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_send",
+        "title": "家書送到洱海",
+        "hint_room": "大理郊外・洱海岸",
+        "log": "把阿鴻的家書送到大理洱海岸給張箐：從獵戶小屋往東經雪原小徑到雪地，往南經城北山坡、胡楊林到荒草坡，往西進西夏東門，到西夏驛站搭車去大理；出大理北門到北門外大道，往西就是洱海岸。",
+        "objectives": [
+          {
+            "id": "o_send",
+            "type": "TALK",
+            "npc": "n_sm_zhangqing",
+            "dialogue": "d_zhangqing",
+            "text": "把家書交給洱海岸的張箐",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "大理郊外・洱海岸",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "回信",
+        "hint_room": "天山道・獵戶小屋",
+        "log": "把張箐的回信帶回天山道獵戶小屋給阿鴻：大理驛站搭車回西夏，出東門經東門外官道到荒草坡，往北過胡楊林、城北山坡到雪地，往西經雪原小徑就是獵戶小屋。",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_sm_ahong",
+            "dialogue": "d_back",
+            "text": "把回信交給獵戶小屋的阿鴻",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:default",
+        "place": "天山道・獵戶小屋",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "阿鴻削著箭桿，望著屋外的雪出神：「這雪原上的風，跟大理的風不一樣……大理的風是暖的，帶著洱海的水氣。」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "你是大理人？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "（不打擾他）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「嗯。為了學打獵，跑到這天山腳下，跟著獵戶大叔一待就是三年。家裡有個姑娘叫張箐，說好等我回去……」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「我寫了封信，可這裡離大理千里迢迢，獵戶大叔又走不開。你……能替我送去嗎？」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "我替你送信。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "大理太遠了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「她家在洱海岸邊，出大理北門往西就到了。這封信……拜託你了。」阿鴻把信在衣襟上擦了又擦，才交到你手上。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_zhangqing": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "張箐停下浣紗的手：「你是誰？找我有事嗎？」",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "天山的阿鴻託我送信給妳。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "阿鴻的家書",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "阿鴻的家書",
+                    "n": 1
+                  },
+                  {
+                    "do": "give",
+                    "item": "張箐的回信",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_send"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "認錯人了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "張箐拆開信，看著看著眼眶就紅了：「這個呆子，三年才寫一封信……還說天山的雪好看，雪再好看，能有家裡好？」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "她從籃子底下取出一封早就寫好的信：「我每年都寫一封，就是不知道往哪兒寄。你替我帶給他，跟他說，洱海的水年年都一樣，我也一樣。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "阿鴻一見你進門，箭桿都掉在地上：「信……信送到了？」",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "送到了，這是張箐的回信。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "張箐的回信",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "張箐的回信",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_wait",
+                "label": "還在路上。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "阿鴻捧著信看了一遍又一遍，突然一拍大腿：「她還在等我！她還在等我！」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「這是我三年來賣獸皮攢的錢，本來想帶回去娶她的……你替我跑了這一趟，這一千兩你一定要收下，剩下的我再攢就是！」",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 0,
+      "cooldown_days": 1
+    },
+    "give_items": [
+      {
+        "item": "阿鴻的家書",
+        "n": 1
+      }
+    ],
+    "source_status": "unverified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "家書與回信都送到了",
+        "rewards": {
+          "money": 1000
+        },
+        "src": "unverified"
+      }
+    }
+  },
+  "q_sm_ahuo": {
+    "id": "q_sm_ahuo",
+    "name": "著急的阿火",
+    "giver": "n_sm_ahuo",
+    "conditions": [],
+    "start": "s_send",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_send",
+        "title": "礦石送到大理",
+        "hint_room": "大理・五華樓前",
+        "log": "把阿火的一袋礦石送到大理五華樓前交給礦業大王：出礦場往東到大漠邊緣，往南到沙漠山洞外，往東南經綠洲到河川上游，往南走河川古道，往東南到河灣，往南過石橋，往東南到城北河畔，往南經北門外大道進大理北門，再往南就是五華樓前。",
+        "objectives": [
+          {
+            "id": "o_send",
+            "type": "TALK",
+            "npc": "n_sm_kuangye",
+            "dialogue": "d_kuangye",
+            "text": "把礦石交給大理五華樓前的礦業大王",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:default",
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "阿火從礦坑裡鑽出來，一臉沙土，急得直跺腳：「完了完了，這下真完了！」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "出了什麼事？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "（走開）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「大理的礦業大王跟我訂了一批礦石，說好今天送到，不然以後就不跟我買了！可坑道剛塌了一角，我得留下來撐住，一步也走不開……」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「這位朋友，你行行好，替我把這袋礦石送去大理吧！」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "交給我，我替你送去。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "大理太遠了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「太好了！礦業大王就在大理城裡五華樓前，一身綢緞、手上戴三個玉扳指那個就是。袋子沉，路上小心！」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_kuangye": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "礦業大王轉著玉扳指，斜眼看你：「什麼人？我礦業大王不跟閒人說話。」",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "阿火託我送礦石來。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "一袋礦石",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "一袋礦石",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_send"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "礦業大王解開袋口抓起一塊礦石，對著日頭照了照：「嗯，成色不錯。阿火這小子雖然冒失，挖礦倒是一把好手。」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「回去告訴他，下回準時點！往後大理城裡有誰問起礦石，你就說是我礦業大王收的！」",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 0,
+      "cooldown_days": 1
+    },
+    "give_items": [
+      {
+        "item": "一袋礦石",
+        "n": 1
+      }
+    ],
+    "source_status": "unverified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "礦石送到了礦業大王手上",
+        "rewards": {
+          "fame": 3
+        },
+        "src": "verified"
+      }
+    }
+  },
+  "q_sm_esi_nongfu": {
+    "id": "q_sm_esi_nongfu",
+    "name": "餓肚子的農夫",
+    "giver": "n_sm_qiaofu_dl",
+    "conditions": [
+      {
+        "type": "combat_xp_max",
+        "value": 999
+      }
+    ],
+    "start": "s_feed",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_feed",
+        "title": "給樵夫送飯",
+        "hint_room": "大理郊外・陶耘稻田",
+        "log": "給兩位樵夫各送一份吃的（白飯或饅頭；饅頭在各城客棧、路邊茶棚都買得到）。大理這位在陶耘稻田：出大理北門到北門外大道，往東就是。另一位在恆山外稻田：出西夏東門到東門外官道，往東北上東北官道，往東經礦區、黑龍潭到潭東河岸，往東南就是恆山外稻田。",
+        "objectives": [
+          {
+            "id": "o_dl",
+            "type": "TALK",
+            "npc": "n_sm_qiaofu_dl",
+            "dialogue": "d_feed_dl",
+            "text": "送吃的給陶耘稻田的樵夫",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_xx",
+            "type": "TALK",
+            "npc": "n_sm_qiaofu_xx",
+            "dialogue": "d_feed_xx",
+            "text": "送吃的給恆山外稻田的樵夫",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:default",
+        "place": "大理郊外・陶耘稻田",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "樵夫揉著肚子，有氣無力地靠在柴擔上：「唉……從早上砍柴砍到現在，一口飯都還沒下肚。」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "怎麼沒人給你送飯？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "（走開）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「我們兄弟倆，一個在大理城外的陶耘稻田邊砍柴，一個在恆山外稻田那頭。家裡的婆娘一塊兒回娘家去了，誰也沒想到給我們留口飯。」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「小兄弟，你若方便，替我們兄弟倆各弄點吃的來吧，一碗白飯、一個饅頭都好。」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "這個容易，我去去就來。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "我身上也沒帶吃的。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「好人哪！記得，兩頭都要送到——我那兄弟比我還能吃，餓起來是要罵人的。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_feed_dl": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "樵夫有氣無力地抬起頭，鼻子抽了抽：「你……你帶吃的來了？」",
+            "choices": [
+              {
+                "id": "c_baifan",
+                "label": "這碗白飯給你。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "白飯",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "白飯",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_dl"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_mantou",
+                "label": "這個饅頭給你。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "饅頭",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "饅頭",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_dl"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_none",
+                "label": "還沒買到，我再去找找。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "樵夫接過來就往嘴裡塞，噎得直捶胸口，好不容易嚥下去，才長長出了口氣：「好吃，好吃！活過來了！」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「小兄弟，我沒什麼好謝你的。砍柴的時候在山裡看人打架看多了，倒有幾句心得：別光顧著出手，先看清楚對方的腳步……」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_feed_xx": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "樵夫有氣無力地抬起頭，鼻子抽了抽：「你……你帶吃的來了？」",
+            "choices": [
+              {
+                "id": "c_baifan",
+                "label": "這碗白飯給你。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "白飯",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "白飯",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_xx"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_mantou",
+                "label": "這個饅頭給你。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "饅頭",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "饅頭",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_xx"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_none",
+                "label": "還沒買到，我再去找找。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "樵夫接過來就往嘴裡塞，噎得直捶胸口，好不容易嚥下去，才長長出了口氣：「好吃，好吃！活過來了！」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「小兄弟，我沒什麼好謝你的。砍柴的時候在山裡看人打架看多了，倒有幾句心得：別光顧著出手，先看清楚對方的腳步……」",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "unverified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "兩位樵夫都吃飽了",
+        "rewards": {
+          "learn_points": 15,
+          "combat_xp": 50
+        },
+        "src": "unverified"
+      }
+    }
+  },
+  "q_sm_litong": {
+    "id": "q_sm_litong",
+    "name": "離派修練的李同",
+    "giver": "n_sm_litong",
+    "conditions": [],
+    "start": "s_send",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_send",
+        "title": "親書送上華山",
+        "hint_room": "華山・玉女峰練武場",
+        "log": "把李同的親書送到華山玉女峰練武場給陸大有：華山水池往西到華山腳下，往北進華山山門，再往北就是玉女峰練武場。",
+        "objectives": [
+          {
+            "id": "o_send",
+            "type": "TALK",
+            "npc": "n_ludayou",
+            "dialogue": "d_ludayou",
+            "text": "把親書交給華山練武場的陸大有",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:default",
+        "place": "華山・玉女峰練武場",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "水池邊一個青年收劍而立，額上全是汗。他看了你一眼，拱手道：「這位朋友，在下李同，可否請你幫個忙？」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "李兄請說。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "在下有事在身。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「在下原是華山門下，為了參悟一招劍法，向師父告了假，下山獨自修練。一晃半年，師兄弟們怕是擔心了。」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「我寫了一封親書給陸師兄，煩請你送上山去。這點盤纏，就當是委託金。」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "舉手之勞，我替你送去。",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "reward",
+                    "rewards": {
+                      "money": 50
+                    }
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "你自己回山一趟不就得了？",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「多謝！陸師兄在玉女峰練武場帶新進的師弟切磋，一問便知。跟他說我一切都好，那一招……就快想通了。」",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "李同苦笑：「劍法不成，我沒臉回山。」他又提起劍，一遍一遍地練那一招。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_ludayou": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "陸大有正在指點師弟練劍，見你過來，笑嘻嘻地問：「咦？你找我？」",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "山下的李同託我送一封親書給你。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "李同的親書",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "李同的親書",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_send"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "沒事。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "陸大有一把搶過信：「是李師弟的字！這小子，說下山三個月，半年都沒消息……」他一面看一面笑，笑著笑著又揉了揉眼睛。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「他在山下的水池邊練劍？好，好，人沒事就好。多謝你跑這一趟，往後在華山有什麼事，報我陸大有的名字！」",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [
+      {
+        "item": "李同的親書",
+        "n": 1
+      }
+    ],
+    "source_status": "proposal",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "親書送到了陸大有手上",
+        "rewards": {
+          "fame": 2,
+          "lilian": 3
+        },
+        "src": "proposal"
+      }
+    }
+  },
+  "q_sm_rixing": {
+    "id": "q_sm_rixing",
+    "name": "日行一善",
+    "giver": "n_sm_shangqiaofu",
+    "conditions": [],
+    "start": "s_med",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_med",
+        "title": "替樵夫找藥",
+        "hint_room": "大理郊外・東邊樹林",
+        "log": "替受傷的樵夫弄一帖金創藥（大理五華樓前往東南的雜貨鋪就有賣），送到東邊樹林：出大理北門到北門外大道，往東經陶耘稻田就是東邊樹林。",
+        "objectives": [
+          {
+            "id": "o_med",
+            "type": "TALK",
+            "npc": "n_sm_shangqiaofu",
+            "dialogue": "d_med",
+            "text": "把金創藥交給東邊樹林受傷的樵夫",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:default",
+        "place": "大理郊外・東邊樹林",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "樵夫抱著小腿坐在樹下，疼得齜牙咧嘴：「哎喲……哎喲……」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "你的腿怎麼了？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_bye",
+                "label": "（走開）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "「砍柴的時候給一頭山豬拱了一下，腿上破了個大口子，血止不住，路也走不了。」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「好心人，你身上有沒有傷藥？沒有的話……城裡雜貨鋪有金創藥賣，我、我身上的錢不夠……」",
+            "choices": [
+              {
+                "id": "c_ok",
+                "label": "你等著，我去替你弄藥。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "自己的傷自己想辦法。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「多謝，多謝！我就在這兒等著，哪兒也去不了……」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_med": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "樵夫抬起頭，臉色白得像紙：「你……你回來了？」",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "金創藥來了，我替你敷上。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "金創藥",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "金創藥",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_med"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_wait",
+                "label": "藥還沒買到。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "你替他把傷口洗淨、敷上金創藥，再用布條紮緊。樵夫試著動了動腿：「不流血了！不流血了！」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「我身上沒什麼值錢的，連幾個銅板都湊不出來……只能給恩人磕個頭了。」你扶住他，他還是硬磕了一個。",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "proposal",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "救了受傷的樵夫",
+        "rewards": {
+          "morality": 5
+        },
+        "src": "proposal"
+      }
+    }
+  },
+  "q_yangkang": {
+    "id": "q_yangkang",
+    "name": "尋找楊康",
+    "giver": "n_qz_qiuchuji",
+    "conditions": [
+      {
+        "type": "sect",
+        "sect": "全真"
+      }
+    ],
+    "start": "s_palace",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_palace",
+        "title": "皇宮密道",
+        "hint_room": "西夏・皇宮密道",
+        "log": "帶著丘處機手諭到西夏皇宮密道找楊康。出全真教山門往南下到終南山腳，往東北經終南東麓到武當山下，往北經古道南岔到武當岔路，往西走東行古道、華山水池到華山腳下，往西是華陰道，往西北到恆山岔路；\n再往西經恆山岸邊、路邊茶棚、恆山外稻田，往西北到潭東河岸，往西經黑龍潭、礦區到東北官道，往西南到東門外官道，往西進西夏東門，\n穿過廣場往西到西大街，往西北是皇宮門口，再往北就是皇宮密道。\n楊康不肯跟你走，就只好動手——一定要打贏。",
+        "objectives": [
+          {
+            "id": "o_fight",
+            "type": "FIGHT",
+            "npc": "n_qz_yangkang",
+            "dialogue": "d_yangkang",
+            "win": "WIN",
+            "text": "在皇宮密道打敗楊康",
+            "src": "later",
+            "requires": [],
+            "enemies": [
+              "楊康"
+            ],
+            "no_flee": false
+          }
+        ],
+        "on_complete": [
+          {
+            "do": "give",
+            "item": "郭靖匕首",
+            "n": 1
+          },
+          {
+            "do": "tell",
+            "key": "tell_q_yangkang_bishou",
+            "text": "楊康落敗，懷裡掉出一柄刻著「郭靖」二字的匕首。你把匕首收了起來。"
+          }
+        ],
+        "next": "s_return",
+        "place": "西夏・皇宮密道",
+        "on_enter": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_return",
+        "title": "覆命長春子",
+        "hint_room": "全真教・三清殿",
+        "log": "把郭靖匕首帶回全真教三清殿交給丘處機：從皇宮門口往東南回西大街，往東經廣場出西夏東門，到東門外官道往東北，照原路經礦區、黑龍潭、恆山外稻田、路邊茶棚到恆山岔路，往東南經華陰道、華山腳下、華山水池、東行古道到武當岔路，往南經古道南岔到武當山下，往西南經終南東麓到終南山腳，往北進全真教山門，三清殿在重陽宮山道往西。",
+        "objectives": [
+          {
+            "id": "o_return",
+            "type": "TALK",
+            "npc": "n_qz_qiuchuji",
+            "dialogue": "d_return",
+            "text": "把郭靖匕首交給丘處機",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "全真教・三清殿",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（丘處機背著手在殿中來回踱步，鬚髮戟張。）哼，江南七怪那幾個怪物，當真以為我丘處機找不著人！",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "師父為何事動怒？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "（弟子還是先退下。）",
+                "goto": "END"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "十八年前，我與江南七怪在嘉興醉仙樓打了個賭：我找楊鐵心的後人，他們找郭嘯天的後人，各自傳授武功，十八年後讓兩個孩子比試高下。郭家的孩子他們找到了，楊家的……我聽說叫楊康，竟在西夏皇宮的密道裡做什麼小王爺！",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "弟子願代師父走一趟，把楊康找回來。",
+                "goto": "n_yes",
+                "do": [
+                  {
+                    "do": "accept"
+                  },
+                  {
+                    "do": "give",
+                    "item": "丘處機手諭",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_no",
+                "label": "弟子功夫還淺，怕誤了大事。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好！這是我的手諭，你拿給楊康看，叫他隨你回終南山。他若不肯……哼，你就讓他知道全真教的厲害。"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "也罷。這事急不得，你把功夫練紮實了再說。"
+          }
+        }
+      },
+      "d_yangkang": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（密道盡頭的石室裡，一個錦衣少年轉過身來。）什麼人？這是王府禁地，誰准你闖進來的？",
+            "choices": [
+              {
+                "id": "c_shouyu",
+                "label": "奉長春子丘道長之命，請公子隨我回終南山。",
+                "goto": "n1",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "丘處機手諭",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_leave",
+                "label": "（悄悄退出密道。）",
+                "goto": "n_leave"
+              }
+            ],
+            "src": "proposal"
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（他接過手諭看了一眼，冷笑著撕成兩半。）丘處機？那牛鼻子道士？我是大金國小王爺完顏康，什麼楊鐵心、郭嘯天，跟我有什麼相干？想帶我走，先問過我這雙手！",
+            "choices": [
+              {
+                "id": "c_fight",
+                "label": "那就得罪了！",
+                "goto": "END",
+                "do": [
+                  {
+                    "do": "fight",
+                    "enemies": [
+                      "楊康"
+                    ],
+                    "obj": "o_fight",
+                    "npc": "n_qz_yangkang",
+                    "no_flee": false,
+                    "solo": false
+                  }
+                ]
+              },
+              {
+                "id": "c_leave",
+                "label": "（還是先退出去準備準備。）",
+                "goto": "n_leave"
+              }
+            ]
+          },
+          "n_leave": {
+            "speaker": "npc",
+            "text": "哼，全真教的人，就這點膽子？"
+          }
+        }
+      },
+      "d_return": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "楊康找到了？人呢？",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "楊康不肯回來，弟子打敗了他，帶回這柄匕首。",
+                "goto": "n1",
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "郭靖匕首",
+                    "n": 1
+                  },
+                  {
+                    "do": "take",
+                    "item": "丘處機手諭",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_return"
+                  }
+                ],
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "郭靖匕首",
+                    "n": 1
+                  }
+                ]
+              },
+              {
+                "id": "c_later",
+                "label": "還沒找到，弟子再去一趟。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（丘處機接過匕首，翻來覆去看了半晌，長嘆一聲。）郭靖的匕首……當年我把這對匕首分給郭、楊兩家，一柄刻「郭靖」，一柄刻「楊康」。如今郭靖的匕首竟在楊康手裡，這孩子……唉。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "人雖沒帶回來，你這趟辛苦了，見識也長了。去吧，跟你的師兄弟們好好用功。"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "later",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "在皇宮密道找到了楊康",
+        "rewards": {
+          "lilian": 50,
+          "learn_points": 10
+        },
+        "src": "later",
+        "field_src": {
+          "lilian": "later",
+          "learn_points": "later"
+        }
+      }
+    }
+  },
+  "q_ym_tuoyin": {
+    "id": "q_ym_tuoyin",
+    "name": "雁門關拓印",
+    "giver": "n_lj_baiyong",
+    "conditions": [],
+    "start": "s_buy",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_buy",
+        "title": "備齊麻布焦炭",
+        "log": "先備齊兩張麻布、兩塊焦炭（麻布是布莊的貨，也可以自己織；焦炭打鐵舖有賣）。",
+        "objectives": [
+          {
+            "id": "o_mabu",
+            "type": "COLLECT",
+            "item": "麻布",
+            "count": 2,
+            "text": "備齊兩張麻布",
+            "requires": [],
+            "enemies": []
+          },
+          {
+            "id": "o_jiaotan",
+            "type": "COLLECT",
+            "item": "焦炭",
+            "count": 2,
+            "text": "備齊兩塊焦炭",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_stele",
+        "place": "",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_stele",
+        "title": "雁門關的刻字石碑",
+        "log": "帶著麻布、焦炭到雁門關，找刻字石碑前的拓碑人拓印。（從大理北門出城，沿西路經綠洲回到西夏東門外，再照東路走到恆山岔路，往東北上雁門古道，進雁門關口往北到關內長街，石碑在長街西邊的巷底。）",
+        "hint_room": "雁門關・刻字石碑",
+        "objectives": [
+          {
+            "id": "o_stele",
+            "type": "TALK",
+            "npc": "n_ym_keshi",
+            "dialogue": "d_keshi",
+            "text": "請雁門關刻字石碑前的拓碑人拓印",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "雁門關・刻字石碑",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "拓印交給白勇",
+        "log": "拓印到手了。原路回大理（出雁門關口往南到恆山岔路，走東路回西夏東門外，再沿西路經綠洲到大理北門），白勇在廣場五華樓前。",
+        "hint_room": "大理・五華樓前",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_lj_baiyong",
+            "dialogue": "d_back",
+            "text": "把拓印交給大理的白勇",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "大理・五華樓前",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（白勇搓著兩隻大手，左右張望了一下。）喂，你是走江湖的吧？俺家霍島主託俺辦件事，俺一個粗人，實在辦不來。",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "什麼事，說來聽聽。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "沒空。",
+                "goto": "n_no"
+              },
+              {
+                "id": "c_again",
+                "label": "又要拓碑？",
+                "requires": [
+                  {
+                    "type": "quest_done",
+                    "quest": "q_ym_tuoyin"
+                  }
+                ],
+                "hide_if_locked": true,
+                "goto": "n_again"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "雁門關裡有塊老石碑，上頭刻的字，島主說要一份拓印回去琢磨。聽說拓碑要兩張麻布、兩塊焦炭，你備齊了，去關裡找守著石碑的老頭，請他拓一份。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "這事我接了。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "雁門關太遠，改天吧。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_again": {
+            "speaker": "npc",
+            "text": "島主說上回那份拓得好，要再多拓幾份，分給島上的兄弟們看。照舊兩張麻布、兩塊焦炭。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "好，我再跑一趟。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "今日不便。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "好！拓印拿回來，島主的賞錢少不了你的。麻布布莊有，焦炭打鐵舖有，俺也只知道這些。",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "唉，那俺再找別人問問。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_keshi": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（一個乾瘦老頭蹲在碑前，拿棕刷輕輕拍著碑面。）要拓碑？東西帶來了沒有？兩張麻布、兩塊焦炭，少一樣都不成。",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "麻布、焦炭都在這裡，有勞老丈。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "麻布",
+                    "n": 2
+                  },
+                  {
+                    "type": "has_item",
+                    "item": "焦炭",
+                    "n": 2
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "麻布",
+                    "n": 2
+                  },
+                  {
+                    "do": "take",
+                    "item": "焦炭",
+                    "n": 2
+                  },
+                  {
+                    "do": "give",
+                    "item": "拓印",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_stele"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_ask",
+                "label": "這碑上刻的是什麼？",
+                "goto": "n_story"
+              },
+              {
+                "id": "c_later",
+                "label": "東西還沒備齊，我再去張羅。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_story": {
+            "speaker": "npc",
+            "text": "老漢也說不清。這碑有些年頭了，聽人說原本刻的是契丹字，後來有個和尚拿刀刮去了一大片。剩下的，就靠拓下來慢慢琢磨嘍。",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "麻布、焦炭都在這裡，有勞老丈。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "麻布",
+                    "n": 2
+                  },
+                  {
+                    "type": "has_item",
+                    "item": "焦炭",
+                    "n": 2
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "麻布",
+                    "n": 2
+                  },
+                  {
+                    "do": "take",
+                    "item": "焦炭",
+                    "n": 2
+                  },
+                  {
+                    "do": "give",
+                    "item": "拓印",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_stele"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "我先去備齊東西。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（老頭把焦炭搗成細粉調了墨，將麻布浸濕貼上碑面，一下一下拍打。不多時，一幅黑底白字的拓印便揭了下來。）拿好，別折著了。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "拓印拿來了？",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_give",
+                "label": "拓印在此。",
+                "requires": [
+                  {
+                    "type": "has_item",
+                    "item": "拓印",
+                    "n": 1
+                  }
+                ],
+                "do": [
+                  {
+                    "do": "take",
+                    "item": "拓印",
+                    "n": 1
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "還在路上耽擱，再等等。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（白勇把拓印小心捲好，塞進懷裡。）好，好！島主準高興。這點盤纏你拿去，路上買碗酒喝。",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 0,
+      "cooldown_days": 1
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "拓印交到白勇手上",
+        "rewards": {
+          "lilian": 5,
+          "money": 50
+        },
+        "src": "later",
+        "field_src": {
+          "money": "proposal"
+        }
+      }
+    }
+  },
+  "q_ym_xiaofeng": {
+    "id": "q_ym_xiaofeng",
+    "name": "找蕭峰",
+    "giver": "n_ym_azhu",
+    "conditions": [],
+    "start": "s_find",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_find",
+        "title": "西夏客棧的喬大爺",
+        "log": "阿朱說喬大爺常在西夏城的客棧裡喝酒。（出雁門關口往南走雁門古道到恆山岔路，經恆山岸邊、路邊茶棚、恆山外稻田、潭東河岸、黑龍潭、礦區、東北官道、東門外官道，進西夏東門；客棧在廣場往北。）",
+        "hint_room": "西夏・西夏客棧",
+        "objectives": [
+          {
+            "id": "o_find",
+            "type": "TALK",
+            "npc": "n_xx_qiaofeng",
+            "dialogue": "d_qiao",
+            "text": "到西夏客棧找喬峰",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_back",
+        "place": "西夏・西夏客棧",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_back",
+        "title": "回雁門關覆命",
+        "log": "把喬峰的話帶回雁門關給阿朱。（從西夏東門出城，經東門外官道、東北官道、礦區、黑龍潭、潭東河岸、恆山外稻田、路邊茶棚、恆山岸邊到恆山岔路，再往東北走雁門古道，往北就是雁門關口，再往北進關。）",
+        "hint_room": "雁門關・雁門關內",
+        "objectives": [
+          {
+            "id": "o_back",
+            "type": "TALK",
+            "npc": "n_ym_azhu",
+            "dialogue": "d_back",
+            "text": "回雁門關內告訴阿朱",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END",
+        "place": "雁門關・雁門關內",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（俏麗的少女倚著關內土牆，一雙眼睛只望著關外。）這位{name}，你在江湖上走動，可曾見過一位身材魁偉、愛喝烈酒的喬大爺？",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_why",
+                "label": "姑娘找他做什麼？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_no",
+                "label": "沒見過。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "他……他是天下第一等的好人，偏偏人人冤他是契丹胡虜。他說過要來雁門關的，我在這裡等了他好些日子，風沙吹得眼睛都疼了。",
+            "choices": [
+              {
+                "id": "c_yes",
+                "label": "我替妳去找他。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n_yes"
+              },
+              {
+                "id": "c_no",
+                "label": "江湖之大，我也幫不上忙。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n_yes": {
+            "speaker": "npc",
+            "text": "多謝你！聽說他常在西夏城的客棧裡喝酒。見著他，就說……就說阿朱在雁門關等他。",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "（阿朱輕輕嘆了口氣，又轉頭望著關外。）",
+            "goto": "END"
+          }
+        }
+      },
+      "d_qiao": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "（喬峰放下酒碗，一雙虎目打量著你。）朋友找喬某有事？",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_azhu",
+                "label": "雁門關的阿朱姑娘託我來找你。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_later",
+                "label": "沒什麼，打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（喬峰身子一震，碗裡的酒潑了出來。）阿朱……她在雁門關等我？",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "（他沉默半晌，仰頭喝乾了一大碗。）喬峰是契丹人也好，漢人也罷，這世上總算還有一個人信我。朋友，煩你回去告訴她：蕭峰這就動身，教她別再站在風口裡了。",
+            "do": [
+              {
+                "do": "complete",
+                "obj": "o_find"
+              }
+            ],
+            "goto": "END"
+          }
+        }
+      },
+      "d_back": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "你見著他了？他……他怎麼說？",
+            "src": "proposal",
+            "choices": [
+              {
+                "id": "c_tell",
+                "label": "他說「蕭峰這就動身」，教妳別在風口裡站著。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_back"
+                  }
+                ],
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "（阿朱眼圈一紅，隨即又笑了起來。）他肯認自己姓蕭了……好，好。這份情，阿朱記下了。",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "proposal",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "default": {
+        "label": "替阿朱找到了蕭峰",
+        "rewards": {
+          "lilian": 10
+        },
+        "src": "proposal"
+      }
+    }
+  },
+  "q_yuner": {
+    "id": "q_yuner",
+    "name": "雲兒小姐的煩惱",
+    "giver": "n_xx_yuner",
+    "conditions": [],
+    "start": "s_ask",
+    "offer": "d_offer",
+    "stages": [
+      {
+        "id": "s_ask",
+        "title": "雲兒的心事",
+        "log": "雲兒要你先去看看李台安是個怎樣的人。從民房往北回到東門，進城往西穿過廣場到西大街，北邊的回春藥鋪裡，掌櫃身旁碾藥的年輕夥計就是李台安。",
+        "hint_room": "西夏・回春藥鋪",
+        "objectives": [
+          {
+            "id": "o_li",
+            "type": "TALK",
+            "npc": "n_xx_litaian",
+            "dialogue": "d_li",
+            "text": "到回春藥鋪找李台安",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_abao",
+        "place": "西夏・回春藥鋪",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_abao",
+        "title": "城外的阿寶",
+        "log": "再去西夏城外的礦工阿寶那裡看看。出西夏東門往東到荒草坡，往北穿過胡楊林，再往北爬上城北山坡，背著礦筐東張西望的年輕礦工就是阿寶。山坡上偶爾有野狼出沒，打不過就往白框「逃」字的逃跑格跑。",
+        "hint_room": "西夏北郊・城北山坡",
+        "objectives": [
+          {
+            "id": "o_abao",
+            "type": "TALK",
+            "npc": "n_xx_abao",
+            "dialogue": "d_abao_1",
+            "text": "到城北山坡找礦工阿寶",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "s_choose",
+        "place": "西夏北郊・城北山坡",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_choose",
+        "title": "替雲兒拿主意",
+        "log": "兩個人你都見過了。回西夏東門，往南進民房，替雲兒做個決定。這個決定一旦說出口，就不能反悔。",
+        "hint_room": "西夏・民房",
+        "objectives": [
+          {
+            "id": "o_choose",
+            "type": "TALK",
+            "npc": "n_xx_yuner",
+            "dialogue": "d_choose",
+            "text": "回民房告訴雲兒你的看法",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": [
+          {
+            "if": [
+              {
+                "type": "quest_var",
+                "quest": "q_yuner",
+                "var": "pick",
+                "value": "abao"
+              }
+            ],
+            "goto": "s_thanks"
+          },
+          {
+            "goto": "END:li"
+          }
+        ],
+        "place": "西夏・民房",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      },
+      {
+        "id": "s_thanks",
+        "title": "阿寶的謝禮",
+        "log": "雲兒選了阿寶。出西夏東門往東到荒草坡，往北穿過胡楊林上城北山坡，把這個好消息告訴阿寶。山坡上偶爾有野狼出沒，打不過就往白框「逃」字的逃跑格跑。",
+        "hint_room": "西夏北郊・城北山坡",
+        "objectives": [
+          {
+            "id": "o_thanks",
+            "type": "TALK",
+            "npc": "n_xx_abao",
+            "dialogue": "d_abao_2",
+            "text": "回城北山坡告訴阿寶",
+            "requires": [],
+            "enemies": []
+          }
+        ],
+        "next": "END:abao",
+        "place": "西夏北郊・城北山坡",
+        "on_enter": [],
+        "on_complete": [],
+        "room_actions": []
+      }
+    ],
+    "dialogues": {
+      "d_offer": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "雲兒倚在窗邊，手裡的帕子絞了又絞。見你進門，她慌忙別過臉去拭了拭眼角：「這位大俠，有、有什麼事嗎？」",
+            "choices": [
+              {
+                "id": "c_ask",
+                "label": "姑娘為何愁眉不展？",
+                "goto": "n1"
+              },
+              {
+                "id": "c_leave",
+                "label": "走錯門了，打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "雲兒的臉一下子紅到耳根：「說來羞人……爹娘要我今年出嫁。藥局的李台安託了媒人來說親，他人斯文，又有份正經差事；可是……可是阿寶他……」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「阿寶是跟我從小一塊兒長大的，如今在城外挖礦。唉……一個是藥局的李台安，一個是從小一起長大的阿寶，我到底該嫁給誰才好？」",
+            "choices": [
+              {
+                "id": "c_help",
+                "label": "我替妳去看看他們兩個。",
+                "do": [
+                  {
+                    "do": "accept"
+                  }
+                ],
+                "goto": "n3"
+              },
+              {
+                "id": "c_no",
+                "label": "這種事我可幫不上忙。",
+                "goto": "n_no"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「真的？那……那就有勞你了。李台安在城裡的回春藥鋪幫忙，就在掌櫃身邊；阿寶多半在城北的山坡上轉悠。你先去看看李台安是個怎樣的人吧。」",
+            "goto": "END"
+          },
+          "n_no": {
+            "speaker": "npc",
+            "text": "雲兒低下頭，輕輕嘆了口氣：「也是……旁人的家務事，誰願意管呢。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_li": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "掌櫃身旁一個年輕夥計正低頭碾著藥材，聽見腳步聲，頭也不抬：「抓藥請找掌櫃，我只管碾藥、配藥。」",
+            "choices": [
+              {
+                "id": "c_li_yuner",
+                "label": "我是為雲兒姑娘來的。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_li_leave",
+                "label": "沒事，打擾了。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "李台安手上一停，連忙放下藥碾，整了整衣襟，壓低聲音道：「雲兒姑娘？是她託你來的？實不相瞞，我託媒人上門說親已經半個月了，她家始終沒個準話。」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "「她……她可曾提起我？」",
+            "choices": [
+              {
+                "id": "c_li_why",
+                "label": "你為什麼想娶她？",
+                "goto": "n3"
+              },
+              {
+                "id": "c_li_abao",
+                "label": "你可知道礦工阿寶？",
+                "goto": "n4"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「雲兒姑娘溫柔賢慧，西夏城裡誰不知道？我在這藥鋪學了五年，掌櫃說再過兩年就讓我自己坐堂看診。嫁給我，總不會讓她吃苦。」他頓了頓，眉頭一皺：「只是聽說，城外還有個挖礦的也惦記著她。」",
+            "goto": "n4"
+          },
+          "n4": {
+            "speaker": "npc",
+            "text": "李台安哼了一聲：「那個阿寶？一天到晚灰頭土臉，連進城的路都會走錯，他拿什麼養家？……你替我在雲兒姑娘面前多美言幾句，事成之後，少不了你的好處。」",
+            "choices": [
+              {
+                "id": "c_li_ok",
+                "label": "我自會照實跟她說。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_li"
+                  }
+                ],
+                "goto": "n5"
+              }
+            ]
+          },
+          "n5": {
+            "speaker": "npc",
+            "text": "「照實說也好，我李台安行得正、坐得端。」說罷又低頭碾起藥來，只是手上的力道重了幾分。",
+            "goto": "END"
+          }
+        }
+      },
+      "d_abao_1": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "山坡上一個皮膚黝黑的年輕礦工背著一筐礦石，對著幾條岔路直抓頭：「怪了，礦坑明明在東邊……我怎麼又繞到這兒來了？」",
+            "choices": [
+              {
+                "id": "c_ab_yuner",
+                "label": "你就是阿寶？雲兒姑娘託我來看看你。",
+                "goto": "n1"
+              },
+              {
+                "id": "c_ab_leave",
+                "label": "（不打擾他，悄悄走開）",
+                "goto": "END"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "阿寶一聽，猛地站起身來，筐裡的礦石嘩啦啦滾了一地：「雲、雲兒？她……她還好嗎？聽說藥局的李台安上她家提親去了……」",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "他蹲下去一顆一顆撿著礦石，聲音越來越小：「我知道，我只是個挖礦的，沒念過書，連路都認不清。李台安會看病、會寫字，雲兒跟了他，日子一定比跟著我好。」",
+            "choices": [
+              {
+                "id": "c_ab_heart",
+                "label": "那你自己呢？你想娶她嗎？",
+                "goto": "n3"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "阿寶抬起頭，黑黝黝的臉漲得通紅：「想！打小就想！小時候她被野狗追，是我拿石頭把狗趕跑的。她說過長大了要嫁給我……可那是小時候的話了。」他握緊手裡的礦石：「我每天多挖一筐，攢下的錢都收在床底下，就盼著有一天……」",
+            "goto": "n4"
+          },
+          "n4": {
+            "speaker": "npc",
+            "text": "「……你回去，別跟她說我難過。只要她過得好，我就高興。」",
+            "choices": [
+              {
+                "id": "c_ab_ok",
+                "label": "我明白了。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_abao"
+                  }
+                ],
+                "goto": "n5"
+              }
+            ]
+          },
+          "n5": {
+            "speaker": "npc",
+            "text": "阿寶背起礦筐走了兩步，又回過頭來，憨憨地問：「對了……礦坑是往哪邊走來著？」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_choose": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "雲兒一見你回來，連忙迎上前，又強自鎮定地坐下：「你……你都見過他們了？你說，我該選誰？」",
+            "choices": [
+              {
+                "id": "c_pick_abao",
+                "label": "我看阿寶不錯。",
+                "goto": "n_ask_abao"
+              },
+              {
+                "id": "c_pick_li",
+                "label": "我看李台安不錯。",
+                "goto": "n_ask_li"
+              },
+              {
+                "id": "c_wait",
+                "label": "讓我再想想。",
+                "goto": "END"
+              }
+            ]
+          },
+          "n_ask_abao": {
+            "speaker": "npc",
+            "text": "「阿寶？」雲兒咬著嘴唇，聲音細得像蚊子：「他……他可說了什麼？」",
+            "choices": [
+              {
+                "id": "c_abao",
+                "label": "阿寶對妳一片真心。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "pick",
+                    "value": "abao"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_choose"
+                  }
+                ],
+                "goto": "n_abao"
+              },
+              {
+                "id": "c_back_abao",
+                "label": "我再想想。",
+                "goto": "n0"
+              }
+            ]
+          },
+          "n_abao": {
+            "speaker": "npc",
+            "text": "雲兒怔了半晌，眼淚忽然撲簌簌地掉下來，嘴角卻笑了：「這個傻子……從小就是這樣，什麼都悶在心裡。」",
+            "goto": "n_abao2"
+          },
+          "n_abao2": {
+            "speaker": "npc",
+            "text": "「嗯……我也是這麼想的。麻煩你去跟阿寶說一聲，叫他……叫他快託個媒人來，路上可別再走錯了。」",
+            "goto": "END"
+          },
+          "n_ask_li": {
+            "speaker": "npc",
+            "text": "「李台安？」雲兒垂下眼簾，輕聲問：「他……待人可還好？」",
+            "choices": [
+              {
+                "id": "c_li",
+                "label": "李台安有份正當差事。",
+                "do": [
+                  {
+                    "do": "var",
+                    "name": "pick",
+                    "value": "li"
+                  },
+                  {
+                    "do": "complete",
+                    "obj": "o_choose"
+                  }
+                ],
+                "goto": "n_li"
+              },
+              {
+                "id": "c_back_li",
+                "label": "我再想想。",
+                "goto": "n0"
+              }
+            ]
+          },
+          "n_li": {
+            "speaker": "npc",
+            "text": "雲兒沉默良久，終於輕輕點了點頭：「是啊……爹娘也說，嫁人要嫁個有出息的。阿寶他……他會明白的。」",
+            "goto": "n_li2"
+          },
+          "n_li2": {
+            "speaker": "npc",
+            "text": "她從妝匣裡取出一小錠碎銀，塞到你手裡：「那就這麼定了。這點小錢你收下吧，多謝你替我跑這一趟。」",
+            "goto": "END"
+          }
+        }
+      },
+      "d_abao_2": {
+        "start": "n0",
+        "resume": "n0",
+        "nodes": {
+          "n0": {
+            "speaker": "npc",
+            "text": "阿寶還在山坡上打轉，一見你來，緊張得連礦筐都忘了放下：「怎、怎麼樣？雲兒她……」",
+            "choices": [
+              {
+                "id": "c_tell",
+                "label": "雲兒選了你，叫你快託媒人上門。",
+                "goto": "n1"
+              }
+            ]
+          },
+          "n1": {
+            "speaker": "npc",
+            "text": "阿寶愣在那裡，好半天才回過神來。他把礦筐往地上一擱，對著山下的西夏城放聲大喊，喊得山谷裡回音一陣接著一陣。",
+            "goto": "n2"
+          },
+          "n2": {
+            "speaker": "npc",
+            "text": "他手忙腳亂地從筐底翻出幾塊礦石，用衣角擦得發亮，硬塞進你懷裡：「我沒什麼值錢的東西，這是我這陣子挖到最好的紫石礦和綠石礦，你一定得收下！」",
+            "choices": [
+              {
+                "id": "c_take",
+                "label": "那我就收下了。",
+                "do": [
+                  {
+                    "do": "complete",
+                    "obj": "o_thanks"
+                  }
+                ],
+                "goto": "n3"
+              }
+            ]
+          },
+          "n3": {
+            "speaker": "npc",
+            "text": "「等我跟雲兒成了親，一定請你來喝喜酒！……呃，西夏城是往哪邊走來著？」",
+            "goto": "END"
+          }
+        }
+      }
+    },
+    "repeat": {
+      "max": 1,
+      "cooldown_days": 0
+    },
+    "give_items": [],
+    "source_status": "verified",
+    "note": "來源故事的文字改編；場景互動與考較經本作主機結算，不聲稱官方原版完整重製。",
+    "outcomes": {
+      "abao": {
+        "label": "雲兒嫁給了阿寶",
+        "rewards": {
+          "items": [
+            {
+              "item": "紫石礦",
+              "n": 3
+            },
+            {
+              "item": "綠石礦",
+              "n": 3
+            }
+          ]
+        },
+        "src": "verified",
+        "field_src": {
+          "items": "verified"
+        }
+      },
+      "li": {
+        "label": "雲兒嫁給了李台安",
+        "rewards": {
+          "money": 10
+        },
+        "src": "verified",
+        "field_src": {
+          "money": "verified"
+        }
+      }
+    }
   }
 }

@@ -7,22 +7,38 @@ const Market = preload("res://scripts/market.gd")
 static func support_reason(q: Dictionary) -> String:
 	for stage in q.stages:
 		for o in stage.objectives:
-			if not o.type in ["TALK", "STATE", "WAIT", "COLLECT", "DELIVER", "BUY", "FIGHT"]: return "這條任務的後續內容尚未開放。"
+			if not o.type in ["TALK", "STATE", "WAIT", "COLLECT", "DELIVER", "BUY", "FIGHT", "KILL"]: return "這條任務的後續內容尚未開放。"
 			if o.type == "FIGHT" and o.get("enemies", []).is_empty(): return "這條任務的後續考較尚未開放。"
 	return ""
 
 static func status(p: Dictionary, q: Dictionary, tick: int) -> String:
-	if p.quests_done.has(q.id): return "已完成"
 	if p.learning_quests.has(q.id): return "進行中"
+	if completion_limit(p, q): return "已完成"
+	if cooldown_left(p, q) > 0: return "冷卻中"
 	if support_reason(q) != "": return "尚未開放"
 	return "可接任務" if Training.check(p, q.conditions, tick) == "" else "條件不足"
+
+static func completion_limit(p: Dictionary, q: Dictionary) -> bool:
+	var count := int(p.get("quest_history", {}).get(q.id, {}).get("count", 1 if p.quests_done.has(q.id) else 0))
+	var maximum := int(q.get("repeat", {}).get("max", 1))
+	return maximum > 0 and count >= maximum
+
+static func cooldown_left(p: Dictionary, q: Dictionary) -> int:
+	return maxi(0, int(p.get("quest_history", {}).get(q.id, {}).get("until", 0)) - int(Time.get_unix_time_from_system()))
+
+static func accept_reason(p: Dictionary, q: Dictionary, tick: int) -> String:
+	if completion_limit(p, q): return "此任務已完成。"
+	var left := cooldown_left(p, q)
+	if left > 0: return "再次接取尚需等待 %d 分 %d 秒。" % [left / 60, left % 60]
+	var reason := support_reason(q)
+	return reason if reason != "" else Training.check(p, q.conditions, tick)
 
 static func npc_of(o: Dictionary) -> String:
 	var npc: String = o.get("npc", o.get("target", ""))
 	return npc if Data.NPCS.has(npc) else ""
 
 static func place_of(stage: Dictionary, o: Dictionary) -> String:
-	return str(Data.NPCS.get(npc_of(o), {}).get("place", stage.get("place", "")))
+	return str(o.get("place", Data.NPCS.get(npc_of(o), {}).get("place", stage.get("place", ""))))
 
 static func current_objective(p: Dictionary, q: Dictionary) -> Dictionary:
 	var state: Dictionary = p.learning_quests.get(q.id, {})
@@ -34,7 +50,7 @@ static func current_objective(p: Dictionary, q: Dictionary) -> Dictionary:
 static func at_npc(p: Dictionary, npc: String) -> Array:
 	var found: Array = []
 	for q in Data.QUESTS.values():
-		if p.quests_done.has(q.id): continue
+		if completion_limit(p, q): continue
 		if q.giver == npc and not p.learning_quests.has(q.id): found.append(q); continue
 		var state: Dictionary = p.learning_quests.get(q.id, {})
 		if state.is_empty(): continue
@@ -59,6 +75,7 @@ static func objective_reason(p: Dictionary, stage: Dictionary, o: Dictionary, ti
 		var left := ceili(float(o.get("days", 0)) * 1440) - (tick - int(state.started))
 		if left > 0: return "尚需等待 %d 息。" % left
 	if o.type == "FIGHT" and o.get("enemies", []).is_empty(): return "這段考較尚未開放。"
+	if o.get("hours", []).size() > 0 and Training.check(p, [{"type": "hour_in", "hours": o.hours}], tick) != "": return "時辰尚未到：" + "、".join(o.hours)
 	return ""
 
 static func item_sources(start: String, item: String) -> Array:

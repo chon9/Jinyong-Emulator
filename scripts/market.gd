@@ -18,7 +18,8 @@ static func quote(p: Dictionary, selling: bool, item: String, quantity: int = 1)
 	var definition: Dictionary = Data.SHOP.get(item, {})
 	var unit := maxi(1, int(definition.get("price", 1)) / 3) if selling else maxi(1, int(definition.get("price", 1)))
 	var error := ""
-	if not p.enemy.is_empty() or int(p.fight) != 0: error = "交戰中無法買賣，請先結束戰鬥。"
+	if int(p.get("dungeon", 0)) != 0: error = "請先退出副本，再與商人買賣。"
+	elif not p.enemy.is_empty() or int(p.fight) != 0: error = "交戰中無法買賣，請先結束戰鬥。"
 	elif not has_shop(p.place): error = "此地沒有商人。請選擇下方商店，自動前往。"
 	elif definition.is_empty(): error = "找不到這件物品。"
 	elif quantity < 1 or quantity > 99: error = "每次交易數量須為 1–99。"

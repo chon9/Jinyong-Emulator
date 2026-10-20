@@ -5,7 +5,7 @@ signal message(channel: String, text: String)
 const Rules = preload("res://scripts/world.gd")
 const SAVE := "user://youxia_save.json"
 const PORT := 24780
-const PROTOCOL := 5
+const PROTOCOL := 6
 var world = Rules.new()
 var state: Dictionary = {}
 var mode := "單機"
@@ -18,6 +18,8 @@ var stable_ids: Dictionary = {}
 var guest_saves: Dictionary = {}
 var local_id := ""
 var save_path := SAVE
+var local_tick := 0
+var saved_clock := false
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -67,6 +69,8 @@ func _load() -> void:
 		var data := _read_save(path)
 		if data.is_empty(): continue
 		local_character = data.character
+		local_tick = maxi(0, int(data.get("world_tick", 0)))
+		saved_clock = data.has("world_tick")
 		guest_saves = data.get("guests", {})
 		if path.ends_with(".bak"): message.emit.call_deferred("系統", "主存檔損壞，已從上一份備份恢復。")
 		return
@@ -97,6 +101,7 @@ func _restore(id: int, data: Dictionary) -> void:
 	p.travel_route = []
 	p.study_ticks = 0
 	p.quest_restore = {}
+	p.dungeon = 0
 	p.cooldown = -1
 	p.session_kills = 0
 	p.session_silver = 0
@@ -104,17 +109,20 @@ func _restore(id: int, data: Dictionary) -> void:
 	p.rules_version = int(data.get("rules_version", 0))
 	if not data.has("combat_xp"): p.combat_xp = int(p.exp) + 35 * int(p.level) * (int(p.level) - 1)
 	Rules.Training.normalize(p)
+	if not saved_clock:
+		for quest in p.learning_quests.values(): quest.started = mini(int(quest.get("started", world.tick)), world.tick)
 	if not preload("res://scripts/content.gd").PLACES.has(p.place): p.place = "揚州城"
 
 func save_game() -> bool:
 	if mode.ends_with("客戶端"): return false
 	if world.players.has(1): local_character = world.players[1].duplicate(true)
+	local_tick = world.tick
 	for id in stable_ids:
 		if world.players.has(id): guest_saves[stable_ids[id]] = world.players[id].duplicate(true)
 	var temp := save_path + ".tmp"
 	var file := FileAccess.open(temp, FileAccess.WRITE)
 	if file == null: return false
-	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves}))
+	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves, "world_tick": local_tick}))
 	file.close()
 	# Windows 上以 replace 的方式寫入：保留前一份存檔以利恢復。
 	if not _read_save(save_path).is_empty():
@@ -123,7 +131,7 @@ func save_game() -> bool:
 	return DirAccess.rename_absolute(temp, save_path) == OK
 
 func _disconnect() -> void:
-	if not mode.ends_with("客戶端"): save_game()
+	if not mode.ends_with("客戶端") and world.players.has(1): save_game()
 	if multiplayer.multiplayer_peer: multiplayer.multiplayer_peer.close()
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	SteamBridge.leave()
@@ -133,10 +141,12 @@ func _disconnect() -> void:
 	limits.clear()
 	world.players.clear()
 	world.social.reset()
+	world.dungeons.reset()
 	state = {}
 
 func start_offline() -> void:
 	_disconnect()
+	world.tick = local_tick
 	mode = "單機"
 	status = "單機江湖 · 自動存檔"
 	_restore(1, local_character)

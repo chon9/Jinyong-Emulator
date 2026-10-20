@@ -25,12 +25,13 @@ func members(id: int) -> Array:
 	return parties.get(int(world.players[id].party), {}).get("members", [])
 
 func busy(id: int) -> bool:
-	return world.players.has(id) and (not world.players[id].enemy.is_empty() or int(world.players[id].fight) != 0)
+	return world.players.has(id) and (not world.players[id].enemy.is_empty() or int(world.players[id].fight) != 0 or int(world.players[id].get("dungeon", 0)) != 0)
 
 func peer(arg: String) -> int:
 	return arg.to_int() if arg.is_valid_int() else 0
 
 func valid_target(id: int, target: int, nearby: bool = true) -> bool:
+	if int(world.players[id].get("dungeon", 0)) != 0 or int(world.players.get(target, {}).get("dungeon", 0)) != 0: return false
 	return target != id and world.players.has(target) and (not nearby or world.players[id].place == world.players[target].place)
 
 func notify(ids: Array, text: String, channel: String = "隊伍") -> void:
@@ -271,6 +272,7 @@ func flee(id: int) -> bool:
 
 func disconnect_peer(id: int) -> void:
 	if not world.players.has(id): return
+	world.dungeons.leave(id)
 	if world.players[id].fight != 0: flee(id)
 	leave_party(id)
 	for key in requests.keys():

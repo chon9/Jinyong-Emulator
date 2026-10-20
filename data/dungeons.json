@@ -1,0 +1,424 @@
+{
+  "blackwind": {
+    "id": "blackwind",
+    "name": "黑風寨剿匪",
+    "entry": "黑風林",
+    "min_xp": 0,
+    "recommended": "初入江湖；基本功 5 級，備好金創藥。",
+    "desc": "夜色裡，寨門上的火把忽明忽暗。先清理巡山野犬，再突破斥候，最後擒下寨主。",
+    "cooldown": 600,
+    "stages": [
+      {
+        "name": "林口犬吠",
+        "enemies": [
+          {
+            "enemy": "野犬",
+            "hp": 30,
+            "attack": 3,
+            "defense": 0,
+            "level": 1
+          },
+          {
+            "enemy": "野犬",
+            "hp": 30,
+            "attack": 3,
+            "defense": 0,
+            "level": 1
+          }
+        ]
+      },
+      {
+        "name": "斥候攔路",
+        "enemies": [
+          {
+            "enemy": "黑風斥候",
+            "hp": 50,
+            "attack": 5,
+            "defense": 1,
+            "level": 2
+          },
+          {
+            "enemy": "黑風斥候",
+            "hp": 50,
+            "attack": 5,
+            "defense": 1,
+            "level": 2
+          }
+        ]
+      },
+      {
+        "name": "擒賊擒王",
+        "enemies": [
+          {
+            "enemy": "黑風寨主",
+            "hp": 110,
+            "attack": 8,
+            "defense": 1,
+            "level": 3
+          }
+        ]
+      }
+    ],
+    "rewards": {
+      "silver": 80,
+      "points": 50,
+      "xp": 60,
+      "items": [
+        {
+          "item": "金創藥",
+          "n": 1
+        }
+      ]
+    },
+    "first_clear": {
+      "points": 80,
+      "items": [
+        {
+          "item": "木劍",
+          "n": 1
+        }
+      ]
+    }
+  },
+  "bronze": {
+    "id": "bronze",
+    "name": "銅人試陣",
+    "entry": "少林寺・羅漢堂",
+    "min_xp": 1000,
+    "recommended": "基本功 15–25 級；三陣共十八名銅人。",
+    "desc": "羅漢堂請來十八名銅人陪你試招。這是本作的反覆試陣副本，不代替原版十八銅人出師考核。",
+    "cooldown": 900,
+    "stages": [
+      {
+        "name": "初陣",
+        "enemies": [
+          {
+            "enemy": "銅人（初陣）",
+            "hp": 140,
+            "attack": 18,
+            "defense": 3,
+            "level": 12
+          },
+          {
+            "enemy": "銅人（初陣）",
+            "hp": 140,
+            "attack": 18,
+            "defense": 3,
+            "level": 12
+          },
+          {
+            "enemy": "銅人（初陣）",
+            "hp": 140,
+            "attack": 18,
+            "defense": 3,
+            "level": 12
+          },
+          {
+            "enemy": "銅人（初陣）",
+            "hp": 140,
+            "attack": 18,
+            "defense": 3,
+            "level": 12
+          },
+          {
+            "enemy": "銅人（初陣）",
+            "hp": 140,
+            "attack": 18,
+            "defense": 3,
+            "level": 12
+          },
+          {
+            "enemy": "銅人（初陣）",
+            "hp": 140,
+            "attack": 18,
+            "defense": 3,
+            "level": 12
+          }
+        ]
+      },
+      {
+        "name": "中陣",
+        "enemies": [
+          {
+            "enemy": "銅人（中陣）",
+            "hp": 220,
+            "attack": 24,
+            "defense": 4,
+            "level": 16
+          },
+          {
+            "enemy": "銅人（中陣）",
+            "hp": 220,
+            "attack": 24,
+            "defense": 4,
+            "level": 16
+          },
+          {
+            "enemy": "銅人（中陣）",
+            "hp": 220,
+            "attack": 24,
+            "defense": 4,
+            "level": 16
+          },
+          {
+            "enemy": "銅人（中陣）",
+            "hp": 220,
+            "attack": 24,
+            "defense": 4,
+            "level": 16
+          },
+          {
+            "enemy": "銅人（中陣）",
+            "hp": 220,
+            "attack": 24,
+            "defense": 4,
+            "level": 16
+          },
+          {
+            "enemy": "銅人（中陣）",
+            "hp": 220,
+            "attack": 24,
+            "defense": 4,
+            "level": 16
+          }
+        ]
+      },
+      {
+        "name": "終陣",
+        "enemies": [
+          {
+            "enemy": "銅人（終陣）",
+            "hp": 320,
+            "attack": 32,
+            "defense": 6,
+            "level": 20
+          },
+          {
+            "enemy": "銅人（終陣）",
+            "hp": 320,
+            "attack": 32,
+            "defense": 6,
+            "level": 20
+          },
+          {
+            "enemy": "銅人（終陣）",
+            "hp": 320,
+            "attack": 32,
+            "defense": 6,
+            "level": 20
+          },
+          {
+            "enemy": "銅人（終陣）",
+            "hp": 320,
+            "attack": 32,
+            "defense": 6,
+            "level": 20
+          },
+          {
+            "enemy": "銅人（終陣）",
+            "hp": 320,
+            "attack": 32,
+            "defense": 6,
+            "level": 20
+          },
+          {
+            "enemy": "銅人（終陣）",
+            "hp": 320,
+            "attack": 32,
+            "defense": 6,
+            "level": 20
+          }
+        ]
+      }
+    ],
+    "rewards": {
+      "silver": 200,
+      "points": 150,
+      "xp": 180,
+      "items": [
+        {
+          "item": "金創藥",
+          "n": 2
+        }
+      ]
+    },
+    "first_clear": {
+      "points": 200,
+      "items": [
+        {
+          "item": "青布袍",
+          "n": 1
+        }
+      ]
+    }
+  },
+  "blood": {
+    "id": "blood",
+    "name": "血刀密窟",
+    "entry": "血刀門・密室",
+    "min_xp": 4000,
+    "recommended": "基本功或相容外功 25–35 級，適合結伴。",
+    "desc": "雪霧遮住密室的石階。叛徒帶走兵刃，護法封住出路，深處仍有一把血刀等你。",
+    "cooldown": 1200,
+    "stages": [
+      {
+        "name": "雪階伏兵",
+        "enemies": [
+          {
+            "enemy": "血刀弟子",
+            "hp": 500,
+            "attack": 35,
+            "defense": 6,
+            "level": 22
+          },
+          {
+            "enemy": "血刀弟子",
+            "hp": 500,
+            "attack": 35,
+            "defense": 6,
+            "level": 22
+          },
+          {
+            "enemy": "血刀弟子",
+            "hp": 500,
+            "attack": 35,
+            "defense": 6,
+            "level": 22
+          }
+        ]
+      },
+      {
+        "name": "密窟護法",
+        "enemies": [
+          {
+            "enemy": "血刀門護法",
+            "hp": 1400,
+            "attack": 65,
+            "defense": 12,
+            "level": 28
+          }
+        ]
+      },
+      {
+        "name": "血刀之影",
+        "enemies": [
+          {
+            "enemy": "血刀叛徒",
+            "hp": 3000,
+            "attack": 90,
+            "defense": 18,
+            "level": 32
+          }
+        ]
+      }
+    ],
+    "rewards": {
+      "silver": 500,
+      "points": 300,
+      "xp": 400,
+      "items": [
+        {
+          "item": "金創藥",
+          "n": 3
+        }
+      ]
+    },
+    "first_clear": {
+      "points": 350,
+      "items": [
+        {
+          "item": "緬刀",
+          "n": 1
+        }
+      ]
+    }
+  },
+  "gaochang": {
+    "id": "gaochang",
+    "name": "高昌秘窟",
+    "entry": "高昌・高昌迷宮外",
+    "min_xp": 12250,
+    "recommended": "外功 40 級以上，備藥並分工援護。",
+    "desc": "銅鏡折出數條相似的甬道。惡賊守著殘佛，機關人依次甦醒；最深處的銅甲守衛才是最後一關。",
+    "cooldown": 1800,
+    "stages": [
+      {
+        "name": "殘佛疑影",
+        "enemies": [
+          {
+            "enemy": "高昌惡賊",
+            "hp": 1800,
+            "attack": 65,
+            "defense": 12,
+            "level": 35
+          },
+          {
+            "enemy": "高昌惡賊",
+            "hp": 1800,
+            "attack": 65,
+            "defense": 12,
+            "level": 35
+          },
+          {
+            "enemy": "高昌惡賊",
+            "hp": 1800,
+            "attack": 65,
+            "defense": 12,
+            "level": 35
+          }
+        ]
+      },
+      {
+        "name": "機關長廊",
+        "enemies": [
+          {
+            "enemy": "機關人",
+            "hp": 3200,
+            "attack": 90,
+            "defense": 22,
+            "level": 40
+          },
+          {
+            "enemy": "機關人",
+            "hp": 3200,
+            "attack": 90,
+            "defense": 22,
+            "level": 40
+          }
+        ]
+      },
+      {
+        "name": "銅甲守衛",
+        "enemies": [
+          {
+            "enemy": "銅甲機關人",
+            "hp": 7500,
+            "attack": 125,
+            "defense": 35,
+            "level": 45
+          }
+        ]
+      }
+    ],
+    "rewards": {
+      "silver": 1000,
+      "points": 500,
+      "xp": 800,
+      "items": [
+        {
+          "item": "大還丹",
+          "n": 1
+        }
+      ]
+    },
+    "first_clear": {
+      "points": 600,
+      "items": [
+        {
+          "item": "青鋒劍",
+          "n": 1
+        }
+      ]
+    }
+  }
+}

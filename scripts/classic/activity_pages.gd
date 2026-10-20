@@ -71,7 +71,7 @@ static func quests(ui, body: VBoxContainer, p: Dictionary) -> void:
 		var state := Guide.status(p, q, tick)
 		if ui.quest_filter == 0 and state != "進行中": continue
 		if ui.quest_filter == 1 and state != "可接任務": continue
-		if ui.quest_filter == 3 and state != "已完成": continue
+		if ui.quest_filter == 3 and not p.quests_done.has(q.id): continue
 		if ui.quest_query != "" and not ui.quest_query in q.name and not ui.quest_query in str(Data.NPCS[q.giver].name): continue
 		visible.append(q)
 	visible.sort_custom(func(a, b):
@@ -107,16 +107,17 @@ static func reward_text(q: Dictionary) -> String:
 static func quest_details(ui, body: VBoxContainer, p: Dictionary, q: Dictionary, tick: int) -> void:
 	ui_label(ui, body, q.name, 22)
 	body.add_child(ui.paragraph(reward_text(q)))
+	if int(q.get("repeat", {}).get("max", 1)) == 0: body.add_child(ui.paragraph("可重複 · 完成後冷卻 %d 分鐘（現實時間）。" % ceili(float(q.get("repeat", {}).get("cooldown_days", 0)) * 24)))
 	var giver: Dictionary = Data.NPCS[q.giver]
-	if p.quests_done.has(q.id):
+	if p.quests_done.has(q.id) and not p.learning_quests.has(q.id) and Guide.status(p, q, tick) in ["已完成", "冷卻中"]:
 		var ending: Dictionary = q.outcomes.get(str(p.quests_done[q.id]), {})
 		body.add_child(ui.paragraph("已完成 · " + str(ending.get("label", "獎勵已領取")), ui.GOLD))
+		if Guide.cooldown_left(p, q) > 0: body.add_child(ui.paragraph(Guide.accept_reason(p, q, tick), ui.GOLD))
 		return
 	if not p.learning_quests.has(q.id):
 		body.add_child(ui.paragraph(q.stages[0].log, ui.TEXT))
 		body.add_child(ui.paragraph("發起人：%s\n所在：%s" % [giver.name, giver.place]))
-		var reason := Guide.support_reason(q)
-		if reason == "": reason = Training.check(p, q.conditions, tick)
+		var reason := Guide.accept_reason(p, q, tick)
 		if reason != "": body.add_child(ui.paragraph("暫時不能接取：" + reason, ui.GOLD))
 		if giver.place != p.place:
 			ui.button("前往接任務 · " + str(giver.name), func(): ui._navigate(giver.place), body)
@@ -137,6 +138,18 @@ static func quest_details(ui, body: VBoxContainer, p: Dictionary, q: Dictionary,
 	var stage: Dictionary = q.stages[int(state.stage)]
 	ui_label(ui, body, "第 %d/%d 步 · %s" % [int(state.stage) + 1, q.stages.size(), stage.title])
 	body.add_child(ui.paragraph(stage.log, ui.TEXT))
+	if int(state.stage) == 0 and state.get("dialogue", "") == "" and q.dialogues.has("d_offer"):
+		if giver.place == p.place: ui.action("重新詢問發起人", "任務緣起", q.id, body)
+		else: ui.button("回發起人重新詢問", func(): ui._navigate(giver.place), body)
+	for a in stage.get("room_actions", []):
+		var reason := Training.check(p, a.get("requires", []), tick)
+		if not a.get("hours", []).is_empty() and Training.check(p, [{"type": "hour_in", "hours": a.hours}], tick) != "": reason = "時辰需要：" + "、".join(a.hours)
+		if a.room != p.place:
+			ui.button("前往「%s」· %s" % [a.label, a.room], func(): ui._navigate(a.room), body)
+		else:
+			var interact: Button = ui.action(a.label, "任務場景", q.id + "|" + a.id, body)
+			interact.disabled = reason != "" or not p.enemy.is_empty() or int(p.fight) != 0 or (not a.get("repeat", true) and state.get("room_used", {}).has(a.id))
+		if reason != "": body.add_child(ui.paragraph(reason, ui.GOLD))
 	if state.get("dialogue", "") != "":
 		var npc: Dictionary = Data.NPCS.get(state.get("npc", ""), {})
 		if npc.get("place", p.place) != p.place:
@@ -157,6 +170,10 @@ static func quest_details(ui, body: VBoxContainer, p: Dictionary, q: Dictionary,
 			continue
 		var place := Guide.place_of(stage, o)
 		body.add_child(ui.paragraph("下一步：" + str(o.get("text", o.type)), ui.TEXT))
+		if o.has("dungeon"): ui.button("開啟副本 · " + str(Data.DUNGEONS[o.dungeon].name), func(): ui.selected_dungeon = o.dungeon; ui.open_page(8), body)
+		if o.type == "KILL":
+			body.add_child(ui.paragraph("已擊敗 %d/%d" % [int(state.get("counts", {}).get(o.id, 0)), int(o.get("count", 1))]))
+			continue
 		var reason := Guide.objective_reason(p, stage, o, tick, state)
 		if place != "" and place != p.place:
 			ui.button("前往 · " + place, func(): ui._navigate(place), body)

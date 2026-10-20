@@ -17,7 +17,7 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 
 | Explore | Meet | Collect | Challenge |
 | :---: | :---: | :---: | :---: |
-| **270** connected locations | **292** NPCs with distinct dialogue | **174** items | **137** enemy types |
+| **270** connected locations | **293** NPCs with distinct dialogue | **174** items | **137** enemy types |
 | **11** sects | **12** character storylines | **124** martial arts | **71** artifact commissions |
 
 ## 接任務、買補給，從這裡開始
@@ -31,6 +31,27 @@ The permanent top bar puts **任務 · 商店 · 行囊** within one click. You 
 ![Quest journal with conversation choices, progress and next actions](docs/screenshots/quests.png)
 
 ![A dedicated shop with item details, quantity and the exact transaction price](docs/screenshots/shop.png)
+
+## 任務與副本，開始下一段江湖
+
+**20 new source stories** include 金盆洗手上下篇、雲兒、尋找楊康、程清霜送藥、清為尋木、全真送信 and 雁門關拓印. Quest pages now expose scene actions, timed encounters, collection and kill progress. Repeatable quests show cooldowns and retain their completion history.
+
+Open **副本**, choose an entrance and travel there. Solo players can enter directly; parties gather at the entrance and let the leader create the instance. **Every member must ready up before each stage.** Heal between stages, use your own medicine to aid a teammate, and finish all three stages for automatic rewards.
+
+| Instance | Entrance | Required 實戰 | Suggested martial level |
+| --- | --- | ---: | --- |
+| 黑風寨剿匪 | 黑風林 | 0 | 5 |
+| 銅人試陣 | 少林寺・羅漢堂 | 1,000 | 15–25 |
+| 血刀密窟 | 血刀門・密室 | 4,000 | 25–35 |
+| 高昌秘窟 | 高昌・高昌迷宮外 | 12,250 | 40+ |
+
+![Four dungeon choices with entrance, requirements, encounters and rewards](docs/screenshots/dungeons.png)
+
+Each remaining participant receives one clear reward; the first clear also grants a bonus item and learning points. Cooldowns last 10–30 real minutes. Leaving or losing grants no partial clear reward. Awarded items, clear history and cooldowns persist; unfinished instances reset on reconnect. These are simulator adaptations; the bronze trial does not replace the original sect graduation exam.
+
+![An active text dungeon with stage progress, combat and party controls](docs/screenshots/dungeon-combat.png)
+
+Four linked **討伐委託** are available from 揚州城's 江湖懸賞使. Their quest panels link directly to the dungeon page. Complete the instance, then return to the quest journal for the separate bounty.
 
 ## Learn the art. Find your way.
 
@@ -55,7 +76,7 @@ Choose a result to **start travelling immediately**. The world page shows the de
 
 Instruction now spends **one point for proficiency**, rather than granting a full level. Self-study spends **three points every five seconds**, with no credit for an interrupted cycle. Train 讀書識字 to improve 悟性, build lifetime 實戰, meet the teacher's prerequisites, and complete learning events to unlock advanced arts. The 武功 page shows what is missing.
 
-The **29 imported quest definitions** include recommendation letters, conversations, items, trials and learning rewards. Some special steps and missing historical events remain unavailable and are marked as such. External, internal, lightness and parry arts have separate selections; combat includes corresponding basic skills, equipment scaling, dodge, move unlocks and inner-power costs.
+The **49 imported quest definitions** include recommendation letters, conversations, items, trials and learning rewards. This release verifies 26 complete primary quest paths, including the new stories and four previously blocked routes. It does not claim all reference quests or every branch are complete. External, internal, lightness and parry arts have separate selections; combat includes corresponding basic skills, equipment scaling, dodge, move unlocks and inner-power costs.
 
 See the [research and implementation audit](docs/RESTORATION.md) for sources, historical differences and reconstructed coefficients. This build does not claim exact official-server parity.
 
@@ -94,7 +115,7 @@ Keep the bundled DLLs and `steam_appid.txt` next to the EXE. The game opens in s
 | **F3** | 尋敵 · seek enemies | **F7** | Player interactions |
 | **F4** | Use 金創藥 | **F8** | Music & connections |
 
-**Ctrl+1–8** opens 江湖、任務、商店、行囊、武學、地圖、人際、系統; **Esc** returns to the world. The command line also accepts commands such as `拜師 武當`, `自修 基本內功`, `掛機 刷怪`, and `幫助`.
+**Ctrl+1–9** opens 江湖、任務、副本、商店、行囊、武學、地圖、人際、系統; **Esc** returns to the world. The command line also accepts commands such as `拜師 武當`, `自修 基本內功`, `掛機 刷怪`, and `幫助`.
 
 ## Play with friends
 
@@ -132,7 +153,7 @@ The standalone Windows game saves to:
 %APPDATA%\Godot\app_userdata\網金游俠模擬器\
 ```
 
-Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat and incomplete study cycles reset on load. Everyone in a multiplayer session must use **v0.4.1 / protocol 5**.
+Progress saves every 30 seconds, on F5, and on exit. A `.bak` copy supports recovery from a damaged main save. Music preferences are separate from character progress. Older characters retain learned levels and items; within-level progress migrates proportionally to the new curve. Travel, combat, unfinished dungeon runs and incomplete study cycles reset on load. Awarded dungeon rewards and clear records persist. Quest waits retain elapsed world time; repeat cooldowns use real time. Everyone in a multiplayer session must use **v0.5.0 / protocol 6**.
 
 ## Build from source
 
@@ -163,7 +184,7 @@ The launcher isolates development saves and editor caches under `.tools/`; they 
 | Classic UI and controls | [`scripts/classic/`](scripts/classic/) |
 | World catalog and stories | [`data/`](data/) |
 
-See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.4.1.md) for this build.
+See the [development and gameplay manual](docs/DEVELOPMENT.md) for controls, the [restoration audit](docs/RESTORATION.md) for formulas and evidence, and [release notes](docs/releases/v0.5.0.md) for this build.
 
 ## Project notes & credits
 
