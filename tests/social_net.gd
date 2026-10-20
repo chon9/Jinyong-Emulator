@@ -36,7 +36,8 @@ func run() -> void:
 	session = root.get_node("Session")
 	session.message.connect(_message)
 	if host:
-		session.host_lan()
+		if "--websocket-test" in OS.get_cmdline_user_args(): session.host_websocket()
+		else: session.host_lan()
 		session.guest_saves.clear()
 		session.world.add_player(1, "聯機隊長")
 		session.world.players[1].auto_heal = false
@@ -44,7 +45,8 @@ func run() -> void:
 		check(private_received, "Host receives directed private chat")
 		check(session.world.social.battles.is_empty(), "No orphan multiplayer battles")
 	else:
-		session.join_lan("127.0.0.1")
+		if "--websocket-test" in OS.get_cmdline_user_args(): session.join_websocket("ws://127.0.0.1:24781")
+		else: session.join_lan("127.0.0.1")
 		if not await wait_until(func(): return not session.state.is_empty(), "Client connected"): finish(); return
 		await tx("說", "SYNC_MARTIAL")
 		await wait_until(func(): return session.state.player.skills.has("基本劍法"), "Martial fixture replicated from host")

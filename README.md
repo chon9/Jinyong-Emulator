@@ -3,6 +3,7 @@
 <p align="center">A text-driven wuxia RPG with classic Chinese MMO styling, martial-arts progression, and multiplayer adventures.</p>
 <p align="center">
   <a href="https://github.com/chon9/Jinyong-Emulator/releases/latest">Download Windows</a> ·
+  <a href="https://youxia-jianghu-web.alexchon911.chatgpt.site">瀏覽器版（私人）</a> ·
   <a href="#play-with-friends">Play with friends</a> ·
   <a href="docs/DEVELOPMENT.md">開發與玩法手冊</a>
 </p>
@@ -14,6 +15,18 @@
 拜入師門，向師父消點學藝，或獨自推敲一式一招。出城刷怪、尋訪故人、解開江湖故事；倦了就在山門打坐，等朋友一起上路。
 
 The world is described through text. Landscape art, parchment scrolls, jade frames, lantern menus, and music give it the feel of a classic wuxia client. Every button leads to the same game rules, whether you play alone or host friends.
+
+## 在瀏覽器展開江湖
+
+The existing Godot game now also runs in a browser, hosted with Sites. It keeps the same game rules, classic interface, content and five BGM tracks. Open the [browser edition](https://youxia-jianghu-web.alexchon911.chatgpt.site) and choose **進入江湖**. The Site is currently private to its owner.
+
+The first visit downloads roughly **46 MB** including the engine, game and artwork. Use a modern WebGL 2 browser; the classic interface works best on a desktop or a tablet in landscape. Browser saves stay in IndexedDB. The top toolbar can **匯出存檔／匯入存檔**, including Windows character backups. Clearing browser storage can remove progress; inactive tabs can pause automation.
+
+![The original Godot game running inside a browser with save backup controls](docs/screenshots/browser-game.png)
+
+Single-player quests, sect learning, dungeons and life skills use the existing engine. Multiplayer uses **WebSocket**, with the same authoritative game host and RPC rules. The Site does **not** include a cloud game host, and browser clients cannot use Steam or UDP LAN transport. Run a native WebSocket host and enter its **wss://** address under **系統**. Native LAN and Steam support remain available in native builds.
+
+See [browser export, saves and hosting](docs/WEB.md) for the build workflow, verification and current limits.
 
 | Explore | Meet | Collect | Challenge |
 | :---: | :---: | :---: | :---: |

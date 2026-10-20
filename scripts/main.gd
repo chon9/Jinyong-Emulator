@@ -77,6 +77,7 @@ var life_recipe := ""
 var life_count := 10
 var life_rest := true
 var life_timer: Label
+var browser_status := ""
 
 func _ready() -> void:
 	_build_theme()
@@ -202,6 +203,11 @@ func _refresh() -> void:
 	var seconds: int = Session.state.tick
 	clock_label.text = "江湖第 %d 日 · %s時 · 第 %d 息    %d 人在線" % [seconds / 1440 + 1, ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"][posmod(seconds / 120, 12)], seconds % 1440, Session.state.roster.size()]
 	var selected := tabs.get_tab_title(tabs.current_tab)
+	if OS.has_feature("web"):
+		var summary := str([p.name, p.place, selected, Session.mode])
+		if summary != browser_status:
+			browser_status = summary
+			JavaScriptBridge.get_interface("window").youxiaSetStatus(p.name, p.place, selected, Session.mode)
 	for index in nav_buttons: nav_buttons[index].set_pressed_no_signal(tabs.current_tab == index)
 	_classic_workspace(selected, p.place)
 	var signature := "static"
@@ -684,6 +690,24 @@ func _build_network(body: VBoxContainer) -> void:
 	character_name.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	identity.add_child(character_name)
 	button("更改名號", func(): Session.send("改名", character_name.text), identity)
+	if OS.has_feature("web"):
+		body.add_child(label("瀏覽器角色存檔", 17, GOLD))
+		body.add_child(paragraph("進度保存在這個瀏覽器，建議定期匯出備份。關閉分頁後停止掛機；瀏覽器背景分頁亦可能暫停計時。"))
+		var saves := row(body)
+		button("匯出角色備份", func(): Session.export_save(), saves)
+		button("匯入角色存檔", func(): JavaScriptBridge.get_interface("window").youxiaChooseSave(), saves)
+		if not OS.is_userfs_persistent(): body.add_child(paragraph("目前瀏覽器未提供持久儲存；離開前請匯出角色備份。", GOLD))
+	body.add_child(label("WebSocket 聯機", 17, GOLD))
+	var web_connect := row(body)
+	var web_address := LineEdit.new()
+	web_address.placeholder_text = "wss://房主網址"
+	web_address.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	web_connect.add_child(web_address)
+	button("連接房主", func(): Session.join_websocket(web_address.text), web_connect)
+	if not OS.has_feature("web"): button("WebSocket 開房 · 24781", func(): Session.host_websocket(), body)
+	body.add_child(paragraph("需有運行中的 WebSocket 房主。房主計算規則並保存訪客角色；網頁版不使用 Steam。HTTPS 網頁需連接 wss://。目前網站提供單機遊玩，未內建雲端房主。"))
+	button("返回單機江湖", func(): Session.start_offline(), body)
+	if OS.has_feature("web"): return
 	body.add_child(label("Steam / Spacewar 480", 17, GOLD))
 	var steam_row := row(body)
 	button("Steam 開房", func(): Session.host_steam(), steam_row)
@@ -742,6 +766,10 @@ func _render_log() -> void:
 	log_view.text = "\n".join(lines)
 
 func _command(value: String) -> void:
+	if value.begins_with("網頁聯機 ") or value.begins_with("web "):
+		Session.join_websocket(value.split(" ", false, 1)[1])
+		command_line.clear()
+		return
 	var text := value.strip_edges()
 	if text == "": return
 	command_line.clear()

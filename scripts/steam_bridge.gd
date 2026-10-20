@@ -14,6 +14,9 @@ var pending_at := 0
 const TAG := "youxia_text_v7"
 
 func _ready() -> void:
+	if OS.has_feature("web"):
+		status = "瀏覽器版 · 本機存檔"
+		return
 	if "--no-steam" in OS.get_cmdline_user_args():
 		status = "Steam 已停用（測試模式）"
 		return

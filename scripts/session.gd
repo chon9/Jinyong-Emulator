@@ -20,6 +20,8 @@ var local_id := ""
 var save_path := SAVE
 var local_tick := 0
 var saved_clock := false
+var save_import_callback: JavaScriptObject
+var save_export_callback: JavaScriptObject
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -47,6 +49,12 @@ func _ready() -> void:
 	SteamBridge.invited.connect(join_steam)
 	_load()
 	start_offline()
+	if OS.has_feature("web"):
+		save_import_callback = JavaScriptBridge.create_callback(_browser_import)
+		JavaScriptBridge.get_interface("window").youxiaImportSave = save_import_callback
+		save_export_callback = JavaScriptBridge.create_callback(func(_args: Array): export_save())
+		JavaScriptBridge.get_interface("window").youxiaExportSave = save_export_callback
+		get_tree().root.focus_exited.connect(func(): save_game())
 	var timer := Timer.new()
 	timer.wait_time = 1.0
 	timer.timeout.connect(_tick)
@@ -156,6 +164,9 @@ func start_offline() -> void:
 	_publish()
 
 func host_lan() -> void:
+	if OS.has_feature("web"):
+		message.emit("系統", "瀏覽器請使用 WebSocket 聯機，無法建立 UDP 區網房間。")
+		return
 	_disconnect()
 	var peer := ENetMultiplayerPeer.new()
 	var error := peer.create_server(PORT, 7)
@@ -172,6 +183,9 @@ func host_lan() -> void:
 	_publish()
 
 func join_lan(address: String) -> void:
+	if OS.has_feature("web"):
+		message.emit("系統", "瀏覽器請使用 WebSocket 聯機網址。")
+		return
 	_disconnect()
 	var peer := ENetMultiplayerPeer.new()
 	var error := peer.create_client(address.strip_edges(), PORT)
@@ -185,6 +199,90 @@ func join_lan(address: String) -> void:
 	status = "正在連線 " + address
 	joining_at = Time.get_ticks_msec()
 	updated.emit()
+
+func host_websocket(port: int = 24781, bind_address: String = "*") -> Error:
+	if OS.has_feature("web"): return ERR_UNAVAILABLE
+	_disconnect()
+	var peer := WebSocketMultiplayerPeer.new()
+	var error := peer.create_server(port, bind_address)
+	if error != OK:
+		_network_failed("WebSocket 開房失敗：" + error_string(error))
+		return error
+	multiplayer.multiplayer_peer = peer
+	mode = "WebSocket 主機"
+	status = "WebSocket 主機 · TCP %d" % port
+	_restore(1, local_character)
+	connected = true
+	_publish()
+	return OK
+
+func join_websocket(url: String) -> void:
+	url = url.strip_edges()
+	if not url.begins_with("wss://") and not url.begins_with("ws://"):
+		message.emit("系統", "請輸入 ws:// 或 wss:// 開頭的房主網址。")
+		return
+	if OS.has_feature("web") and JavaScriptBridge.get_interface("window").location.protocol == "https:" and not url.begins_with("wss://"):
+		message.emit("系統", "此頁使用 HTTPS，請連接 wss:// 加密房主網址。")
+		return
+	_disconnect()
+	var peer := WebSocketMultiplayerPeer.new()
+	var error := peer.create_client(url)
+	if error != OK:
+		_network_failed("WebSocket 連線失敗：" + error_string(error))
+		return
+	multiplayer.multiplayer_peer = peer
+	mode = "WebSocket 客戶端"
+	status = "正在連線 WebSocket 房主"
+	joining_at = Time.get_ticks_msec()
+	updated.emit()
+
+func export_save() -> void:
+	if mode.ends_with("客戶端"):
+		message.emit("系統", "聯機角色由房主保存；返回單機後可匯出自己的角色。")
+		return
+	if not save_game():
+		message.emit("系統", "存檔失敗，請稍後重試。")
+		return
+	if OS.has_feature("web"):
+		var payload := JSON.stringify({"version": 1, "character": local_character, "world_tick": local_tick})
+		JavaScriptBridge.get_interface("window").youxiaDownloadSave(payload)
+	else: message.emit("系統", "存檔位置：" + ProjectSettings.globalize_path(save_path))
+
+func import_save_text(text: String) -> bool:
+	if mode != "單機":
+		message.emit("系統", "請先返回單機，再匯入角色存檔。")
+		return false
+	if text.length() > 2 * 1024 * 1024: return false
+	var data: Variant = JSON.parse_string(text)
+	if not data is Dictionary or data.get("version") != 1 or not data.get("character") is Dictionary:
+		message.emit("系統", "這不是相容的網金游俠存檔。")
+		return false
+	var character: Dictionary = data.character
+	var clock: Variant = data.get("world_tick", 0)
+	if not (clock is int or clock is float) or not is_finite(float(clock)) or float(clock) < 0 or float(clock) > 1000000000000: return false
+	# Reject malformed containers before trusted local-save migration touches nested fields.
+	var defaults := Rules.new().add_player(1)
+	for field in character:
+		if defaults.has(field) and defaults[field] is Dictionary and not character[field] is Dictionary: return false
+		if defaults.has(field) and (defaults[field] is int or defaults[field] is float):
+			var value: Variant = character[field]
+			if not (value is int or value is float) or not is_finite(float(value)) or absf(float(value)) > 1000000000000: return false
+	for field in ["skills", "skill_xp", "inventory", "life_levels", "life_prof", "attrs"]:
+		for value in character.get(field, {}).values():
+			if not (value is int or value is float) or not is_finite(float(value)) or float(value) < 0 or float(value) > 1000000000000: return false
+	save_game()  # Preserve the previous character in the regular backup.
+	local_character = character
+	local_tick = maxi(0, int(data.get("world_tick", 0)))
+	saved_clock = data.has("world_tick")
+	world.tick = local_tick
+	_restore(1, character)
+	save_game()
+	_publish()
+	message.emit("系統", "已匯入角色存檔；未完成的戰鬥、行程及掛機已停止。")
+	return true
+
+func _browser_import(args: Array) -> void:
+	if args.size() == 1 and not import_save_text(str(args[0])): message.emit("系統", "存檔內容不相容，未替換目前角色。")
 
 func host_steam() -> void:
 	if not SteamBridge.ready_for_network():
@@ -242,6 +340,9 @@ func _register(title: String, token: String, protocol: int = 0) -> void:
 	var id := multiplayer.get_remote_sender_id()
 	if id <= 1 or world.players.has(id): return
 	if protocol != PROTOCOL:
+		multiplayer.multiplayer_peer.disconnect_peer(id)
+		return
+	if world.players.size() >= 8:
 		multiplayer.multiplayer_peer.disconnect_peer(id)
 		return
 	# Steam 使用傳輸層驗證的 SteamID。區網以本機安裝代碼識別，適用信任的朋友。
