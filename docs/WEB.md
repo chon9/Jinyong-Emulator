@@ -1,6 +1,8 @@
 # 網金游俠瀏覽器版
 
-入口：[瀏覽器江湖](https://youxia-jianghu-web.alexchon911.chatgpt.site)。目前是 Sites 的私人部署，只有擁有者可開啟。按「進入江湖」載入遊戲，第一次下載連同地景約 46 MB。
+入口：[瀏覽器江湖](https://jy.chon9.com)。目前使用擁有者設定的公開網址。按「進入江湖」載入遊戲，第一次下載連同地景約 46 MB。首頁和遊戲上方都提供 Windows 最新版下載入口，固定連到 GitHub 的最新 Release，不綁定特定版本。
+
+網頁 BGM 使用 Godot 串流播放，修正預設 Sample 播放模式啟動音樂卻沒有聲音的問題。「系統／F8」可調整音量、靜音與選擇曲目。測試直接測量瀏覽器音訊輸出，涵蓋五首曲目與靜音／音量控制。
 
 這是現有 Godot 4.6.3 遊戲的 WebAssembly 匯出，沒有另外重寫武學、任務、副本或生活規則。畫面沿用經典客戶端，主要適合電腦與平板橫向操作；不是手機原生介面的重製。需要 WebAssembly 與 WebGL 2，建議新版 Chrome、Edge 或 Firefox。採用單執行緒模板，不需要 SharedArrayBuffer 或跨來源隔離標頭。[Godot 官方 Web 匯出說明](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html)。
 
@@ -32,6 +34,7 @@ Sites 目前只承載瀏覽器遊戲檔案，沒有內建雲端房主。瀏覽�
 python tools/fetch_web_templates.py
 .\tools\export_web.ps1
 python tests/browser_web_test.py
+python tests/browser_audio_test.py
 .\tools\test.ps1 -WebSocketNetwork -NetworkOnly
 python tools/check_web_sensitive.py
 ```
@@ -40,7 +43,7 @@ python tools/check_web_sensitive.py
 
 原始匯出位於 `build/web-raw`；網站檔案位於 `sites/youxia-web/dist`。引擎與 PCK 以 gzip 壓縮並分割成最多 8 MiB 的內容雜湊分塊，啟動器逐塊檢查 SHA-256、解壓後再驗證完整檔案，交給 Godot 原本的載入器。沒有外部資源代理或 Service Worker。重新匯出會更新分塊名稱，避免舊資源快取與新版本混用。
 
-Sites 的 project ID 保存在 `sites/youxia-web/.openai/hosting.json`，來源同步、打包與私人發布使用 Sites 官方技能流程。同一個網站應沿用此 ID，不要重複建立。部署檔與 Sites 來源 Git 目錄不提交到遊戲 GitHub 原始碼庫，網站只發送明確的靜態成品。
+Sites 的 project ID 保存在 `sites/youxia-web/.openai/hosting.json`，來源同步、打包與發布使用 Sites 官方技能流程，沿用網站目前的公開權限與自訂網域。同一個網站應沿用此 ID，不要重複建立。部署檔與 Sites 來源 Git 目錄不提交到遊戲 GitHub 原始碼庫，網站只發送明確的靜態成品。
 
 ## 已驗證
 

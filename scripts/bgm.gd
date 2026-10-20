@@ -33,6 +33,8 @@ func _ready() -> void:
 		AudioServer.set_bus_send(index, "Master")
 	for i in 2:
 		var player := AudioStreamPlayer.new()
+		# Route Web MP3s through the mixer so the Music bus and fades remain audible.
+		if OS.has_feature("web"): player.playback_type = AudioServer.PLAYBACK_TYPE_STREAM
 		player.bus = "Music"
 		player.volume_db = SILENT
 		add_child(player)

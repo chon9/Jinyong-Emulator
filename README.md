@@ -3,7 +3,7 @@
 <p align="center">A text-driven wuxia RPG with classic Chinese MMO styling, martial-arts progression, and multiplayer adventures.</p>
 <p align="center">
   <a href="https://github.com/chon9/Jinyong-Emulator/releases/latest">Download Windows</a> ·
-  <a href="https://youxia-jianghu-web.alexchon911.chatgpt.site">瀏覽器版（私人）</a> ·
+  <a href="https://jy.chon9.com">瀏覽器版</a> ·
   <a href="#play-with-friends">Play with friends</a> ·
   <a href="docs/DEVELOPMENT.md">開發與玩法手冊</a>
 </p>
@@ -18,7 +18,7 @@ The world is described through text. Landscape art, parchment scrolls, jade fram
 
 ## 在瀏覽器展開江湖
 
-The existing Godot game now also runs in a browser, hosted with Sites. It keeps the same game rules, classic interface, content and five BGM tracks. Open the [browser edition](https://youxia-jianghu-web.alexchon911.chatgpt.site) and choose **進入江湖**. The Site is currently private to its owner.
+The existing Godot game now also runs in a browser, hosted with Sites. It keeps the same game rules, classic interface, content and five BGM tracks. Open the [browser edition](https://jy.chon9.com) and choose **進入江湖**. The homepage and persistent toolbar include a Windows download link that follows the latest GitHub release.
 
 The first visit downloads roughly **46 MB** including the engine, game and artwork. Use a modern WebGL 2 browser; the classic interface works best on a desktop or a tablet in landscape. Browser saves stay in IndexedDB. The top toolbar can **匯出存檔／匯入存檔**, including Windows character backups. Clearing browser storage can remove progress; inactive tabs can pause automation.
 
