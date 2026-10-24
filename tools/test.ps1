@@ -1,10 +1,10 @@
-param([string]$Godot = 'K:\Godot\Godot_v4.6.3-stable_win64_console.exe', [switch]$SocialNetwork, [switch]$DungeonNetwork, [switch]$NetworkOnly, [switch]$WebSocketNetwork)
+﻿param([string]$Godot = 'K:\Godot\Godot_v4.6.3-stable_win64_console.exe', [switch]$SocialNetwork, [switch]$DungeonNetwork, [switch]$NetworkOnly, [switch]$WebSocketNetwork)
 $ErrorActionPreference = 'Stop'
 $youxiaRoot = Split-Path -Parent $PSScriptRoot
 $env:APPDATA = Join-Path $youxiaRoot '.tools\appdata'
 $env:LOCALAPPDATA = Join-Path $youxiaRoot '.tools\localappdata'
 New-Item -ItemType Directory -Path (Join-Path $youxiaRoot 'test-results'),$env:APPDATA,$env:LOCALAPPDATA -Force | Out-Null
-$youxiaSuites = if ($NetworkOnly) { @() } else { @('journey_test.gd','journey_ui_test.gd','world_test.gd','martial_test.gd','restoration_test.gd','social_test.gd','bgm_test.gd','ui_test.gd','ui_flow_test.gd','quest_paths_test.gd','quest_save_test.gd','dungeon_test.gd','dungeon_ui_test.gd','life_test.gd','life_ui_test.gd','web_save_test.gd') }
+$youxiaSuites = if ($NetworkOnly) { @() } else { @('journey_expansion_test.gd','journey_test.gd','journey_ui_test.gd','journey_activities_test.gd','world_test.gd','martial_test.gd','restoration_test.gd','social_test.gd','bgm_test.gd','ui_test.gd','ui_flow_test.gd','quest_paths_test.gd','quest_save_test.gd','dungeon_test.gd','dungeon_ui_test.gd','life_test.gd','life_ui_test.gd','web_save_test.gd') }
 foreach ($youxiaSuite in $youxiaSuites) {
     & $Godot --headless --path $youxiaRoot --script "res://tests/$youxiaSuite" -- --no-steam --test-profile=unit
     if ($LASTEXITCODE -ne 0) { throw "Failed: $youxiaSuite" }

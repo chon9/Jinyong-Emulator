@@ -1,12 +1,24 @@
 extends RefCounted
 ## A separate campaign namespace: legacy characters and multiplayer stay intact.
 const HEROES := {
+	"blade":{"name":"燕行舟","role":"刀客 · 橫掃破陣","art":"actor_blade","hp":470,"atk":89,"def":22,"speed":72,"qi":7,"lane":1,"front":true,"outer":"斷浪刀法","inner":"吐納功","light":"雁行步","bio":"曾替牛家村押送糧車的鏢師。你替他找回鏢單後，他願再押一次自己的前程。","talent":"斷浪：橫掃同路前後排，以高攻擊壓垮守陣。","sprite":"blade"},
+	"palm":{"name":"裴照","role":"掌師 · 破甲開路","art":"actor_elder","hp":590,"atk":68,"def":31,"speed":67,"qi":10,"lane":0,"front":true,"outer":"碎碑掌","inner":"金鐘心法","light":"雁行步","bio":"襄陽守城義士，半生掌力用來搬石築牆。他願隨你上路，因為江湖不能只有城裡的人得救。","talent":"碎碑：掌勁破甲，替後續刀劍製造進攻空隙。","sprite":"elder"},
+	"doctor":{"name":"溫梨","role":"醫者 · 快手解毒","art":"actor_healer","hp":340,"atk":63,"def":14,"speed":88,"qi":13,"lane":2,"front":false,"outer":"素問指","inner":"長春功","light":"踏雪步","bio":"無錫藥鋪夥計，能背出每箱藥材的去處。空箱案了結後，她決意把學到的醫術帶去更遠的地方。","talent":"素問：高聚氣、先手療傷，解去同伴的毒血。","sprite":"healer"},
+	"taoist":{"name":"宋知白","role":"道劍 · 制敵斷招","art":"actor_taoist","hp":410,"atk":80,"def":25,"speed":84,"qi":9,"lane":0,"front":false,"outer":"兩儀劍法","inner":"吐納功","light":"踏雪步","bio":"武當松下的道人。你在試劍時收住追擊，他才相信，你的劍會為該守的人停下。","talent":"兩儀：劍鋒截脈，封住敵手一次行動並打斷蓄力。","sprite":"taoist"},
+	"monk":{"name":"明照","role":"杖衛 · 厚甲封招","art":"actor_staff","hp":800,"atk":65,"def":39,"speed":55,"qi":6,"lane":2,"front":true,"outer":"伏魔杖法","inner":"金鐘心法","light":"雁行步","bio":"少林護院僧，見你替同伴擋下一棍，便問可否同行。他說，護院之外還有更大的院子。","talent":"伏魔：厚血重甲，杖法能打斷首領；聚氣較慢。","sprite":"staff"},
+	"wanderer":{"name":"葉停雲","role":"遊劍 · 越陣追命","art":"actor_wanderer","hp":390,"atk":105,"def":16,"speed":110,"qi":9,"lane":1,"front":false,"outer":"逐月劍法","inner":"吐納功","light":"踏雪步","bio":"守在華山崖邊的劍客，一直想找到比勝負更值得出劍的事。你帶來的青溪故事給了他答案。","talent":"逐月：高速度、高攻擊，越過前排直取脆弱目標。","sprite":"wanderer"},
 	"hero": {"name":"無名少俠", "role":"劍客 · 破綻追擊", "art":"unit_player_m", "hp":430, "atk":72, "def":23, "speed":76, "qi":8, "lane":1, "front":true, "outer":"青山劍訣", "inner":"吐納功", "light":"雁行步", "bio":"你帶著一封無字的舊信來到青溪。信紙裡，藏著父親最後一次押鏢的去向。", "talent":"趁隙：攻擊流血或破甲目標，傷害增加 30%。"},
 	"sword": {"name":"顧長風", "role":"快劍 · 越陣點穴", "art":"unit_huashan_m", "hp":350, "atk":75, "def":17, "speed":93, "qi":9, "lane":2, "front":false, "outer":"落英劍法", "inner":"吐納功", "light":"雁行步", "bio":"被鏢局除名的年輕劍客。他嘴上說只為討薪，卻一直守著失鏢者的家人。", "talent":"疾劍：全隊最快的出手，飛燕穿雲可以越過前排。"},
 	"healer": {"name":"沈青棠", "role":"醫者 · 清毒續航", "art":"unit_emei_f", "hp":360, "atk":48, "def":18, "speed":81, "qi":11, "lane":1, "front":false, "outer":"回春掌", "inner":"長春功", "light":"踏雪步", "bio":"青溪藥廬的醫者。她在運回的藥箱裡發現暗記，決意親自查明真相。", "talent":"仁心：回春拂穴治療最低氣血的同伴，並解除中毒與流血。"},
 	"staff": {"name":"陸衡", "role":"棍衛 · 護陣斷招", "art":"unit_shaolin_m", "hp":620, "atk":57, "def":35, "speed":61, "qi":8, "lane":0, "front":true, "outer":"伏虎棍法", "inner":"金鐘心法", "light":"雁行步", "bio":"在渡口幫工的少林俗家弟子。師父說護住眼前的人，比爭論正邪更難。", "talent":"定海：金剛截脈可打斷蓄力；守勢能替後排承受攻擊。"}
 }
 const ARTS := {
+	"斷浪刀法":{"slot":"outer","weapon":"刀","skill":"怒潮斷浪","cost":75,"cd":2,"kind":"cleave","power":1.5,"text":"同路前後排各受 150% 傷害。燕行舟的破陣刀法。"},
+	"碎碑掌":{"slot":"outer","weapon":"拳掌","skill":"震岳摧碑","cost":50,"cd":2,"kind":"break","power":1.5,"text":"單體 150% 傷害，破甲三次行動。"},
+	"素問指":{"slot":"outer","weapon":"拳掌","skill":"素問回陽","cost":50,"cd":2,"kind":"heal","power":2.9,"text":"治療最低氣血同伴，解除中毒和流血。"},
+	"兩儀劍法":{"slot":"outer","weapon":"劍","skill":"兩儀截脈","cost":50,"cd":3,"kind":"stun","power":1.3,"text":"單體 130% 傷害，封招一次並打斷蓄力。"},
+	"伏魔杖法":{"slot":"outer","weapon":"棍","skill":"伏魔鎮岳","cost":75,"cd":2,"kind":"stun","power":1.7,"text":"單體 170% 傷害，封招一次；消耗較高。"},
+	"逐月劍法":{"slot":"outer","weapon":"劍","skill":"流星逐月","cost":75,"cd":2,"kind":"pierce","power":2.3,"text":"越過前排，對指定敵人造成 230% 傷害。"},
 	"青山劍訣":{"slot":"outer","weapon":"劍","skill":"青山一線","cost":50,"cd":2,"kind":"bleed","power":1.6,"text":"單體 160% 傷害，附加 2 回合流血。主角可接破綻追擊。"},
 	"華山劍法":{"slot":"outer","weapon":"劍","skill":"白雲出岫","cost":75,"cd":2,"kind":"cleave","power":1.35,"text":"橫掃同列敵人，各造成 135% 傷害。需華山入門、劍法三重。"},
 	"武當綿掌":{"slot":"outer","weapon":"拳掌","skill":"綿勁破甲","cost":50,"cd":2,"kind":"break","power":1.4,"text":"單體 140% 傷害，降低防禦 50%，持續 2 回合。"},
@@ -50,7 +62,12 @@ func _init(saved: Dictionary = {}) -> void:
 		state.formation[id] = {"lane":HEROES[id].lane,"front":HEROES[id].front}
 	if valid_save(saved) and not saved.is_empty():
 		for key in state:
-			if saved.has(key): state[key] = saved[key]
+			if key in ["levels","loadouts","formation"]:
+				state[key].merge(saved.get(key,{}),true)
+			elif saved.has(key): state[key] = saved[key].duplicate(true) if saved[key] is Array or saved[key] is Dictionary else saved[key]
+		for key in ["daily","atlas"]:
+			if saved.has(key): state[key] = saved[key].duplicate(true)
+	state.roster = saved.get("roster",state.party).duplicate() if valid_save(saved) else state.party.duplicate()
 	state.study = ""
 
 static func valid_save(value: Variant) -> bool:
@@ -69,14 +86,15 @@ static func valid_save(value: Variant) -> bool:
 	for key in ["levels","loadouts","formation","inventory","flags"]:
 		if not value.get(key) is Dictionary: return false
 	for id in HEROES:
+		if not value.levels.has(id) and not id in ["hero","sword","healer","staff"] and not id in value.party: continue
 		var level: Variant = value.levels.get(id)
-		if not (level is int or level is float) or not is_finite(float(level)) or level < 1 or level > 10: return false
+		if not (level is int or level is float) or not is_finite(float(level)) or level < 1 or level > 30: return false
 		var build: Variant = value.loadouts.get(id)
 		if not build is Dictionary: return false
 		for slot in ["outer","inner","light"]:
 			if not ARTS.has(build.get(slot, "")) or ARTS[build[slot]].slot != slot: return false
 		if id != "hero" and build.outer != HEROES[id].outer: return false
-		if id == "hero" and not build.outer in ["青山劍訣","華山劍法","武當綿掌"]: return false
+
 		var f: Variant = value.formation.get(id)
 		if not f is Dictionary or not f.get("front") is bool: return false
 		if not (f.get("lane") is int or f.get("lane") is float) or not is_finite(float(f.lane)) or float(f.lane) != int(f.lane) or int(f.lane) < 0 or int(f.lane) > 2: return false
@@ -87,6 +105,36 @@ static func valid_save(value: Variant) -> bool:
 	for entry in value.journal:
 		if not entry is String or entry.length() > 500: return false
 	if not value.get("sect", "") in ["未入門","華山","武當","少林"]: return false
+	if value.has("daily"):
+		var daily: Variant = value.daily
+		if not daily is Dictionary or not daily.get("counts") is Dictionary: return false
+		for k in ["day","escort"]:
+			if not daily.get(k) is float and not daily.get(k) is int: return false
+			if not is_finite(float(daily[k])) or daily[k] < 0 or daily[k] > 1000000 or float(daily[k]) != int(daily[k]): return false
+		if daily.escort > 2 or not daily.get("errand","") in ["","青溪客棧","藥廬","古寺"]: return false
+		var limits := {"sect":3,"work":2,"escort":2,"training":3,"gather":5,"dungeon":2}
+		for key in daily.counts:
+			if not limits.has(key): return false
+			var n: Variant = daily.counts[key]
+			if not (n is int or n is float) or not is_finite(float(n)) or n < 0 or n > limits[key] or float(n) != int(n): return false
+	if value.has("atlas"):
+		var atlas: Variant = value.atlas
+		var regions: Dictionary = preload("res://scripts/journey/atlas.gd").REGIONS
+		if not atlas is Dictionary or not regions.has(atlas.get("region","")): return false
+		for key in ["visited","cleared"]:
+			if not atlas.get(key) is Array or atlas[key].size() > regions.size(): return false
+			var known := {}
+			for region in atlas[key]:
+				if not regions.has(region) or known.has(region): return false
+				known[region] = true
+	if value.has("roster"):
+		if not value.roster is Array or value.roster.size() > HEROES.size() or not "hero" in value.roster: return false
+		var members := {}
+		for id in value.roster:
+			if not HEROES.has(id) or members.has(id) or not value.levels.has(id): return false
+			members[id] = true
+		for id in value.party:
+			if not id in value.roster: return false
 	return true
 
 func objective() -> Array:
@@ -121,10 +169,15 @@ func available_outer(id: String) -> Array:
 	var result := ["青山劍訣"]
 	if state.sect == "武當": result.append("武當綿掌")
 	if state.sect == "華山" and state.levels.hero >= 3 and state.flags.get("advanced",false): result.append("華山劍法")
+	for region in preload("res://scripts/journey/atlas.gd").RECRUITS:
+		if region in state.get("atlas",{}).get("cleared",[]):
+			var companion: String = preload("res://scripts/journey/atlas.gd").RECRUITS[region]
+			var art: String = HEROES[companion].outer
+			if not art in result: result.append(art)
 	return result
 
 func equip(id: String, slot: String, art: String) -> String:
-	if not id in state.party or not ARTS.has(art) or ARTS[art].slot != slot: return "武學不相容。"
+	if not id in state.roster or not ARTS.has(art) or ARTS[art].slot != slot: return "武學不相容。"
 	if slot == "outer" and not art in available_outer(id): return "尚未學會這門外功。"
 	state.loadouts[id][slot] = art
 	return "已激發「%s」。兵器隨外功切換為相容類型。" % art
@@ -139,9 +192,9 @@ func position_hero(id: String, lane: int, front: bool) -> void:
 	state.formation[id] = {"lane":lane,"front":front}
 
 func train(id: String, self_study: bool = false) -> String:
-	if not id in state.party: return "同伴尚未加入。"
-	if int(state.levels[id]) >= 10: return "本章修為已達十重。"
-	if not self_study and state.place != "演武坪": return "請到演武坪向師父消點。"
+	if not id in state.roster: return "同伴尚未加入。"
+	if int(state.levels[id]) >= 30: return "修為已達三十重。"
+	if not self_study and (state.place != "演武坪" or state.get("atlas",{}).get("region","嘉興鎮") != "嘉興鎮"): return "請到演武坪向師父消點。"
 	if state.sect == "未入門" and state.levels[id] >= 2: return "先在演武坪選擇師門，再修更深的武學。"
 	var cost := (8 if self_study else 12) + int(state.levels[id]) * 3
 	if state.potential < cost: return "學點不足，需要 %d 點；完成任務或戰鬥可得。" % cost
@@ -150,7 +203,7 @@ func train(id: String, self_study: bool = false) -> String:
 	return "%s武學提升至 %d 重，消耗 %d 學點。" % [HEROES[id].name,state.levels[id],cost]
 
 func trade(item: String, buy: bool) -> String:
-	if state.place != "市集" or not SHOP.has(item): return "請到市集與掌櫃交易。"
+	if state.place != "市集" or state.get("atlas",{}).get("region","嘉興鎮") != "嘉興鎮" or not SHOP.has(item): return "請到市集與掌櫃交易。"
 	if buy:
 		if state.silver < SHOP[item].price: return "銀兩不足。"
 		state.silver -= SHOP[item].price
@@ -220,13 +273,13 @@ func choose(key: String) -> String:
 	if not offered: return "這段對話已經有新的進展。"
 	match key:
 		"recruit_sword":
-			state.party.append("sword")
+			recruit("sword")
 			advance(1,"顧長風加入。斷鏢的主人，曾在渡口出現。")
 		"recruit_healer":
-			state.party.append("healer")
+			recruit("healer")
 			advance(3,"沈青棠加入。藥箱的去向指向蘆葦蕩。")
 		"recruit_staff":
-			state.party.append("staff")
+			recruit("staff")
 			state.potential += 35
 			advance(5,"陸衡加入。密信藏在舊倉，全隊準備迎戰。")
 		"ending":
@@ -268,3 +321,32 @@ func win(encounter: String) -> void:
 	elif encounter == "reeds" and state.stage == 3: advance(4,"鏢師獲救。他說古寺石碑背面留著半封信。戰利品：30 銀、25 學點。")
 	elif encounter == "warehouse" and state.stage == 5: advance(6,"黑風寨主認輸，交出藥材與密信。回客棧與顧長風作最後的交談。")
 	else: record("切磋獲勝，得到 30 銀、25 學點。")
+
+func recruit(id: String) -> void:
+	if not HEROES.has(id) or id in state.roster: return
+	state.roster.append(id)
+	if state.party.size() < 4:
+		state.party.append(id)
+		var free := true
+		for other in state.party:
+			if other != id and int(state.formation[other].lane) == int(state.formation[id].lane) and state.formation[other].front == state.formation[id].front: free = false
+		if free: return
+		for lane in 3:
+			for front in [true,false]:
+				var occupied := false
+				for other in state.party:
+					if other != id and int(state.formation[other].lane) == lane and state.formation[other].front == front: occupied = true
+				if not occupied:
+					state.formation[id] = {"lane":lane,"front":front}
+					return
+
+func swap_companion(id: String, outgoing: String) -> String:
+	if id == "hero" or not id in state.roster or id in state.party: return "請選擇已相識的候補同伴。"
+	if state.party.size() < 4:
+		state.party.append(id)
+		position_hero(id,int(state.formation[id].lane),state.formation[id].front)
+	else:
+		if outgoing == "hero" or not outgoing in state.party: return "先選一位出戰同伴作為換下人選，主角須留隊。"
+		state.formation[id] = state.formation[outgoing].duplicate()
+		state.party[state.party.find(outgoing)] = id
+	return "%s加入出戰隊伍。" % HEROES[id].name

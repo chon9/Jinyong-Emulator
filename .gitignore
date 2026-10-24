@@ -22,5 +22,6 @@ userdata/
 youxia_save.json*
 youxia_identity.cfg
 youxia_music.cfg
+youxia_sfx.cfg
 *.log
 addons/godotsteam/win64/~*.dll

@@ -29,18 +29,24 @@ func shot(name: String) -> void:
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://test-results/journey-"+name+".png")
 
+func wait_navigation() -> void:
+	var deadline := Time.get_ticks_msec()+20000
+	while ui.navigating and Time.get_ticks_msec()<deadline: await process_frame
+	await process_frame
+
 func run() -> void:
 	screenshots = DisplayServer.get_name() != "headless"
 	root.size = Vector2i(1440,900)
 	root.get_node("Session").chapter_data = {}
 	ui=load("res://scenes/journey.tscn").instantiate()
 	root.add_child(ui)
+	while not ui.boot_ready: await process_frame
 	await process_frame
 	await shot("world")
 	await click(Vector2(430,764))
 	check(ui.campaign.state.stage==1,"Visible dialogue button accepts the main story and recruits the swordsman")
 	await click(Vector2(1240,336))
-	await create_timer(1.0).timeout
+	await wait_navigation()
 	check(ui.campaign.state.place=="渡口","Pinned next-step button routes to the quest NPC")
 	await click(Vector2(430,764))
 	check(ui.battle!=null and ui.battle.living(0).size()==2,"Visible NPC action starts the new party battle")
@@ -81,7 +87,7 @@ func run() -> void:
 	ui.set_page("行囊")
 	await process_frame
 	await click(Vector2(220,712))
-	await create_timer(1.2).timeout
+	await wait_navigation()
 	check(ui.campaign.state.place=="市集","Inventory offers direct travel to a working merchant")
 	ui.set_page("行囊")
 	await process_frame

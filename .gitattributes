@@ -3,6 +3,8 @@
 *.ico binary
 *.ttf binary
 *.mp3 binary
+*.ogg binary
+*.webp binary
 *.dll binary
 *.so binary
 assets/fonts/OFL.txt -whitespace

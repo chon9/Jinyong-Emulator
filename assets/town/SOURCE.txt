@@ -1,0 +1,21 @@
+Selected owner-supplied Jinyong Heroes 5 resources, imported for this project at the owner's request.
+
+Town: Map044 geometry, tileset 10047 and panorama 100047, reconstructed into qingxi.webp.
+Only tile geometry, directional passage flags and image references were read from RPG Maker XP data.
+No source event commands, scripts, dialogue, characters' identities, saves or private data were imported.
+Qingxi's named landmarks, NPC roles, quests and interaction points are this project's own adaptation.
+World image: Graphics/Pictures/allmap.png. Its existing geographic labels are retained.
+The world map offers regional dialogue and encounters; only Qingxi currently has a walkable town scene.
+
+Characters: selected clean huashandizi_battle, huashandizi_battle2, tianlongsword2, tianbattle,
+gujianchenbattle, azhu, monk2, wudang, huatiegan, yangguo, oldmonkbattle sheets.
+Original 200px animation cells are registered consistently and cropped into 160px atlas cells.
+Pure magenta XP colour-key pixels become transparent. Frames with corrupt coloured stripes were rejected.
+Character identities and martial builds in this game are original; artwork does not imply original-source identities.
+
+Effects: selected 003-Attack01, 007-Weapon02, 013-Heal02, 023-Burst01 animation sheets.
+Sound effects: 062-Swing01, 089-Attack01, 048-Explosion01, 105-Heal01, 055-Right01.
+Fonts were inspected; the existing LXGW WenKai TC font and its OFL license are retained.
+The existing five JY-Mini OL music tracks remain; see assets/bgm/SOURCE.txt.
+
+This provenance record documents the selected source files; it does not grant ownership of third-party assets.

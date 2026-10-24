@@ -47,6 +47,7 @@ Classic presentation assets adapted with permission from the user's JY-Mini OL p
 - LXGW WenKai TC Regular, distributed under the SIL Open Font License (Font-OFL.txt).
 - Four landscape backgrounds from assets/art/bg.
 - Chapter character idle/attack/hurt poses, river/cave scenery and map parchment from assets/art/units, bg and map.
+- Selected town tiles/panorama, world map, character animation sheets, effects and SFX from the owner-supplied Jinyong Heroes 5 installation; see source repository assets/town/SOURCE.txt. No source scripts, event commands, saves or dialogue were imported.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
 - Five owner-supplied BGM recordings from assets/bgm; see Music-Credits.txt.
 Combat, inventory, party, trade and networking remain the Youxia simulator implementation.

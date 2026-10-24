@@ -33,14 +33,15 @@ func run() -> void:
 		await wait_connected()
 		if session.state.is_empty(): finish(); return
 		check(session.state.roster.size() == 2, "Both players appear in snapshot")
+		var previous_kills := int(session.state.player.get("kills",0))
 		session.send("改名", "測試訪客")
 		session.send("說", "NET_CHAT")
 		session.send("前往", "城郊荒野")
 		session.send("掛機", "刷怪")
-		while elapsed < 15 and int(session.state.get("player", {}).get("kills", 0)) < 1:
+		while elapsed < 15 and (int(session.state.get("player", {}).get("kills", 0)) <= previous_kills or session.state.player.name != "測試訪客"):
 			await create_timer(.25).timeout
 			elapsed += .25
-		check(int(session.state.player.kills) >= 1, "Server battle produces real client rewards")
+		check(int(session.state.player.kills) > previous_kills, "Server battle produces real client rewards")
 		check(session.state.player.name == "測試訪客", "Client rename synchronized")
 		session.send("停止")
 		await create_timer(.3).timeout

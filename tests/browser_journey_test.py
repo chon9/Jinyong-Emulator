@@ -62,8 +62,24 @@ def run():
                 wait('youxiaChapterStatus.place === ' + json.dumps(place))
                 page.wait_for_timeout(900)
 
+            sound_checked = False
+
             def win_battle():
+                nonlocal sound_checked
                 wait('youxiaChapterStatus.battle === "active"')
+                if not sound_checked:
+                    click(1350, 37)
+                    page.wait_for_timeout(1800)
+                    check(all(item['rms'] < .000001 for item in page.evaluate('audioProbe.read()')), 'Battle planning is silent with BGM muted')
+                    click(1302, 103)
+                    peak = 0
+                    for _ in range(14):
+                        page.wait_for_timeout(100)
+                        peak = max(peak, max((item['rms'] for item in page.evaluate('audioProbe.read()')), default=0))
+                    check(peak > .0001, 'Actual battle attacks produce audible sound effects with music disabled')
+                    page.screenshot(path=str(OUT / 'journey-browser-effects.png'))
+                    click(1350, 37)
+                    sound_checked = True
                 click(1120, 104)
                 wait('youxiaChapterStatus.battle === "victory" || youxiaChapterStatus.battle === "defeat"', 240000)
                 assert status()['battle'] == 'victory', status()
@@ -134,6 +150,31 @@ def run():
             click(430, 764)
             wait('youxiaChapterStatus.stage === 7')
             check(True, 'The complete browser quest chain reaches its awarded chapter ending')
+            click(760, 107)
+            wait('youxiaChapterStatus.page === "世界"')
+            page.screenshot(path=str(OUT / 'journey-browser-atlas.png'))
+            click(27+547*835/640, 152+296*626/480)
+            click(1130, 715)
+            wait('youxiaChapterStatus.region === "牛家村"')
+            click(430, 764)
+            win_battle()
+            expedition = backup()['chapter']
+            check('blade' in expedition['roster'] and '牛家村' in expedition['atlas']['cleared'], 'World-map journey resolves a regional quest and recruits its unique companion')
+            click(295, 842)
+            click(1320, 112)
+            click(210, 285)
+            click(350, 735)
+            check('blade' in backup()['chapter']['party'] and 'sword' not in backup()['chapter']['party'], 'Newly recruited blade fighter replaces an active companion through the roster UI')
+            page.screenshot(path=str(OUT / 'journey-browser-roster.png'))
+            click(1170, 112)
+            click(560, 285)
+            click(350, 735)
+            check(backup()['chapter']['party'] == ['hero', 'sword', 'healer', 'staff'], 'Benched companions retain recruitment and can return to the same active slot')
+            click(125, 842)
+            click(950, 107)
+            wait('youxiaChapterStatus.page === "每日"')
+            page.screenshot(path=str(OUT / 'journey-browser-daily.png'))
+            check(True, 'Daily page exposes progress, rewards and direct navigation for six real activities')
             click(640, 842)
             click(220, 712)
             wait('youxiaChapterStatus.place === "市集"')
@@ -150,6 +191,7 @@ def run():
             check(link.is_visible() and link.get_attribute('href').endswith('/releases/latest'), 'Latest Windows download stays available during gameplay')
             page.wait_for_timeout(6000)
             launch()
+            check(page.evaluate('window.youxiaPreloadStats.downloadedParts === 0'), 'Completed browser campaign reload uses verified cache without chunk downloads')
             check(status()['stage'] == 7 and status()['party'] == 4, 'Reload restores the completed campaign from actual IndexedDB storage')
             page.set_viewport_size({'width': 1024, 'height': 700})
             page.wait_for_timeout(1000)

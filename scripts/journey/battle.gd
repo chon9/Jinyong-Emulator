@@ -25,6 +25,8 @@ func _init(campaign, kind: String, seed_value: int = 0) -> void:
 		units.append(u)
 	var enemies: Array
 	match kind:
+		"training": enemies = [["dummy","演武教頭","unit_shaolin_m",260,28,18,48,1,true,"blade"]]
+		"escort": enemies = [["guard1","劫道刀客","unit_m_bandit",280,47,16,65,1,true,"blade"],["archer","劫鏢暗哨","unit_xingxiu_m",210,37,10,71,1,false,"poison"]]
 		"ferry": enemies = [["guard1","黑衣刀客","unit_m_bandit",240,44,14,65,0,true,"blade"],["archer","暗哨","unit_xingxiu_m",190,38,9,72,0,false,"poison"]]
 		"reeds": enemies = [["guard1","截鏢刀手","unit_m_bandit",340,54,19,69,1,true,"blade"],["guard2","埋伏刀手","unit_m_bandit",280,49,16,62,2,true,"blade"],["poison","毒砂客","unit_xingxiu_m",250,42,12,85,1,false,"poison"]]
 		_: enemies = [["boss","黑風寨主","unit_xuedao_m",1150,92,29,70,1,true,"boss"],["guard1","護寨刀手","unit_m_bandit",380,60,22,58,0,true,"blade"],["poison","毒砂客","unit_xingxiu_m",300,48,15,88,1,false,"poison"]]
@@ -33,6 +35,38 @@ func _init(campaign, kind: String, seed_value: int = 0) -> void:
 		_prepare(u)
 		if kind == "warehouse" and campaign.state.flags.get("choice","") == "justice" and u.ai == "poison": u.atk -= 15
 		units.append(u)
+	if kind.begins_with("road_"):
+		var region: String = kind.trim_prefix("road_")
+		var region_data: Dictionary = preload("res://scripts/journey/atlas.gd").REGIONS.get(region,{"tier":0})
+		var tier := int(region_data.tier)
+		var level: int = preload("res://scripts/journey/atlas.gd").POWER.get(region,1)
+		# Early journeys use two opponents; later ones test the complete party.
+		for i in range(units.size()-1,-1,-1):
+			var u: Dictionary = units[i]
+			if u.side == 0: continue
+			if tier == 0 and u.ai == "boss": units.remove_at(i); continue
+			u.name = ("守關教頭" if "派" in region or region == "全真教" else "截路首領") if u.ai == "boss" else ("快刀護衛" if u.ai == "blade" else "毒砂伏兵")
+			var names: Array = preload("res://scripts/journey/atlas.gd").FOES.get(region,[])
+			if names.size() == 3: u.name = names[0 if u.ai == "boss" else (1 if u.ai == "blade" else 2)]
+			if region in ["少林派","全真教"]:
+				u.art = "actor_staff" if u.ai != "poison" else "actor_taoist"
+				u.sprite = "staff" if u.ai != "poison" else "taoist"
+				u.weapon = "棍" if u.ai != "poison" else "劍"
+			if region in ["武當派","華山派","峨嵋派"]:
+				u.sprite = "taoist" if region == "武當派" else "companion"
+				u.weapon = "劍"
+			u.hp = int(u.hp * ([.62,.76,1.0][tier]) * (1+(level-1)*.14))
+			u.max_hp = u.hp
+			u.atk = int(u.atk * ([.65,.8,1.0][tier]) * (1+(level-1)*.06))
+			u.def += (level-1)*2
+	if kind == "supremacy":
+		for u in units:
+			if u.side == 0: continue
+			u.name = {"boss":"天外刀尊","guard1":"鐵壁宗師","poison":"千機客"}[u.id]
+			u.hp *= 4
+			u.max_hp = u.hp
+			u.atk = int(u.atk*2.3)
+			u.def += 45
 	plan_intents()
 
 func _prepare(u: Dictionary) -> void:

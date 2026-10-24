@@ -3,6 +3,10 @@ extends Control
 const Chapter = preload("res://scripts/journey/chapter.gd")
 const Battle = preload("res://scripts/journey/battle.gd")
 const Stage = preload("res://scripts/journey/stage.gd")
+const Bank = preload("res://scripts/journey/resources.gd")
+const Sounds = preload("res://scripts/journey/sfx.gd")
+const Atlas = preload("res://scripts/journey/atlas.gd")
+const Daily = preload("res://scripts/journey/daily.gd")
 const INK := Color("162d2b")
 const PAPER := Color("ebe3ce")
 const GOLD := Color("d7b77b")
@@ -13,6 +17,8 @@ var stage
 var layer: Control
 var page := "江湖"
 var hero_id := "hero"
+var roster_page := 0
+var swap_out := "sword"
 var selected_enemy := ""
 var selected_ally := "hero"
 var notice := "雨停之前，先向窗邊的顧長風打聽失鏢。"
@@ -20,9 +26,19 @@ var auto_battle := false
 var action_clock := 0.0
 var study_clock := 0.0
 var result_applied := false
+var reward_summary := "30 銀 · 25 學點"
 var dialogue_open := true
 var font: Font
 var navigating := false
+var boot_ready := false
+var boot_progress := 0
+var bank
+var sounds
+var world_selection := "嘉興鎮"
+var daily_focus := ""
+var job_clock := 0.0
+var job_day := 0
+var job_seconds := 0
 
 func _ready() -> void:
 	font = load("res://assets/fonts/LXGWWenKaiTC-Regular.ttf")
@@ -31,14 +47,37 @@ func _ready() -> void:
 	theme_value.default_font_size = 19
 	theme = theme_value
 	campaign = Chapter.new(Session.chapter_data)
+	Atlas.ensure(campaign)
+	Daily.ensure(campaign)
+	bank = Bank.new()
+	add_child(bank)
+	sounds = Sounds.new()
+	sounds.bank = bank
+	add_child(sounds)
 	stage = Stage.new()
+	stage.bank = bank
+	stage.sounds = sounds
 	stage.clip_contents = true
 	stage.campaign = campaign
 	add_child(stage)
 	stage.place_selected.connect(travel)
 	stage.unit_selected.connect(select_unit)
+	stage.arrived.connect(_arrived)
+	stage.walking.connect(func(): navigating=false; campaign.state.study=""; notice="沿街探索；點人物可走近交談。"; render())
 	Session.chapter_imported.connect(_imported)
 	get_tree().root.focus_exited.connect(persist)
+	bank.progress.connect(func(done,total):
+		boot_progress = int(100.0*done/maxi(1,total))
+		if OS.has_feature("web"): JavaScriptBridge.eval("window.youxiaSetPreloadProgress?.("+str(boot_progress)+");",true)
+		render())
+	render()
+	await bank.prepare()
+	for key in Bgm.TRACKS:
+		Bgm.stream_for(key)
+		await get_tree().process_frame
+	boot_ready = true
+	stage.prepared = true
+	if OS.has_feature("web"): JavaScriptBridge.eval("window.youxiaSceneReady = true;",true)
 	render()
 	persist()
 
@@ -49,6 +88,12 @@ func _exit_tree() -> void:
 func _imported() -> void:
 	campaign = Chapter.new(Session.chapter_data)
 	stage.campaign = campaign
+	stage.cancel_walk()
+	navigating = false
+	job_clock = 0
+	daily_focus = ""
+	Atlas.ensure(campaign)
+	Daily.ensure(campaign)
 	battle = null
 	stage.battle = null
 	page = "江湖"
@@ -61,7 +106,25 @@ func persist() -> void:
 	Session.save_game()
 
 func _process(delta: float) -> void:
-	if campaign == null: return
+	if campaign == null or not boot_ready: return
+	var today := int(Daily.ensure(campaign).day)
+	if job_clock > 0:
+		job_clock -= delta
+		if today != job_day or campaign.state.place != "藥廬" or battle != null:
+			job_clock = 0
+			notice = "已停下守爐，沒有扣除草藥。"
+			render()
+		elif job_clock <= 0:
+			if int(campaign.state.inventory.get("草藥",0)) > 0 and Daily.complete(campaign,"work",30,15):
+				campaign.state.inventory["草藥"] -= 1
+				notice = "藥湯煮好了。獲得 30 銀、15 學點。"
+				sounds.play("accept")
+			persist()
+			render()
+		elif int(ceil(job_clock)) != job_seconds:
+			job_seconds = int(ceil(job_clock))
+			notice = "守著藥爐 · 還需 %d 秒；離開會停止。" % job_seconds
+			render()
 	if campaign.state.study != "" and battle == null:
 		study_clock += delta
 		if study_clock >= 5:
@@ -96,6 +159,8 @@ func _unhandled_key_input(input: InputEvent) -> void:
 			else: set_page("江湖")
 		KEY_SPACE:
 			if battle != null: play_round()
+		KEY_M: set_page("世界")
+		KEY_D: set_page("每日")
 		KEY_F5: persist(); notice = "進度已保存。"; render()
 		KEY_F8: set_page("設定")
 		KEY_F9: get_tree().change_scene_to_file("res://scenes/main.tscn")
@@ -162,7 +227,7 @@ func button(value: String, rect: Rect2, callback: Callable, primary: bool = fals
 
 func image_at(art: String, rect: Rect2, parent: Node = null) -> void:
 	var node := TextureRect.new()
-	node.texture = stage.tex(art+"_idle")
+	node.texture = stage.portrait(art)
 	node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -186,6 +251,7 @@ func bar(value: float, maximum: float, rect: Rect2, color: Color) -> void:
 	at(node,rect)
 
 func render() -> void:
+	if stage != null and battle == null: stage.sync_location()
 	if layer != null:
 		layer.hide()
 		layer.queue_free()
@@ -215,6 +281,8 @@ func render() -> void:
 	elif page == "行囊": render_inventory()
 	elif page == "江湖誌": render_journal()
 	elif page == "設定": render_settings()
+	elif page == "世界": render_atlas()
+	elif page == "每日": render_daily()
 	if battle == null:
 		panel(Rect2(24,807,1392,72),Color("132d29"))
 		var tabs := ["江湖","同伴","武學","行囊","江湖誌","設定"]
@@ -224,23 +292,31 @@ func render() -> void:
 		label("F5 存檔  ·  F8 設定",Rect2(1120,830,270,30),17,MUTED)
 	if battle == null:
 		label(notice,Rect2(35,880,1370,20),15,GOLD)
+	if not boot_ready:
+		var curtain := ColorRect.new()
+		curtain.color = Color(.03,.08,.07,.97)
+		at(curtain,Rect2(0,76,1440,824))
+		label("正在準備人物、城鎮與招式",Rect2(390,340,800,60),32,GOLD)
+		label("場景準備  %d%%" % boot_progress,Rect2(550,420,400,40),24)
 	update_browser_status()
 
 func update_browser_status() -> void:
 	if not OS.has_feature("web"): return
-	var status := {"page":page,"place":campaign.state.place,"stage":int(campaign.state.stage),"party":campaign.state.party.size(),"battle":"" if battle == null else (battle.result if battle.result != "" else "active"),"round":0 if battle == null else battle.round_no,"notice":notice}
+	var status := {"page":page,"place":campaign.state.place,"stage":int(campaign.state.stage),"party":campaign.state.party.size(),"battle":"" if battle == null else (battle.result if battle.result != "" else "active"),"round":0 if battle == null else battle.round_no,"notice":notice,"region":Atlas.ensure(campaign).region,"navigating":navigating,"daily":Daily.ensure(campaign).counts,"ready":boot_ready}
 	JavaScriptBridge.eval("window.youxiaChapterStatus = Object.freeze("+JSON.stringify(status)+");",true)
 	var window := JavaScriptBridge.get_interface("window")
 	if window.youxiaSetStatus != null: window.youxiaSetStatus("無名少俠",campaign.state.place,page,"青溪故事 · 單機")
 
 func set_page(value: String) -> void:
-	if battle != null: return
+	if battle != null or not boot_ready: return
 	page = value
 	render()
 
 func render_world() -> void:
-	label("江湖在眼前，故事在路上",Rect2(32,86,760,40),28)
-	label("青溪八景  ·  點地圖移動，抵達後直接交談",Rect2(770,96,650,28),17,MUTED)
+	var region: String = Atlas.ensure(campaign).region
+	label("青溪鎮" if Atlas.ensure(campaign).region == "嘉興鎮" else Atlas.ensure(campaign).region,Rect2(32,86,400,40),28)
+	button("世界地圖 [M]",Rect2(670,87,180,40),func(): set_page("世界"))
+	button("每日必做 [D]",Rect2(862,87,195,40),func(): set_page("每日"))
 	stage.position = Vector2(24,137)
 	stage.size = Vector2(1034,468)
 	panel(Rect2(1074,137,342,468),Color("19362f"))
@@ -248,16 +324,22 @@ func render_world() -> void:
 	label(campaign.objective()[0],Rect2(1096,192,294,40),27)
 	prose(campaign.objective()[2],Rect2(1096,240,293,66),19,MUTED)
 	var target: String = campaign.objective()[1]
-	button("交談 · 推進故事" if target == campaign.state.place else "前往 · "+target,Rect2(1095,314,300,44),quest_action,true)
+	button("返回青溪 · 繼續主線" if region != "嘉興鎮" else ("交談 · 推進故事" if target == campaign.state.place and not navigating else "前往 · "+target),Rect2(1095,314,300,44),quest_action,true)
 	label("同行的人  %d / 4" % campaign.state.party.size(),Rect2(1096,378,290,30),18,GOLD)
 	for i in campaign.state.party.size():
 		var id: String = campaign.state.party[i]
 		image_at(Chapter.HEROES[id].art,Rect2(1095+i*74,418,68,94))
 		label(Chapter.HEROES[id].name.left(3),Rect2(1095+i*74,519,74,27),16)
-	label("點同伴查看身世、武功與陣位",Rect2(1096,564,300,26),16,MUTED)
+	if daily_focus != "" and region == "嘉興鎮":
+		button(daily_caption(daily_focus),Rect2(1095,545,300,42),func(): daily_action(daily_focus),true,navigating or job_clock>0 or not Daily.available(campaign,daily_focus))
+	else:
+		button("地點目錄 · 選擇去處",Rect2(1095,545,300,42),func(): world_selection="嘉興鎮"; set_page("世界"))
 	render_dialogue()
 
 func quest_action() -> void:
+	if navigating: return
+	if Atlas.ensure(campaign).region != "嘉興鎮": travel(campaign.objective()[1]); return
+	if not stage.is_near_npc(): travel(campaign.objective()[1]); return
 	var target: String = campaign.objective()[1]
 	if target != campaign.state.place:
 		travel(target)
@@ -273,12 +355,22 @@ func quest_action() -> void:
 	render()
 
 func render_dialogue() -> void:
+	if Atlas.ensure(campaign).region != "嘉興鎮":
+		var region: String = Atlas.ensure(campaign).region
+		var r: Dictionary = Atlas.REGIONS[region]
+		panel(Rect2(24,620,1392,173),Color("e5dcc3"))
+		image_at("actor_"+Atlas.NPC_SPRITES[region],Rect2(43,626,144,160))
+		label(r.npc+" / "+r.title,Rect2(208,631,1100,32),23,INK)
+		prose(r.text+"\n"+r.rumor,Rect2(208,671,1178,65),19,Color("394535"))
+		button("已結案 · 再次切磋" if region in Atlas.ensure(campaign).cleared else "接受委託 · 出發迎戰",Rect2(208,744,570,39),func(): start_battle("road_"+region),true)
+		button("返回青溪",Rect2(790,744,570,39),func(): travel("青溪客棧"))
+		return
 	var d: Dictionary = campaign.talk()
 	panel(Rect2(24,620,1392,173),Color("e5dcc3"))
 	image_at(Chapter.PLACES[campaign.state.place].face,Rect2(43,626,144,160))
 	label(d.name+"  /  "+campaign.state.place,Rect2(208,631,1100,32),23,INK)
 	prose(d.text,Rect2(208,671,1178,65),19,Color("394535"))
-	var choices: Array = d.choices
+	var choices: Array = d.choices if not navigating and stage.is_near_npc() else []
 	if choices.is_empty():
 		label("點地圖繼續探索；右側主線會指出下一條線索。",Rect2(208,752,1165,30),18,Color("68745c"))
 	else:
@@ -287,37 +379,27 @@ func render_dialogue() -> void:
 			var key: String = choices[i][1]
 			button(choices[i][0],Rect2(208+i*(width+10),744,width,39),func(): choose(key),i==0)
 
-func route_to(destination: String) -> Array:
-	var pending := [[campaign.state.place]]
-	var seen := {}
-	while not pending.is_empty():
-		var path: Array = pending.pop_front()
-		var last: String = path[-1]
-		if last == destination: return path
-		if seen.has(last): continue
-		seen[last] = true
-		for neighbor in Chapter.PLACES[last].links:
-			if not seen.has(neighbor): pending.append(path+[neighbor])
-	return []
-
 func travel(destination: String) -> void:
-	if battle != null or navigating or not Chapter.PLACES.has(destination): return
-	var path := route_to(destination)
-	if path.is_empty(): return
+	if not boot_ready or battle != null or not Chapter.PLACES.has(destination): return
+	Atlas.ensure(campaign).region = "嘉興鎮"
 	page = "江湖"
 	campaign.state.study = ""
-	navigating = true
-	for location in path:
-		campaign.state.place = location
-		notice = "抵達%s。" % location
-		render()
-		Bgm.set_scene_context("wild" if location in ["渡口","蘆葦蕩"] else ("dungeon" if location == "舊倉" else "town"))
-		await get_tree().create_timer(.22).timeout
+	job_clock = 0
+	if stage.avatar == Vector2.ZERO: stage.avatar = stage.town.anchors[campaign.state.place]
+	navigating = stage.go_to(destination)
+	notice = "正沿街前往%s；可點另一位人物更改路線。" % destination
+	render()
+
+func _arrived(destination: String) -> void:
+	campaign.state.place = destination
 	navigating = false
+	notice = "抵達%s。%s" % [destination,"可在右側繼續今日活動。" if daily_focus != "" else "可與眼前的人交談。"]
+	Bgm.set_scene_context("wild" if destination in ["渡口","蘆葦蕩"] else ("dungeon" if destination == "舊倉" else "town"))
 	persist()
+	render()
 
 func choose(key: String) -> void:
-	if battle != null or navigating: return
+	if battle != null or navigating or not boot_ready or Atlas.ensure(campaign).region != "嘉興鎮" or not stage.is_near_npc(): return
 	# Validate that this choice still belongs to the visible conversation.
 	var allowed := false
 	for option in campaign.talk().choices:
@@ -327,6 +409,8 @@ func choose(key: String) -> void:
 		start_battle(key.trim_prefix("battle_"))
 		return
 	notice = campaign.choose(key)
+	if key == "gather" and Daily.complete(campaign,"gather",0,3): notice += " 今日採集另得 3 學點。"
+	sounds.play("accept")
 	if key.begins_with("choose_"): start_battle("warehouse")
 	else:
 		persist()
@@ -334,17 +418,21 @@ func choose(key: String) -> void:
 
 func render_party() -> void:
 	label("同行，各有所長" if page == "同伴" else "武道，始於一招一式",Rect2(34,91,700,43),30)
-	label("外功配兵器，內功養聚氣，輕功定先後",Rect2(800,99,600,30),19,MUTED)
+	label("相識 %d 人 · 四人出戰 · 主角須留隊" % campaign.state.roster.size(),Rect2(650,99,550,30),18,MUTED)
+	button("上一頁",Rect2(1115,94,135,38),func(): roster_page=maxi(0,roster_page-1); render(),false,roster_page==0)
+	button("下一頁",Rect2(1260,94,135,38),func(): roster_page=mini(2,roster_page+1); render(),false,roster_page>=2)
 	for i in 4:
-		var id: String = ["hero","sword","healer","staff"][i]
-		var recruited: bool = id in campaign.state.party
+		var roster: Array = ["hero","sword","healer","staff","blade","palm","doctor","taoist","monk","wanderer"]
+		if roster_page*4+i >= roster.size(): break
+		var id: String = roster[roster_page*4+i]
+		var recruited: bool = id in campaign.state.roster
 		var x := 26+i*350
 		panel(Rect2(x,151,338,182),Color("26443b") if hero_id == id else INK)
 		image_at(Chapter.HEROES[id].art,Rect2(x+8,157,106,166))
 		label(Chapter.HEROES[id].name,Rect2(x+121,167,207,36),25,GOLD)
 		label(Chapter.HEROES[id].role,Rect2(x+121,210,210,30),17,MUTED)
 		button("查看 · %d 重" % int(campaign.state.levels[id]) if recruited else "尚未相識",Rect2(x+121,266,200,45),func(): hero_id=id; render(),hero_id==id,not recruited)
-	if not hero_id in campaign.state.party: hero_id = "hero"
+	if not hero_id in campaign.state.roster: hero_id = "hero"
 	var u: Dictionary = campaign.unit(hero_id)
 	panel(Rect2(26,350,435,438))
 	label("身 世 與 天 賦",Rect2(48,368,390,34),21,GOLD)
@@ -352,8 +440,15 @@ func render_party() -> void:
 	prose(u.talent,Rect2(48,524,390,70),19,MUTED)
 	label("氣血 %d   攻擊 %d   防禦 %d" % [u.max_hp,u.atk,u.def],Rect2(48,615,390,32),18)
 	label("速度 %d   聚氣 %d   兵器 · %s" % [u.speed,u.qi,u.weapon],Rect2(48,653,390,32),18)
-	button("輪換前／後排",Rect2(48,714,190,46),func(): campaign.position_hero(hero_id,int(u.lane),not u.front); persist(); render())
-	button("換上／中／下路",Rect2(249,714,190,46),func(): campaign.position_hero(hero_id,(int(u.lane)+1)%3,u.front); persist(); render())
+	if hero_id in campaign.state.party:
+		button("輪換前／後排",Rect2(48,714,190,46),func(): campaign.position_hero(hero_id,int(u.lane),not u.front); persist(); render())
+		button("換上／中／下路",Rect2(249,714,190,46),func(): campaign.position_hero(hero_id,(int(u.lane)+1)%3,u.front); persist(); render())
+	else:
+		var swap := OptionButton.new()
+		var candidates: Array = campaign.state.party.filter(func(id): return id != "hero")
+		for id in candidates: swap.add_item("換下 · "+Chapter.HEROES[id].name)
+		at(swap,Rect2(48,714,220,46))
+		button("加入出戰",Rect2(280,714,160,46),func(): notice=campaign.swap_companion(hero_id,candidates[swap.selected] if not candidates.is_empty() else ""); persist(); render(),true)
 	panel(Rect2(478,350,938,438))
 	if page == "同伴":
 		render_formation(u)
@@ -377,7 +472,7 @@ func render_party() -> void:
 	button("消點進修 · %d 學點" % cost,Rect2(498,698,290,43),func(): notice=campaign.train(hero_id); persist(); render(),false,campaign.state.place!="演武坪")
 	button("停止自修" if campaign.state.study != "" else "自修 · 每 5 秒一重",Rect2(803,698,290,43),toggle_study,true)
 	button("前往師父",Rect2(1108,698,280,43),func(): travel("演武坪"))
-	label("本章自修耗 8＋重數×3 學點，消點耗 12＋重數×3；兩者均提升戰鬥屬性，上限十重。",Rect2(498,752,887,25),16,MUTED)
+	label("本章自修耗 8＋重數×3 學點，消點耗 12＋重數×3；兩者均提升戰鬥屬性，上限三十重。",Rect2(498,752,887,25),16,MUTED)
 
 func render_formation(u: Dictionary) -> void:
 	label("隊 伍 陣 型",Rect2(503,368,850,36),25,GOLD)
@@ -439,6 +534,155 @@ func render_journal() -> void:
 	if not entries.is_empty(): text = "\n\n".join(entries)
 	prose(text,Rect2(515,240,863,510),22)
 
+func render_atlas() -> void:
+	label("山 河 行 旅",Rect2(30,88,500,42),30,GOLD)
+	button("武林論劍"+(" · 盟主" if campaign.state.flags.get("supremacy",false) else ""),Rect2(600,87,450,42),challenge_supremacy,true)
+	button("每日必做",Rect2(1080,87,160,42),func(): set_page("每日"))
+	button("返回江湖",Rect2(1252,87,160,42),func(): set_page("江湖"))
+	var map_rect := Rect2(27,152,835,626)
+	var background := TextureRect.new()
+	background.texture = bank.get_asset("res://assets/town/world.png")
+	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	at(background,map_rect)
+	var data := Atlas.ensure(campaign)
+	for name in Atlas.REGIONS:
+		var r: Dictionary = Atlas.REGIONS[name]
+		var p: Vector2 = map_rect.position+r.point*map_rect.size/Vector2(640,480)
+		var opened: bool = campaign.state.stage >= r.stage
+		var mark := "◆" if world_selection == name else ("✓" if name in data.cleared else ("" if opened else "鎖"))
+		var b := button(mark,Rect2(p-Vector2(17,17),Vector2(34,34)),func(): world_selection=name; render(),world_selection==name)
+		b.add_theme_font_size_override("font_size",16)
+		b.add_theme_color_override("font_color",INK)
+		for state_name in ["normal","hover","pressed","focus"]:
+			var ring := StyleBoxFlat.new()
+			ring.bg_color = Color(1,.85,.4,.3) if world_selection == name or state_name == "hover" else Color(0,0,0,0)
+			ring.set_corner_radius_all(17)
+			ring.border_color = GOLD
+			ring.set_border_width_all(2 if world_selection == name or state_name == "hover" else 0)
+			b.add_theme_stylebox_override(state_name,ring)
+		b.tooltip_text = name+(" · 已結案" if name in data.cleared else (" · 可前往" if opened else " · 主線第 %d 步開放" % int(r.stage)))
+	panel(Rect2(880,152,532,626),Color("1c3931"))
+	var region: Dictionary = Atlas.REGIONS[world_selection]
+	label(world_selection,Rect2(903,169,480,45),32,GOLD)
+	label("目前所在 · "+data.region,Rect2(903,224,480,30),18,MUTED)
+	if world_selection == "嘉興鎮":
+		prose("青溪街巷 · 選擇目的地後沿街尋路。",Rect2(903,275,480,58),20)
+		var i := 0
+		for place in Chapter.PLACES:
+			button(place,Rect2(903+(i%2)*247,352+(i/2)*69,234,52),func(): travel(place),place==campaign.state.place)
+			i += 1
+		prose("◆ 主線線索　✓ 支線完成\n遠行支線隨青溪故事開放，隊伍與武學沿用。",Rect2(903,655,480,80),18,MUTED)
+	else:
+		label(region.title,Rect2(903,279,480,40),25)
+		label("建議修為 %d 重 · %s" % [Atlas.POWER[world_selection],"可招募 "+Chapter.HEROES[Atlas.RECRUITS[world_selection]].name if Atlas.RECRUITS.has(world_selection) else "江湖支線／切磋"],Rect2(903,313,480,26),17,GOLD)
+		prose(region.text+"\n\n"+region.rumor,Rect2(903,350,480,175),21)
+		var unlocked: bool = campaign.state.stage >= region.stage
+		prose("首次完成：75 銀、55 學點、金創藥一瓶。\n再次切磋：30 銀、25 學點。\n已探索 %d / %d 處，結案 %d 件。" % [data.visited.size(),Atlas.REGIONS.size(),data.cleared.size()],Rect2(903,540,480,110),19,MUTED)
+		button("前往 · "+world_selection if unlocked else "青溪主線第 %d 步開放" % int(region.stage),Rect2(903,689,480,53),func(): journey_to(world_selection),true,not unlocked)
+
+func challenge_supremacy() -> void:
+	if campaign.state.stage < 7 or Atlas.ensure(campaign).cleared.size() < 8 or campaign.state.levels.hero < 15:
+		notice = "武林論劍：先結束青溪故事、完成八處江湖支線，主角修至十五重。三位宗師建議全隊二十五重再挑戰。"
+		render()
+		return
+	start_battle("supremacy")
+
+func journey_to(region: String) -> void:
+	if battle != null or not boot_ready or not Atlas.REGIONS.has(region) or campaign.state.stage < Atlas.REGIONS[region].stage: return
+	if region == "嘉興鎮": travel("青溪客棧"); return
+	stage.cancel_walk()
+	navigating = false
+	job_clock = 0
+	campaign.state.study = ""
+	notice = Atlas.visit(campaign,region)
+	world_selection = region
+	page = "江湖"
+	Bgm.set_scene_context("wild")
+	persist()
+	render()
+
+func render_daily() -> void:
+	label("今 日 江 湖",Rect2(32,87,500,43),30,GOLD)
+	label("每日凌晨零時更新（UTC+8） · 進度自動保存",Rect2(370,98,600,30),18,MUTED)
+	button("世界地圖",Rect2(1080,87,160,42),func(): set_page("世界"))
+	button("返回江湖",Rect2(1252,87,160,42),func(): set_page("江湖"))
+	var i := 0
+	for key in Daily.TASKS:
+		var task: Dictionary = Daily.TASKS[key]
+		var x := 28+(i%2)*700
+		var y := 153+(i/2)*192
+		var done := Daily.count(campaign,key)
+		panel(Rect2(x,y,684,179),Color("1b382f"))
+		label(task.name,Rect2(x+20,y+12,340,36),25,GOLD)
+		label("%d / %d" % [done,task.limit],Rect2(x+545,y+15,120,30),22)
+		prose(task.desc,Rect2(x+20,y+56,642,48),18)
+		label(task.reward,Rect2(x+20,y+116,452,29),16,MUTED)
+		var locked: bool = (key == "sect" and campaign.state.sect == "未入門") or (key == "dungeon" and campaign.state.stage < 6)
+		var title: String = "今日完成" if done >= task.limit else ("先拜師" if key == "sect" and locked else ("先破獲失鏢案" if locked else ("前往 · "+Daily.target(campaign,key))))
+		button(title,Rect2(x+472,y+116,190,43),func(): daily_action(key),true,done >= task.limit or (key == "dungeon" and locked))
+		i += 1
+	var contribution := int(campaign.state.flags.get("contribution",0))
+	label("師門貢獻 %d · 30 貢獻換 40 學點（演武坪）" % contribution,Rect2(42,744,1030,35),20,GOLD)
+	button("兌換修行資糧",Rect2(1100,736,286,47),func():
+		if campaign.state.place != "演武坪" or Atlas.ensure(campaign).region != "嘉興鎮": travel("演武坪"); return
+		if int(campaign.state.flags.get("contribution",0)) < 30: return
+		campaign.state.flags.contribution = int(campaign.state.flags.contribution)-30
+		campaign.state.potential += 40
+		notice = "以 30 師門貢獻兌得 40 學點。"
+		persist()
+		render(),false,contribution < 30)
+
+func daily_caption(key: String) -> String:
+	if not Daily.available(campaign,key): return "今日次數已完成"
+	if job_clock > 0: return "守爐中 · %d 秒" % int(ceil(job_clock))
+	var target := Daily.target(campaign,key)
+	if campaign.state.place != target or not stage.is_near_npc(): return "前往 · "+target
+	var data := Daily.ensure(campaign)
+	if key == "sect": return "領取師門信" if data.errand == "" else "交付師門信"
+	if key == "escort": return ["接取藥材鏢","驗收鏢貨","護住鏢貨 · 迎戰"][int(data.escort)]
+	return {"work":"開始煮藥 · 草藥一株","gather":"採集一株草藥","training":"接受武館指點","dungeon":"挑戰黑風寨主"}[key]
+
+func daily_action(key: String) -> void:
+	if not boot_ready or battle != null or navigating or job_clock > 0 or not Daily.available(campaign,key): return
+	daily_focus = key
+	if key == "sect" and campaign.state.sect == "未入門": travel("演武坪"); notice="先與師父交談拜師，再領師門信。"; render(); return
+	if key == "dungeon" and campaign.state.stage < 6: notice="先查清失鏢案，才能重戰舊倉。"; render(); return
+	var target := Daily.target(campaign,key)
+	if campaign.state.place != target or Atlas.ensure(campaign).region != "嘉興鎮" or not stage.is_near_npc(): travel(target); return
+	page = "江湖"
+	var data := Daily.ensure(campaign)
+	match key:
+		"sect":
+			if data.errand == "":
+				data.errand = ["青溪客棧","藥廬","古寺"][Daily.count(campaign,key)]
+				notice = "師父交給你一封問安信，請親手送到%s。" % data.errand
+			else:
+				Daily.complete(campaign,key,15,12)
+				campaign.state.flags.contribution = mini(1000000,int(campaign.state.flags.get("contribution",0))+10)
+				data.errand = ""
+				notice = "信已送達。獲得 15 銀、12 學點、10 師門貢獻。"
+		"work":
+			if int(campaign.state.inventory.get("草藥",0)) < 1: notice="需要一株草藥。可到蘆葦蕩採集，或到市集購買。"
+			else:
+				job_clock = 6
+				job_day = int(data.day)
+				notice = "開始守爐；藥成後才扣除草藥並發放工錢。"
+		"escort":
+			if data.escort == 0:
+				data.escort = 1
+				notice = "接下藥材鏢。先到演武坪與師父驗貨，再運到渡口。"
+			elif data.escort == 1:
+				data.escort = 2
+				notice = "封箱完好，沿街前往渡口；留意劫道的人。"
+			else: start_battle("escort"); return
+		"training": start_battle("training"); return
+		"dungeon": start_battle("rematch"); return
+		"gather": choose("gather"); return
+	sounds.play("accept")
+	persist()
+	render()
+
 func render_settings() -> void:
 	label("讓江湖合你的步調",Rect2(34,93,950,43),30)
 	panel(Rect2(28,151,675,632))
@@ -458,7 +702,15 @@ func render_settings() -> void:
 	tracks.select(maxi(0,keys.find(Bgm.override_track)))
 	tracks.item_selected.connect(func(index): Bgm.set_override(keys[index]))
 	at(tracks,Rect2(54,395,610,48))
-	button("立即存檔 · F5",Rect2(54,486,610,48),func(): persist(); notice="進度已保存。"; render(),true)
+	button("音效 · "+("開" if sounds.enabled else "關"),Rect2(54,458,290,43),func(): sounds.enabled=not sounds.enabled; sounds.save(); sounds.play("accept"); render())
+	button("立即存檔 · F5",Rect2(366,458,298,43),func(): persist(); notice="進度已保存。"; render(),true)
+	label("音效音量",Rect2(54,523,180,30),20)
+	var fx_slider := HSlider.new()
+	fx_slider.min_value=0
+	fx_slider.max_value=100
+	fx_slider.value=sounds.volume*100
+	fx_slider.value_changed.connect(func(value): sounds.volume=value/100.0; sounds.save())
+	at(fx_slider,Rect2(220,523,440,30))
 	prose("網頁上方可匯出／匯入完整備份。青溪故事與舊版江湖角色各自保存，未完成的戰鬥與自修不跨讀檔恢復。",Rect2(54,569,610,136),21,MUTED)
 	panel(Rect2(723,151,689,632))
 	label("戰鬥怎麼玩",Rect2(750,175,630,40),27,GOLD)
@@ -467,7 +719,14 @@ func render_settings() -> void:
 	button("進入舊版江湖 · F9",Rect2(750,710,630,47),func(): get_tree().change_scene_to_file("res://scenes/main.tscn"))
 
 func start_battle(kind: String) -> void:
+	if not boot_ready or battle != null or job_clock > 0: return
+	if kind == "supremacy" and (campaign.state.stage < 7 or Atlas.ensure(campaign).cleared.size() < 8 or campaign.state.levels.hero < 15): return
+	if kind.begins_with("road_"):
+		var region := kind.trim_prefix("road_")
+		if Atlas.ensure(campaign).region != region or not Atlas.REGIONS.has(region) or campaign.state.stage < Atlas.REGIONS[region].stage: return
 	campaign.state.study = ""
+	stage.cancel_walk()
+	navigating = false
 	battle = Battle.new(campaign,kind)
 	stage.battle = battle
 	selected_enemy = battle.living(1)[0].id
@@ -475,6 +734,7 @@ func start_battle(kind: String) -> void:
 	stage.selected = selected_enemy
 	auto_battle = false
 	result_applied = false
+	reward_summary = "30 銀 · 25 學點"
 	notice = "先觀察敵方意圖。選敵人後替各同伴下令，再進行回合；未下令的同伴會普攻。"
 	Bgm.set_scene_context("boss" if kind in ["warehouse","rematch"] else "battle")
 	persist()
@@ -507,8 +767,27 @@ func finish_battle() -> void:
 	result_applied = true
 	auto_battle = false
 	if battle.result == "victory":
+		var before_silver := int(campaign.state.silver)
+		var before_potential := int(campaign.state.potential)
+		var before_medicine := int(campaign.state.inventory.get("金創藥",0))
 		campaign.win(battle.encounter)
 		notice = "此戰告捷 · 30 銀、25 學點。回鎮後全隊療傷。"
+		if battle.encounter.begins_with("road_"): notice = Atlas.resolve(campaign)
+		elif battle.encounter == "supremacy":
+			if not campaign.state.flags.get("supremacy",false):
+				campaign.state.silver += 500
+				campaign.state.potential += 600
+				campaign.state.flags.supremacy = true
+				campaign.record("武林論劍勝出。你與同伴擊敗三位宗師，獲推為武林盟主。")
+			notice = "武林論劍告捷 · 武林盟主！江湖仍有未相識的人、未走完的路。"
+		elif battle.encounter == "training" and Daily.complete(campaign,"training",0,15): notice += " 指點另得 15 學點。"
+		elif battle.encounter == "escort" and Daily.ensure(campaign).escort == 2 and Daily.complete(campaign,"escort",50,20):
+			Daily.ensure(campaign).escort = 0
+			notice += " 運鏢完成，另得 50 銀、20 學點。"
+		elif battle.encounter == "rematch" and Daily.complete(campaign,"dungeon",20,20): notice += " 今日試煉另得 20 銀、20 學點。"
+		reward_summary = "%d 銀 · %d 學點" % [int(campaign.state.silver)-before_silver,int(campaign.state.potential)-before_potential]
+		var extra_medicine := int(campaign.state.inventory.get("金創藥",0))-before_medicine
+		if extra_medicine > 0: reward_summary += " · 金創藥 ×%d" % extra_medicine
 	else: notice = "暫且退回鎮上。試著調整前排、配金鐘心法，或留真元打斷首領。沒有扣除銀兩與修為。"
 	persist()
 
@@ -519,7 +798,10 @@ func leave_battle() -> void:
 	stage.battle = null
 	stage.selected = ""
 	page = "江湖"
-	if defeated: campaign.state.place = "青溪客棧"
+	if defeated:
+		campaign.state.place = "青溪客棧"
+		Atlas.ensure(campaign).region = "嘉興鎮"
+	stage.cancel_walk()
 	Bgm.set_scene_context("town")
 	persist()
 	render()
@@ -570,5 +852,5 @@ func render_battle() -> void:
 	if battle.result != "":
 		panel(Rect2(480,250,480,180),Color(.075,.17,.15,.97))
 		label("此 戰 告 捷" if battle.result=="victory" else "勝 敗 乃 兵 家 常 事",Rect2(515,267,430,45),31,GOLD)
-		label("30 銀  ·  25 學點" if battle.result=="victory" else "調整武學與陣型，再戰江湖。",Rect2(515,326,430,34),22)
+		label(reward_summary if battle.result=="victory" else "調整武學與陣型，再戰江湖。",Rect2(515,326,430,34),18)
 		button("繼續故事" if battle.result=="victory" else "回鎮療傷",Rect2(514,378,412,39),leave_battle,true)

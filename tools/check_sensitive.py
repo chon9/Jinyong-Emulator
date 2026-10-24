@@ -22,7 +22,7 @@ PATTERNS = {
     'credential in URL': rb'https?://[^\s/:@]{3,}:[^\s/@]{8,}@',
 }
 PRIVATE_PARTS = {'.tools', '.godot', '.aws', '.ssh', '.codex', '.agents', 'userdata', 'test-results'}
-PRIVATE_NAMES = {'youxia_save.json', 'youxia_identity.cfg', 'youxia_music.cfg', 'settings.json'}
+PRIVATE_NAMES = {'youxia_save.json', 'youxia_identity.cfg', 'youxia_music.cfg', 'youxia_sfx.cfg', 'settings.json'}
 RELEASE_FILES = {'Youxia.exe', 'steam_appid.txt', 'steam_api64.dll', 'libgodotsteam.windows.template_release.x86_64.dll',
                  'Asset-Credits.txt', 'Font-OFL.txt', 'GodotSteam-LICENSE.txt', 'Music-Credits.txt', '如何遊玩.txt'}
 

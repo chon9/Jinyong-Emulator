@@ -2,12 +2,27 @@ extends Control
 ## Illustrated map and animated side-view actors; all rules live outside this view.
 signal place_selected(place: String)
 signal unit_selected(id: String)
+signal arrived(place: String)
+signal walking
+const Town = preload("res://scripts/journey/town.gd")
+const Atlas = preload("res://scripts/journey/atlas.gd")
 const Chapter = preload("res://scripts/journey/chapter.gd")
 const GOLD := Color("d7b77b")
 const IVORY := Color("f0e6cf")
 var campaign
 var battle
-var textures := {}
+var bank
+var sounds
+var town = Town.new()
+var route := PackedVector2Array()
+var route_index := 0
+var requested_place := ""
+var synced_place := ""
+var camera := Vector2.ZERO
+var facing_left := false
+var zoom := .92
+var impact_played := false
+var prepared := false
 var selected := ""
 var event := {}
 var animation := 0.0
@@ -23,27 +38,75 @@ func _ready() -> void:
 	set_process(true)
 
 func tex(name: String) -> Texture2D:
-	if not textures.has(name):
-		var path := "res://assets/journey/" + name + ".png"
-		textures[name] = load(path) if ResourceLoader.exists(path) else null
-	return textures[name]
+	return bank.get_asset("res://assets/journey/"+name+".png") if bank != null else null
+
+func asset(path: String) -> Texture2D:
+	return bank.get_asset("res://assets/"+path) if bank != null else null
+
+func portrait(art: String) -> Texture2D:
+	var key: String = {"unit_player_m":"swordsman", "unit_huashan_m":"companion", "unit_emei_f":"healer", "unit_shaolin_m":"staff", "unit_m_bandit":"blade", "unit_xuedao_m":"boss", "unit_xingxiu_m":"rogue"}.get(art, "")
+	if art.begins_with("actor_"): key = art.trim_prefix("actor_")
+	if key == "": return tex(art+"_idle")
+	var atlas := AtlasTexture.new()
+	atlas.atlas = asset("actors/"+key+".png")
+	atlas.region = Rect2(20,35,130,120)
+	return atlas
+
+func go_to(place: String) -> bool:
+	if not town.anchors.has(place): return false
+	requested_place = place
+	route = town.route(avatar,town.anchors[place])
+	route_index = 0
+	return not route.is_empty()
+
+func cancel_walk() -> void:
+	route = PackedVector2Array()
+	requested_place = ""
+	synced_place = ""
+
+func sync_location() -> void:
+	if campaign != null and synced_place != campaign.state.place and route.is_empty():
+		avatar = town.anchors[campaign.state.place]
+		synced_place = campaign.state.place
+
+func is_near_npc() -> bool:
+	return avatar.distance_to(town.anchors[campaign.state.place]) < 65 and route.is_empty()
 
 func show_event(value: Dictionary) -> void:
 	event = value
 	animation = .8
+	impact_played = false
+	if sounds != null and value.get("kind","") not in ["guard","charge","stun"]: sounds.play("heal" if value.get("kind","") == "heal" else "swing")
 	queue_redraw()
 
 func _process(delta: float) -> void:
 	clock += delta
 	animation = maxf(0,animation-delta)
+	if battle != null and animation < .52 and animation > 0 and not impact_played:
+		impact_played = true
+		if sounds != null and int(event.get("amount",0)) > 0 and event.get("kind","") != "heal": sounds.play("heavy" if event.get("kind","") in ["boss_hit","heavy","cleave"] else "hit")
 	if campaign != null and battle == null:
-		destination = map_pos(Chapter.PLACES[campaign.state.place].pos) + Vector2(-38,24)
-		if avatar == Vector2.ZERO: avatar = destination
-		avatar = avatar.move_toward(destination,delta*650)
+		sync_location()
+		var allowance := delta*800
+		while route_index < route.size() and allowance > 0:
+			var distance := avatar.distance_to(route[route_index])
+			if absf(route[route_index].x-avatar.x) > 1: facing_left = route[route_index].x < avatar.x
+			var step := minf(allowance,distance)
+			avatar = avatar.move_toward(route[route_index],step)
+			allowance -= step
+			if distance <= step+.01: route_index += 1
+		if not route.is_empty() and route_index >= route.size():
+			route = PackedVector2Array()
+			if requested_place != "":
+				var place := requested_place
+				requested_place = ""
+				synced_place = place
+				arrived.emit(place)
+		camera = Vector2(clampf(avatar.x-size.x/(2*zoom),0,3328-size.x/zoom),clampf(avatar.y-size.y/(2*zoom),0,2304-size.y/zoom))
 	queue_redraw()
 
 func map_pos(point: Vector2) -> Vector2:
-	return point * Vector2(size.x/1230.0,size.y/620.0)
+	return (point-camera)*zoom
 
 func _gui_input(input: InputEvent) -> void:
 	if input is InputEventMouseButton and input.pressed and input.button_index == MOUSE_BUTTON_LEFT:
@@ -57,84 +120,78 @@ func _gui_input(input: InputEvent) -> void:
 				accept_event()
 				return
 
+		if battle == null and Atlas.ensure(campaign).region == "嘉興鎮":
+			requested_place = ""
+			route = town.route(avatar,input.position/zoom+camera)
+			route_index = 0
+			walking.emit()
+			accept_event()
+
 func text_at(value: String, at: Vector2, color: Color = IVORY, font_size: int = 18, centered: bool = false) -> void:
 	if centered: at.x -= font.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x/2
 	draw_string(font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 
 func _draw() -> void:
-	if campaign == null or font == null: return
+	if campaign == null or font == null or not prepared: return
 	bounds.clear()
 	if battle != null: draw_battle()
 	else: draw_map()
 
 func draw_map() -> void:
-	draw_texture_rect(tex("map_region_bg"),Rect2(Vector2.ZERO,size),false,Color(.83,.86,.78))
-	# A river, linked footpaths, and villages make the destination map readable.
-	var river := PackedVector2Array()
-	for i in range(50):
-		var y := i * size.y/49.0
-		river.append(Vector2(size.x*.61+sin(i*.14)*size.x*.09,y))
-	draw_polyline(river,Color(.29,.47,.48,.3),40,true)
-	draw_polyline(river,Color(.63,.75,.69,.55),25,true)
-	var drawn := {}
-	for name in Chapter.PLACES:
-		var p := map_pos(Chapter.PLACES[name].pos)
-		for link in Chapter.PLACES[name].links:
-			var key := "|".join([name,link] if name < link else [link,name])
-			if drawn.has(key): continue
-			drawn[key] = true
-			var end := map_pos(Chapter.PLACES[link].pos)
-			draw_line(p,end,Color(.37,.31,.22,.24),9,true)
-			draw_dashed_line(p,end,Color(.9,.84,.68,.8),3,8,true)
-	# Seeded scenery is stable, with plenty of negative space around landmarks.
-	var scenery := RandomNumberGenerator.new()
-	scenery.seed = 241
-	for i in 72:
-		var p := Vector2(scenery.randf_range(18,size.x-20),scenery.randf_range(12,size.y-14))
-		var close := false
-		for name in Chapter.PLACES:
-			if p.distance_to(map_pos(Chapter.PLACES[name].pos)) < 66: close = true
-		if close: continue
-		draw_line(p+Vector2(0,4),p+Vector2(0,17),Color(.38,.33,.22,.5),3)
-		draw_circle(p,scenery.randf_range(8,17),Color(.27,.36,.25,.38))
-		draw_circle(p-Vector2(3,4),scenery.randf_range(5,12),Color(.41,.48,.31,.6))
-	for name in Chapter.PLACES:
-		var p := map_pos(Chapter.PLACES[name].pos)
-		var current: bool = name == campaign.state.place
-		var quest: bool = name == campaign.objective()[1] and campaign.state.stage < 7
-		var icons := {"青溪客棧":"inn","渡口":"water","藥廬":"field","蘆葦蕩":"wild","古寺":"sect","市集":"shop","演武坪":"master","舊倉":"cave"}
-		var icon: Texture2D = tex("map_icon_"+icons[name])
-		draw_ellipse_shadow(p+Vector2(0,12),Vector2(40,10))
-		if icon != null: draw_texture_rect(icon,Rect2(p-Vector2(48,72),Vector2(96,100)),false)
-		var box := Rect2(p+Vector2(-65,28),Vector2(130,34))
-		draw_style_box(_plate(Color("234a42") if current else Color("e9ddbd")),box)
-		text_at(name,p+Vector2(0,52),IVORY if current else Color("3c3e2d"),20,true)
-		if quest:
-			var bob := sin(clock*3)*3
-			draw_circle(p+Vector2(47,-40+bob),13,GOLD)
-			text_at("!",p+Vector2(47,-34+bob),Color("3c3021"),22,true)
-		if current: draw_arc(p+Vector2(0,5),45,0,TAU,60,Color(.17,.39,.32,.65),2,true)
-		bounds[name] = Rect2(p-Vector2(62,60),Vector2(124,124))
-	var art: Texture2D = tex("unit_player_m_idle")
-	draw_ellipse_shadow(avatar+Vector2(0,14),Vector2(18,6))
-	if art != null: draw_texture_rect(art,Rect2(avatar-Vector2(23,66),Vector2(46,80)),false)
-	text_at("青 溪 鎮",Vector2(30,44),Color(.22,.29,.23),30)
-	text_at("點地點前往  ·  金色 ! 為當前故事",Vector2(30,70),Color(.37,.4,.31),16)
+	if Atlas.ensure(campaign).region != "嘉興鎮":
+		var region: String = Atlas.ensure(campaign).region
+		var bg := tex("bg_huayin_road")
+		if bg != null: draw_texture_rect(bg,Rect2(Vector2.ZERO,size),false)
+		draw_rect(Rect2(Vector2.ZERO,size),Color(0,.05,.04,.18))
+		text_at(region+" · "+Atlas.REGIONS[region].npc,Vector2(40,48),GOLD,28)
+		draw_sprite("swordsman",Vector2(size.x*.28,size.y*.86),200,0,false)
+		draw_sprite(Atlas.NPC_SPRITES[region],Vector2(size.x*.73,size.y*.76),200,0,true)
+		return
+	var art := asset("town/qingxi.webp")
+	if art != null: draw_texture_rect(art,Rect2(-camera*zoom,Vector2(3328,2304)*zoom),false)
+	if route_index < route.size():
+		var points := PackedVector2Array([map_pos(avatar)])
+		for i in range(route_index,route.size()): points.append(map_pos(route[i]))
+		if points.size() > 1: draw_polyline(points,Color(1,.87,.5,.55),3,true)
+	var order: Array = town.anchors.keys()
+	order.append("@hero")
+	order.sort_custom(func(a,b): return (avatar.y if a == "@hero" else town.anchors[a].y) < (avatar.y if b == "@hero" else town.anchors[b].y))
+	var sprites := {"青溪客棧":"companion","渡口":"staff","藥廬":"healer","蘆葦蕩":"blade","古寺":"staff","市集":"rogue","演武坪":"boss","舊倉":"blade"}
+	for name in order:
+		if name == "@hero":
+			var p := map_pos(avatar)
+			draw_ellipse_shadow(p,Vector2(19,6))
+			draw_arc(p,23,0,TAU,32,GOLD,1.5,true)
+			draw_sprite("swordsman",p,140,int(clock*10)%8 if not route.is_empty() else 0,facing_left)
+			continue
+		var p := map_pos(town.anchors[name]+Vector2(32,-8))
+		if not Rect2(-100,-100,size.x+200,size.y+200).has_point(p): continue
+		draw_ellipse_shadow(p,Vector2(18,5))
+		draw_sprite(sprites[name],p,140,0,true)
+		var box := Rect2(p-Vector2(69,113),Vector2(138,30))
+		draw_style_box(_plate(Color(.07,.16,.12,.9)),box)
+		text_at(name,p-Vector2(0,91),IVORY,17,true)
+		if name == campaign.objective()[1] and campaign.state.stage < 7:
+			text_at("◆",p-Vector2(0,126+sin(clock*3)*3),GOLD,22,true)
+		bounds[name] = Rect2(p-Vector2(65,115),Vector2(130,125))
+	# Keep the full street plan visible as a minimap; the gold frame is the camera.
+	var mini := Rect2(size.x-183,12,170,118)
+	draw_style_box(_plate(Color(.06,.14,.1,.9)),mini.grow(4))
+	if art != null: draw_texture_rect(art,mini,false,Color(.8,.85,.8))
+	var scale_value := mini.size/Vector2(3328,2304)
+	draw_rect(Rect2(mini.position+camera*scale_value,size/zoom*scale_value),GOLD,false,1)
+	draw_circle(mini.position+avatar*scale_value,3,Color.WHITE)
+	text_at("青溪鎮 · 點街道行走／點人物交談",Vector2(17,size.y-15),IVORY,16)
 
-func house(p: Vector2, factor: float, temple: bool) -> void:
-	var w := 32*factor
-	var top := p+Vector2(0,-42*factor)
-	draw_ellipse_shadow(p+Vector2(0,8),Vector2(42,10)*factor)
-	draw_colored_polygon(PackedVector2Array([p+Vector2(-w,-24),p+Vector2(0,-10),p+Vector2(0,10),p+Vector2(-w,-4)]),Color("c6ba96"))
-	draw_colored_polygon(PackedVector2Array([p+Vector2(0,-10),p+Vector2(w,-24),p+Vector2(w,-4),p+Vector2(0,10)]),Color("ac9d7c"))
-	var roof := PackedVector2Array([p+Vector2(-w-9,-26),top,p+Vector2(w+9,-26),p+Vector2(0,-6)])
-	draw_colored_polygon(roof,Color("545e52") if temple else Color("6f6954"))
-	draw_polyline(roof,Color("444f43"),2,true)
-	draw_line(top,p+Vector2(0,-6),Color("9c9e7c"),2,true)
-	draw_line(p+Vector2(8,-5),p+Vector2(8,7),Color("595640"),7)
-	if temple:
-		draw_line(top+Vector2(-13,2),top+Vector2(0,-12),Color("55604e"),4,true)
-		draw_line(top+Vector2(0,-12),top+Vector2(13,2),Color("55604e"),4,true)
+func draw_sprite(key: String, foot: Vector2, height: float, frame: int, left: bool, tint: Color = Color.WHITE) -> void:
+	var texture := asset("actors/"+key+".png")
+	if texture == null: return
+	var row := 0
+	if left and texture.get_height() >= 320: row = 1
+	var rect := Rect2(foot-Vector2(height*.5,height*.94),Vector2(height,height))
+	# Single-row staff poses face left in source art.
+	if key == "staff" and not left: rect.size.x *= -1
+	draw_texture_rect_region(texture,rect,Rect2((frame%8)*160,row*160,160,160),tint)
 
 func _plate(color: Color) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
@@ -169,15 +226,24 @@ func draw_battle() -> void:
 	var sorted: Array = battle.units.duplicate()
 	sorted.sort_custom(func(a,b): return a.lane < b.lane)
 	for u in sorted: draw_actor(u)
-	if animation > 0 and event.has("actor"):
-		var actor: Dictionary = battle.by_id(event.actor)
-		var target: Dictionary = battle.by_id(event.target)
-		if not actor.is_empty() and not target.is_empty() and actor.id != target.id:
-			var start := actor_pos(actor)-Vector2(0,70)
-			var end := actor_pos(target)-Vector2(0,70)
-			var color := Color(.67,.89,.72,animation) if event.kind == "heal" else Color(.95,.82,.49,animation)
-			draw_line(start,end,color,2+animation*3,true)
-			if animation > .4: draw_arc(end,40,PI*.9,PI*1.9,20,color,4,true)
+	if animation > 0:
+		var victims: Array = event.get("hits",[])
+		if victims.is_empty() and event.has("target"): victims = [{"id":event.target,"amount":event.get("amount",0)}]
+		for hit in victims:
+			var target: Dictionary = battle.by_id(hit.id)
+			if target.is_empty(): continue
+			var p := actor_pos(target)-Vector2(0,80)
+			if hit.get("dodge",false): text_at("閃避",p,IVORY,26,true); continue
+			var kind: String = event.get("kind","")
+			var key := "heal" if kind == "heal" else ("burst" if kind in ["boss_hit","heavy","cleave"] else ("slash" if kind in ["attack","bleed","pierce"] else "hit"))
+			var effect := asset("effects/"+key+".png")
+			if effect != null and animation < .65:
+				var count := int(effect.get_height()/192)*5
+				var frame := mini(count-1,int((.65-animation)/.65*count))
+				var tint := Color(.65,1,.64) if kind == "poison" else Color.WHITE
+				draw_texture_rect_region(effect,Rect2(p-Vector2(105,105),Vector2(210,210)),Rect2((frame%5)*192,(frame/5)*192,192,192),tint)
+			if int(hit.get("amount",0)) > 0:
+				text_at(("+" if kind == "heal" else "−")+str(int(hit.amount)),p-Vector2(0,40+(1-animation/.8)*65),Color("b7ecc7") if kind == "heal" else Color("ffe8ab"),30,true)
 
 func draw_actor(u: Dictionary) -> void:
 	var foot := actor_pos(u)
@@ -190,25 +256,21 @@ func draw_actor(u: Dictionary) -> void:
 	draw_ellipse_shadow(foot,Vector2(45,12))
 	if selected == u.id: draw_arc(foot,49,0,TAU,40,GOLD,2,true)
 	if u.guarding: draw_arc(foot-Vector2(0,65),68,-PI*.8,PI*.4,40,Color(.54,.85,.8,.65),4,true)
-	var pose := "attack" if active else ("hurt" if hurt and event.get("kind","") != "heal" else "idle")
-	var art: Texture2D = tex(u.art+"_"+pose)
-	if art == null: art = tex(u.art+"_idle")
 	var color := Color.WHITE if u.hp > 0 else Color(.45,.45,.45,.35)
-	if art != null:
-		var rect := Rect2(foot-Vector2(69,176),Vector2(138,180))
-		# Every supplied battle pose faces left. Mirror allies toward the enemies;
-		# keep the centred rectangle so names, feet and target bounds stay aligned.
-		if u.side == 0:
-			rect.size.x *= -1
-		draw_texture_rect(art,rect,false,color)
-	if u.hp > 0:
-		# Owner art has open hands; show the actual equipped weapon beside each actor.
-		var hand := foot+Vector2(35 if u.side==0 else -35,-72)
-		var direction := Vector2(1 if u.side==0 else -1,-1).normalized()
-		if u.weapon in ["劍","刀"]:
-			draw_line(hand-direction*10,hand+direction*70,Color("d2d9c8"),3,true)
-			draw_line(hand+Vector2(-7,-7),hand+Vector2(7,7),GOLD,4,true)
-		elif u.weapon == "棍": draw_line(hand-direction*50,hand+direction*70,Color("ba9765"),5,true)
+	if hurt and animation > .5 and event.get("kind","") != "heal": color = Color(1,.6,.5)
+	var key: String = {"hero":"swordsman","sword":"companion","healer":"healer","staff":"staff","boss":"boss","poison":"rogue","archer":"rogue"}.get(u.id,"blade")
+	key = u.get("sprite",key)
+	if u.id == "hero" and u.weapon == "刀": key = "blade"
+	if u.id == "hero" and u.weapon == "棍": key = "staff"
+	if u.id == "hero" and u.weapon == "拳掌":
+		# The unarmed build keeps its original empty-hand illustration.
+		var art := tex("unit_player_m_"+("attack" if active else "idle"))
+		if art != null:
+			var rect := Rect2(foot-Vector2(69,176),Vector2(138,180))
+			if u.side == 0: rect.size.x *= -1
+			draw_texture_rect(art,rect,false,color)
+	else:
+		draw_sprite(key,foot,232,int((.8-animation)*10) if active else 0,u.side == 1,color)
 	var top := foot-Vector2(0,190)
 	text_at(u.name,top,IVORY if u.side == 0 else Color("f7b3a0"),18,true)
 	draw_rect(Rect2(top+Vector2(-58,6),Vector2(116,7)),Color("202b26"))
@@ -220,7 +282,4 @@ func draw_actor(u: Dictionary) -> void:
 	if u.broken > 0: tags.append("破")
 	if u.charging: tags.append("蓄力！")
 	if not tags.is_empty(): text_at(" · ".join(tags),foot+Vector2(0,25),GOLD,17,true)
-	if hurt:
-		var label_value := "+%d" % int(event.amount) if event.kind == "heal" else "−%d" % int(event.amount)
-		text_at(label_value,foot-Vector2(0,100+(1-animation/.8)*55),Color("b7ecc7") if event.kind == "heal" else Color("ffe8ab"),32,true)
 	bounds[u.id] = Rect2(foot-Vector2(68,218),Vector2(136,255))
