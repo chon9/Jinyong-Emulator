@@ -1,0 +1,8 @@
+Generated game UI art, built-in imagegen, 2026-10-25.
+Prompt records: art/characters-v2/PROMPTS.md.
+
+skin.png: wood/parchment/leather window surfaces, button states, travel bag,
+crossed swords, quest scroll and map/compass. JSON regions and Godot
+StyleBoxTexture nine-slice rendering select the appropriate components.
+items.png: medicine, herbs, jian, dao, staff, manual, tunic and silver.
+PNG outputs are retained without local pixel modifications.

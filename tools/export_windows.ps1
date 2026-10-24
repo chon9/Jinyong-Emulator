@@ -46,7 +46,8 @@ $youxiaCredits = @'
 Classic presentation assets adapted with permission from the user's JY-Mini OL project:
 - LXGW WenKai TC Regular, distributed under the SIL Open Font License (Font-OFL.txt).
 - Four landscape backgrounds from assets/art/bg.
-- Chapter character idle/attack/hurt poses, river/cave scenery and map parchment from assets/art/units, bg and map.
+- Legacy chapter poses, river/cave scenery and map parchment from assets/art/units, bg and map.
+- Current chapter cast, walking/action sheets, game-window skin and icons generated with built-in imagegen; source prompts in art/characters-v2/PROMPTS.md.
 - Selected town tiles/panorama, world map, character animation sheets, effects and SFX from the owner-supplied Jinyong Heroes 5 installation; see source repository assets/town/SOURCE.txt. No source scripts, event commands, saves or dialogue were imported.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
 - Five owner-supplied BGM recordings from assets/bgm; see Music-Credits.txt.
@@ -61,7 +62,7 @@ $youxiaReadme = @'
 請把同資料夾的 DLL 與 steam_appid.txt 留在原位，給朋友時傳送整個 ZIP。
 
 單機：直接啟動即可。Steam 未開啟時仍可玩單機。
-新版預設進入「青溪失鏢」第一章：點地圖前往、下方與 NPC 對話、右側查看下一條線索。
+新版預設進入「青溪失鏢」：點街道行走、點人物交談，左上追蹤主線；右下圖示開啟行囊、武學與隊伍。
 隨故事招募顧長風、沈青棠、陸衡，組成四人隊伍。這一章是新的單機戰鬥系統。
 同伴／武學：搭配外功、內功、輕功，調整前後排與上中下路；佔用的陣位會交換。
 戰鬥：先選敵人，再替同伴選普攻、施招或守勢，按空白鍵／進行回合，按速度先後出手。

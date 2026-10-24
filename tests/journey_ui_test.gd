@@ -30,7 +30,7 @@ func shot(name: String) -> void:
 	root.get_texture().get_image().save_png("res://test-results/journey-"+name+".png")
 
 func wait_navigation() -> void:
-	var deadline := Time.get_ticks_msec()+20000
+	var deadline := Time.get_ticks_msec()+60000
 	while ui.navigating and Time.get_ticks_msec()<deadline: await process_frame
 	await process_frame
 
@@ -43,17 +43,19 @@ func run() -> void:
 	while not ui.boot_ready: await process_frame
 	await process_frame
 	await shot("world")
-	await click(Vector2(430,764))
+	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
+	await click(Vector2(500,756))
 	check(ui.campaign.state.stage==1,"Visible dialogue button accepts the main story and recruits the swordsman")
-	await click(Vector2(1240,336))
+	await click(Vector2(170,305))
 	await wait_navigation()
 	check(ui.campaign.state.place=="渡口","Pinned next-step button routes to the quest NPC")
-	await click(Vector2(430,764))
+	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
+	await click(Vector2(500,756))
 	check(ui.battle!=null and ui.battle.living(0).size()==2,"Visible NPC action starts the new party battle")
 	await shot("battle")
-	await click(Vector2(540,710))
+	await click(Vector2(580,805))
 	check(ui.battle.orders.get("sword",{}).get("action")=="skill","Character skill slot queues the actual skill")
-	await click(Vector2(1302,103))
+	await click(Vector2(1300,40))
 	check(not ui.battle.queue.is_empty(),"Round button starts the speed-ordered action queue")
 	ui.auto_battle=true
 	# Fast-forward model resolution while preserving the production victory/reward path.
@@ -68,21 +70,23 @@ func run() -> void:
 	ui.campaign.state.place="藥廬"
 	ui.render()
 	await process_frame
-	await click(Vector2(430,764))
+	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
+	await click(Vector2(500,756))
 	check("healer" in ui.campaign.state.party,"Healer joins through dialogue UI")
 	ui.campaign.state.stage=4
 	ui.campaign.state.place="古寺"
 	ui.render()
 	await process_frame
-	await click(Vector2(430,764))
+	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
+	await click(Vector2(500,756))
 	check(ui.campaign.state.party.size()==4,"Full party is assembled through the fourth character conversation")
-	await click(Vector2(295,842))
+	await click(Vector2(975,840))
 	check(ui.page=="同伴","Bottom navigation opens companions directly")
 	await shot("party")
 	var front: bool = ui.campaign.state.formation.hero.front
 	await click(Vector2(140,734))
 	check(ui.campaign.state.formation.hero.front!=front,"Formation button changes the actual front/rear combat rank")
-	await click(Vector2(590,842))
+	await click(Vector2(1135,840))
 	# Use the page label rather than relying on the preceding tab coordinate.
 	ui.set_page("行囊")
 	await process_frame

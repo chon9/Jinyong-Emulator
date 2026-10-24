@@ -14,13 +14,21 @@
 
 鏢隊失蹤，救命的藥材不知去向。你帶著一封舊信來到青溪，遇見一個被除名的劍客、一位不願旁觀的醫者，和一個總是站在別人前面的棍衛。有人要你燒掉密信，有人只想讓藥送到。
 
-**v0.8.0 turns that first adventure into a wider journey.** Walk Qingxi's stone streets, cross its bridges, and speak to the people outside its shops. Follow the seven-step missing-shipment story, then open the world map: sixteen destinations, fifteen regional quests and trials, six more recruitable companions, and opponents strong enough to send you back to train.
+**v0.9.0 puts the game world first.** Full-screen streets, illustrated wood-and-leather HUDs, a parchment dialogue window, character portraits and a bottom command deck replace the old dashboard layout. The generated cast shares a consistent style; walking uses separate front, back and side frames with distance-driven steps, gradual acceleration and a following camera.
+
+ Walk Qingxi's stone streets, cross its bridges, and speak to the people outside its shops. Follow the seven-step missing-shipment story, then open the world map: sixteen destinations, fifteen regional quests and trials, six more recruitable companions, and opponents strong enough to send you back to train.
 
 There are **ten characters including the protagonist**, with **four active fighters**. A rescued blade master, a city defender, a travelling doctor or a mountain swordsman can change how your party fights. Keep their progress when they sit out; choose who travels with you.
 
 ![The Qingxi destination map and the opening companion conversation](docs/screenshots/qingxi-world.png)
 
-Click a street to walk, or a named NPC to find a route to them. The gold **◆** and pinned quest button identify the next clue. **世界地圖 [M]** opens distant journeys and Qingxi's eight-location directory; **每日必做 [D]** shows progress, rewards and the next destination for repeatable work. Dialogue and acceptance buttons stay below the scene.
+Click a street to walk, or a named NPC to find a route to them. The gold **◆** and pinned quest button identify the next clue. **世界地圖 [M]** opens distant journeys and Qingxi's eight-location directory; **每日必做 [D]** shows progress, rewards and the next destination for repeatable work. Click **交談** beside a nearby NPC to open the parchment dialogue window. **C** opens the party, **K** martial arts, **I** the inventory, **J** the journal and **Esc** returns to the world.
+
+![Parchment conversation and a consistent illustrated cast](docs/screenshots/game-dialogue.png)
+
+![The inventory is a game window with item slots and a selected-item panel](docs/screenshots/game-inventory.png)
+
+[Watch actual in-game walking](docs/screenshots/game-walking.webm) · [v0.9 UI, animation and current scope](docs/UI-0.9.md)
 
 ## 戰鬥，從留一手開始
 
@@ -55,13 +63,13 @@ Qingxi is the walkable town. The other world-map destinations currently offer th
 
 Deliver a master's letters to the actual recipients. Tend a medicine stove using herbs you gathered. Accept a shipment, inspect it at the training ground, and protect it from bandits at the ferry. Spar with the instructor or revisit the Blackwind chief. Sect contribution exchanges for learning points. Progress resets at **00:00 UTC+8**, with saved counts and safeguards against duplicate payouts; backward clock changes do not trigger another reset.
 
-The game uses **custom balance and original fiction**, inspired by the exploration-and-party direction of 《煙雨江湖》. Selected art and sound come from the owner-supplied projects, including Jinyong Heroes 5; reference screenshots are not shipped. See [rules, research and scope](docs/JOURNEY.md).
+The game uses **custom balance and original fiction**, inspired by the exploration-and-party direction of 《煙雨江湖》. The current chapter cast, walking/action sheets, game-window skin and inventory icons were created with built-in imagegen; prompts and provenance are in [art/characters-v2/PROMPTS.md](art/characters-v2/PROMPTS.md). Scenery and selected sounds come from the owner-supplied projects, including Jinyong Heroes 5; reference screenshots are not shipped. See [rules, research and scope](docs/JOURNEY.md).
 
 ## 在瀏覽器展開江湖
 
-The same Godot 4.6.3 game runs on **Windows and the web**, hosted with Sites. Open the [browser edition](https://jy.chon9.com) and choose **進入江湖**, or [download the latest Windows ZIP](https://github.com/chon9/Jinyong-Emulator/releases/latest) and run `Youxia.exe`. Five scene-aware BGM tracks accompany both editions. The homepage and persistent web toolbar always link to the latest Windows release.
+The same Godot 4.6.3 game runs on **Windows and the web**, hosted with Sites. Open the [browser edition](https://jy.chon9.com) and choose **進入江湖**, or [download the latest Windows ZIP](https://github.com/chon9/Jinyong-Emulator/releases/latest) and run `Youxia.exe`. Five scene-aware BGM tracks accompany both editions. The title screen and the upper-right game-tools menu link to the latest Windows release. That menu also holds backup, restore and fullscreen controls, leaving the whole playfield for the game.
 
-The first visit downloads roughly **66 MiB** including the engine, chapter art and soundtrack. Use a modern WebGL 2 browser on desktop or a tablet in landscape. Verified chunks are cached: later visits reuse them, damaged chunks are fetched again, and failed downloads resume through the retry button. The launcher waits for character, town, effect and audio preparation before entering play. Browser saves stay in IndexedDB. The top toolbar can **匯出存檔／匯入存檔**, including Windows backups. The new chapter and existing classic character share one backup with separate progression fields; neither overwrites the other. Clearing browser storage can remove progress; inactive tabs can pause self-study.
+The first visit downloads roughly **71 MiB** including the engine, chapter art and soundtrack. Use a modern WebGL 2 browser on desktop or a tablet in landscape. Verified chunks are cached: later visits reuse them, damaged chunks are fetched again, and failed downloads resume through the retry button. The launcher waits for character, town, effect and audio preparation before entering play. Browser saves stay in IndexedDB. The upper-right ☰ menu can **匯出存檔／匯入存檔**, including Windows backups. The new chapter and existing classic character share one backup with separate progression fields; neither overwrites the other. Clearing browser storage can remove progress; inactive tabs can pause self-study.
 
 **New chapter: single-player party combat.** The existing classic game remains under **設定 → 進入舊版江湖 / F9**, with a **青溪新章** button to return. Its large catalogue, multiplayer, dungeons and life skills have not all been converted to the new party system.
 

@@ -10,7 +10,8 @@
   $GODOT_HEAD_INCLUDE
 </head>
 <body>
-  <header class="toolbar">
+  <button id="tools-toggle" aria-label="遊戲工具選單" aria-expanded="false" aria-controls="game-tools">☰</button>
+  <header class="toolbar" id="game-tools" hidden>
     <a class="brand" href="./" aria-label="網金游俠首頁">網金游俠 <span id="live-location" role="status" aria-live="polite">瀏覽器江湖</span></a>
     <nav aria-label="遊戲工具">
       <a class="download" href="https://github.com/chon9/Jinyong-Emulator/releases/latest" target="_blank" rel="noopener">Windows 最新版</a>
@@ -31,7 +32,7 @@
         <p class="desktop-download"><a href="https://github.com/chon9/Jinyong-Emulator/releases/latest" target="_blank" rel="noopener">下載 Windows 最新版 ↗</a></p>
         <div id="loading" hidden><progress id="progress" max="1" value="0"></progress><p id="status" role="status" aria-live="polite"></p></div>
         <p id="failure" role="alert" hidden></p>
-        <p class="note">Godot 實機遊戲 · 首次需下載約 66 MB；再次進入會校驗並沿用快取<br>進度保存在此瀏覽器；可匯入 Windows 版完整備份。<br>建議電腦或平板橫向遊玩。背景分頁可能暫停自修。</p>
+        <p class="note">進度自動保存 · 再次進入沿用已驗證的快取<br>建議橫向遊玩 · 右上選單可備份存檔</p>
         <details><summary>新章、舊版與存檔</summary><p>預設進入單機新章「青溪失鏢」：地圖探索、四人同伴、武學陣型與隊伍戰鬥。這是新的首章，數值為自訂設計。舊版江湖的門派、任務、副本、生活技能及聯機可從「設定 → 進入舊版江湖」開啟；兩套進度分別保存。舊版瀏覽器聯機需要自行架設 wss:// 房主，目前網站未提供雲端房主。清除瀏覽器資料可能刪除進度，請定期匯出存檔。</p></details>
         <p class="note"><a href="credits.html" target="_blank" rel="noopener">素材與授權</a></p>
       </div>

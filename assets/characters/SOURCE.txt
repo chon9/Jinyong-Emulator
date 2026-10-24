@@ -1,0 +1,21 @@
+Current chapter cast and motion/action atlas provenance
+
+Generated with built-in imagegen on 2026-10-25 for this project.
+The same original reference cast is used across combat groups, protagonist
+weapon variants and front/side/back walking frames. Prompt records and
+the retained master reference are in art/characters-v2/.
+
+Runtime PNGs are copied unchanged from generated outputs. No pixels were
+painted, removed, recoloured or rearranged by a local image script.
+tools/index_character_art.py reads alpha to locate character regions and
+ground pivots. It writes JSON metadata only. Disconnected neighbouring
+art is excluded by source-region bounds, not by destructive image edits.
+
+combat-a.png: swordsman, companion, healer, staff; four combat poses each.
+combat-b.png: blade, elder, doctor, taoist; four poses each.
+combat-c.png: monk, wanderer, boss, rogue; four poses each.
+hero-variants.png: same protagonist with dao, staff or empty palms.
+hero-walk.png: south, east and north rows; west mirrors east.
+
+These images replace the mixed character sheets in the current chapter.
+Legacy/classic character assets remain for the retained classic mode.

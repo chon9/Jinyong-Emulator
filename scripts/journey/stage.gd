@@ -4,6 +4,8 @@ signal place_selected(place: String)
 signal unit_selected(id: String)
 signal arrived(place: String)
 signal walking
+const Locomotion = preload("res://scripts/journey/locomotion.gd")
+const CharacterArt = preload("res://scripts/journey/character_art.gd")
 const Town = preload("res://scripts/journey/town.gd")
 const Atlas = preload("res://scripts/journey/atlas.gd")
 const Chapter = preload("res://scripts/journey/chapter.gd")
@@ -14,6 +16,9 @@ var battle
 var bank
 var sounds
 var town = Town.new()
+var motion = Locomotion.new()
+var character_art = CharacterArt.new()
+var reset_camera := true
 var route := PackedVector2Array()
 var route_index := 0
 var requested_place := ""
@@ -44,12 +49,12 @@ func asset(path: String) -> Texture2D:
 	return bank.get_asset("res://assets/"+path) if bank != null else null
 
 func portrait(art: String) -> Texture2D:
-	var key: String = {"unit_player_m":"swordsman", "unit_huashan_m":"companion", "unit_emei_f":"healer", "unit_shaolin_m":"staff", "unit_m_bandit":"blade", "unit_xuedao_m":"boss", "unit_xingxiu_m":"rogue"}.get(art, "")
-	if art.begins_with("actor_"): key = art.trim_prefix("actor_")
-	if key == "": return tex(art+"_idle")
+	var key: String = character_art.portrait_key(art)
+	var frame: Dictionary = character_art.sprite(key)
 	var atlas := AtlasTexture.new()
-	atlas.atlas = asset("actors/"+key+".png")
-	atlas.region = Rect2(20,35,130,120)
+	atlas.atlas = asset("characters/"+frame.texture)
+	atlas.region = character_art.portrait_region(key)
+	atlas.filter_clip = true
 	return atlas
 
 func go_to(place: String) -> bool:
@@ -57,17 +62,23 @@ func go_to(place: String) -> bool:
 	requested_place = place
 	route = town.route(avatar,town.anchors[place])
 	route_index = 0
+	motion.position = avatar
+	motion.follow(route)
 	return not route.is_empty()
 
 func cancel_walk() -> void:
 	route = PackedVector2Array()
 	requested_place = ""
 	synced_place = ""
+	motion.reset(avatar)
+	reset_camera = true
 
 func sync_location() -> void:
 	if campaign != null and synced_place != campaign.state.place and route.is_empty():
 		avatar = town.anchors[campaign.state.place]
 		synced_place = campaign.state.place
+		motion.reset(avatar)
+		reset_camera = true
 
 func is_near_npc() -> bool:
 	return avatar.distance_to(town.anchors[campaign.state.place]) < 65 and route.is_empty()
@@ -87,22 +98,21 @@ func _process(delta: float) -> void:
 		if sounds != null and int(event.get("amount",0)) > 0 and event.get("kind","") != "heal": sounds.play("heavy" if event.get("kind","") in ["boss_hit","heavy","cleave"] else "hit")
 	if campaign != null and battle == null:
 		sync_location()
-		var allowance := delta*800
-		while route_index < route.size() and allowance > 0:
-			var distance := avatar.distance_to(route[route_index])
-			if absf(route[route_index].x-avatar.x) > 1: facing_left = route[route_index].x < avatar.x
-			var step := minf(allowance,distance)
-			avatar = avatar.move_toward(route[route_index],step)
-			allowance -= step
-			if distance <= step+.01: route_index += 1
-		if not route.is_empty() and route_index >= route.size():
+		motion.advance(delta)
+		avatar = motion.position
+		route = motion.route
+		route_index = motion.cursor
+		facing_left = motion.facing == Locomotion.Facing.WEST
+		if motion.finished:
 			route = PackedVector2Array()
 			if requested_place != "":
 				var place := requested_place
 				requested_place = ""
 				synced_place = place
 				arrived.emit(place)
-		camera = Vector2(clampf(avatar.x-size.x/(2*zoom),0,3328-size.x/zoom),clampf(avatar.y-size.y/(2*zoom),0,2304-size.y/zoom))
+		var target_camera := Vector2(clampf(avatar.x-size.x/(2*zoom),0,3328-size.x/zoom),clampf(avatar.y-size.y/(2*zoom),0,2304-size.y/zoom))
+		camera = target_camera if reset_camera else camera.lerp(target_camera,1-exp(-delta*8))
+		reset_camera = false
 	queue_redraw()
 
 func map_pos(point: Vector2) -> Vector2:
@@ -124,6 +134,8 @@ func _gui_input(input: InputEvent) -> void:
 			requested_place = ""
 			route = town.route(avatar,input.position/zoom+camera)
 			route_index = 0
+			motion.position = avatar
+			motion.follow(route)
 			walking.emit()
 			accept_event()
 
@@ -143,9 +155,9 @@ func draw_map() -> void:
 		var bg := tex("bg_huayin_road")
 		if bg != null: draw_texture_rect(bg,Rect2(Vector2.ZERO,size),false)
 		draw_rect(Rect2(Vector2.ZERO,size),Color(0,.05,.04,.18))
-		text_at(region+" · "+Atlas.REGIONS[region].npc,Vector2(40,48),GOLD,28)
-		draw_sprite("swordsman",Vector2(size.x*.28,size.y*.86),200,0,false)
-		draw_sprite(Atlas.NPC_SPRITES[region],Vector2(size.x*.73,size.y*.76),200,0,true)
+
+		draw_sprite("swordsman",Vector2(size.x*.28,size.y*.86),178,0,false)
+		draw_sprite(Atlas.NPC_SPRITES[region],Vector2(size.x*.73,size.y*.76),178,0,true)
 		return
 	var art := asset("town/qingxi.webp")
 	if art != null: draw_texture_rect(art,Rect2(-camera*zoom,Vector2(3328,2304)*zoom),false)
@@ -162,36 +174,39 @@ func draw_map() -> void:
 			var p := map_pos(avatar)
 			draw_ellipse_shadow(p,Vector2(19,6))
 			draw_arc(p,23,0,TAU,32,GOLD,1.5,true)
-			draw_sprite("swordsman",p,140,int(clock*10)%8 if not route.is_empty() else 0,facing_left)
+			draw_frame(character_art.walk(motion.facing,motion.frame()),p,100,motion.facing == Locomotion.Facing.WEST)
 			continue
-		var p := map_pos(town.anchors[name]+Vector2(32,-8))
+		var p := map_pos(town.anchors[name]+Vector2(76,-8))
 		if not Rect2(-100,-100,size.x+200,size.y+200).has_point(p): continue
 		draw_ellipse_shadow(p,Vector2(18,5))
-		draw_sprite(sprites[name],p,140,0,true)
+		draw_sprite(sprites[name],p,100,0,true)
 		var box := Rect2(p-Vector2(69,113),Vector2(138,30))
-		draw_style_box(_plate(Color(.07,.16,.12,.9)),box)
+		draw_style_box(_plate(Color(.13,.09,.055,.92)),box)
 		text_at(name,p-Vector2(0,91),IVORY,17,true)
 		if name == campaign.objective()[1] and campaign.state.stage < 7:
 			text_at("◆",p-Vector2(0,126+sin(clock*3)*3),GOLD,22,true)
 		bounds[name] = Rect2(p-Vector2(65,115),Vector2(130,125))
 	# Keep the full street plan visible as a minimap; the gold frame is the camera.
-	var mini := Rect2(size.x-183,12,170,118)
-	draw_style_box(_plate(Color(.06,.14,.1,.9)),mini.grow(4))
+	var mini := Rect2(size.x-183,99,170,118)
+	draw_style_box(_plate(Color(.13,.09,.055,.92)),mini.grow(4))
 	if art != null: draw_texture_rect(art,mini,false,Color(.8,.85,.8))
 	var scale_value := mini.size/Vector2(3328,2304)
 	draw_rect(Rect2(mini.position+camera*scale_value,size/zoom*scale_value),GOLD,false,1)
 	draw_circle(mini.position+avatar*scale_value,3,Color.WHITE)
-	text_at("青溪鎮 · 點街道行走／點人物交談",Vector2(17,size.y-15),IVORY,16)
+
 
 func draw_sprite(key: String, foot: Vector2, height: float, frame: int, left: bool, tint: Color = Color.WHITE) -> void:
-	var texture := asset("actors/"+key+".png")
+	draw_frame(character_art.sprite(key,frame),foot,height,left,tint)
+
+func draw_frame(frame: Dictionary, foot: Vector2, height: float, left: bool, tint: Color = Color.WHITE) -> void:
+	var texture := asset("characters/"+frame.texture)
 	if texture == null: return
-	var row := 0
-	if left and texture.get_height() >= 320: row = 1
-	var rect := Rect2(foot-Vector2(height*.5,height*.94),Vector2(height,height))
-	# Single-row staff poses face left in source art.
-	if key == "staff" and not left: rect.size.x *= -1
-	draw_texture_rect_region(texture,rect,Rect2((frame%8)*160,row*160,160,160),tint)
+	var region: Array = frame.region
+	var pivot := Vector2(float(frame.pivot[0]),float(frame.pivot[1]))
+	var scale_value := height/maxf(1,float(frame.height))
+	draw_set_transform(foot,0,Vector2(-scale_value if left else scale_value,scale_value))
+	draw_texture_rect_region(texture,Rect2(-pivot,Vector2(float(region[2]),float(region[3]))),Rect2(float(region[0]),float(region[1]),float(region[2]),float(region[3])),tint)
+	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
 
 func _plate(color: Color) -> StyleBoxFlat:
 	var box := StyleBoxFlat.new()
@@ -250,7 +265,7 @@ func draw_actor(u: Dictionary) -> void:
 	var active: bool = animation > 0 and event.get("actor", "") == u.id
 	var hurt: bool = animation > 0 and event.get("target", "") == u.id and event.get("amount",0) > 0
 	var offset := Vector2.ZERO
-	if active and event.get("kind","") not in ["heal","guard","charge","stun"]: offset.x = sin(animation/.8*PI)*38*(1 if u.side == 0 else -1)
+	if active and event.get("kind","") not in ["heal","guard","charge","stun"]: offset.x = sin(animation/.8*PI)*16*(1 if u.side == 0 else -1)
 	if hurt and event.get("kind","") != "heal": offset.x += sin(animation*42)*5
 	foot += offset
 	draw_ellipse_shadow(foot,Vector2(45,12))
@@ -260,17 +275,15 @@ func draw_actor(u: Dictionary) -> void:
 	if hurt and animation > .5 and event.get("kind","") != "heal": color = Color(1,.6,.5)
 	var key: String = {"hero":"swordsman","sword":"companion","healer":"healer","staff":"staff","boss":"boss","poison":"rogue","archer":"rogue"}.get(u.id,"blade")
 	key = u.get("sprite",key)
-	if u.id == "hero" and u.weapon == "刀": key = "blade"
-	if u.id == "hero" and u.weapon == "棍": key = "staff"
-	if u.id == "hero" and u.weapon == "拳掌":
-		# The unarmed build keeps its original empty-hand illustration.
-		var art := tex("unit_player_m_"+("attack" if active else "idle"))
-		if art != null:
-			var rect := Rect2(foot-Vector2(69,176),Vector2(138,180))
-			if u.side == 0: rect.size.x *= -1
-			draw_texture_rect(art,rect,false,color)
-	else:
-		draw_sprite(key,foot,232,int((.8-animation)*10) if active else 0,u.side == 1,color)
+	if u.id == "hero" and u.weapon == "刀": key = "hero_dao"
+	if u.id == "hero" and u.weapon == "棍": key = "hero_staff"
+	if u.id == "hero" and u.weapon == "拳掌": key = "hero_palm"
+	var phase := 0
+	if active:
+		var progress_value := 1-animation/.8
+		phase = 1 if progress_value < .3 else (2 if progress_value < .58 else 3)
+	elif u.guarding or hurt: phase = 3
+	draw_sprite(key,foot,174,phase,u.side == 1,color)
 	var top := foot-Vector2(0,190)
 	text_at(u.name,top,IVORY if u.side == 0 else Color("f7b3a0"),18,true)
 	draw_rect(Rect2(top+Vector2(-58,6),Vector2(116,7)),Color("202b26"))

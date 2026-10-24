@@ -7,6 +7,7 @@ from pathlib import Path
 import threading
 from playwright.sync_api import sync_playwright
 from browser_audio_test import QuietHandler
+from browser_ui_helpers import converse
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results'
@@ -23,7 +24,7 @@ def run():
         with sync_playwright() as p:
             installed = sorted((Path(os.environ['LOCALAPPDATA']) / 'ms-playwright').glob('chromium-*/chrome-win/chrome.exe'))
             browser = p.chromium.launch(headless=True, executable_path=str(installed[-1]), args=['--enable-unsafe-swiftshader', '--use-angle=swiftshader'])
-            context = browser.new_context(viewport={'width': 1440, 'height': 954})
+            context = browser.new_context(viewport={'width': 1440, 'height': 900})
             page = context.new_page()
             page.on('pageerror', lambda error: report['errors'].append(str(error)))
             requests = []
@@ -52,7 +53,7 @@ def run():
             stats = page.evaluate('window.youxiaPreloadStats')
             check(stats['cachedParts'] > 0 and stats['downloadedParts'] < len(parts), 'Retry resumes verified parts instead of downloading the whole game again')
             box = page.locator('#canvas').bounding_box()
-            page.mouse.click(box['x'] + 430*box['width']/1440, box['y'] + 764*box['height']/900)
+            converse(page)
             page.wait_for_function('window.youxiaChapterStatus.stage === 1')
             page.wait_for_timeout(6000)
             requests.clear()

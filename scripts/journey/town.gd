@@ -36,4 +36,35 @@ func _init() -> void:
 		anchors[name] = Vector2(data.anchors[name][0]*32+16,data.anchors[name][1]*32+16)
 
 func route(from: Vector2, to: Vector2) -> PackedVector2Array:
-	return graph.get_point_path(graph.get_closest_point(from),graph.get_closest_point(to))
+	var grid := graph.get_point_path(graph.get_closest_point(from),graph.get_closest_point(to))
+	if grid.size() < 3: return grid
+	var result := PackedVector2Array([grid[0]])
+	var index := 0
+	while index < grid.size()-1:
+		var furthest := index+1
+		for next in range(index+2,grid.size()):
+			if line_passable(grid[index],grid[next]): furthest = next
+		result.append(grid[furthest])
+		index = furthest
+	return result
+
+func connected(from: Vector2i, to: Vector2i) -> bool:
+	if to.x < 0 or to.y < 0 or to.x >= width or to.y >= height: return false
+	var a := from.y*width+from.x
+	var b := to.y*width+to.x
+	return graph.has_point(a) and graph.has_point(b) and (a == b or graph.are_points_connected(a,b))
+
+func line_passable(from: Vector2, to: Vector2) -> bool:
+	var count := maxi(1,int(ceil(from.distance_to(to)/4)))
+	var previous := Vector2i(floor(from.x/32),floor(from.y/32))
+	for i in range(1,count+1):
+		var p := from.lerp(to,float(i)/count)
+		var current := Vector2i(floor(p.x/32),floor(p.y/32))
+		if current == previous: continue
+		if current.x != previous.x and current.y != previous.y:
+			var side_x := Vector2i(current.x,previous.y)
+			var side_y := Vector2i(previous.x,current.y)
+			if not connected(previous,side_x) or not connected(side_x,current) or not connected(previous,side_y) or not connected(side_y,current): return false
+		elif not connected(previous,current): return false
+		previous = current
+	return true

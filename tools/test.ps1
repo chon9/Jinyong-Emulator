@@ -10,11 +10,13 @@ foreach ($youxiaSuite in $youxiaSuites) {
     if ($LASTEXITCODE -ne 0) { throw "Failed: $youxiaSuite" }
 }
 $youxiaProcesses = @()
+# Each run starts with fresh test characters; reconnect still uses one identity.
+$youxiaNetworkRun = [guid]::NewGuid().ToString('N').Substring(0,8)
 try {
     foreach ($youxiaRole in @('host','client')) {
         $youxiaNetworkScript = if ($DungeonNetwork) { 'res://tests/dungeon_net.gd' } elseif ($SocialNetwork -or $WebSocketNetwork) { 'res://tests/social_net.gd' } else { 'res://tests/net_peer.gd' }
         $youxiaProfile = if ($DungeonNetwork) { "dungeonnet_$youxiaRole" } elseif ($SocialNetwork) { "socialnet_$youxiaRole" } else { "net_$youxiaRole" }
-        $youxiaArgs = @('--headless','--path',('"' + $youxiaRoot + '"'),'--script',$youxiaNetworkScript,'--','--no-steam',"--test-profile=$youxiaProfile")
+        $youxiaArgs = @('--headless','--path',('"' + $youxiaRoot + '"'),'--script',$youxiaNetworkScript,'--','--no-steam',"--test-profile=$($youxiaProfile)_$youxiaNetworkRun")
         if ($youxiaRole -eq 'host') { $youxiaArgs += '--host-test' }
         if ($WebSocketNetwork) { $youxiaArgs += '--websocket-test' }
         $youxiaProcess = Start-Process -FilePath $Godot -ArgumentList $youxiaArgs -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $youxiaRoot "test-results\net_$youxiaRole.log") -RedirectStandardError (Join-Path $youxiaRoot "test-results\net_$youxiaRole.err")

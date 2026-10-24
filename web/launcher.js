@@ -7,6 +7,14 @@
   const progress = byId('progress');
   const nativeFetch = window.fetch.bind(window);
   let started = false;
+  const closeTools = () => { byId('game-tools').hidden = true; byId('tools-toggle').setAttribute('aria-expanded', 'false'); };
+  byId('tools-toggle').addEventListener('click', () => {
+    const open = byId('game-tools').hidden;
+    byId('game-tools').hidden = !open;
+    byId('tools-toggle').setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closeTools(); });
+  byId('canvas').addEventListener('pointerdown', closeTools);
   window.youxiaSetStatus = (name, place, page, mode) => {
     byId('live-location').textContent = `${name} · ${place} · ${page}`;
     document.documentElement.dataset.gamePage = page;
@@ -203,6 +211,7 @@
       }
       progress.value = 1;
       started = true;
+      document.documentElement.dataset.playing = 'true';
       byId('welcome').hidden = true;
       byId('backup').disabled = false;
       byId('restore').disabled = false;
