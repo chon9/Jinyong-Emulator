@@ -110,6 +110,17 @@ func run() -> void:
 	ui.start_battle("warehouse")
 	await process_frame
 	await shot("boss")
+	if screenshots:
+		ui.stage.show_event({"actor":"hero","target":"boss","kind":"attack","amount":64})
+		await shot("facing-ally-attack")
+		ui.stage.show_event({"actor":"boss","target":"hero","kind":"attack","amount":42})
+		await shot("facing-enemy-attack")
+		ui.stage.animation = 0
+		await process_frame
+	await click(ui.stage.position+ui.stage.actor_pos(ui.battle.by_id("boss"))-Vector2(0,85))
+	check(ui.selected_enemy=="boss","Enemy sprite remains selectable at its visible position after facing correction")
+	await click(ui.stage.position+ui.stage.actor_pos(ui.battle.by_id("hero"))-Vector2(0,85))
+	check(ui.selected_ally=="hero","Mirrored ally remains selectable at its visible position")
 	ui.persist()
 	var session=root.get_node("Session")
 	check(session.chapter_data.party.size()==4 and session.chapter_data.stage==5,"Campaign progress is included in normal session saves")

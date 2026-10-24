@@ -47,7 +47,10 @@ func map_pos(point: Vector2) -> Vector2:
 
 func _gui_input(input: InputEvent) -> void:
 	if input is InputEventMouseButton and input.pressed and input.button_index == MOUSE_BUTTON_LEFT:
-		for key in bounds:
+		# In overlapping ranks the last drawn actor is the one visible in front.
+		var hit_order := bounds.keys()
+		hit_order.reverse()
+		for key in hit_order:
 			if bounds[key].has_point(input.position):
 				if battle == null: place_selected.emit(key)
 				else: unit_selected.emit(key)
@@ -193,7 +196,9 @@ func draw_actor(u: Dictionary) -> void:
 	var color := Color.WHITE if u.hp > 0 else Color(.45,.45,.45,.35)
 	if art != null:
 		var rect := Rect2(foot-Vector2(69,176),Vector2(138,180))
-		if u.side == 1:
+		# Every supplied battle pose faces left. Mirror allies toward the enemies;
+		# keep the centred rectangle so names, feet and target bounds stay aligned.
+		if u.side == 0:
 			rect.size.x *= -1
 		draw_texture_rect(art,rect,false,color)
 	if u.hp > 0:

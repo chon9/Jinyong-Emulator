@@ -240,7 +240,7 @@ The launcher isolates development saves and editor caches under `.tools/`; they 
 | Classic UI and controls | [`scripts/classic/`](scripts/classic/) |
 | World catalog and stories | [`data/`](data/) |
 
-See [new chapter rules and research](docs/JOURNEY.md), the [classic development and gameplay manual](docs/DEVELOPMENT.md), the [classic restoration audit](docs/RESTORATION.md), and [v0.7.0 release notes](docs/releases/v0.7.0.md).
+See [new chapter rules and research](docs/JOURNEY.md), the [classic development and gameplay manual](docs/DEVELOPMENT.md), the [classic restoration audit](docs/RESTORATION.md), and [v0.7.1 release notes](docs/releases/v0.7.1.md).
 
 ## Project notes & credits
 
