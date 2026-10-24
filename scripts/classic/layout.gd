@@ -30,6 +30,9 @@ static func build(ui) -> void:
 	veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	at(veil, Rect2(0, 0, 1440, 718), ui)
 	at(ui.label("網 金 游 俠", 30, ui.GOLD), Rect2(28, 15, 300, 42), ui)
+	var chapter_button: Button = ui.button("青溪新章",func(): ui.get_tree().change_scene_to_file("res://scenes/journey.tscn"),ui)
+	chapter_button.position = Vector2(310,20)
+	chapter_button.size = Vector2(125,33)
 	ui.clock_label = ui.label("", 16)
 	at(ui.clock_label, Rect2(450, 24, 530, 30), ui)
 	var navigation := HBoxContainer.new()

@@ -19,6 +19,8 @@ var guest_saves: Dictionary = {}
 var local_id := ""
 var save_path := SAVE
 var local_tick := 0
+var chapter_data: Dictionary = {}
+signal chapter_imported
 var saved_clock := false
 var save_import_callback: JavaScriptObject
 var save_export_callback: JavaScriptObject
@@ -77,6 +79,7 @@ func _load() -> void:
 		var data := _read_save(path)
 		if data.is_empty(): continue
 		local_character = data.character
+		chapter_data = data.get("chapter", {}) if data.get("chapter", {}) is Dictionary else {}
 		local_tick = maxi(0, int(data.get("world_tick", 0)))
 		saved_clock = data.has("world_tick")
 		guest_saves = data.get("guests", {})
@@ -132,7 +135,7 @@ func save_game() -> bool:
 	var temp := save_path + ".tmp"
 	var file := FileAccess.open(temp, FileAccess.WRITE)
 	if file == null: return false
-	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves, "world_tick": local_tick}))
+	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves, "world_tick": local_tick, "chapter": chapter_data}))
 	file.close()
 	# Windows 上以 replace 的方式寫入：保留前一份存檔以利恢復。
 	if not _read_save(save_path).is_empty():
@@ -244,7 +247,7 @@ func export_save() -> void:
 		message.emit("系統", "存檔失敗，請稍後重試。")
 		return
 	if OS.has_feature("web"):
-		var payload := JSON.stringify({"version": 1, "character": local_character, "world_tick": local_tick})
+		var payload := JSON.stringify({"version": 1, "character": local_character, "world_tick": local_tick, "chapter": chapter_data})
 		JavaScriptBridge.get_interface("window").youxiaDownloadSave(payload)
 	else: message.emit("系統", "存檔位置：" + ProjectSettings.globalize_path(save_path))
 
@@ -258,6 +261,7 @@ func import_save_text(text: String) -> bool:
 		message.emit("系統", "這不是相容的網金游俠存檔。")
 		return false
 	var character: Dictionary = data.character
+	if data.has("chapter") and not preload("res://scripts/journey/chapter.gd").valid_save(data.chapter): return false
 	var clock: Variant = data.get("world_tick", 0)
 	if not (clock is int or clock is float) or not is_finite(float(clock)) or float(clock) < 0 or float(clock) > 1000000000000: return false
 	# Reject malformed containers before trusted local-save migration touches nested fields.
@@ -272,12 +276,14 @@ func import_save_text(text: String) -> bool:
 			if not (value is int or value is float) or not is_finite(float(value)) or float(value) < 0 or float(value) > 1000000000000: return false
 	save_game()  # Preserve the previous character in the regular backup.
 	local_character = character
+	chapter_data = data.get("chapter", {})
 	local_tick = maxi(0, int(data.get("world_tick", 0)))
 	saved_clock = data.has("world_tick")
 	world.tick = local_tick
 	_restore(1, character)
 	save_game()
 	_publish()
+	chapter_imported.emit()
 	message.emit("系統", "已匯入角色存檔；未完成的戰鬥、行程及掛機已停止。")
 	return true
 

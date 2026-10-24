@@ -22,6 +22,11 @@ var active := 0
 var ambient := "town"
 var ambient_position := 0.0
 var in_battle := false
+var scene_context := ""
+
+func set_scene_context(key: String) -> void:
+	scene_context = key if TRACKS.has(key) else ""
+	sync_state()
 
 func _ready() -> void:
 	load_settings()
@@ -56,7 +61,7 @@ static func context_for(state: Dictionary) -> String:
 	return "town" if preload("res://scripts/content.gd").PLACES.get(place, {}).get("safe", true) else "wild"
 
 func sync_state() -> void:
-	var next := context_for(Session.state)
+	var next := scene_context if scene_context != "" else context_for(Session.state)
 	var fighting := next in ["battle", "boss"]
 	if fighting and not in_battle:
 		ambient_position = players[active].get_playback_position() if audio_available else 0.0

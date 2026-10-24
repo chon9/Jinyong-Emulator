@@ -85,6 +85,10 @@ def run():
             if not args.diagnose:
                 assert report['initial_peak'] and report['initial_peak'] > .0001, 'No actual audio after entering the game'
                 report['checks'].append('Entering the game produces measurable Web Audio output')
+                # Retain the original five-track control regression alongside the new campaign.
+                page.locator('#canvas').focus()
+                page.keyboard.press('F9')
+                page.wait_for_timeout(500)
                 page.keyboard.press('F8')
                 page.wait_for_function("document.documentElement.dataset.gamePage === '聯機'")
                 page.wait_for_timeout(400)

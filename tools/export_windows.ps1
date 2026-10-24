@@ -1,4 +1,4 @@
-param([string]$Godot = 'K:\Godot\Godot_v4.6.3-stable_win64_console.exe')
+﻿param([string]$Godot = 'K:\Godot\Godot_v4.6.3-stable_win64_console.exe')
 $ErrorActionPreference = 'Stop'
 $youxiaRoot = Split-Path -Parent $PSScriptRoot
 $youxiaVersion = (Select-String -LiteralPath (Join-Path $youxiaRoot 'project.godot') -Pattern '^config/version="([^"]+)"').Matches[0].Groups[1].Value
@@ -46,9 +46,11 @@ $youxiaCredits = @'
 Classic presentation assets adapted with permission from the user's JY-Mini OL project:
 - LXGW WenKai TC Regular, distributed under the SIL Open Font License (Font-OFL.txt).
 - Four landscape backgrounds from assets/art/bg.
+- Chapter character idle/attack/hurt poses, river/cave scenery and map parchment from assets/art/units, bg and map.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
 - Five owner-supplied BGM recordings from assets/bgm; see Music-Credits.txt.
 Combat, inventory, party, trade and networking remain the Youxia simulator implementation.
+The Qingxi chapter is original fiction with custom party-combat rules inspired by wuxia RPG design.
 '@
 Set-Content -LiteralPath (Join-Path $youxiaOutput 'Asset-Credits.txt') -Value $youxiaCredits -Encoding utf8
 $youxiaReadme = @'
@@ -58,6 +60,17 @@ $youxiaReadme = @'
 請把同資料夾的 DLL 與 steam_appid.txt 留在原位，給朋友時傳送整個 ZIP。
 
 單機：直接啟動即可。Steam 未開啟時仍可玩單機。
+新版預設進入「青溪失鏢」第一章：點地圖前往、下方與 NPC 對話、右側查看下一條線索。
+隨故事招募顧長風、沈青棠、陸衡，組成四人隊伍。這一章是新的單機戰鬥系統。
+同伴／武學：搭配外功、內功、輕功，調整前後排與上中下路；佔用的陣位會交換。
+戰鬥：先選敵人，再替同伴選普攻、施招或守勢，按空白鍵／進行回合，按速度先後出手。
+每次普攻使全體聚氣，25 真元一格；技能需要真元並有調息。委託可自動下令並推進回合。
+首領蓄力可用陸衡封招打斷；沈青棠治療解毒；顧長風越陣攻後排；主角追擊流血與破甲。
+演武坪可選華山／武當／少林並消點。新章消點耗 12＋重數×3 學點，自修每 5 秒耗 8＋重數×3，上限十重。
+此為自訂章節平衡，並非金庸 Online 或煙雨江湖官方逐值公式。新章目前有八個地點、一條完整主線與採藥支線。
+新舊角色進度並存於同一存檔，新章不繼承舊角色的等級與裝備；進度不會相互覆蓋。
+設定 → 進入舊版江湖／F9：開啟原有任務、副本、生活、Steam、區網與 WebSocket 聯機。
+舊版左上「青溪新章」可返回新版；以下聯機和經典玩法說明適用於舊版江湖。
 Steam：雙方先開 Steam 與遊戲，進「系統」頁開房／加入。開發測試 App ID 為 480。
 區網：使用「區網開房」與房主 IP，UDP 24780。
 

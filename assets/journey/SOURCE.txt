@@ -1,0 +1,11 @@
+Youxia: Qingxi chapter presentation assets
+
+Reused from the owner's supplied JY-Mini OL project, as requested in this development session:
+- assets/art/units: selected player, Huashan, Emei, Shaolin, Wudang, beggar, bandit, Xuedao, Xingxiu and civilian poses.
+- assets/art/bg: bg_river_road, bg_huayin_road, bg_guiwang.
+- assets/art/map: map_region_bg parchment and selected inn/water/field/wild/sect/shop/master/cave destination icons.
+
+The chapter character identities, dialogue, quest, map geometry and combat implementation are original to this simulator.
+Visual poses are reused as character illustrations; they do not imply these characters or mechanics come from the source project.
+No attached reference screenshot or Yanyu Jianghu proprietary image is included in the game pack.
+No new image generation was used for this chapter.

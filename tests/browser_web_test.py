@@ -45,6 +45,10 @@ def run():
                 page.get_by_role('button', name='進入江湖').click()
                 page.wait_for_function("document.documentElement.dataset.gameReady === 'true'", timeout=90000)
                 page.wait_for_timeout(1500)
+                # The new campaign is default; this suite covers retained legacy networking.
+                page.locator('#canvas').focus()
+                page.keyboard.press('F9')
+                page.wait_for_timeout(500)
             page.goto(f'http://127.0.0.1:{server.server_port}/')
             page.screenshot(path=str(OUTPUT / 'web-launcher.png'))
             launch()

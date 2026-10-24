@@ -4,7 +4,7 @@ $youxiaRoot = Split-Path -Parent $PSScriptRoot
 $env:APPDATA = Join-Path $youxiaRoot '.tools\appdata'
 $env:LOCALAPPDATA = Join-Path $youxiaRoot '.tools\localappdata'
 New-Item -ItemType Directory -Path (Join-Path $youxiaRoot 'test-results'),$env:APPDATA,$env:LOCALAPPDATA -Force | Out-Null
-$youxiaSuites = if ($NetworkOnly) { @() } else { @('world_test.gd','martial_test.gd','restoration_test.gd','social_test.gd','bgm_test.gd','ui_test.gd','ui_flow_test.gd','quest_paths_test.gd','quest_save_test.gd','dungeon_test.gd','dungeon_ui_test.gd','life_test.gd','life_ui_test.gd','web_save_test.gd') }
+$youxiaSuites = if ($NetworkOnly) { @() } else { @('journey_test.gd','journey_ui_test.gd','world_test.gd','martial_test.gd','restoration_test.gd','social_test.gd','bgm_test.gd','ui_test.gd','ui_flow_test.gd','quest_paths_test.gd','quest_save_test.gd','dungeon_test.gd','dungeon_ui_test.gd','life_test.gd','life_ui_test.gd','web_save_test.gd') }
 foreach ($youxiaSuite in $youxiaSuites) {
     & $Godot --headless --path $youxiaRoot --script "res://tests/$youxiaSuite" -- --no-steam --test-profile=unit
     if ($LASTEXITCODE -ne 0) { throw "Failed: $youxiaSuite" }
@@ -18,13 +18,14 @@ try {
         if ($youxiaRole -eq 'host') { $youxiaArgs += '--host-test' }
         if ($WebSocketNetwork) { $youxiaArgs += '--websocket-test' }
         $youxiaProcess = Start-Process -FilePath $Godot -ArgumentList $youxiaArgs -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $youxiaRoot "test-results\net_$youxiaRole.log") -RedirectStandardError (Join-Path $youxiaRoot "test-results\net_$youxiaRole.err")
+        # Keep the native handle open: Windows PowerShell otherwise loses ExitCode for short-lived children.
+        $null = $youxiaProcess.Handle
         $youxiaProcesses += $youxiaProcess
         if ($youxiaRole -eq 'host') { Start-Sleep -Milliseconds 1200 }
     }
     foreach ($youxiaProcess in $youxiaProcesses) {
         if (-not $youxiaProcess.WaitForExit(60000)) { throw 'Network test timed out' }
-        $youxiaProcess.Refresh()
-        if ($youxiaProcess.ExitCode -ne 0) { throw 'Network peer failed; see test-results logs' }
+        if ($youxiaProcess.ExitCode -ne 0) { throw "Network peer failed (exit $($youxiaProcess.ExitCode)); see test-results logs" }
     }
     foreach ($youxiaRole in @('host','client')) {
         Get-Content -LiteralPath (Join-Path $youxiaRoot "test-results\net_$youxiaRole.log")

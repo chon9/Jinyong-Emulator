@@ -3,8 +3,8 @@ config_version=5
 
 [application]
 config/name="網金游俠模擬器"
-config/version="0.6.0"
-run/main_scene="res://scenes/main.tscn"
+config/version="0.7.0"
+run/main_scene="res://scenes/journey.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 
 [autoload]

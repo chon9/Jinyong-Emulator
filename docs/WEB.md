@@ -1,14 +1,16 @@
 # 網金游俠瀏覽器版
 
-入口：[瀏覽器江湖](https://jy.chon9.com)。目前使用擁有者設定的公開網址。按「進入江湖」載入遊戲，第一次下載連同地景約 46 MB。首頁和遊戲上方都提供 Windows 最新版下載入口，固定連到 GitHub 的最新 Release，不綁定特定版本。
+入口：[瀏覽器江湖](https://jy.chon9.com)。目前使用擁有者設定的公開網址。按「進入江湖」載入 Godot 遊戲，第一次下載連同地景、角色與音樂約 58 MB。首頁和遊戲上方都提供 Windows 最新版下載入口，固定連到 GitHub 的最新 Release，不綁定特定版本。
 
-網頁 BGM 使用 Godot 串流播放，修正預設 Sample 播放模式啟動音樂卻沒有聲音的問題。「系統／F8」可調整音量、靜音與選擇曲目。測試直接測量瀏覽器音訊輸出，涵蓋五首曲目與靜音／音量控制。
+網頁 BGM 使用 Godot 串流播放，修正預設 Sample 模式啟動音樂卻沒有聲音的問題。新章右上可即時開關音樂；「設定／F8」可調音量與選曲。測試直接測量瀏覽器音訊輸出，涵蓋五首曲目與靜音／音量控制。
 
-這是現有 Godot 4.6.3 遊戲的 WebAssembly 匯出，沒有另外重寫武學、任務、副本或生活規則。畫面沿用經典客戶端，主要適合電腦與平板橫向操作；不是手機原生介面的重製。需要 WebAssembly 與 WebGL 2，建議新版 Chrome、Edge 或 Firefox。採用單執行緒模板，不需要 SharedArrayBuffer 或跨來源隔離標頭。[Godot 官方 Web 匯出說明](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html)。
+這是 Godot 4.6.3 的 WebAssembly 匯出，與 Windows 共用遊戲程式。v0.7.0 預設為有角色、地圖與隊伍戰鬥的「青溪失鏢」新章；[新章規則與範圍](JOURNEY.md)另列。舊版任務、副本、生活與聯機從設定進入，尚未全部轉成新戰鬥。主要適合電腦與平板橫向操作；需要 WebAssembly 與 WebGL 2。採用單執行緒模板，不需要 SharedArrayBuffer 或跨來源隔離標頭。[Godot 官方 Web 匯出說明](https://docs.godotengine.org/en/stable/tutorials/export/exporting_for_web.html)。
 
 ## 存檔與背景掛機
 
 單機角色保存在此網站／此瀏覽器的 IndexedDB。定期存檔與 F5 遊戲存檔仍在，工具列提供角色 JSON 備份匯出和匯入。可以匯入 Windows 版的 `youxia_save.json`，或把匯出的 JSON 作為桌面版角色備份使用。匯入會停止未完成行程、戰鬥、副本與掛機，保留已獲物品與熟練。
+
+新章進度放在同一備份的 `chapter` 欄位，與舊版 `character` 分別保存；舊版備份沒有此欄位時新章從第一步開始。匯入新章時也驗證角色、武學、陣位和數量。主線、同伴、修為、背包與故事選擇會保留，戰鬥與自修不恢復。
 
 匯入前會檢查版本、資料容器與基本數量型別，並要求確認替換。聯機角色由房主保存，客戶端不能匯入自己的數值到房主角色。不要在開著桌面遊戲時替換桌面版的存檔；先退出，並保留原檔備份。
 
