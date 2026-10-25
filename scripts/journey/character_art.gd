@@ -8,6 +8,8 @@ func _init() -> void:
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/open_art.json")))
 	if FileAccess.file_exists("res://data/visual_art.json"):
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/visual_art.json")),true)
+	if FileAccess.file_exists("res://data/companion_art.json"):
+		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/companion_art.json")),true)
 
 func sprite(key: String, pose: int = 0) -> Dictionary:
 	var entry: Dictionary = data.characters.get(key,data.characters.swordsman)

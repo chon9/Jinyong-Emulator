@@ -32,7 +32,7 @@ func _init() -> void:
 		var h: Dictionary=Data.HEROES[id]
 		Open.enter(c,h.region,h.scene)
 		Open.invite(c,id)
-		check(id in c.state.roster,"Every new companion can actually be recruited: "+h.name)
+		check(not id in c.state.roster,"Meeting alone cannot recruit a companion: "+h.name)
 		var n: int=c.state.roster.size()
 		Open.invite(c,id)
 		check(c.state.roster.size()==n and c.state.party.size()<=4,"Repeated invitations cannot duplicate a companion")
@@ -69,6 +69,11 @@ func _init() -> void:
 		var silver: int=c.state.silver
 		Open.action(c,id,quest.giver,0)
 		check(c.state.silver==silver,"Completed quest cannot pay twice: "+id)
+	for id in Data.HEROES:
+		var h: Dictionary=Data.HEROES[id]
+		Open.enter(c,h.region,h.scene)
+		Open.invite(c,id)
+		check(id in c.state.roster,"Story, relationship and cultivation unlock actual recruitment: "+h.name)
 	for id in Data.ENEMIES:
 		var b=Battle.new(c,"wild:"+id,1)
 		check(b.living(1).size()==1 and b.living(1)[0].sprite==id,"Each enemy is a reachable combatant with its own art")
@@ -77,9 +82,11 @@ func _init() -> void:
 			if b.queue.is_empty() or b.result!="":break
 			b.next_action()
 	var saved: Dictionary=JSON.parse_string(JSON.stringify(c.state))
+	FileAccess.open("res://test-results/story-completion.json",FileAccess.WRITE).store_string(JSON.stringify(saved))
+	check(Open.valid_save(saved.open_world),"Completed stories and evidence conform to the world-save schema")
 	check(Chapter.valid_save(saved),"All new recruits, relationships, quests and discoveries survive JSON save")
 	var loaded=Chapter.new(saved)
-	check(loaded.state.roster.size()==c.state.roster.size() and loaded.state.open_world.quests.size()==121,"Restored progress contains all 121 quest states")
+	check(loaded.state.roster.size()==c.state.roster.size() and loaded.state.open_world.quests.size()==Data.QUESTS.size(),"Restored progress contains every completed story")
 	var bad: Dictionary=saved.duplicate(true)
 	bad.open_world.quests.values()[0].step=-1
 	check(not Chapter.valid_save(bad),"Save import rejects malformed quest progress")

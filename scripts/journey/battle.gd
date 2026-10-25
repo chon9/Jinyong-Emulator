@@ -224,7 +224,7 @@ func _resolve(u: Dictionary, action: String, requested: String) -> Dictionary:
 		return _event(u,u,"guard",0,"%s架勢護陣，減傷 60%%，並援護後排同伴。" % u.name)
 	if action == "charge":
 		u.charging = true
-		return _event(u,u,"charge",0,"%s開始蓄力！下回合將橫掃前排，用陸衡封招或提前守勢。" % u.name)
+		return _event(u,u,"charge",0,"%s開始蓄力！下回合將橫掃前排，可用封招武學打斷，或提前守勢。" % u.name)
 	var kind := action
 	var power := 2.2 if action=="heal" else 1.0
 	var title: String=u.get("skill","普攻") if u.side==1 and action!="attack" else "普攻"
@@ -250,14 +250,14 @@ func _resolve(u: Dictionary, action: String, requested: String) -> Dictionary:
 		var backs := living(1-int(u.side)).filter(func(a): return not a.front)
 		if not backs.is_empty(): t = backs[0]
 		power = .8
-		title = "毒砂"
+		if action!="skill":title = u.get("skill","毒砂")
 	if kind == "heavy":
 		power = 1.6
-		title = "重斬"
+		if action!="skill":title = u.get("skill","重斬")
 	if kind == "boss_hit":
 		u.charging = false
 		power = 2.2
-		title = "斷江斬"
+		title = u.get("skill","斷江斬")
 	var targets := [t]
 	if kind == "cleave": targets = living(1-int(u.side)).filter(func(a): return a.lane == t.lane)
 	if kind == "boss_hit":
@@ -299,6 +299,7 @@ func _resolve(u: Dictionary, action: String, requested: String) -> Dictionary:
 	elif kind == "break": effect = " · 破甲"
 	elif kind == "poison": effect = " · 中毒兩回合"
 	var event := _event(u,t,kind,total,"%s · %s → %s，造成 %d 傷害%s。" % [u.name,title,t.name,total,effect])
+	event.skill=title
 	event.hits = hits
 	return event
 
@@ -312,7 +313,8 @@ func medicine(id: String, inventory: Dictionary) -> Dictionary:
 	return _event(target,target,"heal",amount,"為%s使用金創藥，回復 %d 氣血。" % [target.name,amount])
 
 func _event(actor: Dictionary, target: Dictionary, kind: String, amount: int, text: String) -> Dictionary:
-	var e := {"actor":actor.id,"target":target.id,"kind":kind,"amount":amount,"text":text}
+	var skill: String="普攻" if kind=="attack" else actor.get("outer",actor.get("skill",""))
+	var e := {"actor":actor.id,"target":target.id,"kind":kind,"amount":amount,"text":text,"skill":skill,"weapon":actor.get("weapon","拳掌")}
 	history.append(e)
 	return e
 

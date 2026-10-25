@@ -26,6 +26,10 @@ var selected_npc:=""
 var npc_page:=0
 var dialogue_topic:=false
 var quest_dialogue:=""
+var dialogue_cursor:=0
+var dialogue_override: Array=[]
+var dialogue_followup:=""
+var shown_dialogue_text:=""
 var quest_filter:="當地"
 var quest_page:=0
 var quest_selection:=""
@@ -370,6 +374,13 @@ func update_browser_status() -> void:
 	if not OS.has_feature("web"): return
 	var status := {"page":page,"place":campaign.state.place,"stage":int(campaign.state.stage),"party":campaign.state.party.size(),"battle":"" if battle == null else (battle.result if battle.result != "" else "active"),"round":0 if battle == null else battle.round_no,"notice":notice,"region":Atlas.ensure(campaign).region,"navigating":navigating,"daily":Daily.ensure(campaign).counts,"ready":boot_ready,"scene":Open.current_scene(campaign),"roster":campaign.state.roster,"quests":Open.ensure(campaign).quests,"dialogue":selected_npc if dialogue_open else ""}
 	status.people=Open.people(campaign).map(func(id):return {"id":id,"name":OW.PEOPLE[id].name,"role":OW.PEOPLE[id].role,"art":OW.PEOPLE[id].art})
+	status.dialogue_page=dialogue_cursor
+	status.dialogue_text=shown_dialogue_text if dialogue_open else ""
+	status.evidence=Open.ensure(campaign).evidence
+	status.sounds=sounds.history.duplicate()
+	status.event=stage.event if battle!=null else {}
+	status.effects="" if battle==null or stage.event.is_empty() or battle.by_id(stage.event.get("actor","")).is_empty() else preload("res://scripts/journey/combat_style.gd").key_for(battle.by_id(stage.event.actor),stage.event)
+	status.units=[] if battle==null else battle.units.map(func(u):return {"id":u.id,"name":u.name,"hp":u.hp,"states":preload("res://scripts/journey/combat_style.gd").states(u)})
 	JavaScriptBridge.eval("window.youxiaChapterStatus = Object.freeze("+JSON.stringify(status)+");",true)
 	var buttons := []
 	collect_buttons(layer,buttons)
@@ -431,11 +442,21 @@ func render_world() -> void:
 			head_at(npc.art,Rect2(p+Vector2(7,5),Vector2(93,105)))
 			panel(Rect2(p+Vector2(-34,119),Vector2(195,61)),Color("30251cee"))
 			label(npc.name,Rect2(p+Vector2(-34,121),Vector2(195,30)),20,GOLD)
-			label("可邀同行" if npc.has("hero") and not npc.hero in campaign.state.roster else npc.role,Rect2(p+Vector2(-27,153),Vector2(190,25)),16)
+			label(("尚待結交" if Open.recruit_reason(campaign,npc.hero)!="" else "可邀同行") if npc.has("hero") and not npc.hero in campaign.state.roster else npc.role,Rect2(p+Vector2(-27,153),Vector2(190,25)),16)
 		if locals.size()>4:
 			button("其他人物 →",Rect2(1110,530,280,42),func():npc_page=(npc_page+1)%int(ceil(locals.size()/4.0));render())
 		button("附近挑戰",Rect2(1120,146,280,43),func():foe_filter=region;foe_page=0;set_page("挑戰"))
 		button("當地委託 · %d"%Open.quests_here(campaign).size(),Rect2(1120,198,280,43),func():quest_filter="當地";quest_page=0;set_page("江湖誌"))
+		var interactions: Array=Open.interactions_here(campaign)
+		for i in mini(3,interactions.size()):
+			var qid: String=interactions[i]
+			var current: Dictionary=OW.QUESTS[qid].steps[int(data.quests[qid].step)]
+			var action_text: String=current.get("action",current.text)
+			var action_button:=button(action_text.left(15),Rect2(1120,251+i*52,280,45),func():open_quest_dialogue(qid),true)
+			action_button.tooltip_text=action_text
+			if i==0 and current.kind=="search":
+				label("現場留下的東西 · 點擊察看",Rect2(559,611,390,30),19,GOLD)
+				button("察看 · "+current.item,Rect2(556,646,420,49),func():open_quest_dialogue(qid),true)
 		button("返回街巷" if region=="嘉興鎮" else "離開此處 · 世界地圖",Rect2(17,490,290,43),func():
 			if region=="嘉興鎮":scene_open=false;dialogue_open=false;render()
 			else:set_page("世界"))
@@ -451,36 +472,83 @@ func quest_action() -> void:
 
 func render_dialogue() -> void:
 	if not OW.PEOPLE.has(selected_npc):return
+	# A dialogue is a modal game interaction. Background scene actions must not
+	# intercept a same-named "search" or "fight" confirmation in this panel.
+	for child in layer.get_children():
+		if child is BaseButton:child.disabled=true
+	var shade:=ColorRect.new()
+	shade.color=Color(0,0,0,.28)
+	shade.mouse_filter=Control.MOUSE_FILTER_STOP
+	at(shade,Rect2(0,0,1440,900))
 	var npc: Dictionary=OW.PEOPLE[selected_npc]
-	panel(Rect2(81,570,1278,228),Color("e4d3ab"))
-	image_at(npc.art,Rect2(90,487,246,303))
-	label(npc.name,Rect2(354,586,910,33),25,INK)
-	var text: String=npc.reply if dialogue_topic else npc.text
-	if quest_dialogue!="" and Open.active_for(campaign,selected_npc).has(quest_dialogue):
-		var step: Dictionary=OW.QUESTS[quest_dialogue].steps[int(Open.ensure(campaign).quests[quest_dialogue].step)]
-		text=OW.QUESTS[quest_dialogue].text+"\n"+step.text
-	prose(text,Rect2(354,630,943,76),20,INK)
-	button("×",Rect2(1303,584,39,36),func():dialogue_open=false;render())
+	var quest_ready: bool=quest_dialogue!="" and Open.step_here(campaign,quest_dialogue,selected_npc)
+	var lines: Array=Open.step_pages(campaign,quest_dialogue) if quest_ready else Open.conversation(campaign,selected_npc,dialogue_topic)
+	if not dialogue_override.is_empty():lines=dialogue_override
+	dialogue_cursor=clampi(dialogue_cursor,0,lines.size()-1)
+	var line: Dictionary=lines[dialogue_cursor]
+	var speaker: Dictionary=OW.PEOPLE.get(line.get("speaker",""),Chapter.HEROES.hero if line.get("speaker","")=="hero" else {"name":"江湖見聞","art":npc.art})
+	panel(Rect2(81,536,1278,277),Color("e4d3ab"))
+	if line.get("speaker","")!="":image_at(speaker.art,Rect2(90,487,246,315))
+	else:
+		label("現 場 搜 查",Rect2(105,583,225,36),24,INK)
+		var clue_name: String=OW.QUESTS[quest_dialogue].steps[int(Open.ensure(campaign).quests[quest_dialogue].step)].get("item","留下的痕跡") if quest_ready else "留下的痕跡"
+		prose(clue_name,Rect2(107,637,218,107),22,INK)
+	label(speaker.name,Rect2(354,553,780,33),25,INK)
+	label("%d / %d"%[dialogue_cursor+1,lines.size()],Rect2(1165,555,125,29),18,INK)
+	shown_dialogue_text=line.text
+	prose(line.text,Rect2(354,599,943,109),21,INK)
+	button("×",Rect2(1303,550,39,36),func():dialogue_open=false;render())
 	var choices:=[]
-	if quest_dialogue!="" and Open.active_for(campaign,selected_npc).has(quest_dialogue):
+	if dialogue_cursor<lines.size()-1:
+		choices.append(["下一句 →",func():dialogue_cursor+=1;render()])
+	elif not dialogue_override.is_empty():
+		if dialogue_followup!="" and Open.ensure(campaign).quests.get(dialogue_followup,{}).get("status","")=="active":
+			choices.append(["追尋下一條線索",func():
+				var next: Dictionary=OW.QUESTS[dialogue_followup].steps[int(Open.ensure(campaign).quests[dialogue_followup].step)]
+				enter_scene(next.region,next.scene);open_quest_dialogue(dialogue_followup)])
+		elif npc.has("hero") and not npc.hero in campaign.state.roster and Open.recruit_reason(campaign,npc.hero)=="":
+			choices.append(["邀請同行",func():notice=Open.invite(campaign,npc.hero);persist();dialogue_override=[{"speaker":selected_npc,"text":notice}];dialogue_followup="";render()])
+		choices.append(["回到交談",func():dialogue_override=[];dialogue_cursor=0;render()])
+	elif quest_ready:
 		var step: Dictionary=OW.QUESTS[quest_dialogue].steps[int(Open.ensure(campaign).quests[quest_dialogue].step)]
 		if step.kind=="choice":
 			for i in step.options.size():choices.append([step.options[i],func():quest_progress(quest_dialogue,i)])
-		else:choices.append(["處理委託 · "+OW.QUESTS[quest_dialogue].name,func():quest_progress(quest_dialogue)])
+		else:choices.append([step.get("action","繼續這件事"),func():quest_progress(quest_dialogue)])
 	else:
 		if npc.has("hero"):
-			choices.append(["已是同行好友" if npc.hero in campaign.state.roster else "邀請同行",func():notice=Open.invite(campaign,selected_npc);sounds.play("accept");persist();render()])
-		choices.append(["委託與故事",func():
-			quest_filter="當地"
-			quest_page=0
-			var here: Array=Open.quests_here(campaign,selected_npc)
-			if not here.is_empty():quest_selection=here[0]
-			set_page("江湖誌")])
-		choices.append(["聽聽近況",func():dialogue_topic=not dialogue_topic;render()])
+			var reason: String=Open.recruit_reason(campaign,npc.hero)
+			choices.append(["已是同行好友" if npc.hero in campaign.state.roster else ("邀請同行" if reason=="" else "結交條件"),func():
+				if Open.recruit_reason(campaign,npc.hero)!="":
+					var cleared: bool=Open.ensure(campaign).quests.get(npc.story,{}).get("status","")=="done"
+					var request: String=npc.reply if cleared else "「"+OW.QUESTS[npc.story].name+"」還未有個交代。先陪我查清這段往事，我們再談以後的路。"
+					dialogue_override=[{"speaker":selected_npc,"text":request},{"speaker":selected_npc,"text":Open.recruit_reason(campaign,npc.hero)+"。你可以先查清這段往事，也可修行之後再回來。"}];dialogue_cursor=0
+				else:notice=Open.invite(campaign,selected_npc);sounds.play("accept");persist();dialogue_override=[{"speaker":selected_npc,"text":notice}];dialogue_cursor=0
+				render()])
+		var topic: String=npc.get("story","")
+		if OW.QUESTS.has(topic):choices.append(["談談 · "+OW.QUESTS[topic].name,func():
+			var q: Dictionary=OW.QUESTS[topic]
+			if q.giver==selected_npc and Open.current_region(campaign)==q.region and Open.current_scene(campaign)==q.scene:
+				if not Open.ensure(campaign).quests.has(topic):notice=Open.accept(campaign,topic,selected_npc);quest_progress(topic)
+				elif Open.step_here(campaign,topic,selected_npc):open_quest_dialogue(topic)
+				else:quest_selection=topic;quest_filter="全部";set_page("江湖誌")
+			else:enter_scene(q.region,q.scene);open_person(q.giver)])
+		choices.append(["其他見聞",func():dialogue_topic=not dialogue_topic;dialogue_cursor=0;render()])
 		if Open.is_market(campaign):choices.append(["買賣物品",func():set_page("行囊")])
 		elif current_training_place():choices.append(["拜師與學武",func():set_page("武學")])
 	var width: float=930.0/maxi(1,choices.size())-8
 	for i in choices.size():button(choices[i][0],Rect2(354+i*(width+8),726,width,46),choices[i][1],i==0)
+
+func open_quest_dialogue(id: String) -> void:
+	if not Open.step_here(campaign,id):return
+	var step: Dictionary=OW.QUESTS[id].steps[int(Open.ensure(campaign).quests[id].step)]
+	selected_npc=step.get("npc",OW.QUESTS[id].giver)
+	dialogue_open=true
+	quest_dialogue=id
+	dialogue_cursor=0
+	dialogue_override=[]
+	dialogue_followup=""
+	page="江湖"
+	render()
 
 func travel(destination: String) -> void:
 	if battle!=null or not boot_ready or not Chapter.PLACES.has(destination):return
@@ -642,6 +710,10 @@ func render_inventory() -> void:
 			item_image(slot,Rect2(x+10,y+4,65,57))
 			label("×"+str(int(campaign.state.inventory.get(item,0))),Rect2(x+46,y+50,38,25),16,PAPER)
 	label("隨身物品　%d / 40 格" % items.size(),Rect2(59,626,755,25),17,MUTED)
+	var evidence: Array=[]
+	for clue in Open.ensure(campaign).evidence.values():evidence.append(clue.name)
+	if not evidence.is_empty():
+		prose("線索袋（不可出售）\n"+"、".join(evidence),Rect2(54,374,788,224),19,GOLD)
 	panel(Rect2(895,163,520,498))
 	item_image(items.find(inventory_selection),Rect2(929,191,92,92))
 	label(inventory_selection,Rect2(1033,208,340,42),29,GOLD)
@@ -694,19 +766,20 @@ func render_journal() -> void:
 			else:notice=Open.accept(campaign,quest_selection,q.giver);quest_filter="進行中";persist();render(),true)
 	elif status.status=="done":
 		label("已結案 · 報酬已領取",Rect2(584,443,788,40),26,GOLD)
-		prose("這段故事已記入江湖誌。你仍可自由尋訪此地的人物。",Rect2(584,504,788,80),20)
+		var choice: int=0 if status.choices.is_empty() else int(status.choices.back())
+		prose(q.get("endings",[q.text,q.text])[choice],Rect2(584,504,788,112),20)
 	else:
 		var step: Dictionary=q.steps[int(status.step)]
 		label("步驟 %d / %d"%[int(status.step)+1,q.steps.size()],Rect2(584,435,788,35),23,GOLD)
 		prose(step.region+"／"+step.scene+"\n"+step.text,Rect2(584,480,788,89),22)
 		button("追蹤此委託",Rect2(584,608,220,47),func():data.tracked=quest_selection;persist();notice="已追蹤這份支線。";render())
-		button("前往目標",Rect2(819,608,250,47),func():enter_scene(step.region,step.scene);if step.has("npc"):open_person(step.npc);quest_dialogue=quest_selection;render(),true)
+		button("前往目標",Rect2(819,608,250,47),func():enter_scene(step.region,step.scene);open_quest_dialogue(quest_selection),true)
 		if step.region==Open.current_region(campaign) and step.scene==Open.current_scene(campaign):
-			if step.kind=="choice":
-				for i in 2:button(step.options[i],Rect2(584+i*402,669,386,46),func():quest_progress(quest_selection,i),i==0)
-			else:button("交談辦理" if step.has("npc") else ("準備迎戰" if step.kind=="battle" else "交付物資"),Rect2(1084,608,288,47),func():
-				if step.has("npc"):open_person(step.npc);quest_dialogue=quest_selection;render()
-				else:quest_progress(quest_selection),true)
+			button("交談辦理" if step.has("npc") else ("察看線索" if step.kind=="search" else "查看現場"),Rect2(1084,608,288,47),func():open_quest_dialogue(quest_selection),true)
+		var clues: Array=[]
+		for clue in data.evidence.values():
+			if clue.quest==quest_selection:clues.append(clue.name)
+		if not clues.is_empty():label("隨身證物："+"、".join(clues),Rect2(584,677,788,32),18,GOLD)
 	label("報酬：%d 銀 · %d 學點"%[q.reward.silver,q.reward.potential],Rect2(584,734,788,27),18,GOLD)
 
 func render_atlas() -> void:
@@ -942,6 +1015,7 @@ func finish_battle() -> void:
 func leave_battle() -> void:
 	if battle == null: return
 	var defeated: bool = battle.result != "victory"
+	var story: String=battle.encounter.split(":")[1] if battle.encounter.begins_with("quest:") else ""
 	battle = null
 	stage.battle = null
 	stage.selected = ""
@@ -953,7 +1027,8 @@ func leave_battle() -> void:
 	stage.cancel_walk()
 	Bgm.set_scene_context("town")
 	persist()
-	render()
+	if not defeated and story!="" and Open.step_here(campaign,story):open_quest_dialogue(story)
+	else:render()
 
 func use_medicine() -> void:
 	var event: Dictionary = battle.medicine(selected_ally,campaign.state.inventory)
@@ -1041,6 +1116,11 @@ func open_person(id: String) -> void:
 	dialogue_open=true
 	dialogue_topic=false
 	quest_dialogue=""
+	dialogue_cursor=0
+	dialogue_override=[]
+	dialogue_followup=""
+	var active: Array=Open.active_for(campaign,id)
+	if not active.is_empty():quest_dialogue=active[0]
 	render()
 
 func current_training_place() -> bool:
@@ -1050,7 +1130,14 @@ func quest_progress(id: String,choice: int=-1) -> void:
 	var result: Dictionary=Open.action(campaign,id,selected_npc,choice)
 	notice=result.text
 	if result.has("battle"):dialogue_open=false;start_battle(result.battle)
-	else:persist();render()
+	else:
+		persist()
+		dialogue_cursor=0
+		quest_dialogue=""
+		dialogue_followup=id
+		dialogue_override=[{"speaker":selected_npc,"text":result.text}]
+		if Open.step_here(campaign,id,selected_npc):dialogue_override=[];quest_dialogue=id
+		render()
 
 func render_foes() -> void:
 	label("江 湖 群 雄",Rect2(38,90,610,45),30,GOLD)

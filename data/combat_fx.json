@@ -1,0 +1,420 @@
+{
+  "textures": {
+    "dragon": {
+      "path": "effects/fx_dragon.png",
+      "columns": 5,
+      "rows": 5,
+      "frames": 25,
+      "additive": true
+    },
+    "finger": {
+      "path": "effects/fx_finger.png",
+      "columns": 5,
+      "rows": 6,
+      "frames": 30,
+      "additive": true
+    },
+    "ice_blade": {
+      "path": "effects/fx_ice_blade.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": true
+    },
+    "sword_rain": {
+      "path": "effects/fx_sword_rain.png",
+      "columns": 5,
+      "rows": 4,
+      "frames": 20,
+      "additive": true
+    },
+    "fire": {
+      "path": "effects/fx_fire.png",
+      "columns": 5,
+      "rows": 2,
+      "frames": 10,
+      "additive": false
+    },
+    "ice": {
+      "path": "effects/fx_ice.png",
+      "columns": 5,
+      "rows": 5,
+      "frames": 25,
+      "additive": false
+    },
+    "thunder": {
+      "path": "effects/fx_thunder.png",
+      "columns": 5,
+      "rows": 2,
+      "frames": 10,
+      "additive": false
+    },
+    "earth": {
+      "path": "effects/fx_earth.png",
+      "columns": 5,
+      "rows": 2,
+      "frames": 10,
+      "additive": false
+    },
+    "wind": {
+      "path": "effects/fx_wind.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": false
+    },
+    "light": {
+      "path": "effects/fx_light.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": false
+    },
+    "dark": {
+      "path": "effects/fx_dark.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": false
+    },
+    "aura": {
+      "path": "effects/fx_aura.png",
+      "columns": 5,
+      "rows": 2,
+      "frames": 10,
+      "additive": false
+    },
+    "shield": {
+      "path": "effects/fx_shield.png",
+      "columns": 5,
+      "rows": 1,
+      "frames": 5,
+      "additive": false
+    },
+    "seal": {
+      "path": "effects/fx_seal.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": false
+    },
+    "state": {
+      "path": "effects/fx_state.png",
+      "columns": 5,
+      "rows": 2,
+      "frames": 10,
+      "additive": false
+    },
+    "staff": {
+      "path": "effects/fx_staff.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": false
+    },
+    "sword": {
+      "path": "effects/fx_sword.png",
+      "columns": 5,
+      "rows": 4,
+      "frames": 20,
+      "additive": false
+    },
+    "blade": {
+      "path": "effects/fx_blade.png",
+      "columns": 5,
+      "rows": 3,
+      "frames": 15,
+      "additive": false
+    },
+    "lotus": {
+      "path": "effects/fx_lotus.png",
+      "columns": 5,
+      "rows": 2,
+      "frames": 10,
+      "additive": false
+    }
+  },
+  "styles": {
+    "sword": {
+      "texture": "sword",
+      "start": "fx_sword_ready",
+      "impact": "fx_sword_hit",
+      "color": "71d9f2",
+      "shape": "arc",
+      "scale": 1.0
+    },
+    "blade": {
+      "texture": "blade",
+      "start": "fx_blade_ready",
+      "impact": "fx_blade_hit",
+      "color": "ffb45f",
+      "shape": "sweep",
+      "scale": 1.1
+    },
+    "staff": {
+      "texture": "staff",
+      "start": "fx_staff_ready",
+      "impact": "fx_staff_hit",
+      "color": "8ad783",
+      "shape": "staff",
+      "scale": 1.05
+    },
+    "palm": {
+      "texture": "earth",
+      "start": "fx_palm_ready",
+      "impact": "fx_palm_hit",
+      "color": "efcb7b",
+      "shape": "palm",
+      "scale": 1.15
+    },
+    "dragon": {
+      "texture": "dragon",
+      "start": "fx_dragon_ready",
+      "impact": "fx_dragon_hit",
+      "color": "ffc563",
+      "shape": "dragon",
+      "scale": 1.5
+    },
+    "finger": {
+      "texture": "finger",
+      "start": "fx_finger_ready",
+      "impact": "fx_finger_hit",
+      "color": "b3efff",
+      "shape": "ray",
+      "scale": 1.25
+    },
+    "iron": {
+      "texture": "earth",
+      "start": "fx_blade_ready",
+      "impact": "fx_blade_hit",
+      "color": "d7c7a1",
+      "shape": "crush",
+      "scale": 1.4
+    },
+    "twin": {
+      "texture": "sword",
+      "start": "fx_sword_ready",
+      "impact": "fx_sword_hit",
+      "color": "f6bddd",
+      "shape": "twin",
+      "scale": 1.15
+    },
+    "nine": {
+      "texture": "sword_rain",
+      "start": "fx_sword_ready",
+      "impact": "fx_sword_hit",
+      "color": "a2efff",
+      "shape": "rain",
+      "scale": 1.35
+    },
+    "bamboo": {
+      "texture": "staff",
+      "start": "fx_staff_ready",
+      "impact": "fx_staff_hit",
+      "color": "b6f28a",
+      "shape": "bamboo",
+      "scale": 1.2
+    },
+    "reflect": {
+      "texture": "shield",
+      "start": "fx_finger_ready",
+      "impact": "fx_finger_hit",
+      "color": "adc4ff",
+      "shape": "reflect",
+      "scale": 1.15
+    },
+    "music": {
+      "texture": "wind",
+      "start": "fx_sound_ready",
+      "impact": "fx_sound_hit",
+      "color": "d4c2ff",
+      "shape": "music",
+      "scale": 1.15
+    },
+    "herbal": {
+      "texture": "lotus",
+      "start": "fx_heal_ready",
+      "impact": "fx_heal_hit",
+      "color": "9cebb8",
+      "shape": "petal",
+      "scale": 1.1
+    },
+    "ice": {
+      "texture": "ice",
+      "start": "fx_ice_ready",
+      "impact": "fx_ice_hit",
+      "color": "96ddff",
+      "shape": "ice",
+      "scale": 1.1
+    },
+    "venom": {
+      "texture": "dark",
+      "start": "fx_venom_ready",
+      "impact": "fx_venom_hit",
+      "color": "bd8fef",
+      "shape": "poison",
+      "scale": 1.1
+    },
+    "fire": {
+      "texture": "fire",
+      "start": "fx_palm_ready",
+      "impact": "fx_palm_hit",
+      "color": "ff8b64",
+      "shape": "fire",
+      "scale": 1.15
+    },
+    "gold_heal": {
+      "texture": "light",
+      "start": "fx_heal_ready",
+      "impact": "fx_heal_hit",
+      "color": "ffe5a2",
+      "shape": "ray",
+      "scale": 1.1
+    },
+    "lotus": {
+      "texture": "lotus",
+      "start": "fx_heal_ready",
+      "impact": "fx_heal_hit",
+      "color": "c8e5ff",
+      "shape": "lotus",
+      "scale": 1.2
+    },
+    "snake": {
+      "texture": "sword",
+      "start": "fx_sword_ready",
+      "impact": "fx_sword_hit",
+      "color": "e8d67d",
+      "shape": "snake",
+      "scale": 1.2
+    },
+    "blood": {
+      "texture": "blade",
+      "start": "fx_blade_ready",
+      "impact": "fx_blade_hit",
+      "color": "f2a0a0",
+      "shape": "sweep",
+      "scale": 1.15
+    },
+    "charge": {
+      "texture": "aura",
+      "start": "fx_charge",
+      "impact": "",
+      "color": "ffb96e",
+      "shape": "charge",
+      "scale": 1.0
+    },
+    "guard": {
+      "texture": "shield",
+      "start": "fx_guard",
+      "impact": "",
+      "color": "a2d5dc",
+      "shape": "shield",
+      "scale": 1.0
+    },
+    "sealed": {
+      "texture": "seal",
+      "start": "fx_seal",
+      "impact": "",
+      "color": "cdb4eb",
+      "shape": "seal",
+      "scale": 1.0
+    },
+    "dot": {
+      "texture": "state",
+      "start": "fx_venom_ready",
+      "impact": "fx_venom_hit",
+      "color": "bc9dc7",
+      "shape": "poison",
+      "scale": 0.8
+    }
+  },
+  "skills": {
+    "降龍十八掌": "dragon",
+    "打狗棒法": "bamboo",
+    "玄鐵劍法": "iron",
+    "玉女素心劍": "twin",
+    "乾坤大挪移": "reflect",
+    "獨孤九劍": "nine",
+    "清音劍訣": "music",
+    "六脈神劍": "finger",
+    "降龍廿八掌": "dragon",
+    "天山折梅手": "palm",
+    "胡家刀法": "blood",
+    "七心海棠訣": "herbal",
+    "百家辨招": "palm",
+    "峨嵋劍法": "sword",
+    "神行匕法": "blade",
+    "點穴手": "palm",
+    "辟邪劍法": "sword",
+    "玉女十九劍": "sword",
+    "峨嵋初祖劍": "sword",
+    "鐵劍門劍法": "sword",
+    "金蛇劍法": "snake",
+    "清心回元": "herbal",
+    "柔絲劍法": "sword",
+    "楊家槍法": "staff",
+    "冰蠶寒掌": "ice",
+    "斗轉星移": "reflect",
+    "神龍掌法": "fire",
+    "星宿毒術": "venom",
+    "血刀刀法": "blood",
+    "白駝雪山掌": "venom",
+    "狂風快刀": "blade",
+    "鐵扇功": "staff",
+    "夢回拂穴": "lotus",
+    "江湖百味": "palm",
+    "玉簫劍法": "music",
+    "天下無狗": "bamboo",
+    "空明拳": "palm",
+    "一陽指": "gold_heal",
+    "倚天截劍": "sword",
+    "連城雪劍": "sword",
+    "慈航渡厄": "lotus",
+    "回春拂穴": "herbal",
+    "金剛截脈": "staff"
+  },
+  "assets": [
+    "effects/fx_dragon.png",
+    "effects/fx_finger.png",
+    "effects/fx_ice_blade.png",
+    "effects/fx_sword_rain.png",
+    "effects/fx_fire.png",
+    "effects/fx_ice.png",
+    "effects/fx_thunder.png",
+    "effects/fx_earth.png",
+    "effects/fx_wind.png",
+    "effects/fx_light.png",
+    "effects/fx_dark.png",
+    "effects/fx_aura.png",
+    "effects/fx_shield.png",
+    "effects/fx_seal.png",
+    "effects/fx_state.png",
+    "effects/fx_staff.png",
+    "effects/fx_sword.png",
+    "effects/fx_blade.png",
+    "effects/fx_lotus.png",
+    "sfx/fx_sword_ready.ogg",
+    "sfx/fx_sword_hit.ogg",
+    "sfx/fx_blade_ready.ogg",
+    "sfx/fx_blade_hit.ogg",
+    "sfx/fx_staff_ready.ogg",
+    "sfx/fx_staff_hit.ogg",
+    "sfx/fx_palm_ready.ogg",
+    "sfx/fx_palm_hit.ogg",
+    "sfx/fx_dragon_ready.ogg",
+    "sfx/fx_dragon_hit.ogg",
+    "sfx/fx_finger_ready.ogg",
+    "sfx/fx_finger_hit.ogg",
+    "sfx/fx_venom_ready.ogg",
+    "sfx/fx_venom_hit.ogg",
+    "sfx/fx_ice_ready.ogg",
+    "sfx/fx_ice_hit.ogg",
+    "sfx/fx_sound_ready.ogg",
+    "sfx/fx_sound_hit.ogg",
+    "sfx/fx_heal_ready.ogg",
+    "sfx/fx_heal_hit.ogg",
+    "sfx/fx_charge.ogg",
+    "sfx/fx_guard.ogg",
+    "sfx/fx_seal.ogg"
+  ]
+}

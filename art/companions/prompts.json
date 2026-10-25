@@ -1,0 +1,257 @@
+[
+  {
+    "key": "companions-01",
+    "characters": [
+      "jy01",
+      "jy02"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-1.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy01 (郭靖): rugged bearded heroic man, brown fur-trimmed russet robe, empty palms.\nROW 2 identity jy02 (黃蓉): Huang Rong: clever young adult woman, white and jade green silk, floral hairpins, green bamboo staff firmly gripped in hands.",
+    "target": "assets/companions/companions-01.png"
+  },
+  {
+    "key": "companions-02",
+    "characters": [
+      "jy03",
+      "jy04"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-1.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy03 (楊過): handsome dark-haired man, charcoal robe and dark scarf, broad black iron straight sword in his ONE RIGHT HAND, LEFT SLEEVE EMPTY with no left hand.\nROW 2 identity jy04 (小龍女): serene adult woman, flowing white dress, pale blue sash, straight silver jian sword.",
+    "target": "assets/companions/companions-02.png"
+  },
+  {
+    "key": "companions-03",
+    "characters": [
+      "jy05",
+      "jy06"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-1.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy05 (張無忌): kind young adult man, white robe and red sash, empty palms.\nROW 2 identity jy06 (令狐沖): carefree young adult swordsman, blue robe and wine gourd, straight jian sword.",
+    "target": "assets/companions/companions-03.png"
+  },
+  {
+    "key": "companions-04",
+    "characters": [
+      "jy07",
+      "jy08"
+    ],
+    "columns": 2,
+    "rows": 4,
+    "reference": "assets/open_world/heroes-1.png",
+    "prompt": "Production wuxia RPG transparent action atlas, EXACTLY TWO WIDE COLUMNS and FOUR ROWS, 8 separate full body sprites. Portrait canvas. First TWO ROWS are Ren Yingying in burgundy, next TWO ROWS are Duan Yu in pale blue/gold. For EACH character its four poses are in 2x2 reading order: ready, wind-up, restrained forward strike, defensive guard. Use supplied image as identity and painterly style reference ONLY. CRITICAL correction: there must be a large fully TRANSPARENT gap between every figure and every weapon; NO sword may reach another character. Draw every person ONLY HALF the height of its own cell, with 25% empty height above/below and 20% empty width on sides. Keep weapons close to the torso; sword strike is a short diagonal thrust downward, NOT a long horizontal extension. Keep feet, complete hair, hands and weapon tips inside own cell. Same costume/face/body size in all 4 poses; right-facing three-quarter side view, realistic 5.5-head adult proportions, fine Chinese ink and gouache, clean shading. No background, floor, shadows, grid, captions, labels or magic. Character A: Ren Yingying, elegant young adult woman, long black hair with red/gold hair ornaments, burgundy robe and gold sash, silver jian sword firmly held. Character B: Duan Yu, scholarly young adult man, pale blue/ivory silk with gold patterns, small crown, empty palms using precise finger pointing, no fan in hand.",
+    "target": "assets/companions/companions-04.png",
+    "edit_note": "Background extraction with built-in imagegen, preserving all eight poses and their layout; final pixels copied unchanged.",
+    "edits": [
+      "Precise background extraction edit. Keep ALL EIGHT existing full-body wuxia character sprites pixel-identical in position, silhouette, faces, clothing, weapons, poses and 2-column 4-row arrangement. REMOVE THE ENTIRE brown/gray/black gradient backdrop and every colored glow/halo between and around the eight figures. Replace all background with genuinely fully TRANSPARENT alpha=0, not a soft colored vignette, no checkerboard rendered into pixels. Character interiors should be fully opaque with clean antialiased outlines. Preserve complete boots, hems, fingertips and sword tips. Do not add a floor, shadows, labels, text or new props. The only change is clean background removal."
+    ]
+  },
+  {
+    "key": "companions-05",
+    "characters": [
+      "jy09",
+      "jy10"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-2.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy09 (喬峰): powerful bearded northern man, dark brown fur cloak, black and gold robe, open bare palms.\nROW 2 identity jy10 (虛竹): gentle young adult bald monk, gray and ochre robes, wooden beads, empty palms.",
+    "target": "assets/companions/companions-05.png"
+  },
+  {
+    "key": "companions-06",
+    "characters": [
+      "jy11",
+      "jy12"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-2.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy11 (胡斐): determined young adult man, navy tunic and red scarf, single curved Chinese dao saber.\nROW 2 identity jy12 (程靈素): calm young adult female physician, slate blue and ivory clothes, herb basket, healing fingers and empty palms.",
+    "target": "assets/companions/companions-06.png"
+  },
+  {
+    "key": "companions-07",
+    "characters": [
+      "jy13",
+      "jy14"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-2.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy13 (王語嫣): scholarly young adult woman in pale lavender silk, small book on belt, bare palms in analytical defensive posture.\nROW 2 identity jy14 (周芷若): reserved young adult woman, violet and green robe, straight jian sword.",
+    "target": "assets/companions/companions-07.png"
+  },
+  {
+    "key": "companions-08",
+    "characters": [
+      "jy15",
+      "jy16"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-2.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy15 (韋小寶): mischievous young adult man, Qing era green brocade vest and black cap, short single dagger.\nROW 2 identity jy16 (雙兒): warm young adult woman, peach and white blouse, turquoise belt, acupoint striking fingers, bare hands.",
+    "target": "assets/companions/companions-08.png"
+  },
+  {
+    "key": "companions-09",
+    "characters": [
+      "jy17",
+      "jy18"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-3.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy17 (林平之): slim young adult man, dark red and cream robe, straight jian sword.\nROW 2 identity jy18 (岳靈珊): spirited young adult woman, butter-yellow and green silk, straight jian sword.",
+    "target": "assets/companions/companions-09.png"
+  },
+  {
+    "key": "companions-10",
+    "characters": [
+      "jy19",
+      "jy20"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-3.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy19 (郭襄): young adult woman, jade green fur-trimmed winter cloak, herbs pouch, bare palms.\nROW 2 identity jy20 (阿九): royal young adult woman, dark green and golden brocade gown, small crown, straight jian sword.",
+    "target": "assets/companions/companions-10.png"
+  },
+  {
+    "key": "companions-11",
+    "characters": [
+      "jy21",
+      "jy22"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-3.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy21 (袁承志): heroic young adult man, ochre and brown robe, distinctive narrow serpentine golden sword.\nROW 2 identity jy22 (香香公主): graceful young adult woman, turquoise and white veiled Central Asian dress, gold ornaments, empty healing hands.",
+    "target": "assets/companions/companions-11.png"
+  },
+  {
+    "key": "companions-12",
+    "characters": [
+      "jy23",
+      "jy24"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-3.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy23 (公孫綠萼): gentle young adult woman, deep green floral robe, white sash, straight jian sword.\nROW 2 identity jy24 (穆念慈): Mu Nianci: determined young adult WOMAN, long black hair with red ribbon, red and ivory martial robe, wooden spear with metal spearhead, no male facial features.",
+    "target": "assets/companions/companions-12.png"
+  },
+  {
+    "key": "companions-13",
+    "characters": [
+      "jy25",
+      "jy26"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-4.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy25 (游坦之): tragic young adult masked man, ragged charcoal and gray robe, iron half-mask, empty palms.\nROW 2 identity jy26 (慕容復): aristocratic young adult man, navy and gold embroidered robe, small crown, straight jian sword.",
+    "target": "assets/companions/companions-13.png"
+  },
+  {
+    "key": "companions-14",
+    "characters": [
+      "jy27",
+      "jy28"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-4.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy27 (蘇荃): regal mature adult woman, burgundy and black gown, gold hair crown, bare palms.\nROW 2 identity jy28 (阿紫): cunning young adult woman, violet short robe and tall dark boots, long black hair, poison pouch on belt, empty hands.",
+    "target": "assets/companions/companions-14.png"
+  },
+  {
+    "key": "companions-15",
+    "characters": [
+      "jy29",
+      "jy30"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-4.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy29 (狄雲): unassuming young adult man, worn taupe and gray clothing, plain curved dao saber.\nROW 2 identity jy30 (歐陽克): refined young adult man, silver-white robe with black fur, empty palms, folded fan kept on belt.",
+    "target": "assets/companions/companions-15.png"
+  },
+  {
+    "key": "companions-16",
+    "characters": [
+      "jy31",
+      "jy32"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-4.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy31 (田伯光): swaggering adult man, amber and brown robe, short black beard, broad curved dao saber.\nROW 2 identity jy32 (霍都): haughty young adult man, black and crimson noble robe and cap, solid CLOSED IRON FAN used as short staff.",
+    "target": "assets/companions/companions-16.png"
+  },
+  {
+    "key": "companions-17",
+    "characters": [
+      "jy33",
+      "jy34"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-5.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy33 (西夏公主): young adult princess, ivory and gold gown, ornate gold hairpins, open healing hands.\nROW 2 identity jy34 (半瓶神仙醋): friendly middle-aged bearded wanderer, teal and ochre robe, wine gourd on belt, empty palms.",
+    "target": "assets/companions/companions-17.png"
+  },
+  {
+    "key": "companions-18",
+    "characters": [
+      "jy35",
+      "jy36"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-5.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy35 (黃藥師): elegant silver-haired older man, teal and white patterned robe, slender straight jade-green sword.\nROW 2 identity jy36 (洪七公): cheerful elderly beggar man, gray beard, tattered olive clothes, wine gourd on belt, bamboo staff.",
+    "target": "assets/companions/companions-18.png"
+  },
+  {
+    "key": "companions-19",
+    "characters": [
+      "jy37",
+      "jy38"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-5.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy37 (周伯通): playful elderly wild-haired man, ivory and olive robe, bare palms.\nROW 2 identity jy38 (一燈大師): serene elderly bald monk, orange and ochre robe, white beard, prayer beads, pointing healing finger.",
+    "target": "assets/companions/companions-19.png"
+  },
+  {
+    "key": "companions-20",
+    "characters": [
+      "jy39",
+      "jy40"
+    ],
+    "columns": 4,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-5.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY FOUR columns and TWO rows, eight separate complete sprites. Each ROW is one different character, repeated in four poses from LEFT TO RIGHT: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy39 (趙敏): confident young adult woman, dark blue and silver martial tunic, black hairband, straight jian sword.\nROW 2 identity jy40 (水笙): young adult woman, crimson fur-trimmed robe and white winter skirt, straight jian sword.",
+    "target": "assets/companions/companions-20.png"
+  },
+  {
+    "key": "companions-21",
+    "characters": [
+      "jy41"
+    ],
+    "columns": 2,
+    "rows": 2,
+    "reference": "assets/open_world/heroes-5.png",
+    "prompt": "Production Chinese wuxia RPG ACTION SPRITE ATLAS. EXACTLY TWO columns and TWO rows, one character in four poses in reading order: relaxed upright ready; restrained wind-up; forward strike; upright defensive guard. Same face, costume, weapon and anatomical size across every pose of each identity. All figures face RIGHT in three-quarter side view. Reference image provides only painterly ink/gouache style and character designs, NOT its arrangement. Clean restrained dark outlines and detailed cloth, 5.5-head adult proportions. Genuine transparent background, no scene, no labels, no text, no shadow or floor. CRITICAL: each full human occupies only 60% of its own cell height, leaving generous EMPTY transparent margins on all four sides; hair, hands, hems, both feet and every weapon tip must fit far inside EACH CELL. Leave wide completely transparent gutters between all cells; never overlap a neighboring cell. Feet on the same 82%-height line within every cell. No jumping, no overhead poses, no huge lunge, no energy effects; believable hands actually gripping weapon; keep staff diagonal or horizontal inside its cell. Distinct identities:\nROW 1 identity jy41 (儀琳): Yi Lin: gentle young adult BUDDHIST NUN, shaved head, modest light gray long robe and prayer beads, bare healing hands, female facial features.",
+    "target": "assets/companions/companions-21.png"
+  }
+]

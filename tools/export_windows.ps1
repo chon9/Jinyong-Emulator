@@ -50,6 +50,8 @@ Classic presentation assets adapted with permission from the user's JY-Mini OL p
 - Cast, walking/action sheets, game skin and icons generated with built-in imagegen; prompts in art/characters-v2/PROMPTS.md.
 - 100 enemy designs, 40 hero designs, 8 peaceful residents, 4 scenes and a replacement Mu Nianci sprite generated with built-in imagegen; prompts in art/open-world-jobs.json.
 - 32 civilian portraits and 15 four-pose combat sheets generated with built-in imagegen; prompts in art/visuals/prompts.json.
+- 41 companion four-pose sets generated with built-in imagegen; prompts in art/companions/prompts.json.
+- Additional 19 animation sheets and 23 audio cues copied unchanged from owner-provided resources; exact sources and hashes in art/combat-fx.json.
 - Selected town tiles/panorama, world map, character animation sheets, effects and SFX from the owner-supplied Jinyong Heroes 5 installation; see source repository assets/town/SOURCE.txt. No source scripts, event commands, saves or dialogue were imported.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
 - Five owner-supplied BGM recordings from assets/bgm; see Music-Credits.txt.
@@ -65,7 +67,10 @@ $youxiaReadme = @'
 
 單機：直接啟動即可。Steam 未開啟時仍可玩單機。
 預設進入自由江湖：100處命名場景、121份可選委託、41位新增可招募人物、100種獨立繪製對手。
-新角色從牛家村開始，點頭像交談、邀請同行或接委託。所有道路開放，不需要先清第一章。
+新角色從牛家村開始，點頭像逐句交談，查看結交條件或個人往事。所有道路開放，不需要先清第一章。
+新群俠須先完成自己的故事、累積交情並達到個別修為才可招募；舊版已招募者保留。
+任務有具名證人、可拾取的物證、實際交付／戰鬥及結局；物證放在線索袋，不能出售。
+41位新增群俠各有4格戰鬥姿勢；招式依武學區分特效與音效，蓄力有氣場，狀態標記顯示餘下回合。
 委託接下後在「進行中」查看；前往目標直接帶到場景，交談、交付、切磋與回報都有實際效果。
 到其他場景先見人物與故事，不會自動開戰；「附近挑戰」或「江湖群雄」可尋找對手，再自行接受挑戰。
 隊伍四人、主角留隊，候補保留修為。外功、內功、輕功與前後排、上中下路都會影響戰鬥。

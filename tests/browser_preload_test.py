@@ -8,6 +8,7 @@ import threading
 from playwright.sync_api import sync_playwright
 from browser_audio_test import QuietHandler
 from browser_ui_helpers import press
+from browser_jianghu_story_test import earn_companion
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'test-results'
@@ -53,8 +54,7 @@ def run():
             stats = page.evaluate('window.youxiaPreloadStats')
             check(stats['cachedParts'] > 0 and stats['downloadedParts'] < len(parts), 'Retry resumes verified parts instead of downloading the whole game again')
             box = page.locator('#canvas').bounding_box()
-            press(page, "交談 · 穆念慈")
-            press(page, "邀請同行")
+            earn_companion(page,"jy24")
             page.wait_for_function('window.youxiaChapterStatus.roster.includes("jy24")')
             page.wait_for_timeout(6000)
             requests.clear()

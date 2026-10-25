@@ -52,10 +52,10 @@ def extract(image,rect):
     frame['region']=[x0,y0,x1-x0,y1-y0]
     return frame,margin
 
-def calibrate(image,frame,portrait=False):
+def calibrate(image,frame,portrait=False,points_override=None):
     x,y,w,h=map(int,frame['region'])
     alpha=image.getchannel('A')
-    points=[(px,py) for py in range(h) for px in range(w) if alpha.getpixel((x+px,y+py))>=96]
+    points=points_override if points_override is not None else [(px,py) for py in range(h) for px in range(w) if alpha.getpixel((x+px,y+py))>=96]
     if not points:raise ValueError('Empty source rectangle')
     ys=[p[1] for p in points]
     rows=[0]*h

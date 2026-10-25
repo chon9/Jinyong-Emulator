@@ -4,6 +4,7 @@ var voices: Array[AudioStreamPlayer] = []
 var index := 0
 var enabled := true
 var volume := .65
+var history: Array[String]=[]
 
 func _ready() -> void:
 	var cfg := ConfigFile.new()
@@ -22,12 +23,15 @@ func save() -> void:
 	cfg.set_value("sound","volume",volume)
 	cfg.save("user://youxia_sfx.cfg")
 
-func play(key: String) -> void:
+func play(key: String,pitch: float=1.0) -> void:
 	if not enabled or volume <= 0 or bank == null or DisplayServer.get_name() == "headless": return
 	var stream: AudioStream = bank.get_asset("res://assets/sfx/"+key+".ogg")
 	if stream == null: return
 	var player := voices[index%voices.size()]
 	index += 1
 	player.stream = stream
+	player.pitch_scale=clampf(pitch,.8,1.2)
 	player.volume_db = linear_to_db(volume)-9
 	player.play()
+	history.append(key)
+	if history.size()>32:history.pop_front()

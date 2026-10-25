@@ -19,6 +19,16 @@ func press(text: String) -> void:
 			return
 	check(false,"Visible enabled action exists: "+text)
 
+func read_lines() -> void:
+	for i in 12:
+		var next:=false
+		for node in ui.layer.get_children():
+			if node is Button and node.text=="下一句 →":next=true
+		if not next:return
+		var before: String=ui.shown_dialogue_text
+		await press("下一句 →")
+		check(ui.shown_dialogue_text!=before,"Next line advances to new dialogue instead of repeating the premise")
+
 func run() -> void:
 	root.size=Vector2i(1440,900)
 	var session=root.get_node("Session")
@@ -30,19 +40,34 @@ func run() -> void:
 	check(Open.current_region(ui.campaign)=="牛家村" and ui.battle==null,"New game starts in a peaceful open-world village")
 	await press("交談 · 穆念慈")
 	check(ui.dialogue_open and ui.selected_npc=="jy24","Scene portrait opens the correct person's dialogue")
+	await read_lines()
+	await press("結交條件")
+	await read_lines()
+	check(not "jy24" in ui.campaign.state.roster and "擂臺之外" in ui.shown_dialogue_text,"Recruitment explains the required personal story")
+	await press("回到交談");await read_lines()
+	await press("談談 · 穆念慈")
+	check(Open.ensure(ui.campaign).quests.friend_jy24.step==1,"Agreeing to help records the opening conversation once")
+	for i in 12:
+		if Open.ensure(ui.campaign).quests.friend_jy24.status=="done":break
+		var step: Dictionary=Content.QUESTS.friend_jy24.steps[int(Open.ensure(ui.campaign).quests.friend_jy24.step)]
+		ui.enter_scene(step.region,step.scene);ui.open_quest_dialogue("friend_jy24")
+		await read_lines()
+		await press(step.options[0] if step.kind=="choice" else step.action)
+		if step.kind=="battle":
+			check(ui.battle!=null,"Story confrontation enters actual combat")
+			for turn in 50:
+				if ui.battle.result!="":break
+				ui.battle.auto_orders();ui.battle.begin_round()
+				while not ui.battle.queue.is_empty() and ui.battle.result=="":ui.battle.next_action()
+			check(ui.battle.result=="victory","First companion's story is winnable by a fresh protagonist")
+			ui.finish_battle();ui.leave_battle()
+	check(Open.ensure(ui.campaign).quests.friend_jy24.status=="done","Full personal story reaches its explicit ending")
 	await press("邀請同行")
-	check("jy24" in ui.campaign.state.roster and ui.campaign.state.stage==0,"Companion invitation has no chapter gate")
-	await press("委託與故事")
-	check(ui.page=="江湖誌" and ui.quest_selection=="friend_jy24","Conversation opens this person's actual optional story")
-	await press("接下委託")
-	check(Open.ensure(ui.campaign).quests.friend_jy24.status=="active","Accept button creates real quest progress")
-	await press("交談辦理")
-	await press("處理委託")
-	check(Open.ensure(ui.campaign).quests.friend_jy24.step==1,"Dialogue action advances the quest")
+	check("jy24" in ui.campaign.state.roster and ui.campaign.state.stage==0,"Earned recruitment works without a global main chapter")
 	ui.enter_scene("牛家村","牛家客棧")
 	await press("交談 · 黃蓉")
-	await press("邀請同行")
-	check("jy02" in ui.campaign.state.party,"Second visited hero can join the active party")
+	await read_lines();await press("結交條件");await read_lines()
+	check(not "jy02" in ui.campaign.state.party and "鹽碟疑雲" in ui.shown_dialogue_text,"Huang Rong also requires her own story, not another person's clear")
 	ui.set_page("行囊")
 	var silver: int=ui.campaign.state.silver
 	await press("購買 ·")
@@ -71,7 +96,7 @@ func run() -> void:
 	check(confirmation.visible and confirmation.get_cancel_button().has_focus(),"Deleting progress opens a confirmation focused on keeping the save")
 	confirmation.canceled.emit()
 	await process_frame
-	check("jy02" in ui.campaign.state.roster,"Cancel preserves recruited companions")
+	check("jy24" in ui.campaign.state.roster,"Cancel preserves earned companions")
 	ui.persist()
 	DirAccess.copy_absolute(session.save_path,session.save_path+".bak")
 	await press("刪除存檔／重新開始")

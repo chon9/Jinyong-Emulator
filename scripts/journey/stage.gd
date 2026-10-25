@@ -1,4 +1,8 @@
 extends Control
+const CombatStyle=preload("res://scripts/journey/combat_style.gd")
+const CombatEffect=preload("res://scripts/journey/combat_effect.gd")
+var effect_layer
+var state_tooltips: Array=[]
 ## Illustrated map and animated side-view actors; all rules live outside this view.
 signal place_selected(place: String)
 signal unit_selected(id: String)
@@ -41,6 +45,9 @@ var font: Font
 func _ready() -> void:
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	font = load("res://assets/fonts/LXGWWenKaiTC-Regular.ttf")
+	effect_layer=CombatEffect.new()
+	effect_layer.stage=self
+	add_child(effect_layer)
 	set_process(true)
 
 func tex(name: String) -> Texture2D:
@@ -108,7 +115,9 @@ func show_event(value: Dictionary) -> void:
 	event = value
 	animation = .8
 	impact_played = false
-	if sounds != null and value.get("kind","") not in ["guard","charge","stun"]: sounds.play("heal" if value.get("kind","") == "heal" else "swing")
+	if sounds!=null and battle!=null and value.get("kind","") not in ["round","skip",""]:
+		var actor: Dictionary=battle.by_id(value.get("actor",""))
+		if not actor.is_empty():sounds.play(CombatStyle.profile(actor,value).start)
 	queue_redraw()
 
 func _process(delta: float) -> void:
@@ -116,7 +125,11 @@ func _process(delta: float) -> void:
 	animation = maxf(0,animation-delta)
 	if battle != null and animation < .52 and animation > 0 and not impact_played:
 		impact_played = true
-		if sounds != null and int(event.get("amount",0)) > 0 and event.get("kind","") != "heal": sounds.play("heavy" if event.get("kind","") in ["boss_hit","heavy","cleave"] else "hit")
+		if sounds!=null and int(event.get("amount",0))>0:
+			var actor: Dictionary=battle.by_id(event.get("actor",""))
+			if not actor.is_empty():
+				var profile: Dictionary=CombatStyle.profile(actor,event)
+				if profile.impact!="":sounds.play(profile.impact)
 	if campaign != null and battle == null:
 		sync_location()
 		motion.advance(delta)
@@ -135,6 +148,7 @@ func _process(delta: float) -> void:
 		camera = target_camera if reset_camera else camera.lerp(target_camera,1-exp(-delta*8))
 		reset_camera = false
 	queue_redraw()
+	if is_instance_valid(effect_layer):effect_layer.queue_redraw()
 
 func map_pos(point: Vector2) -> Vector2:
 	return (point-camera)*zoom
@@ -167,6 +181,7 @@ func text_at(value: String, at: Vector2, color: Color = IVORY, font_size: int = 
 func _draw() -> void:
 	if campaign == null or font == null or not prepared: return
 	bounds.clear()
+	state_tooltips.clear()
 	if battle != null: draw_battle()
 	else: draw_map()
 
@@ -230,7 +245,11 @@ func draw_frame(frame: Dictionary, foot: Vector2, height: float, left: bool, tin
 	var pivot := Vector2(float(frame.pivot[0]),float(frame.pivot[1]))
 	var scale_value := height/maxf(1,float(frame.height))
 	draw_set_transform(foot,0,Vector2(-scale_value if left else scale_value,scale_value))
-	draw_texture_rect_region(texture,Rect2(-pivot,Vector2(float(region[2]),float(region[3]))),Rect2(float(region[0]),float(region[1]),float(region[2]),float(region[3])),tint)
+	if frame.has("draw_regions"):
+		for strip in frame.draw_regions:
+			var local:=Rect2(strip[0],strip[1],strip[2],strip[3])
+			draw_texture_rect_region(texture,Rect2(local.position-pivot,local.size),Rect2(Vector2(region[0],region[1])+local.position,local.size),tint)
+	else:draw_texture_rect_region(texture,Rect2(-pivot,Vector2(float(region[2]),float(region[3]))),Rect2(float(region[0]),float(region[1]),float(region[2]),float(region[3])),tint)
 	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
 
 func _plate(color: Color) -> StyleBoxFlat:
@@ -274,13 +293,6 @@ func draw_battle() -> void:
 			var p := actor_pos(target)-Vector2(0,95)
 			if hit.get("dodge",false): text_at("閃避",p,IVORY,26,true); continue
 			var kind: String = event.get("kind","")
-			var key := "heal" if kind == "heal" else ("burst" if kind in ["boss_hit","heavy","cleave"] else ("slash" if kind in ["attack","bleed","pierce"] else "hit"))
-			var effect := asset("effects/"+key+".png")
-			if effect != null and animation < .65:
-				var count := int(effect.get_height()/192)*5
-				var frame := mini(count-1,int((.65-animation)/.65*count))
-				var tint := Color(.65,1,.64) if kind == "poison" else Color.WHITE
-				draw_texture_rect_region(effect,Rect2(p-Vector2(105,105),Vector2(210,210)),Rect2((frame%5)*192,(frame/5)*192,192,192),tint)
 			if int(hit.get("amount",0)) > 0:
 				text_at(("+" if kind == "heal" else "−")+str(int(hit.amount)),p-Vector2(0,40+(1-animation/.8)*65),Color("b7ecc7") if kind == "heal" else Color("ffe8ab"),30,true)
 
@@ -316,14 +328,22 @@ func draw_actor(u: Dictionary) -> void:
 	text_at(u.name,top,IVORY if u.side == 0 else Color("f7b3a0"),18,true)
 	draw_rect(Rect2(top+Vector2(-58,6),Vector2(116,7)),Color("202b26"))
 	draw_rect(Rect2(top+Vector2(-58,6),Vector2(116*maxf(0,float(u.hp)/u.max_hp),7)),Color("a2c899") if u.side == 0 else Color("c36e59"))
-	var tags: Array = []
-	if u.stun > 0: tags.append("封")
-	if u.bleed > 0: tags.append("血")
-	if u.poison > 0: tags.append("毒")
-	if u.broken > 0: tags.append("破")
-	if u.charging: tags.append("蓄力！")
-	if not tags.is_empty(): text_at(" · ".join(tags),foot+Vector2(67,-15),GOLD,17,true)
+	var states: Array=CombatStyle.states(u)
+	for i in states.size():
+		var state: Dictionary=states[i]
+		var rect:=Rect2(foot+Vector2(67+(i%3)*29,-137+(i/3)*30),Vector2(26,26))
+		var box:=_plate(Color(state.color))
+		box.border_color=Color("eed9ab")
+		draw_style_box(box,rect)
+		text_at(state.glyph,rect.position+Vector2(5,19),Color("fff1cf"),16)
+		text_at(str(state.turns),rect.position+Vector2(21,25),Color.WHITE,11)
+		state_tooltips.append({"rect":rect,"text":state.name+" · 餘 %d 回合"%state.turns})
 	var region: Array=frame.region
 	var scale_value: float=150.0/maxf(1,float(frame.height))
 	var left_extent: float=(float(region[2])-float(frame.pivot[0]) if u.side==1 else float(frame.pivot[0]))*scale_value
 	bounds[u.id]=Rect2(foot-Vector2(left_extent,float(frame.pivot[1])*scale_value),Vector2(region[2],region[3])*scale_value)
+
+func _get_tooltip(at: Vector2) -> String:
+	for state in state_tooltips:
+		if state.rect.has_point(at):return state.text
+	return ""

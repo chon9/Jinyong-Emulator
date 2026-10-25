@@ -1,0 +1,215 @@
+{
+  "source": "Owner-provided Jinyong Heroes 5 resources; copied unchanged. No scripts, dialogue or saves imported.",
+  "files": [
+    {
+      "target": "assets/effects/fx_dragon.png",
+      "source": "Graphics/Animations/阿杰-亢龍有悔-擊中01.png",
+      "sha256": "7e4edfa368b76ff9679b7a6ce84db73ab951a5412f60e5965b2ea0955dc2e893"
+    },
+    {
+      "target": "assets/effects/fx_finger.png",
+      "source": "Graphics/Animations/阿杰-六脈神劍01.png",
+      "sha256": "26027ec2e18a52a8648631aa54cd6b0af61e4790d45629d259bda1ff13bce96f"
+    },
+    {
+      "target": "assets/effects/fx_ice_blade.png",
+      "source": "Graphics/Animations/冰剑.png",
+      "sha256": "672dbe5d17e6e940192b53534c82d4347907e6184af785d76cb866ca1d76e92e"
+    },
+    {
+      "target": "assets/effects/fx_sword_rain.png",
+      "source": "Graphics/Animations/神剑.png",
+      "sha256": "090551c8a81eac5caf7eaf773eaf78a243a56639a662870be1740efc829309e8"
+    },
+    {
+      "target": "assets/effects/fx_fire.png",
+      "source": "Graphics/Animations/015-Fire01.png",
+      "sha256": "47ac6deefa222b7dc756bb128776f979e188ff0b1cdff4a4d9e85bea9907dd60"
+    },
+    {
+      "target": "assets/effects/fx_ice.png",
+      "source": "Graphics/Animations/016-Ice01.png",
+      "sha256": "459762c53e51347f97f88a1c9fdcf5b330864e73910c17d1b175380e8c8af90c"
+    },
+    {
+      "target": "assets/effects/fx_thunder.png",
+      "source": "Graphics/Animations/017-Thunder01.png",
+      "sha256": "b17a23b1c67c09edc5298edb496c2f74efbcca97430baadb5952bba87c76e7f4"
+    },
+    {
+      "target": "assets/effects/fx_earth.png",
+      "source": "Graphics/Animations/019-Earth01.png",
+      "sha256": "f3f658f271bb7090a58b76b32834c04ba28dc3e2facdfbf82de0bfb4ef73d97d"
+    },
+    {
+      "target": "assets/effects/fx_wind.png",
+      "source": "Graphics/Animations/020-Wind01.png",
+      "sha256": "fd2a68875e136d37c15d6ab8e219bbbfc4155f4751bd5e73f0c2101547c036da"
+    },
+    {
+      "target": "assets/effects/fx_light.png",
+      "source": "Graphics/Animations/021-Light01.png",
+      "sha256": "22583c9d3eecad9f9f56c8e05c07e6557e30e3c5cca67eb59d9b3bc1b9ffb397"
+    },
+    {
+      "target": "assets/effects/fx_dark.png",
+      "source": "Graphics/Animations/022-Darkness01.png",
+      "sha256": "3b034c9205914d31079d6faddd8e3d5a208c1f39d856c2819ecf38362ebd4460"
+    },
+    {
+      "target": "assets/effects/fx_aura.png",
+      "source": "Graphics/Animations/025-Support02.png",
+      "sha256": "99b8f49b6f29b3895acb50007df13c72c991176adcb6b5711b6a93af23bb7786"
+    },
+    {
+      "target": "assets/effects/fx_shield.png",
+      "source": "Graphics/Animations/026-Support03.png",
+      "sha256": "69060b60711c94a882ff9512c5c176e21defe8b294ffc0325d6d53ea16890ebd"
+    },
+    {
+      "target": "assets/effects/fx_seal.png",
+      "source": "Graphics/Animations/027-Support04.png",
+      "sha256": "cfa5b92d7c465d6e29f54913b7b63307c2ba14a5f80778a784deacda285ec1ae"
+    },
+    {
+      "target": "assets/effects/fx_state.png",
+      "source": "Graphics/Animations/028-State01.png",
+      "sha256": "42fa7237a3f1bafd25224fcdb04dd9edfa6a0f5e0446f0c7c1852392ec9d677e"
+    },
+    {
+      "target": "assets/effects/fx_staff.png",
+      "source": "Graphics/Animations/011-Weapon06.png",
+      "sha256": "5c30629ac97dfb44a9843411662d0e182ee88458eb93b0229c5a0a73901fcbcb"
+    },
+    {
+      "target": "assets/effects/fx_sword.png",
+      "source": "Graphics/Animations/008-Weapon03.png",
+      "sha256": "d0388380a3aa70f5f0907794001dba850858ef474ca4ff5fa8dbb5b2d0fbecfe"
+    },
+    {
+      "target": "assets/effects/fx_blade.png",
+      "source": "Graphics/Animations/010-Weapon05.png",
+      "sha256": "b14e4e941173b8750f401cc2345e5dd45a616cbbf48f874acab012ba17a284f1"
+    },
+    {
+      "target": "assets/effects/fx_lotus.png",
+      "source": "Graphics/Animations/014-Heal03.png",
+      "sha256": "c933990bbde41b4ef7879fe22e62d7ea0d2a4d927e21273836a2e68e175467af"
+    },
+    {
+      "target": "assets/sfx/fx_sword_ready.ogg",
+      "source": "Audio/SE/063-Swing02.ogg",
+      "sha256": "cd24cbfa2224eea257e2423022fb6faf8fd04c20f61385d5a2ac09dcf66d0fd0"
+    },
+    {
+      "target": "assets/sfx/fx_sword_hit.ogg",
+      "source": "Audio/SE/091-Attack03.ogg",
+      "sha256": "a3beb8d5610bf7ba35bfb4b6809ff413bb7c0fd06bf4afdc92b9e9b535e05097"
+    },
+    {
+      "target": "assets/sfx/fx_blade_ready.ogg",
+      "source": "Audio/SE/065-Swing04.ogg",
+      "sha256": "22693f75b44bc38e162e3eb043efd2a91fdf90589be38cc0624b6b619ac169ca"
+    },
+    {
+      "target": "assets/sfx/fx_blade_hit.ogg",
+      "source": "Audio/SE/094-Attack06.ogg",
+      "sha256": "7c51052c46e70626112811d879bdfabd9dee91caf864e44c31231c3ed4a94fe1"
+    },
+    {
+      "target": "assets/sfx/fx_staff_ready.ogg",
+      "source": "Audio/SE/064-Swing03.ogg",
+      "sha256": "91ce686f759dacac45a1790000390494f8d3bb07464d1144b87bf8e0dd015f9d"
+    },
+    {
+      "target": "assets/sfx/fx_staff_hit.ogg",
+      "source": "Audio/SE/092-Attack04.ogg",
+      "sha256": "bbf3e7c46800a61d63c3a18171a93e46f1e6cc9ccdc7c5965a3cede36807f0ed"
+    },
+    {
+      "target": "assets/sfx/fx_palm_ready.ogg",
+      "source": "Audio/SE/087-Action02.ogg",
+      "sha256": "55c34ad08b836894bf81f5dc4606967645e06eefd608b758a7d5539b40d0d560"
+    },
+    {
+      "target": "assets/sfx/fx_palm_hit.ogg",
+      "source": "Audio/SE/098-Attack10.ogg",
+      "sha256": "4256709bc32b8346430e82ac984a004cacdf31fdf49ec8ae195ba24e85d93d39"
+    },
+    {
+      "target": "assets/sfx/fx_dragon_ready.ogg",
+      "source": "Audio/SE/088-Action03.ogg",
+      "sha256": "a00959e4fada7ef54b818381abf460c6c1f7a56e3cf831eecaca135605eeb196"
+    },
+    {
+      "target": "assets/sfx/fx_dragon_hit.ogg",
+      "source": "Audio/SE/061-Thunderclap01.ogg",
+      "sha256": "b3e525b9add323e9d14d6f9dc54de7e1fa8f2d557e1d3e18d8e9e03ac6b0abc0"
+    },
+    {
+      "target": "assets/sfx/fx_finger_ready.ogg",
+      "source": "Audio/SE/100-Attack12.ogg",
+      "sha256": "f6bccd5bfc2fc5e06eebfb88577d5d9cea299d2469be1fc5edad742f9af3c315"
+    },
+    {
+      "target": "assets/sfx/fx_finger_hit.ogg",
+      "source": "Audio/SE/102-Attack14.ogg",
+      "sha256": "f6ee1337d57ae1bd2af2346b3f138e0dbc221fc7ec5c5b2ecac0ec3a6746cab1"
+    },
+    {
+      "target": "assets/sfx/fx_venom_ready.ogg",
+      "source": "Audio/SE/019-Teleport02.ogg",
+      "sha256": "1899987db7ab7a8da84cb0bc6048f2d1c2ed6ccef91a720a4ee4ef2f4323d437"
+    },
+    {
+      "target": "assets/sfx/fx_venom_hit.ogg",
+      "source": "Audio/SE/103-Attack15.ogg",
+      "sha256": "b5d7fc3447d36bf4d358cc642aef3401dd4de6cffeacfde3d3b0dd714799dfae"
+    },
+    {
+      "target": "assets/sfx/fx_ice_ready.ogg",
+      "source": "Audio/SE/018-Teleport01.ogg",
+      "sha256": "0ad9dcbba3595578974b5c47c7a1ed38e32ad69e7680d9c31447bd35ea7c7f9f"
+    },
+    {
+      "target": "assets/sfx/fx_ice_hit.ogg",
+      "source": "Audio/SE/101-Attack13.ogg",
+      "sha256": "f101e2ff66e2bd4869ffa7189cd765e632b879560f197a8d66469799d1e0af14"
+    },
+    {
+      "target": "assets/sfx/fx_sound_ready.ogg",
+      "source": "Audio/SE/108-Heal04.ogg",
+      "sha256": "68a6fee34dda07d29d127ffc6a61dcfbc9cad85f0a17dbb47c4e267e953c3c2f"
+    },
+    {
+      "target": "assets/sfx/fx_sound_hit.ogg",
+      "source": "Audio/SE/107-Heal03.ogg",
+      "sha256": "81f6ba435bf24682ffc709fd69bb64ad30e67186ecd5c73f44d97644480d2e84"
+    },
+    {
+      "target": "assets/sfx/fx_heal_ready.ogg",
+      "source": "Audio/SE/106-Heal02.ogg",
+      "sha256": "948d74764844058ed5961f85c1d80ce61784d45c0b032990438abbc932c50612"
+    },
+    {
+      "target": "assets/sfx/fx_heal_hit.ogg",
+      "source": "Audio/SE/110-Heal06.ogg",
+      "sha256": "67a62df2c3f428f05f24d75c92680f3083c7e2558e23ef07719cf8817ca7b5ef"
+    },
+    {
+      "target": "assets/sfx/fx_charge.ogg",
+      "source": "Audio/SE/086-Action01.ogg",
+      "sha256": "9409d8bb9db4efac97c8aa24a0ec7e1d59dbfd3d681b76bc3bca6d0a5c3a0cbd"
+    },
+    {
+      "target": "assets/sfx/fx_guard.ogg",
+      "source": "Audio/SE/090-Attack02.ogg",
+      "sha256": "f0cb7f61ec2599a17b4a98b512e8a5ee4a3f4a3510fcd8b1ee8fb47627603ba3"
+    },
+    {
+      "target": "assets/sfx/fx_seal.ogg",
+      "source": "Audio/SE/109-Heal05.ogg",
+      "sha256": "7bdd0b351da9b01a25bd25fbb0d8328d5835c99e08ec7cfa118e9a296168d686"
+    }
+  ]
+}
