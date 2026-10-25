@@ -270,12 +270,7 @@ func button(value: String, rect: Rect2, callback: Callable, primary: bool = fals
 	return b
 
 func image_at(art: String, rect: Rect2, parent: Node = null) -> void:
-	var node := TextureRect.new()
-	node.texture = stage.portrait(art)
-	node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	node.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	node.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	at(node,rect,parent)
+	at(stage.portrait(art),rect,parent)
 
 func bar(value: float, maximum: float, rect: Rect2, color: Color) -> void:
 	var node := ProgressBar.new()
@@ -378,6 +373,7 @@ func update_browser_status() -> void:
 	status.dialogue_text=shown_dialogue_text if dialogue_open else ""
 	status.evidence=Open.ensure(campaign).evidence
 	status.sounds=sounds.history.duplicate()
+	status.sound_settings={"enabled":sounds.enabled,"volume":sounds.volume}
 	status.event=stage.event if battle!=null else {}
 	status.effects="" if battle==null or stage.event.is_empty() or battle.by_id(stage.event.get("actor","")).is_empty() else preload("res://scripts/journey/combat_style.gd").key_for(battle.by_id(stage.event.actor),stage.event)
 	status.units=[] if battle==null else battle.units.map(func(u):return {"id":u.id,"name":u.name,"hp":u.hp,"states":preload("res://scripts/journey/combat_style.gd").states(u)})
@@ -921,15 +917,19 @@ func render_settings() -> void:
 	tracks.select(maxi(0,keys.find(Bgm.override_track)))
 	tracks.item_selected.connect(func(index): Bgm.set_override(keys[index]))
 	at(tracks,Rect2(54,395,610,48))
-	button("音效 · "+("開" if sounds.enabled else "關"),Rect2(54,458,290,43),func(): sounds.enabled=not sounds.enabled; sounds.save(); sounds.play("accept"); render())
+	var effects_button := button("音效 · "+("開" if sounds.audible() else "關"),Rect2(54,458,290,43),func(): sounds.toggle(); render())
 	button("刪除存檔／重新開始",Rect2(366,458,298,43),request_reset_save,false,Session.mode!="單機")
 	label("音效音量",Rect2(54,523,180,30),20)
 	var fx_slider := HSlider.new()
 	fx_slider.min_value=0
 	fx_slider.max_value=100
 	fx_slider.value=sounds.volume*100
-	fx_slider.value_changed.connect(func(value): sounds.volume=value/100.0; sounds.save())
+	fx_slider.value_changed.connect(func(value):
+		sounds.set_volume(value/100.0)
+		effects_button.text="音效 · "+("開" if sounds.audible() else "關")
+		update_browser_status())
 	at(fx_slider,Rect2(220,523,440,30))
+	button("試聽刀劍音效",Rect2(54,700,610,43),func(): sounds.preview(); render())
 	prose("進度自動保存。右上 ☰ 選單可匯出／匯入完整備份。刪除存檔需再次確認，會清除角色、同行名冊、支線與舊備份。",Rect2(54,569,610,136),21,MUTED)
 	panel(Rect2(723,151,689,632))
 	label("戰鬥怎麼玩",Rect2(750,175,630,40),27,GOLD)
@@ -1053,7 +1053,8 @@ func render_battle() -> void:
 	var target_text: String = target.name+" · "+target.intent if not target.is_empty() else "點敵人選目標"
 	panel(Rect2(17,88,800,53))
 	label(target_text,Rect2(35,96,768,36),18,GOLD)
-	button("音樂 " + ("開" if Bgm.enabled else "關"),Rect2(920,90,164,43),func(): Bgm.set_enabled(not Bgm.enabled); render())
+	button("音效 " + ("開" if sounds.audible() else "關"),Rect2(826,90,128,43),func(): sounds.toggle(); render())
+	button("音樂 " + ("開" if Bgm.enabled else "關"),Rect2(960,90,128,43),func(): Bgm.set_enabled(not Bgm.enabled); render())
 	button("金創藥 ×%d" % int(campaign.state.inventory.get("金創藥",0)),Rect2(1097,90,174,43),use_medicine,false,not ready or battle.medicine_used)
 	button("繼續故事" if battle.result=="victory" else ("回鎮療傷" if battle.result!="" else "撤退"),Rect2(1280,90,142,43),leave_battle,battle.result!="",not battle.queue.is_empty() and battle.result=="")
 	for i in campaign.state.party.size():
@@ -1084,12 +1085,7 @@ func render_battle() -> void:
 		button("繼續故事" if battle.result=="victory" else "回鎮療傷",Rect2(504,398,432,43),leave_battle,true)
 
 func head_at(art: String,rect: Rect2) -> void:
-	var node:=TextureRect.new()
-	node.texture=stage.headshot(art)
-	node.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
-	node.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	node.mouse_filter=Control.MOUSE_FILTER_IGNORE
-	at(node,rect)
+	at(stage.portrait(art,true),rect)
 
 func enter_scene(region: String,location: String) -> void:
 	if battle!=null:return

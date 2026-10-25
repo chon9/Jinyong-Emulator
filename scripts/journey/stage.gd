@@ -10,6 +10,7 @@ signal arrived(place: String)
 signal walking
 const Locomotion = preload("res://scripts/journey/locomotion.gd")
 const CharacterArt = preload("res://scripts/journey/character_art.gd")
+const Portrait = preload("res://scripts/journey/portrait.gd")
 const Town = preload("res://scripts/journey/town.gd")
 const Atlas = preload("res://scripts/journey/atlas.gd")
 const Chapter = preload("res://scripts/journey/chapter.gd")
@@ -56,34 +57,18 @@ func tex(name: String) -> Texture2D:
 func asset(path: String) -> Texture2D:
 	return bank.get_asset("res://assets/"+path) if bank != null else null
 
-func portrait(art: String) -> Texture2D:
+func portrait(art: String,head: bool = false) -> Control:
 	var key: String = character_art.portrait_key(art)
 	var frame: Dictionary = character_art.sprite(key)
-	var atlas := AtlasTexture.new()
-	atlas.atlas = asset("characters/"+frame.texture)
-	atlas.region = character_art.portrait_region(key)
-	atlas.filter_clip = true
-	return atlas
-
-func headshot(art: String) -> Texture2D:
-	var key: String=character_art.portrait_key(art)
-	var frame: Dictionary=character_art.sprite(key)
-	if frame.has("head"):
-		var head: Array=frame.head
-		var crop:=AtlasTexture.new()
-		crop.atlas=asset("characters/"+frame.texture)
-		crop.region=Rect2(head[0],head[1],head[2],head[3])
-		crop.filter_clip=true
-		return crop
-	var r: Array=frame.region
-	var height: float=minf(float(r[3]),float(frame.height)*.32)
-	var width: float=minf(float(r[2]),height*1.02)
-	var x: float=clampf(float(frame.pivot[0])+height*.08-width*.5,0,float(r[2])-width)
-	var atlas:=AtlasTexture.new()
-	atlas.atlas=asset("characters/"+frame.texture)
-	atlas.region=Rect2(float(r[0])+x,float(r[1]),width,height)
-	atlas.filter_clip=true
-	return atlas
+	var view := Portrait.new()
+	view.texture = asset("characters/"+frame.texture)
+	view.frame = frame
+	view.crop = character_art.portrait_region(key)
+	if head and frame.has("head"):
+		var r: Array = frame.head
+		view.crop = Rect2(r[0],r[1],r[2],r[3])
+	view.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return view
 
 func go_to(place: String) -> bool:
 	if not town.anchors.has(place): return false
@@ -112,6 +97,9 @@ func is_near_npc() -> bool:
 	return avatar.distance_to(town.anchors[campaign.state.place]) < 65 and route.is_empty()
 
 func show_event(value: Dictionary) -> void:
+	# Parent processing can begin a new action after a long frame before this
+	# child processes the old one. Flush the old impact before replacing it.
+	play_impact()
 	event = value
 	animation = .8
 	impact_played = false
@@ -120,16 +108,21 @@ func show_event(value: Dictionary) -> void:
 		if not actor.is_empty():sounds.play(CombatStyle.profile(actor,value).start)
 	queue_redraw()
 
+func play_impact() -> void:
+	if impact_played or event.is_empty() or battle == null: return
+	impact_played = true
+	if sounds!=null and int(event.get("amount",0))>0:
+		var actor: Dictionary=battle.by_id(event.get("actor",""))
+		if not actor.is_empty():
+			var profile: Dictionary=CombatStyle.profile(actor,event)
+			if profile.impact!="":sounds.play(profile.impact)
+
 func _process(delta: float) -> void:
 	clock += delta
 	animation = maxf(0,animation-delta)
-	if battle != null and animation < .52 and animation > 0 and not impact_played:
-		impact_played = true
-		if sounds!=null and int(event.get("amount",0))>0:
-			var actor: Dictionary=battle.by_id(event.get("actor",""))
-			if not actor.is_empty():
-				var profile: Dictionary=CombatStyle.profile(actor,event)
-				if profile.impact!="":sounds.play(profile.impact)
+	# A slow browser frame can cross the whole animation. Still deliver its impact.
+	if battle != null and animation < .52 and not event.is_empty() and not impact_played:
+		play_impact()
 	if campaign != null and battle == null:
 		sync_location()
 		motion.advance(delta)

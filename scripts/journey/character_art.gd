@@ -10,6 +10,23 @@ func _init() -> void:
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/visual_art.json")),true)
 	if FileAccess.file_exists("res://data/companion_art.json"):
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/companion_art.json")),true)
+	if FileAccess.file_exists("res://data/character_masks.json"):
+		var masks: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/character_masks.json"))
+		for key in masks:
+			for pose in masks[key]:
+				data.characters[key].frames[int(pose)].draw_regions = masks[key][pose]
+
+static func source_regions(frame: Dictionary,crop: Rect2) -> Array[Rect2]:
+	var result: Array[Rect2] = []
+	var r: Array = frame.region
+	var origin := Vector2(r[0],r[1])
+	var bounded := crop.intersection(Rect2(origin,Vector2(r[2],r[3])))
+	if not bounded.has_area(): return result
+	if not frame.has("draw_regions"): return [bounded]
+	for strip in frame.draw_regions:
+		var source := Rect2(origin+Vector2(strip[0],strip[1]),Vector2(strip[2],strip[3])).intersection(bounded)
+		if source.has_area(): result.append(source)
+	return result
 
 func sprite(key: String, pose: int = 0) -> Dictionary:
 	var entry: Dictionary = data.characters.get(key,data.characters.swordsman)
