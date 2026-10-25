@@ -1,0 +1,128 @@
+[
+  {
+    "key": "foes-01",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-01.png"
+  },
+  {
+    "key": "foes-02",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-02.png"
+  },
+  {
+    "key": "foes-03",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-03.png"
+  },
+  {
+    "key": "foes-04",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-04.png"
+  },
+  {
+    "key": "foes-05",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-05.png"
+  },
+  {
+    "key": "foes-06",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-06.png"
+  },
+  {
+    "key": "foes-07",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-07.png"
+  },
+  {
+    "key": "foes-08",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-08.png"
+  },
+  {
+    "key": "foes-09",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-09.png"
+  },
+  {
+    "key": "foes-10",
+    "columns": 5,
+    "rows": 2,
+    "target": "assets/open_world/foes-10.png"
+  },
+  {
+    "key": "heroes-1",
+    "columns": 4,
+    "rows": 2,
+    "target": "assets/open_world/heroes-1.png"
+  },
+  {
+    "key": "heroes-2",
+    "columns": 4,
+    "rows": 2,
+    "target": "assets/open_world/heroes-2.png"
+  },
+  {
+    "key": "heroes-3",
+    "columns": 4,
+    "rows": 2,
+    "target": "assets/open_world/heroes-3.png"
+  },
+  {
+    "key": "heroes-4",
+    "columns": 4,
+    "rows": 2,
+    "target": "assets/open_world/heroes-4.png"
+  },
+  {
+    "key": "heroes-5",
+    "columns": 4,
+    "rows": 2,
+    "target": "assets/open_world/heroes-5.png"
+  },
+  {
+    "key": "residents",
+    "columns": 4,
+    "rows": 2,
+    "target": "assets/open_world/residents.png"
+  },
+  {
+    "key": "scene-inn",
+    "columns": 0,
+    "rows": 0,
+    "target": "assets/open_world/scene-inn.png"
+  },
+  {
+    "key": "scene-temple",
+    "columns": 0,
+    "rows": 0,
+    "target": "assets/open_world/scene-temple.png"
+  },
+  {
+    "key": "scene-mountain",
+    "columns": 0,
+    "rows": 0,
+    "target": "assets/open_world/scene-mountain.png"
+  },
+  {
+    "key": "scene-market",
+    "columns": 0,
+    "rows": 0,
+    "target": "assets/open_world/scene-market.png"
+  },
+  {
+    "key": "mu-nianci",
+    "columns": 1,
+    "rows": 1,
+    "target": "assets/open_world/mu-nianci.png"
+  }
+]

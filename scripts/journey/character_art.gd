@@ -4,10 +4,12 @@ var data: Dictionary
 
 func _init() -> void:
 	data = JSON.parse_string(FileAccess.get_file_as_string("res://data/character_art.json"))
+	if FileAccess.file_exists("res://data/open_art.json"):
+		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/open_art.json")))
 
 func sprite(key: String, pose: int = 0) -> Dictionary:
 	var entry: Dictionary = data.characters.get(key,data.characters.swordsman)
-	var frame: Dictionary = entry.frames[clampi(pose,0,3)].duplicate()
+	var frame: Dictionary = entry.frames[clampi(pose,0,entry.frames.size()-1)].duplicate()
 	frame.texture = entry.texture
 	frame.height = entry.height
 	return frame

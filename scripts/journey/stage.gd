@@ -11,6 +11,7 @@ const Atlas = preload("res://scripts/journey/atlas.gd")
 const Chapter = preload("res://scripts/journey/chapter.gd")
 const GOLD := Color("d7b77b")
 const IVORY := Color("f0e6cf")
+var scene_context:=""
 var campaign
 var battle
 var bank
@@ -55,6 +56,19 @@ func portrait(art: String) -> Texture2D:
 	atlas.atlas = asset("characters/"+frame.texture)
 	atlas.region = character_art.portrait_region(key)
 	atlas.filter_clip = true
+	return atlas
+
+func headshot(art: String) -> Texture2D:
+	var key: String=character_art.portrait_key(art)
+	var frame: Dictionary=character_art.sprite(key)
+	var r: Array=frame.region
+	var height: float=minf(float(r[3]),float(frame.height)*.32)
+	var width: float=minf(float(r[2]),height*1.02)
+	var x: float=clampf(float(frame.pivot[0])+height*.08-width*.5,0,float(r[2])-width)
+	var atlas:=AtlasTexture.new()
+	atlas.atlas=asset("characters/"+frame.texture)
+	atlas.region=Rect2(float(r[0])+x,float(r[1]),width,height)
+	atlas.filter_clip=true
 	return atlas
 
 func go_to(place: String) -> bool:
@@ -130,7 +144,7 @@ func _gui_input(input: InputEvent) -> void:
 				accept_event()
 				return
 
-		if battle == null and Atlas.ensure(campaign).region == "嘉興鎮":
+		if battle == null and scene_context=="" and Atlas.ensure(campaign).region == "嘉興鎮":
 			requested_place = ""
 			route = town.route(avatar,input.position/zoom+camera)
 			route_index = 0
@@ -150,14 +164,16 @@ func _draw() -> void:
 	else: draw_map()
 
 func draw_map() -> void:
-	if Atlas.ensure(campaign).region != "嘉興鎮":
-		var region: String = Atlas.ensure(campaign).region
-		var bg := tex("bg_huayin_road")
-		if bg != null: draw_texture_rect(bg,Rect2(Vector2.ZERO,size),false)
-		draw_rect(Rect2(Vector2.ZERO,size),Color(0,.05,.04,.18))
-
-		draw_sprite("swordsman",Vector2(size.x*.28,size.y*.86),178,0,false)
-		draw_sprite(Atlas.NPC_SPRITES[region],Vector2(size.x*.73,size.y*.76),178,0,true)
+	if scene_context!="" or Atlas.ensure(campaign).region!="嘉興鎮":
+		var key: String="market"
+		for word in ["棧","舍","府","莊","茶","廚","膳","琴"]:
+			if word in scene_context:key="inn";break
+		for word in ["寺","堂","宮","閣","觀","金頂","門"]:
+			if word in scene_context:key="temple";break
+		for word in ["山","谷","林","崖","徑","荒","塞","石","關","墓","密道"]:
+			if word in scene_context:key="mountain";break
+		var background:=asset("open_world/scene-"+key+".png")
+		if background!=null:draw_texture_rect(background,Rect2(Vector2.ZERO,size),false)
 		return
 	var art := asset("town/qingxi.webp")
 	if art != null: draw_texture_rect(art,Rect2(-camera*zoom,Vector2(3328,2304)*zoom),false)
@@ -168,24 +184,26 @@ func draw_map() -> void:
 	var order: Array = town.anchors.keys()
 	order.append("@hero")
 	order.sort_custom(func(a,b): return (avatar.y if a == "@hero" else town.anchors[a].y) < (avatar.y if b == "@hero" else town.anchors[b].y))
-	var sprites := {"青溪客棧":"companion","渡口":"staff","藥廬":"healer","蘆葦蕩":"blade","古寺":"staff","市集":"rogue","演武坪":"boss","舊倉":"blade"}
 	for name in order:
-		if name == "@hero":
-			var p := map_pos(avatar)
+		if name=="@hero":
+			var p:=map_pos(avatar)
 			draw_ellipse_shadow(p,Vector2(19,6))
 			draw_arc(p,23,0,TAU,32,GOLD,1.5,true)
-			draw_frame(character_art.walk(motion.facing,motion.frame()),p,100,motion.facing == Locomotion.Facing.WEST)
+			draw_frame(character_art.walk(motion.facing,motion.frame()),p,100,motion.facing==Locomotion.Facing.WEST)
 			continue
-		var p := map_pos(town.anchors[name]+Vector2(76,-8))
-		if not Rect2(-100,-100,size.x+200,size.y+200).has_point(p): continue
-		draw_ellipse_shadow(p,Vector2(18,5))
-		draw_sprite(sprites[name],p,100,0,true)
-		var box := Rect2(p-Vector2(69,113),Vector2(138,30))
-		draw_style_box(_plate(Color(.13,.09,.055,.92)),box)
-		text_at(name,p-Vector2(0,91),IVORY,17,true)
-		if name == campaign.objective()[1] and campaign.state.stage < 7:
-			text_at("◆",p-Vector2(0,126+sin(clock*3)*3),GOLD,22,true)
-		bounds[name] = Rect2(p-Vector2(65,115),Vector2(130,125))
+		var p:=map_pos(town.anchors[name])
+		if not Rect2(-100,-100,size.x+200,size.y+200).has_point(p):continue
+		for ring in 3:
+			var radius: float=26+ring*7+sin(clock*2+ring)*2
+			var points:=PackedVector2Array()
+			for i in 49:points.append(p+Vector2(cos(i*TAU/48)*radius,sin(i*TAU/48)*radius*.34))
+			draw_polyline(points,Color(.91,.77,.32,.7-ring*.16),2,true)
+		for i in 5:
+			var phase:=fmod(clock*.35+i*.2,1)
+			draw_circle(p+Vector2(sin(i*2.4)*25,-phase*46),2,Color(1,.9,.5,(1-phase)*.65))
+		text_at(name,p-Vector2(0,52),IVORY,18,true)
+		text_at("進入",p+Vector2(-16,6),GOLD,13)
+		bounds[name]=Rect2(p-Vector2(57,67),Vector2(114,91))
 	# Keep the full street plan visible as a minimap; the gold frame is the camera.
 	var mini := Rect2(size.x-183,99,170,118)
 	draw_style_box(_plate(Color(.13,.09,.055,.92)),mini.grow(4))

@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 import threading
 from playwright.sync_api import sync_playwright
+from browser_ui_helpers import press, open_tools
 
 ROOT = Path(__file__).resolve().parents[1]
 PROBE = r"""(() => {
@@ -85,35 +86,37 @@ def run():
             if not args.diagnose:
                 assert report['initial_peak'] and report['initial_peak'] > .0001, 'No actual audio after entering the game'
                 report['checks'].append('Entering the game produces measurable Web Audio output')
-                # Retain the original five-track control regression alongside the new campaign.
+                # Exercise the default game's visible audio controls.
                 page.locator('#canvas').focus()
-                page.keyboard.press('F9')
-                page.wait_for_timeout(500)
                 page.keyboard.press('F8')
-                page.wait_for_function("document.documentElement.dataset.gamePage === '聯機'")
+                page.wait_for_function("window.youxiaChapterStatus.page === '設定'")
                 page.wait_for_timeout(400)
+                def click_canvas(x,y):
+                    box=page.locator('#canvas').bounding_box()
+                    scale=min(box['width']/1440,box['height']/900)
+                    page.mouse.click(box['x']+(box['width']-1440*scale)/2+x*scale,box['y']+(box['height']-900*scale)/2+y*scale)
                 def peak(seconds=.6):
                     page.evaluate('audioProbe.peak = 0')
                     for _ in range(int(seconds * 10)):
                         page.evaluate('audioProbe.read()')
                         page.wait_for_timeout(100)
                     return page.evaluate('audioProbe.peak')
-                page.mouse.click(100, 270)
+                press(page,'關閉音樂',prefix=False)
                 page.wait_for_timeout(250)
                 assert peak() < .000001, 'Music checkbox did not silence output'
                 report['checks'].append('In-game mute silences actual audio output')
-                page.mouse.click(100, 270)
+                press(page,'開啟音樂',prefix=False)
                 assert peak() > .0001, 'Music did not resume after unmuting'
                 report['checks'].append('Unmuting restores actual audio output')
-                page.mouse.click(298, 265)
+                click_canvas(400,339)
                 page.keyboard.press('Home')
                 page.wait_for_timeout(200)
                 assert peak() < .000001, 'Zero volume did not silence output'
-                page.mouse.click(298, 265)
+                page.keyboard.press('End')
                 assert peak() > .0001, 'Volume slider did not restore output'
                 report['checks'].append('Volume slider reaches silence and restores audible output')
                 for index, name in enumerate(['town', 'wild', 'battle', 'boss', 'dungeon'], 1):
-                    page.mouse.click(400, 309)
+                    click_canvas(400,419)
                     page.keyboard.press('Home')
                     for _ in range(index + 1): page.keyboard.press('ArrowDown')
                     page.keyboard.press('Enter')
@@ -137,9 +140,11 @@ def run():
                         selected = re.search(r'track="([^"]*)"', saved_config)
                         if selected and selected[1] == name: break
                         page.wait_for_timeout(250)
+                    if not selected or selected[1] != name:page.screenshot(path=str(ROOT/'test-results/audio-track-failure.png'))
                     assert selected and selected[1] == name, 'Wrong selected track: ' + saved_config
                     assert peak() > .0001, 'No sound after switching to ' + name
                     report['checks'].append('Real audio after selecting ' + name)
+                open_tools(page)
                 link = page.get_by_role('link', name='Windows 最新版', exact=True)
                 assert link.is_visible() and link.get_attribute('href') == 'https://github.com/chon9/Jinyong-Emulator/releases/latest'
                 report['checks'].append('Persistent Windows download entry uses the latest release permalink')

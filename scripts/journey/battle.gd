@@ -1,6 +1,7 @@
 extends RefCounted
 ## Deterministic, presentation-independent party combat. One call resolves one action.
 const Chapter = preload("res://scripts/journey/chapter.gd")
+const Open=preload("res://scripts/journey/open_world.gd")
 const MAX_QI := 100
 var units: Array = []
 var round_no := 1
@@ -67,6 +68,12 @@ func _init(campaign, kind: String, seed_value: int = 0) -> void:
 			u.max_hp = u.hp
 			u.atk = int(u.atk*2.3)
 			u.def += 45
+	if kind.begins_with("wild:") or kind.begins_with("quest:"):
+		for i in range(units.size()-1,-1,-1):
+			if units[i].side==1:units.remove_at(i)
+		for u in Open.battle_roster(campaign,kind):
+			_prepare(u)
+			units.append(u)
 	plan_intents()
 
 func _prepare(u: Dictionary) -> void:
@@ -143,7 +150,9 @@ func auto_orders() -> void:
 
 func plan_intents() -> void:
 	for u in living(1):
-		if u.ai == "boss": u.intent = "蓄力斬 · 下一回合橫掃前排" if not u.charging else "⚠ 斷江斬 · 橫掃前排，可封招打斷"
+		if u.has("kind"):
+			u.intent=u.skill+" · "+{"fighter":"隔輪施招","healer":"先救低血同伴","sentinel":"護陣後反擊","assassin":"越陣搶攻","venom":"持續毒傷","breaker":"破甲截脈","berserker":"蓄勢重擊"}.get(u.ai,"進攻")
+		elif u.ai == "boss": u.intent = "蓄力斬 · 下一回合橫掃前排" if not u.charging else "⚠ 斷江斬 · 橫掃前排，可封招打斷"
 		elif u.ai == "poison": u.intent = "毒砂 · 越陣攻擊後排" if round_no % 2 == 1 else "短刀 · 攻擊前排"
 		else: u.intent = "重斬 · 攻擊前排" if round_no % 3 == 0 else "刀擊 · 攻擊前排"
 
@@ -191,7 +200,15 @@ func next_action() -> Dictionary:
 		target = orders.get(u.id,{}).get("target","")
 		if action == "skill" and cast_reason(u.id) != "": action = "attack"
 	else:
-		if u.ai == "boss": action = "boss_hit" if u.charging else "charge"
+		if u.has("kind"):
+			if u.ai=="healer" and living(1).any(func(ally):return ally.hp<ally.max_hp*.6):action="heal"
+			elif u.ai=="sentinel" and round_no%3==1:action="guard"
+			elif u.ai=="assassin":action="pierce"
+			elif u.ai=="venom" and round_no%2==1:action="poison"
+			elif u.ai=="breaker" and round_no%2==0:action="break"
+			elif u.ai=="berserker":action="boss_hit" if u.charging else "charge"
+			elif round_no%2==0:action=u.kind
+		elif u.ai == "boss": action = "boss_hit" if u.charging else "charge"
 		elif u.ai == "poison" and round_no % 2 == 1: action = "poison"
 		elif round_no % 3 == 0: action = "heavy"
 	var event := _resolve(u,action,target)
@@ -209,8 +226,8 @@ func _resolve(u: Dictionary, action: String, requested: String) -> Dictionary:
 		u.charging = true
 		return _event(u,u,"charge",0,"%s開始蓄力！下回合將橫掃前排，用陸衡封招或提前守勢。" % u.name)
 	var kind := action
-	var power := 1.0
-	var title := "普攻"
+	var power := 2.2 if action=="heal" else 1.0
+	var title: String=u.get("skill","普攻") if u.side==1 and action!="attack" else "普攻"
 	if action == "skill":
 		var art: Dictionary = Chapter.ARTS[u.outer]
 		u.energy -= int(art.cost)
@@ -230,7 +247,7 @@ func _resolve(u: Dictionary, action: String, requested: String) -> Dictionary:
 	var t := target_for(u,requested,kind in ["pierce","poison"])
 	if t.is_empty(): return {}
 	if kind == "poison":
-		var backs := living(0).filter(func(a): return not a.front)
+		var backs := living(1-int(u.side)).filter(func(a): return not a.front)
 		if not backs.is_empty(): t = backs[0]
 		power = .8
 		title = "毒砂"

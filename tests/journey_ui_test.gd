@@ -1,144 +1,89 @@
 extends SceneTree
+const Open=preload("res://scripts/journey/open_world.gd")
+const Content=preload("res://scripts/journey/open_content.gd")
 var ui
-var checks := 0
-var failures: Array = []
-var screenshots := false
+var checks:=0
+var failures:=[]
 
-func _init() -> void:
-	call_deferred("run")
+func _init() -> void:call_deferred("run")
+func check(ok: bool,message: String) -> void:
+	checks+=1
+	if not ok:failures.append(message);push_error(message)
 
-func check(ok: bool, text: String) -> void:
-	checks += 1
-	if not ok: failures.append(text); push_error(text)
-
-func click(at: Vector2) -> void:
-	var input := InputEventMouseButton.new()
-	input.button_index = MOUSE_BUTTON_LEFT
-	input.position = at
-	input.pressed = true
-	root.push_input(input)
+func press(text: String) -> void:
 	await process_frame
-	input = input.duplicate()
-	input.pressed = false
-	root.push_input(input)
-	await process_frame
-
-func shot(name: String) -> void:
-	if not screenshots: return
-	await process_frame
-	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("res://test-results/journey-"+name+".png")
-
-func wait_navigation() -> void:
-	var deadline := Time.get_ticks_msec()+60000
-	while ui.navigating and Time.get_ticks_msec()<deadline: await process_frame
-	await process_frame
+	for node in ui.layer.get_children():
+		if node is Button and not node.disabled and (node.text==text or node.tooltip_text==text or node.text.begins_with(text)):
+			node.pressed.emit()
+			await process_frame
+			return
+	check(false,"Visible enabled action exists: "+text)
 
 func run() -> void:
-	screenshots = DisplayServer.get_name() != "headless"
-	root.size = Vector2i(1440,900)
-	root.get_node("Session").chapter_data = {}
+	root.size=Vector2i(1440,900)
+	var session=root.get_node("Session")
+	check(session.save_path.contains("test-results"),"UI reset test is isolated from real saves")
+	session.chapter_data={}
 	ui=load("res://scenes/journey.tscn").instantiate()
 	root.add_child(ui)
-	while not ui.boot_ready: await process_frame
-	await process_frame
-	await shot("world")
-	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
-	await click(Vector2(500,756))
-	check(ui.campaign.state.stage==1,"Visible dialogue button accepts the main story and recruits the swordsman")
-	await click(Vector2(170,305))
-	await wait_navigation()
-	check(ui.campaign.state.place=="渡口","Pinned next-step button routes to the quest NPC")
-	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
-	await click(Vector2(500,756))
-	check(ui.battle!=null and ui.battle.living(0).size()==2,"Visible NPC action starts the new party battle")
-	await shot("battle")
-	await click(Vector2(580,805))
-	check(ui.battle.orders.get("sword",{}).get("action")=="skill","Character skill slot queues the actual skill")
-	await click(Vector2(1300,40))
-	check(not ui.battle.queue.is_empty(),"Round button starts the speed-ordered action queue")
-	ui.auto_battle=true
-	# Fast-forward model resolution while preserving the production victory/reward path.
-	for i in 18:
-		if ui.battle.result!="": break
-		if ui.battle.queue.is_empty(): ui.battle.auto_orders(); ui.battle.begin_round()
-		while not ui.battle.queue.is_empty() and ui.battle.result=="": ui.battle.next_action()
-	ui.finish_battle()
-	check(ui.campaign.state.stage==2,"Battle victory unlocks the medicine clue in the same campaign")
-	ui.leave_battle()
-	await process_frame
-	ui.campaign.state.place="藥廬"
-	ui.render()
-	await process_frame
-	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
-	await click(Vector2(500,756))
-	check("healer" in ui.campaign.state.party,"Healer joins through dialogue UI")
-	ui.campaign.state.stage=4
-	ui.campaign.state.place="古寺"
-	ui.render()
-	await process_frame
-	if not ui.dialogue_open: ui.dialogue_open=true; ui.render(); await process_frame
-	await click(Vector2(500,756))
-	check(ui.campaign.state.party.size()==4,"Full party is assembled through the fourth character conversation")
-	await click(Vector2(975,840))
-	check(ui.page=="同伴","Bottom navigation opens companions directly")
-	await shot("party")
-	var front: bool = ui.campaign.state.formation.hero.front
-	await click(Vector2(140,734))
-	check(ui.campaign.state.formation.hero.front!=front,"Formation button changes the actual front/rear combat rank")
-	await click(Vector2(1135,840))
-	# Use the page label rather than relying on the preceding tab coordinate.
+	while not ui.boot_ready:await process_frame
+	check(Open.current_region(ui.campaign)=="牛家村" and ui.battle==null,"New game starts in a peaceful open-world village")
+	await press("交談 · 穆念慈")
+	check(ui.dialogue_open and ui.selected_npc=="jy24","Scene portrait opens the correct person's dialogue")
+	await press("邀請同行")
+	check("jy24" in ui.campaign.state.roster and ui.campaign.state.stage==0,"Companion invitation has no chapter gate")
+	await press("委託與故事")
+	check(ui.page=="江湖誌" and ui.quest_selection=="friend_jy24","Conversation opens this person's actual optional story")
+	await press("接下委託")
+	check(Open.ensure(ui.campaign).quests.friend_jy24.status=="active","Accept button creates real quest progress")
+	await press("交談辦理")
+	await press("處理委託")
+	check(Open.ensure(ui.campaign).quests.friend_jy24.step==1,"Dialogue action advances the quest")
+	ui.enter_scene("牛家村","牛家客棧")
+	await press("交談 · 黃蓉")
+	await press("邀請同行")
+	check("jy02" in ui.campaign.state.party,"Second visited hero can join the active party")
 	ui.set_page("行囊")
-	await process_frame
-	await click(Vector2(220,712))
-	await wait_navigation()
-	check(ui.campaign.state.place=="市集","Inventory offers direct travel to a working merchant")
-	ui.set_page("行囊")
-	await process_frame
-	var silver: int = ui.campaign.state.silver
-	await click(Vector2(1040,313))
-	check(ui.campaign.state.silver==silver-20,"Shop purchase works from the visible UI")
-	await click(Vector2(1250,313))
-	check(ui.campaign.state.silver==silver-10,"Shop sale works from the visible UI")
-	ui.campaign.state.place="演武坪"
-	ui.campaign.choose("sect_華山")
+	var silver: int=ui.campaign.state.silver
+	await press("購買 ·")
+	check(ui.campaign.state.silver==silver-20,"Buying works at the local village inn")
+	await press("出售 ·")
+	check(ui.campaign.state.silver==silver-10,"Selling updates actual inventory and money")
+	ui.enter_scene("嘉興鎮","演武坪")
 	ui.set_page("武學")
+	await press("拜入華山")
+	check(ui.campaign.state.sect=="華山","Visible master action joins a sect")
+	var level: int=ui.campaign.state.levels.hero
+	await press("消點進修")
+	check(ui.campaign.state.levels.hero==level+1,"Spend-point training changes combat progression")
+	await press("自修 ·")
+	ui._process(5.1)
+	check(ui.campaign.state.levels.hero==level+2,"Self-study completes only after its timed cycle")
+	ui.enter_scene("龍門","關隘")
+	check(ui.campaign.state.study=="" and ui.battle==null,"Distant scene entry stops study and never starts combat automatically")
+	ui.enter_scene(Content.ENEMIES.enemy_001.region,Content.ENEMIES.enemy_001.scene)
+	ui.foe_filter="全部";ui.foe_selection="enemy_001";ui.set_page("挑戰")
+	await press("接受挑戰")
+	check(ui.battle!=null and ui.battle.living(1)[0].sprite=="enemy_001","Challenge UI starts the selected independently illustrated opponent")
+	ui.battle=null;ui.stage.battle=null;ui.set_page("設定")
+	await press("刪除存檔／重新開始")
+	var confirmation=ui.get_children().filter(func(n):return n is ConfirmationDialog)[0]
+	check(confirmation.visible and confirmation.get_cancel_button().has_focus(),"Deleting progress opens a confirmation focused on keeping the save")
+	confirmation.canceled.emit()
 	await process_frame
-	var level: int = ui.campaign.state.levels.hero
-	await click(Vector2(640,720))
-	check(ui.campaign.state.levels.hero==level+1,"Spend-point training works at the master")
-	await click(Vector2(945,720))
-	check(ui.campaign.state.study=="hero","Self-study can be started from the martial arts page")
-	await create_timer(5.2).timeout
-	check(ui.campaign.state.levels.hero==level+2,"Self-study completes a timed training cycle and changes progression")
-	ui.campaign.state.study=""
-	ui.hero_id="staff"
-	ui.render()
-	await process_frame
-	await shot("martial")
-	ui.campaign.position_hero("hero",1,true)
-	ui.start_battle("warehouse")
-	await process_frame
-	await shot("boss")
-	if screenshots:
-		ui.stage.show_event({"actor":"hero","target":"boss","kind":"attack","amount":64})
-		await shot("facing-ally-attack")
-		ui.stage.show_event({"actor":"boss","target":"hero","kind":"attack","amount":42})
-		await shot("facing-enemy-attack")
-		ui.stage.animation = 0
-		await process_frame
-	await click(ui.stage.position+ui.stage.actor_pos(ui.battle.by_id("boss"))-Vector2(0,85))
-	check(ui.selected_enemy=="boss","Enemy sprite remains selectable at its visible position after facing correction")
-	await click(ui.stage.position+ui.stage.actor_pos(ui.battle.by_id("hero"))-Vector2(0,85))
-	check(ui.selected_ally=="hero","Mirrored ally remains selectable at its visible position")
+	check("jy02" in ui.campaign.state.roster,"Cancel preserves recruited companions")
 	ui.persist()
-	var session=root.get_node("Session")
-	check(session.chapter_data.party.size()==4 and session.chapter_data.stage==5,"Campaign progress is included in normal session saves")
-	var saved=JSON.parse_string(FileAccess.get_file_as_string(session.save_path))
-	check(saved.has("character") and saved.has("chapter") and saved.chapter.party.size()==4,"Old character and new party coexist in the save file")
-	check(session.import_save_text(JSON.stringify(saved)),"Normal browser-compatible import accepts the full campaign save")
-	check(ui.battle==null and ui.campaign.state.party.size()==4,"Import exits transient combat while preserving the campaign")
-	print("JOURNEY UI TEST: %d checks, %d failures" % [checks,failures.size()])
-	ui.queue_free()
+	DirAccess.copy_absolute(session.save_path,session.save_path+".bak")
+	await press("刪除存檔／重新開始")
+	confirmation=ui.get_children().filter(func(n):return n is ConfirmationDialog)[0]
+	confirmation.confirmed.emit()
 	await process_frame
+	check(ui.campaign.state.roster==["hero"] and ui.campaign.state.open_world.quests.is_empty(),"Confirmed reset clears recruits and all optional quests")
+	check(Open.current_region(ui.campaign)=="牛家村","Reset starts a fresh village exploration")
+	var saved: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(session.save_path))
+	check(saved.chapter.roster==["hero"] and saved.chapter.open_world.quests.is_empty(),"Fresh progress replaces the disk save")
+	if FileAccess.file_exists(session.save_path+".bak"):
+		var backup: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(session.save_path+".bak"))
+		check(backup.chapter.roster==["hero"],"Backup cannot resurrect deleted companions")
+	print("OPEN WORLD UI TEST: %d checks, %d failures"%[checks,failures.size()])
 	quit(0 if failures.is_empty() else 1)

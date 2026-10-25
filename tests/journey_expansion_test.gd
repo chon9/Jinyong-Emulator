@@ -36,7 +36,7 @@ func _init() -> void:
 	check(Daily.count(c,"work") == 0,"Next day resets counts exactly once")
 	Atlas.ensure(c)
 	Atlas.visit(c,"龍門")
-	check(c.state.atlas.region == "嘉興鎮","Progress gates block premature distant journeys")
+	check(c.state.atlas.region == "龍門","All distant journeys are available without chapter gates")
 	c.state.stage = 7
 	c.state.sect = "華山"
 	for id in ["sword","healer","staff"]: c.recruit(id)
@@ -54,6 +54,7 @@ func _init() -> void:
 	check("blade" in c.state.party and not "sword" in c.state.party and "sword" in c.state.roster,"Substitution preserves the benched companion and caps the field at four")
 	c.swap_companion("palm","hero")
 	check("hero" in c.state.party and not "palm" in c.state.party,"Main character cannot be replaced")
+	Atlas.visit(c,"龍門")
 	c.state.place = "演武坪"
 	c.state.potential = 50000
 	c.train("hero")

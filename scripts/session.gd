@@ -24,6 +24,7 @@ signal chapter_imported
 var saved_clock := false
 var save_import_callback: JavaScriptObject
 var save_export_callback: JavaScriptObject
+var reset_generation := ""
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -49,6 +50,9 @@ func _ready() -> void:
 		message.emit("系統", text)
 		updated.emit())
 	SteamBridge.invited.connect(join_steam)
+	if OS.has_feature("web"):
+		var marker: Variant=JavaScriptBridge.eval("(()=>{try{return localStorage.getItem('youxia-reset-generation-v1')||'';}catch{return '';}})()",true)
+		if marker is String:reset_generation=marker
 	_load()
 	start_offline()
 	if OS.has_feature("web"):
@@ -92,6 +96,9 @@ func _read_save(path: String) -> Dictionary:
 	if parser.parse(FileAccess.get_file_as_string(path)) != OK: return {}
 	var data: Variant = parser.data
 	if not data is Dictionary or int(data.get("version", 0)) != 1 or not data.get("character") is Dictionary: return {}
+	# A synchronous reset marker prevents an older IndexedDB snapshot from reappearing
+	# if the tab reloads before the engine's asynchronous filesystem sync completes.
+	if OS.has_feature("web") and reset_generation!="" and data.get("reset_generation","")!=reset_generation:return {}
 	return data
 
 func _restore(id: int, data: Dictionary) -> void:
@@ -135,7 +142,7 @@ func save_game() -> bool:
 	var temp := save_path + ".tmp"
 	var file := FileAccess.open(temp, FileAccess.WRITE)
 	if file == null: return false
-	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves, "world_tick": local_tick, "chapter": chapter_data}))
+	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves, "world_tick": local_tick, "chapter": chapter_data, "reset_generation":reset_generation}))
 	file.close()
 	# Windows 上以 replace 的方式寫入：保留前一份存檔以利恢復。
 	if not _read_save(save_path).is_empty():
@@ -156,6 +163,48 @@ func _disconnect() -> void:
 	world.social.reset()
 	world.dungeons.reset()
 	state = {}
+
+func reset_local_progress() -> bool:
+	if mode!="單機":
+		status="請先返回單機，再刪除本機存檔。"
+		return false
+	if OS.has_feature("web"):
+		var generation: String=Crypto.new().generate_random_bytes(16).hex_encode()
+		var marked: Variant=JavaScriptBridge.eval("(()=>{try{localStorage.setItem('youxia-reset-generation-v1',"+JSON.stringify(generation)+");return true;}catch{return false;}})()",true)
+		# The Web bridge can marshal JavaScript booleans as integer 0/1.
+		if not bool(marked):
+			status="瀏覽器未允許儲存刪檔標記，進度已保留。"
+			return false
+		reset_generation=generation
+	# Remove recovery files too; otherwise a later load can resurrect deleted progress.
+	for path in [save_path,save_path+".bak",save_path+".tmp"]:
+		if not FileAccess.file_exists(path):continue
+		if OS.has_feature("web"):
+			# FileAccess also marks IDBFS dirty. DirAccess deletion alone can miss
+			# the browser's next persistence pass while a prior sync is in flight.
+			var cleared:=FileAccess.open(path,FileAccess.WRITE)
+			if cleared==null:
+				status="無法清除本機存檔，請檢查瀏覽器儲存空間。"
+				return false
+			cleared.close()
+		elif DirAccess.remove_absolute(path)!=OK:
+			status="無法清除本機存檔，請檢查檔案權限。"
+			return false
+	chapter_data={}
+	local_character={}
+	local_tick=0
+	saved_clock=false
+	world.players.clear()
+	world.social.reset()
+	world.dungeons.reset()
+	world.tick=0
+	world.add_player(1)
+	local_character=world.players[1].duplicate(true)
+	_publish()
+	chapter_imported.emit()
+	save_game()
+	if OS.has_feature("web"):JavaScriptBridge.force_fs_sync()
+	return true
 
 func start_offline() -> void:
 	_disconnect()

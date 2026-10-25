@@ -38,7 +38,7 @@ static func ensure(campaign) -> Dictionary:
 
 static func visit(campaign, region: String) -> String:
 	var data := ensure(campaign)
-	if not REGIONS.has(region) or campaign.state.stage < REGIONS[region].stage: return "先完成青溪主線，取得這條路上的人脈與線索。"
+	if not REGIONS.has(region): return "找不到這處江湖。"
 	data.region = region
 	if not region in data.visited:
 		data.visited.append(region)

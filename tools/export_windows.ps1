@@ -47,12 +47,13 @@ Classic presentation assets adapted with permission from the user's JY-Mini OL p
 - LXGW WenKai TC Regular, distributed under the SIL Open Font License (Font-OFL.txt).
 - Four landscape backgrounds from assets/art/bg.
 - Legacy chapter poses, river/cave scenery and map parchment from assets/art/units, bg and map.
-- Current chapter cast, walking/action sheets, game-window skin and icons generated with built-in imagegen; source prompts in art/characters-v2/PROMPTS.md.
+- Cast, walking/action sheets, game skin and icons generated with built-in imagegen; prompts in art/characters-v2/PROMPTS.md.
+- 100 enemy designs, 40 hero designs, 8 peaceful residents, 4 scenes and a replacement Mu Nianci sprite generated with built-in imagegen; prompts in art/open-world-jobs.json.
 - Selected town tiles/panorama, world map, character animation sheets, effects and SFX from the owner-supplied Jinyong Heroes 5 installation; see source repository assets/town/SOURCE.txt. No source scripts, event commands, saves or dialogue were imported.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
 - Five owner-supplied BGM recordings from assets/bgm; see Music-Credits.txt.
 Combat, inventory, party, trade and networking remain the Youxia simulator implementation.
-The Qingxi chapter is original fiction with custom party-combat rules inspired by wuxia RPG design.
+Open-world dialogue and rules are independently written. Flash JY3 event topics and names are researched from public walkthroughs; see docs/OPEN-WORLD.md.
 '@
 Set-Content -LiteralPath (Join-Path $youxiaOutput 'Asset-Credits.txt') -Value $youxiaCredits -Encoding utf8
 $youxiaReadme = @'
@@ -62,15 +63,18 @@ $youxiaReadme = @'
 請把同資料夾的 DLL 與 steam_appid.txt 留在原位，給朋友時傳送整個 ZIP。
 
 單機：直接啟動即可。Steam 未開啟時仍可玩單機。
-新版預設進入「青溪失鏢」：點街道行走、點人物交談，左上追蹤主線；右下圖示開啟行囊、武學與隊伍。
-隨故事招募顧長風、沈青棠、陸衡，組成四人隊伍。這一章是新的單機戰鬥系統。
-同伴／武學：搭配外功、內功、輕功，調整前後排與上中下路；佔用的陣位會交換。
-戰鬥：先選敵人，再替同伴選普攻、施招或守勢，按空白鍵／進行回合，按速度先後出手。
-每次普攻使全體聚氣，25 真元一格；技能需要真元並有調息。委託可自動下令並推進回合。
-首領蓄力可用陸衡封招打斷；沈青棠治療解毒；顧長風越陣攻後排；主角追擊流血與破甲。
-演武坪可選華山／武當／少林並消點。新章消點耗 12＋重數×3 學點，自修每 5 秒耗 8＋重數×3，上限十重。
-此為自訂章節平衡，並非金庸 Online 或煙雨江湖官方逐值公式。新章目前有八個地點、一條完整主線與採藥支線。
-新舊角色進度並存於同一存檔，新章不繼承舊角色的等級與裝備；進度不會相互覆蓋。
+預設進入自由江湖：100處命名場景、121份可選委託、41位新增可招募人物、100種獨立繪製對手。
+新角色從牛家村開始，點頭像交談、邀請同行或接委託。所有道路開放，不需要先清第一章。
+委託接下後在「進行中」查看；前往目標直接帶到場景，交談、交付、切磋與回報都有實際效果。
+到其他場景先見人物與故事，不會自動開戰；「附近挑戰」或「江湖群雄」可尋找對手，再自行接受挑戰。
+隊伍四人、主角留隊，候補保留修為。外功、內功、輕功與前後排、上中下路都會影響戰鬥。
+每輪先替同伴選普攻、施招或守勢，再按空白鍵／進行回合，依速度先後出手。
+普攻帶動全體聚氣，25真元一格；技能受真元與調息限制。封招、破甲、越陣、療傷與蓄力有不同用途。
+可拜入華山／武當／少林／全真／古墓。師父處消點耗12＋重數×3學點；自修每完成5秒耗8＋重數×3，上限三十重。
+本作對話、任務步驟與平衡重新編寫，參照Flash金庸群俠傳3題材，並非原作逐字劇本或官方公式。
+各地商店、客棧與指定醫館可買賣。選單可刪除存檔／重新開始；會再次確認，取消保留進度。
+C 同伴、K 武學、I 行囊、J 委託、M 地圖、D 每日、F8 選單、Esc 返回。
+進度自動保存，新舊角色分開記錄在同一備份；新系統不繼承經典角色等級與裝備。
 設定 → 進入舊版江湖／F9：開啟原有任務、副本、生活、Steam、區網與 WebSocket 聯機。
 舊版左上「青溪新章」可返回新版；以下聯機和經典玩法說明適用於舊版江湖。
 Steam：雙方先開 Steam 與遊戲，進「系統」頁開房／加入。開發測試 App ID 為 480。

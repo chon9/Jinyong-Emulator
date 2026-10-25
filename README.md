@@ -1,81 +1,67 @@
-<h1 align="center">網 金 游 俠</h1>
-<p align="center"><strong>從青溪失鏢，到問鼎武林。十位俠客，四人同行。</strong></p>
-<p align="center">A Godot wuxia RPG about companions, martial arts, and battles you can read—and outthink.</p>
-<p align="center">
-  <a href="https://github.com/chon9/Jinyong-Emulator/releases/latest">Download Windows</a> ·
-  <a href="https://jy.chon9.com">瀏覽器版</a> ·
-  <a href="#play-with-friends">Play with friends</a> ·
-  <a href="docs/DEVELOPMENT.md">開發與玩法手冊</a>
-</p>
+<h1 align="center">網 金 游 俠 · 自 由 江 湖</h1>
+<p align="center"><strong>不趕主線，不等出師。遇見群俠，學盡百家，從無名到問鼎。</strong></p>
+<p align="center">A Godot wuxia RPG: meet a stranger, hear their story, invite them along—and grow strong enough to challenge the masters.</p>
+<p align="center"><a href="https://jy.chon9.com">立刻遊玩</a> · <a href="https://github.com/chon9/Jinyong-Emulator/releases/latest">Windows 最新版</a> · <a href="docs/OPEN-WORLD.md">玩法與 Flash 內容對照</a></p>
 
-![Four companions face the Blackwind chief: choose your target, save qi, and interrupt his charged strike](docs/screenshots/qingxi-battle.png)
+![在牛家村尋訪人物，點頭像交談，自由決定下一段路](docs/screenshots/open-village.png)
 
-## 一枚斷鏢，牽出一整座鎮的秘密
+## 一座村、一個人，就能開始你的江湖
 
-鏢隊失蹤，救命的藥材不知去向。你帶著一封舊信來到青溪，遇見一個被除名的劍客、一位不願旁觀的醫者，和一個總是站在別人前面的棍衛。有人要你燒掉密信，有人只想讓藥送到。
+穆念慈想替流落的孩子找一條回家的路。黃蓉在客棧替被誣賴的小孩討公道。你可以聽完故事便離開，也可以接下委託，邀他們一起走。**沒有必做的第一章，也沒有先清主線才能開地圖的門檻。**
 
-**v0.9.0 puts the game world first.** Full-screen streets, illustrated wood-and-leather HUDs, a parchment dialogue window, character portraits and a bottom command deck replace the old dashboard layout. The generated cast shares a consistent style; walking uses separate front, back and side frames with distance-driven steps, gradual acceleration and a following camera.
+v0.10.0 將預設玩法重整為自由探索：
 
- Walk Qingxi's stone streets, cross its bridges, and speak to the people outside its shops. Follow the seven-step missing-shipment story, then open the world map: sixteen destinations, fifteen regional quests and trials, six more recruitable companions, and opponents strong enough to send you back to train.
+| 去哪裡 | 遇見誰 | 做什麼 | 挑戰誰 |
+| --- | --- | --- | --- |
+| **16 區域、100 處地點** | **41 位新增可招募人物** | **121 份可選委託** | **100 種獨立繪製對手** |
 
-There are **ten characters including the protagonist**, with **four active fighters**. A rescued blade master, a city defender, a travelling doctor or a mountain swordsman can change how your party fights. Keep their progress when they sit out; choose who travels with you.
+上述數字只計預設自由江湖，不借用舊版的大資料表。41 人包括 Flash 攻略常見的招募人物、版本有分歧的西夏公主，以及額外高手；半瓶神仙醋也保留為彩蛋人物。全部能在世界中尋訪、對話並邀請入隊。加上保留的原創同伴，名冊可容納 51 人，四人出戰、主角留隊。
 
-![The Qingxi destination map and the opening companion conversation](docs/screenshots/qingxi-world.png)
+![人物有自己的對話，招募與個人委託分開進行](docs/screenshots/open-dialogue.png)
 
-Click a street to walk, or a named NPC to find a route to them. The gold **◆** and pinned quest button identify the next clue. **世界地圖 [M]** opens distant journeys and Qingxi's eight-location directory; **每日必做 [D]** shows progress, rewards and the next destination for repeatable work. Click **交談** beside a nearby NPC to open the parchment dialogue window. **C** opens the party, **K** martial arts, **I** the inventory, **J** the journal and **Esc** returns to the world.
+## 經典題材，自由支線
 
-![Parchment conversation and a consistent illustrated cast](docs/screenshots/game-dialogue.png)
+參照《金庸群俠傳3》Flash 正式／1.08 與賀歲版公開攻略，整理 **45 個公告事件槽位**，各自對應本作一份委託：四十二章經、闖王寶藏、唐詩選輯、絕情谷、襄陽守城、擂鼓山棋局、臘八粥……再加上 **41 條同行故事**和 **35 條村莊／門派委託**。
 
-![The inventory is a game window with item slots and a selected-item panel](docs/screenshots/game-inventory.png)
+任務會要求交談、尋訪地點、實際交付物品、選擇立場、戰鬥與回報。接下後可在「進行中」追蹤，**前往目標**直接帶你到場景；有對話的步驟會打開正確人物。完成後才發報酬，讀檔保留進度，不重複領取。
 
-[Watch actual in-game walking](docs/screenshots/game-walking.webm) · [v0.9 UI, animation and current scope](docs/UI-0.9.md)
+![委託頁顯示人物、目的地、目前步驟和實際操作](docs/screenshots/open-quests.png)
 
-## 戰鬥，從留一手開始
+這是依題材**重新編寫的遊戲**，不是原 Flash 的逐字劇本、全部隱藏分支或公式複製。原版五日拜師／一年出師的時間鎖未照搬。研究來源、版本差異、45 項對應與完整招募名冊見 [內容對照](docs/OPEN-WORLD.md) 和 [可機讀清單](docs/JY3-COVERAGE.json)。
 
-Plan each companion's action, then let speed decide the order. A basic attack by either side gives every living fighter a **聚氣** pulse. Active arts spend **真元** and require **調息**; **25 真元 = one energy segment**. Use manual orders or enable 委託, and turn it off to plan the next round yourself.
+## 先見人，再拔劍
 
-| Companion | What they bring to the fight |
-| --- | --- |
-| 無名少俠 | Apply bleeding, then exploit bleeding or broken armour for **30% extra damage**. Sect training can unlock a cleaving sword art or armour-breaking palm. |
-| 顧長風 | A fast sword strike that can **target the rear rank**. Reach the poison thrower before he wears the party down. |
-| 沈青棠 | Heal the ally with the lowest health ratio and **cleanse poison and bleeding**. Protect her while she gathers qi. |
-| 陸衡 | **Interrupt the chief's charged strike** or guard the rear rank. A well-timed staff matters more than another ordinary attack. |
+每個地點先呈現場景和至少兩位可交談人物。客棧、渡口等建築在青溪街巷以**入口光圈**表示，進入後才見到掌櫃、船翁等人物頭像；不再拿戰鬥立繪假扮建築。各地使用四張新繪場景背景，因此 **100 處地點並不代表 100 張獨立美術地圖**。
 
-Melee must break the front rank first. Change upper/middle/lower lanes and front/rear positions in **同伴**; occupied slots swap cleanly. Equip one **外功**, **內功** and **輕功** per character under **武學**. Inner arts trade qi generation for health and defence; light arts trade initiative for evasion. The matching weapon type follows the outer art.
+![世界地圖的道路全部開放，右側可直接選擇區內地點](docs/screenshots/open-atlas.png)
 
-![Character histories and the six-slot party formation](docs/screenshots/qingxi-party.png)
+「江湖群雄」列出 100 種有各自立繪、強度、武器和招式的對手，查看所在地後再自願挑戰。守陣、毒傷、越陣、療傷、破甲和蓄力等出招方式，讓相同隊伍也需要不同應對。敵人有強弱階梯，打不過便去交友、研習武學，日後再來。
 
-At the training ground, choose **華山、武當 or 少林**. Spend learning points with the master, or self-study in timed five-second cycles. Progress improves real combat stats. Advanced Huashan swordsmanship checks your sect, three levels of mastery, a battle victory and its learning-point cost.
+![對手圖鑑可查看外觀、戰力與所在地，挑戰前可以離開](docs/screenshots/open-enemies.png)
 
-## 人在江湖，武無止境
+## 四人同行，各有用處
 
-![The world map: choose a destination, read its story and assess its strength](docs/screenshots/jianghu-atlas.png)
+搭配一門外功、一門內功和一門輕功。外功決定兵器與主動招式；內功影響聚氣、氣血和防禦；輕功影響先手與閃避。招募後，主角能在外功選單研習同伴的傳承。
 
-Regional challenges run from a suggested **rank 1 to rank 22**. Clearing selected quests recruits **燕行舟、裴照、溫梨、宋知白、明照、葉停雲** and opens their martial inheritance to the protagonist. Build beyond the first chapter, up to **rank 30**. Complete the Qingxi story, resolve eight regional quests and reach rank 15 to enter **武林論劍**; its three masters are tuned for a developed party, around rank 25. Winning earns the **武林盟主** title and a first-clear reward.
+戰前調整上中下路、前後排。每輪選普攻、守勢或施招，再按「進行回合」；按速度依序出手，普攻帶動聚氣，真元與調息限制強招。保住療傷者、用封招阻止蓄力，或讓越陣高手先取後排，都比只堆攻擊有用。
 
-![A recruitable blade fighter with a different martial role and preserved bench progression](docs/screenshots/jianghu-roster.png)
+![四人隊伍與六個陣位，候補保留修為和配置](docs/screenshots/open-party.png)
 
-Qingxi is the walkable town. The other world-map destinations currently offer their own dialogue, named opponents, graded encounters and first-clear rewards through regional scenes; they are **not fifteen fully built walking cities**. Their opening stories are compact encounter quests. More multi-stage investigations and companion chapters remain future work.
+**華山、武當、少林、全真、古墓**可拜師。到師父處消點，或原地自修；自修每完成五秒週期才扣學點、提升修為。兩者均影響實際戰鬥屬性，上限三十重。這是本作的平衡設計。藥品可在各地商店、客棧與指定醫館買賣。
 
-## 每日有事做，主線有路走
+![自己選擇挑戰時機，戰鬥含突進、受擊、特效與音效](docs/screenshots/open-battle.png)
 
-![Daily activities with quotas, rewards and direct navigation](docs/screenshots/jianghu-daily.png)
+新增立繪以內建 imagegen 繪製；100 個敵人來源格皆有不同影像雜湊。新角色目前採站姿立繪配合程式突進與受擊效果，並非每人都有完整逐幀攻擊動畫。場景、音樂與其他素材來源見 [素材紀錄](art/open-world-assets.json)、[提示詞](art/open-world-jobs.json) 和 [既有素材說明](docs/JOURNEY.md)。
 
-Deliver a master's letters to the actual recipients. Tend a medicine stove using herbs you gathered. Accept a shipment, inspect it at the training ground, and protect it from bandits at the ferry. Spar with the instructor or revisit the Blackwind chief. Sect contribution exchanges for learning points. Progress resets at **00:00 UTC+8**, with saved counts and safeguards against duplicate payouts; backward clock changes do not trigger another reset.
+## 隨時保存，重新出發
 
-The game uses **custom balance and original fiction**, inspired by the exploration-and-party direction of 《煙雨江湖》. The current chapter cast, walking/action sheets, game-window skin and inventory icons were created with built-in imagegen; prompts and provenance are in [art/characters-v2/PROMPTS.md](art/characters-v2/PROMPTS.md). Scenery and selected sounds come from the owner-supplied projects, including Jinyong Heroes 5; reference screenshots are not shipped. See [rules, research and scope](docs/JOURNEY.md).
+同一份 Godot 4.6.3 遊戲匯出 Windows 與瀏覽器版。首次約下載 **84 MiB**（含引擎、美術與音樂）；啟動時先驗證分塊，再準備場景與戰鬥資源。失敗可重試，已驗證部分繼續使用；暖啟動沿用快取，損壞片段只重抓該段。
 
-## 在瀏覽器展開江湖
+進度自動保存。右上 ☰ 可匯出／匯入完整備份，Windows 與網頁可交換。**選單 → 刪除存檔／重新開始**會先要求確認；取消保留進度，確認清除本機角色、同行名冊、支線與舊備份。清除瀏覽器資料也可能刪除進度。
 
-The same Godot 4.6.3 game runs on **Windows and the web**, hosted with Sites. Open the [browser edition](https://jy.chon9.com) and choose **進入江湖**, or [download the latest Windows ZIP](https://github.com/chon9/Jinyong-Emulator/releases/latest) and run `Youxia.exe`. Five scene-aware BGM tracks accompany both editions. The title screen and the upper-right game-tools menu link to the latest Windows release. That menu also holds backup, restore and fullscreen controls, leaving the whole playfield for the game.
+快捷鍵：**C** 同伴、**K** 武學、**I** 行囊、**J** 委託、**M** 地圖、**D** 每日、**F8** 選單、**Esc** 返回。每日送信、採藥、守爐、運鏢與切磋仍可使用，UTC+8 零時更新。
 
-The first visit downloads roughly **71 MiB** including the engine, chapter art and soundtrack. Use a modern WebGL 2 browser on desktop or a tablet in landscape. Verified chunks are cached: later visits reuse them, damaged chunks are fetched again, and failed downloads resume through the retry button. The launcher waits for character, town, effect and audio preparation before entering play. Browser saves stay in IndexedDB. The upper-right ☰ menu can **匯出存檔／匯入存檔**, including Windows backups. The new chapter and existing classic character share one backup with separate progression fields; neither overwrites the other. Clearing browser storage can remove progress; inactive tabs can pause self-study.
-
-**New chapter: single-player party combat.** The existing classic game remains under **設定 → 進入舊版江湖 / F9**, with a **青溪新章** button to return. Its large catalogue, multiplayer, dungeons and life skills have not all been converted to the new party system.
-
-Classic multiplayer uses **WebSocket** in the browser with the existing authoritative host. The Site does **not** include a cloud game host; browser clients cannot use Steam or UDP. Run a native WebSocket host and enter its **wss://** address under the classic **系統** page. Native LAN and Steam support remain available in the classic game.
-
-See [browser export, saves and hosting](docs/WEB.md) for the build workflow, verification and current limits.
+預設自由江湖是**單機隊伍**。經典版的聯機、副本、生活技能保留在 **選單 → 進入舊版江湖 / F9**。網頁聯機需自行架設 wss:// 房主，Sites 並未附帶雲端遊戲房主。詳見 [網頁部署與存檔](docs/WEB.md)。
 
 ## 經典江湖 · 保留的舊版玩法
 
