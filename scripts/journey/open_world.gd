@@ -13,6 +13,15 @@ static func ensure(campaign) -> Dictionary:
 			world.quests[id].edition=1
 		world.version=2
 		if not world.has("evidence"):world.evidence={}
+	if not world.has("finished"):
+		world.finished=[]
+		for id in world.quests:
+			if world.quests[id].status=="done":world.finished.append(id)
+		# Previous saves have no completion order. The tracked, completed story is
+		# the best available indication of the player's most recent resolution.
+		if world.get("tracked","") in world.finished:
+			world.finished.erase(world.tracked);world.finished.append(world.tracked)
+	if not world.has("heard"):world.heard={}
 	return campaign.state.open_world
 
 static func definition(campaign,id: String) -> Dictionary:
@@ -123,24 +132,52 @@ static func step_pages(campaign,id: String) -> Array:
 static func conversation(campaign,id: String,alternate: bool=false) -> Array:
 	var npc: Dictionary=Content.PEOPLE[id]
 	var data:=ensure(campaign)
-	var own: Array=npc.get("pages",[{"speaker":id,"text":npc.text}])
-	if alternate:return npc.get("alternate_pages",own)
-	var qid: String=npc.get("story","")
-	if not Content.QUESTS.has(qid):return own
-	var quest: Dictionary=definition(campaign,qid)
-	var progress: Dictionary=data.quests.get(qid,{})
-	if progress.get("status","")=="done":
-		if npc.has("hero"):return [{"speaker":id,"text":npc.reply},{"speaker":id,"text":npc.join}]
-		if quest.giver!=id:return own
-		var endings: Array=quest.get("endings",[quest.get("conclusion",npc.reply)])
-		var choice: int=clampi(0 if progress.choices.is_empty() else int(progress.choices.back()),0,endings.size()-1)
-		return [{"speaker":id,"text":endings[choice]},{"speaker":id,"text":npc.reply}]
+	var idle: Array=npc.get("idle_pages",npc.get("pages",[{"speaker":id,"text":npc.text}]))
+	var here:=active_for(campaign,id)
+	if not here.is_empty() and not alternate:return step_pages(campaign,here[0])
+	var completed:=latest_completed(campaign,id)
+	if completed!="":
+		if alternate:return idle
+		var quest: Dictionary=definition(campaign,completed)
+		var state: Dictionary=data.quests[completed]
+		var choice: String=str(0 if state.choices.is_empty() else int(state.choices.back()))
+		var branches: Dictionary=quest.get("aftermath_choices",{}).get(choice,{})
+		return branches.get(id,quest.aftermath[id])
+	if alternate:return idle
+	var topic:=available_topic(campaign,id)
+	if topic=="":return npc.get("pages",idle)
+	var quest: Dictionary=definition(campaign,topic)
+	var progress: Dictionary=data.quests.get(topic,{})
 	if progress.get("status","")=="active":
 		var step: Dictionary=quest.steps[int(progress.step)]
-		if step_here(campaign,qid,id):return step_pages(campaign,qid)
-		return own+[{"speaker":"","caption":"目前安排","text":step.text+"\n地點："+step.region+"／"+step.scene}]
-	if quest.giver==id:return quest.steps[0].get("pages",[{"speaker":id,"text":quest.text}])
-	return own
+		return idle+[{"speaker":"","caption":"目前安排","text":step.text+"\n地點："+step.region+"／"+step.scene}]
+	return quest.steps[0].get("pages",idle)
+
+static func latest_completed(campaign,npc: String) -> String:
+	var data:=ensure(campaign)
+	for i in range(data.finished.size()-1,-1,-1):
+		var id: String=data.finished[i]
+		if definition(campaign,id).get("aftermath",{}).has(npc):return id
+	return ""
+
+static func begin_conversation(campaign,npc: String) -> bool:
+	var latest:=latest_completed(campaign,npc)
+	if latest=="" or not active_for(campaign,npc).is_empty():return false
+	var data:=ensure(campaign)
+	var heard: bool=data.heard.get(npc,"")==latest
+	data.heard[npc]=latest
+	return heard
+
+static func available_topic(campaign,npc: String) -> String:
+	var data:=ensure(campaign)
+	var unstarted: String=""
+	for id in Content.PEOPLE[npc].get("stories",[]):
+		var q: Dictionary=definition(campaign,id)
+		if q.giver!=npc:continue
+		var state: Dictionary=data.quests.get(id,{})
+		if state.get("status","")=="active":return id
+		if state.is_empty() and unstarted=="":unstarted=id
+	return unstarted
 
 static func interactions_here(campaign) -> Array:
 	var result:=[]
@@ -216,6 +253,8 @@ static func _advance(campaign,id: String) -> void:
 	state.step=int(previous.next_by_choice[int(state.choices.back())]) if previous.has("next_by_choice") else int(state.step)+1
 	if state.step<quest.steps.size():return
 	state.status="done"
+	ensure(campaign).finished.erase(id)
+	ensure(campaign).finished.append(id)
 	# Only edition-3 objects are consumed here; old scripts keep their original
 	# explicit handover rules. Never touch another active quest's belongings.
 	if int(state.get("edition",2))==3:
@@ -290,6 +329,18 @@ static func valid_save(value: Variant) -> bool:
 	for key in ["quests","affinity"]:
 		if not value.get(key) is Dictionary:return false
 	if value.quests.size()>Content.QUESTS.size():return false
+	if value.has("heard"):
+		if not value.heard is Dictionary or value.heard.size()>Content.PEOPLE.size():return false
+		for npc in value.heard:
+			var id: Variant=value.heard[npc]
+			if not Content.PEOPLE.has(npc) or not id is String or not Content.QUESTS.has(id) or not value.quests.get(id) is Dictionary or value.quests[id].get("status","")!="done":return false
+			if not Content.QUESTS[id].get("aftermath",{}).has(npc):return false
+	if value.has("finished"):
+		if not value.finished is Array or value.finished.size()>Content.QUESTS.size():return false
+		var finished_ids: Dictionary={}
+		for id in value.finished:
+			if not id is String or finished_ids.has(id) or not value.quests.get(id) is Dictionary or value.quests[id].get("status","")!="done":return false
+			finished_ids[id]=true
 	for id in value.quests:
 		if not Content.QUESTS.has(id):return false
 		if value.version==1 and not Content.LEGACY_STEPS.has(id):return false

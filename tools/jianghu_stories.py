@@ -8,6 +8,7 @@ from storybook import events_a, events_b, events_c, errands_a, errands_b, town
 from storybook.residents import apply as cast_residents
 from storybook.supporting import CAST, CONTACTS, GIVERS
 from storybook.gossip import apply as add_gossip
+from storybook.aftermath import apply as add_aftermath
 
 
 def rebuild(content):
@@ -30,6 +31,7 @@ def rebuild(content):
         result=candidates[hint]
         return result if result!=giver else candidates[1-hint]
 
+    for npc in people.values():npc['idle_pages']=deepcopy(npc.get('alternate_pages',npc.get('pages',[])))
     records=[s for m in [companions_a,companions_b,companions_c,events_a,events_b,events_c,errands_a,errands_b,town] for s in m.STORIES]
     assert len(records)==129
     ids=set()
@@ -103,6 +105,7 @@ def rebuild(content):
             h['talent']=h['talent'].split('：')[0]+'：'+content['arts'][h['outer']]['text']
             people[hid].update(art='actor_'+hid,text=record['opening'][0].split('|',1)[1],reply=record['after'],voice=record['voice'],pages=dialogue(record['opening'],base),join=record['join'])
     assert ids==set(quests)
+    add_aftermath(content)
     for pid,npc in people.items():
         references=[qid for qid,q in quests.items() if q['giver']==pid or any(s.get('npc')==pid or any(line['speaker']==pid for line in s['pages']) for s in q['steps'])]
         own=[qid for qid in references if quests[qid]['giver']==pid]
