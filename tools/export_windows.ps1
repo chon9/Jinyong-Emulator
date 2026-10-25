@@ -49,6 +49,7 @@ Classic presentation assets adapted with permission from the user's JY-Mini OL p
 - Legacy chapter poses, river/cave scenery and map parchment from assets/art/units, bg and map.
 - Cast, walking/action sheets, game skin and icons generated with built-in imagegen; prompts in art/characters-v2/PROMPTS.md.
 - 100 enemy designs, 40 hero designs, 8 peaceful residents, 4 scenes and a replacement Mu Nianci sprite generated with built-in imagegen; prompts in art/open-world-jobs.json.
+- 32 civilian portraits and 15 four-pose combat sheets generated with built-in imagegen; prompts in art/visuals/prompts.json.
 - Selected town tiles/panorama, world map, character animation sheets, effects and SFX from the owner-supplied Jinyong Heroes 5 installation; see source repository assets/town/SOURCE.txt. No source scripts, event commands, saves or dialogue were imported.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
 - Five owner-supplied BGM recordings from assets/bgm; see Music-Credits.txt.

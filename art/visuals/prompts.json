@@ -1,0 +1,190 @@
+[
+  {
+    "key": "battle-swordsman",
+    "kind": "battle",
+    "character": "swordsman",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: the protagonist: young adult man with long tied black hair, teal head ribbon, slate teal and charcoal robe, brown leather belt and boots, slender straight Chinese jian sword."
+  },
+  {
+    "key": "battle-companion",
+    "kind": "battle",
+    "character": "companion",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Gu Changfeng: clean-shaven young adult man, blue hair ribbons, white flowing robe with cobalt blue borders and sash, brown boots, a straight jian sword."
+  },
+  {
+    "key": "battle-healer",
+    "kind": "battle",
+    "character": "healer",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Shen Qingtang: graceful adult female physician, long black hair half-up with tiny flowers, pale sage and ivory hanfu, rose sash, herbal medicine pouches, EMPTY hands, no weapon."
+  },
+  {
+    "key": "battle-staff",
+    "kind": "battle",
+    "character": "staff",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Lu Heng: adult bald clean-shaven Shaolin lay monk, ochre yellow short monk robe, gray trousers, dark wooden prayer beads, cloth boots, simple straight wooden staff."
+  },
+  {
+    "key": "battle-blade",
+    "kind": "battle",
+    "character": "blade",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Yan Xingzhou: bearded rugged adult man in rust red travel robe and leather bracers, tousled black hair with red ribbon, curved Chinese dao sabre."
+  },
+  {
+    "key": "battle-elder",
+    "kind": "battle",
+    "character": "elder",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Pei Zhao: dignified middle-aged male defender with gray-streaked tied hair and narrow beard, dark burgundy robe and black inner clothes, EMPTY hands, palm martial artist."
+  },
+  {
+    "key": "battle-doctor",
+    "kind": "battle",
+    "character": "doctor",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Wen Li: adult woman healer with blue hair ribbons, blue-gray hanfu, teal inner robe, leather medicine pouch and gourd at waist, EMPTY hands."
+  },
+  {
+    "key": "battle-taoist",
+    "kind": "battle",
+    "character": "taoist",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Song Zhibai: handsome adult Taoist swordsman with tied black hair, navy and ivory patterned Taoist robes, indigo belt, a straight jian sword."
+  },
+  {
+    "key": "battle-monk",
+    "kind": "battle",
+    "character": "monk",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Ming Zhao: bald muscular middle-aged male Buddhist guardian, mustard monk robes and large wooden prayer beads, cloth boots, plain wooden staff."
+  },
+  {
+    "key": "battle-wanderer",
+    "kind": "battle",
+    "character": "wanderer",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Ye Tingyun: mature male mountain swordsman with long silver hair tied loosely, white and charcoal robes, gray sash, straight jian sword."
+  },
+  {
+    "key": "battle-boss",
+    "kind": "battle",
+    "character": "boss",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: Blackwind chief: broad bearded adult man, dark red and black fur-trimmed warrior coat, black hair tied with red cloth, broad heavy curved dao sabre."
+  },
+  {
+    "key": "battle-rogue",
+    "kind": "battle",
+    "character": "rogue",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: adult masked female night scout with long tied black hair, purple ribbons and dark plum and black travel clothes, one short dagger, slim adult proportions."
+  },
+  {
+    "key": "battle-hero_dao",
+    "kind": "battle",
+    "character": "hero_dao",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: the protagonist: clean-shaven young adult man, long tied black hair with teal ribbon, slate teal and charcoal robe, brown belt and boots, curved Chinese dao sabre."
+  },
+  {
+    "key": "battle-hero_staff",
+    "kind": "battle",
+    "character": "hero_staff",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: the protagonist: clean-shaven young adult man, long tied black hair with teal ribbon, slate teal and charcoal robe, brown belt and boots, plain wooden staff."
+  },
+  {
+    "key": "battle-hero_palm",
+    "kind": "battle",
+    "character": "hero_palm",
+    "columns": 2,
+    "rows": 2,
+    "prompt": "Production 2D Chinese wuxia RPG animation atlas, ONE character in FOUR poses, EXACTLY TWO columns and TWO rows. Reference image is visual STYLE ONLY. Hand-painted elegant Chinese ink and gouache, fine restrained outlines, realistic 5.5-head adult proportions. Genuine transparent background, no shadow, no text, no floor, no grid. CRITICAL generous padding: each complete figure is only 55% of the height of its own cell, leave 22% EMPTY TRANSPARENT height above and below; all hair, clothing, weapon tips and boots must fit far inside each cell. No cropped anatomy, no touching cell boundaries, no overlap between cells. Four copies of EXACT SAME person with same face, costume, body size and same ground line RELATIVE TO EACH CELL. Reading order: top left relaxed upright ready; top right restrained wind-up; bottom left forward strike without large lunge; bottom right upright defensive guard. Face RIGHT in all poses. No overhead jump or giant weapon effects. Feet complete and on the cell's 78%-height line. Entire weapon must fit well inside each cell, staff diagonal not vertical towering above head. Subject: the protagonist: clean-shaven young adult man, long tied black hair with teal ribbon, slate teal and charcoal robe, brown belt and boots, EMPTY hands, absolutely NO weapon."
+  },
+  {
+    "key": "residents-port-inn",
+    "kind": "residents",
+    "columns": 4,
+    "rows": 2,
+    "subjects": [
+      "mature portly male innkeeper, neatly tied hair, brown brocade vest, abacus tucked at waist, welcoming smile",
+      "young adult female inn waitress, two practical hair buns, indigo apron over ivory blouse, folded towel, lively face",
+      "middle-aged stocky male cook, white headcloth, cream kitchen tunic and green apron, holding a small ladle low",
+      "young adult male brewer, short stubble, russet jacket with rolled sleeves, holding a little wine jar",
+      "elderly male tea seller, wispy white beard, ochre gown, bamboo tea scoop, thoughtful eyes",
+      "weathered elderly male boatman, straw hat and reed cape, dark blue shirt, sun-browned wrinkled face",
+      "adult female boat guide, broad straw hat hanging behind back, sea-blue short robe, rope over one shoulder, sun-tanned face",
+      "middle-aged woman fishmonger, gray-streaked bun, teal headscarf, burgundy work jacket, wicker fish basket at waist"
+    ],
+    "prompt": "Production Chinese wuxia RPG portrait atlas, EXACTLY FOUR columns and TWO rows, EIGHT DIFFERENT peaceful townspeople. Elegant hand-painted Chinese ink and gouache matching reference STYLE ONLY; realistic adult faces with visibly distinct ages, facial structures, hair, clothes and occupations. Head and upper torso BUST portraits, all facing slightly toward the viewer, no fighting poses. Every bust COMPLETE within its own cell with at least 14% EMPTY TRANSPARENT padding on ALL FOUR sides, especially space above hats. No person touching neighbouring cells. Genuine transparent background, no scene, frame, text, grid or decorative symbols. Each portrait has a clear readable expressive face. Reading order top left across then next row: 1: mature portly male innkeeper, neatly tied hair, brown brocade vest, abacus tucked at waist, welcoming smile; 2: young adult female inn waitress, two practical hair buns, indigo apron over ivory blouse, folded towel, lively face; 3: middle-aged stocky male cook, white headcloth, cream kitchen tunic and green apron, holding a small ladle low; 4: young adult male brewer, short stubble, russet jacket with rolled sleeves, holding a little wine jar; 5: elderly male tea seller, wispy white beard, ochre gown, bamboo tea scoop, thoughtful eyes; 6: weathered elderly male boatman, straw hat and reed cape, dark blue shirt, sun-browned wrinkled face; 7: adult female boat guide, broad straw hat hanging behind back, sea-blue short robe, rope over one shoulder, sun-tanned face; 8: middle-aged woman fishmonger, gray-streaked bun, teal headscarf, burgundy work jacket, wicker fish basket at waist. Avoid identical pretty faces; portray convincing ordinary working people."
+  },
+  {
+    "key": "residents-craft",
+    "kind": "residents",
+    "columns": 4,
+    "rows": 2,
+    "subjects": [
+      "muscular middle-aged male blacksmith, dark leather apron, soot on cheeks, shaved sides and tied topknot, small hammer held low",
+      "young adult female smith apprentice, short practical ponytail, gray work shirt, red headband and leather gloves",
+      "middle-aged female silk merchant, elaborate neat bun, jade hairpin, wine-red silk collar, measuring tape",
+      "adult male spice merchant from western China, short curled beard, gold turban, striped emerald robe, tiny scale",
+      "middle-aged male woodcutter, weathered face, stubble, blue headcloth and patched jacket, axe safely slung on back",
+      "adult female hunter, tied brown-black hair, small scar over eyebrow, forest-green vest and bow slung behind shoulder",
+      "elderly male farmer, straw cap, gentle deeply wrinkled face, faded green tunic, grain stalk in hand",
+      "middle-aged female weaver, braided hair pinned up, plain mauve hanfu, spindle in hand and warm smile"
+    ],
+    "prompt": "Production Chinese wuxia RPG portrait atlas, EXACTLY FOUR columns and TWO rows, EIGHT DIFFERENT peaceful townspeople. Elegant hand-painted Chinese ink and gouache matching reference STYLE ONLY; realistic adult faces with visibly distinct ages, facial structures, hair, clothes and occupations. Head and upper torso BUST portraits, all facing slightly toward the viewer, no fighting poses. Every bust COMPLETE within its own cell with at least 14% EMPTY TRANSPARENT padding on ALL FOUR sides, especially space above hats. No person touching neighbouring cells. Genuine transparent background, no scene, frame, text, grid or decorative symbols. Each portrait has a clear readable expressive face. Reading order top left across then next row: 1: muscular middle-aged male blacksmith, dark leather apron, soot on cheeks, shaved sides and tied topknot, small hammer held low; 2: young adult female smith apprentice, short practical ponytail, gray work shirt, red headband and leather gloves; 3: middle-aged female silk merchant, elaborate neat bun, jade hairpin, wine-red silk collar, measuring tape; 4: adult male spice merchant from western China, short curled beard, gold turban, striped emerald robe, tiny scale; 5: middle-aged male woodcutter, weathered face, stubble, blue headcloth and patched jacket, axe safely slung on back; 6: adult female hunter, tied brown-black hair, small scar over eyebrow, forest-green vest and bow slung behind shoulder; 7: elderly male farmer, straw cap, gentle deeply wrinkled face, faded green tunic, grain stalk in hand; 8: middle-aged female weaver, braided hair pinned up, plain mauve hanfu, spindle in hand and warm smile. Avoid identical pretty faces; portray convincing ordinary working people."
+  },
+  {
+    "key": "residents-letters-healing",
+    "kind": "residents",
+    "columns": 4,
+    "rows": 2,
+    "subjects": [
+      "young adult female scholar, black hair in high bun with plain jade pin, pale turquoise robes, closed bamboo book",
+      "adult male scribe, narrow face and small moustache, soft black scholar cap, navy collar, brush held low",
+      "elderly male storyteller, round spectacles, silver beard, maroon scarf and paper fan, expressive friendly face",
+      "young adult male postal courier, windswept ponytail, red-and-gray travel tunic, leather document tube across chest",
+      "adult female herbalist, long dark braid, green cape, basket strap and bundle of herbs, alert face",
+      "middle-aged male physician, short salt-and-pepper beard, pale brown medical robe, small medicine box",
+      "older woman village midwife, silver hair in tidy bun, soft violet jacket, linen bandage roll, kindly round face",
+      "adult female musician, elegant dark hair with a wooden comb, pale peach hanfu, pipa instrument neck visible at shoulder"
+    ],
+    "prompt": "Production Chinese wuxia RPG portrait atlas, EXACTLY FOUR columns and TWO rows, EIGHT DIFFERENT peaceful townspeople. Elegant hand-painted Chinese ink and gouache matching reference STYLE ONLY; realistic adult faces with visibly distinct ages, facial structures, hair, clothes and occupations. Head and upper torso BUST portraits, all facing slightly toward the viewer, no fighting poses. Every bust COMPLETE within its own cell with at least 14% EMPTY TRANSPARENT padding on ALL FOUR sides, especially space above hats. No person touching neighbouring cells. Genuine transparent background, no scene, frame, text, grid or decorative symbols. Each portrait has a clear readable expressive face. Reading order top left across then next row: 1: young adult female scholar, black hair in high bun with plain jade pin, pale turquoise robes, closed bamboo book; 2: adult male scribe, narrow face and small moustache, soft black scholar cap, navy collar, brush held low; 3: elderly male storyteller, round spectacles, silver beard, maroon scarf and paper fan, expressive friendly face; 4: young adult male postal courier, windswept ponytail, red-and-gray travel tunic, leather document tube across chest; 5: adult female herbalist, long dark braid, green cape, basket strap and bundle of herbs, alert face; 6: middle-aged male physician, short salt-and-pepper beard, pale brown medical robe, small medicine box; 7: older woman village midwife, silver hair in tidy bun, soft violet jacket, linen bandage roll, kindly round face; 8: adult female musician, elegant dark hair with a wooden comb, pale peach hanfu, pipa instrument neck visible at shoulder. Avoid identical pretty faces; portray convincing ordinary working people."
+  },
+  {
+    "key": "residents-temple-road",
+    "kind": "residents",
+    "columns": 4,
+    "rows": 2,
+    "subjects": [
+      "young adult male Buddhist novice, shaved head, plain gray and saffron monk robes, wooden prayer beads, shy peaceful face",
+      "elderly Buddhist abbot, bald head, long white eyebrows and beard, dark ochre robe, calm wise expression",
+      "middle-aged male Taoist priest, long black beard, simple Taoist cap, slate blue robe with ivory collar, lowered whisk",
+      "adult female Taoist nun, tall tied bun with wooden pin, pale gray-green robe, composed intelligent face",
+      "middle-aged Buddhist nun, shaved head, gray robe and simple brown prayer beads, kind reserved face",
+      "elderly male beggar, shaggy white hair and beard, patched moss-green coat, amused lively eyes",
+      "adult female town constable, tied black hair, indigo-and-red cloth uniform, shoulder guard, firm face, no raised weapon",
+      "middle-aged male retired soldier, graying cropped hair, scarred cheek, faded brown military coat, dignified tired expression"
+    ],
+    "prompt": "Production Chinese wuxia RPG portrait atlas, EXACTLY FOUR columns and TWO rows, EIGHT DIFFERENT peaceful townspeople. Elegant hand-painted Chinese ink and gouache matching reference STYLE ONLY; realistic adult faces with visibly distinct ages, facial structures, hair, clothes and occupations. Head and upper torso BUST portraits, all facing slightly toward the viewer, no fighting poses. Every bust COMPLETE within its own cell with at least 14% EMPTY TRANSPARENT padding on ALL FOUR sides, especially space above hats. No person touching neighbouring cells. Genuine transparent background, no scene, frame, text, grid or decorative symbols. Each portrait has a clear readable expressive face. Reading order top left across then next row: 1: young adult male Buddhist novice, shaved head, plain gray and saffron monk robes, wooden prayer beads, shy peaceful face; 2: elderly Buddhist abbot, bald head, long white eyebrows and beard, dark ochre robe, calm wise expression; 3: middle-aged male Taoist priest, long black beard, simple Taoist cap, slate blue robe with ivory collar, lowered whisk; 4: adult female Taoist nun, tall tied bun with wooden pin, pale gray-green robe, composed intelligent face; 5: middle-aged Buddhist nun, shaved head, gray robe and simple brown prayer beads, kind reserved face; 6: elderly male beggar, shaggy white hair and beard, patched moss-green coat, amused lively eyes; 7: adult female town constable, tied black hair, indigo-and-red cloth uniform, shoulder guard, firm face, no raised weapon; 8: middle-aged male retired soldier, graying cropped hair, scarred cheek, faded brown military coat, dignified tired expression. Avoid identical pretty faces; portray convincing ordinary working people."
+  }
+]

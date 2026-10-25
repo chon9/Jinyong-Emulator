@@ -6,12 +6,14 @@ func _init() -> void:
 	data = JSON.parse_string(FileAccess.get_file_as_string("res://data/character_art.json"))
 	if FileAccess.file_exists("res://data/open_art.json"):
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/open_art.json")))
+	if FileAccess.file_exists("res://data/visual_art.json"):
+		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/visual_art.json")),true)
 
 func sprite(key: String, pose: int = 0) -> Dictionary:
 	var entry: Dictionary = data.characters.get(key,data.characters.swordsman)
 	var frame: Dictionary = entry.frames[clampi(pose,0,entry.frames.size()-1)].duplicate()
 	frame.texture = entry.texture
-	frame.height = entry.height
+	frame.height = frame.get("scale_height",entry.height)
 	return frame
 
 func walk(direction: int, pose: int) -> Dictionary:
@@ -27,10 +29,13 @@ func portrait_key(art: String) -> String:
 
 func portrait_region(key: String) -> Rect2:
 	var frame := sprite(key)
+	if frame.has("portrait"):
+		var p: Array=frame.portrait
+		return Rect2(p[0],p[1],p[2],p[3])
 	var bounds: Array = frame.bounds
 	var rect: Array = frame.region
 	# An upper-body crop keeps faces readable in party and dialogue medallions.
 	var h := float(bounds[3])*.74
-	var w := h*.84
+	var w := minf(float(rect[2]),h*.84)
 	var x := clampf(float(frame.pivot[0])-w*.5,0,float(rect[2])-w)
 	return Rect2(float(rect[0])+x,float(rect[1])+float(bounds[1]),w,h)

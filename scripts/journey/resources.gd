@@ -21,6 +21,9 @@ func prepare() -> void:
 	for group in 10:paths.append("res://assets/open_world/foes-%02d.png"%(group+1))
 	for group in 5:paths.append("res://assets/open_world/heroes-%d.png"%(group+1))
 	for name in ["residents","mu-nianci","scene-inn","scene-temple","scene-mountain","scene-market"]:paths.append("res://assets/open_world/"+name+".png")
+	if FileAccess.file_exists("res://data/visual_art.json"):
+		var visual: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/visual_art.json"))
+		for actor in visual.values():paths.append(("res://assets/characters/"+actor.texture).simplify_path())
 	paths.assign(Array(paths).reduce(func(acc,p):
 		if not p in acc:acc.append(p)
 		return acc,[]))

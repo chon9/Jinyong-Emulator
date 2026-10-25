@@ -1,0 +1,78 @@
+[
+  {
+    "key": "battle-swordsman",
+    "target": "assets/visuals/battle-swordsman.png"
+  },
+  {
+    "key": "battle-companion",
+    "target": "assets/visuals/battle-companion.png"
+  },
+  {
+    "key": "battle-healer",
+    "target": "assets/visuals/battle-healer.png"
+  },
+  {
+    "key": "battle-staff",
+    "target": "assets/visuals/battle-staff.png"
+  },
+  {
+    "key": "battle-blade",
+    "target": "assets/visuals/battle-blade.png"
+  },
+  {
+    "key": "battle-elder",
+    "target": "assets/visuals/battle-elder.png"
+  },
+  {
+    "key": "battle-doctor",
+    "target": "assets/visuals/battle-doctor.png"
+  },
+  {
+    "key": "battle-taoist",
+    "target": "assets/visuals/battle-taoist.png"
+  },
+  {
+    "key": "battle-monk",
+    "target": "assets/visuals/battle-monk.png"
+  },
+  {
+    "key": "battle-wanderer",
+    "target": "assets/visuals/battle-wanderer.png"
+  },
+  {
+    "key": "battle-boss",
+    "target": "assets/visuals/battle-boss.png"
+  },
+  {
+    "key": "battle-rogue",
+    "target": "assets/visuals/battle-rogue.png"
+  },
+  {
+    "key": "battle-hero_dao",
+    "target": "assets/visuals/battle-hero_dao.png"
+  },
+  {
+    "key": "battle-hero_staff",
+    "target": "assets/visuals/battle-hero_staff.png"
+  },
+  {
+    "key": "battle-hero_palm",
+    "target": "assets/visuals/battle-hero_palm.png"
+  },
+  {
+    "key": "residents-port-inn",
+    "target": "assets/visuals/residents-port-inn.png"
+  },
+  {
+    "key": "residents-craft",
+    "target": "assets/visuals/residents-craft.png"
+  },
+  {
+    "key": "residents-letters-healing",
+    "target": "assets/visuals/residents-letters-healing.png"
+  },
+  {
+    "key": "residents-temple-road",
+    "target": "assets/visuals/residents-temple-road.png"
+  }
+]

@@ -61,6 +61,13 @@ func portrait(art: String) -> Texture2D:
 func headshot(art: String) -> Texture2D:
 	var key: String=character_art.portrait_key(art)
 	var frame: Dictionary=character_art.sprite(key)
+	if frame.has("head"):
+		var head: Array=frame.head
+		var crop:=AtlasTexture.new()
+		crop.atlas=asset("characters/"+frame.texture)
+		crop.region=Rect2(head[0],head[1],head[2],head[3])
+		crop.filter_clip=true
+		return crop
 	var r: Array=frame.region
 	var height: float=minf(float(r[3]),float(frame.height)*.32)
 	var width: float=minf(float(r[2]),height*1.02)
@@ -241,18 +248,17 @@ func draw_ellipse_shadow(at: Vector2, radius: Vector2) -> void:
 	draw_colored_polygon(points,Color(0,0,0,.2))
 
 func actor_pos(u: Dictionary) -> Vector2:
-	var x := (485.0 if u.front else 230.0) if u.side == 0 else (930.0 if u.front else 1180.0)
-	if u.side == 0: x += int(u.lane)*60
-	else: x += (1-int(u.lane))*70
-	var y := 250.0 + int(u.lane)*110.0
-	return Vector2(x,y) * Vector2(size.x/1400.0,size.y/500.0)
+	var x := (550.0 if u.front else 285.0) if u.side == 0 else (900.0 if u.front else 1165.0)
+	# Three stable ground rows, with room for feet and the command deck below.
+	var y := 325.0 + int(u.lane)*185.0
+	return Vector2(x,y) * Vector2(size.x/1440.0,size.y/710.0)
 
 func draw_battle() -> void:
 	var bg: String = "bg_guiwang" if battle.encounter in ["warehouse","rematch"] else "bg_river_road"
 	draw_texture_rect(tex(bg),Rect2(Vector2.ZERO,size),false,Color(.65,.69,.66))
 	draw_rect(Rect2(Vector2.ZERO,size),Color(.03,.07,.065,.17))
 	for lane in 3:
-		var y := (250.0+lane*110)*size.y/500.0
+		var y := (325.0+lane*185)*size.y/710.0
 		draw_line(Vector2(size.x*.31,y+8),Vector2(size.x*.71,y+8),Color(.87,.82,.64,.15),1,true)
 	text_at("後 陣",Vector2(180,size.y-14),Color(1,1,1,.45),15)
 	text_at("前 陣",Vector2(460,size.y-14),Color(1,1,1,.45),15)
@@ -265,7 +271,7 @@ func draw_battle() -> void:
 		for hit in victims:
 			var target: Dictionary = battle.by_id(hit.id)
 			if target.is_empty(): continue
-			var p := actor_pos(target)-Vector2(0,80)
+			var p := actor_pos(target)-Vector2(0,95)
 			if hit.get("dodge",false): text_at("閃避",p,IVORY,26,true); continue
 			var kind: String = event.get("kind","")
 			var key := "heal" if kind == "heal" else ("burst" if kind in ["boss_hit","heavy","cleave"] else ("slash" if kind in ["attack","bleed","pierce"] else "hit"))
@@ -287,7 +293,10 @@ func draw_actor(u: Dictionary) -> void:
 	if hurt and event.get("kind","") != "heal": offset.x += sin(animation*42)*5
 	foot += offset
 	draw_ellipse_shadow(foot,Vector2(45,12))
-	if selected == u.id: draw_arc(foot,49,0,TAU,40,GOLD,2,true)
+	if selected == u.id:
+		var ring:=PackedVector2Array()
+		for i in 49:ring.append(foot+Vector2(cos(i*TAU/48)*43,sin(i*TAU/48)*12))
+		draw_polyline(ring,GOLD,2,true)
 	if u.guarding: draw_arc(foot-Vector2(0,65),68,-PI*.8,PI*.4,40,Color(.54,.85,.8,.65),4,true)
 	var color := Color.WHITE if u.hp > 0 else Color(.45,.45,.45,.35)
 	if hurt and animation > .5 and event.get("kind","") != "heal": color = Color(1,.6,.5)
@@ -301,8 +310,9 @@ func draw_actor(u: Dictionary) -> void:
 		var progress_value := 1-animation/.8
 		phase = 1 if progress_value < .3 else (2 if progress_value < .58 else 3)
 	elif u.guarding or hurt: phase = 3
-	draw_sprite(key,foot,174,phase,u.side == 1,color)
-	var top := foot-Vector2(0,190)
+	var frame: Dictionary=character_art.sprite(key,phase)
+	draw_frame(frame,foot,150, u.side == 1,color)
+	var top := foot-Vector2(0,165)
 	text_at(u.name,top,IVORY if u.side == 0 else Color("f7b3a0"),18,true)
 	draw_rect(Rect2(top+Vector2(-58,6),Vector2(116,7)),Color("202b26"))
 	draw_rect(Rect2(top+Vector2(-58,6),Vector2(116*maxf(0,float(u.hp)/u.max_hp),7)),Color("a2c899") if u.side == 0 else Color("c36e59"))
@@ -312,5 +322,8 @@ func draw_actor(u: Dictionary) -> void:
 	if u.poison > 0: tags.append("毒")
 	if u.broken > 0: tags.append("破")
 	if u.charging: tags.append("蓄力！")
-	if not tags.is_empty(): text_at(" · ".join(tags),foot+Vector2(0,25),GOLD,17,true)
-	bounds[u.id] = Rect2(foot-Vector2(68,218),Vector2(136,255))
+	if not tags.is_empty(): text_at(" · ".join(tags),foot+Vector2(67,-15),GOLD,17,true)
+	var region: Array=frame.region
+	var scale_value: float=150.0/maxf(1,float(frame.height))
+	var left_extent: float=(float(region[2])-float(frame.pivot[0]) if u.side==1 else float(frame.pivot[0]))*scale_value
+	bounds[u.id]=Rect2(foot-Vector2(left_extent,float(frame.pivot[1])*scale_value),Vector2(region[2],region[3])*scale_value)

@@ -35,7 +35,7 @@ func _init() -> void:
 		var base=art.sprite(key)
 		for pose in 4:
 			var frame=art.sprite(key,pose)
-			check(frame.height==base.height,"Battle poses preserve body scale")
+			check(frame.height>0 and absf(float(frame.body_height)/float(frame.height)-1.0)<.1,"Battle poses preserve normalized anatomical height")
 			check(frame.pivot[1]<=frame.region[3],"Ground anchor remains within its cell")
 	check(art.walk(0,1).region!=art.walk(2,1).region,"Front and back use separate walking art")
 	check(art.walk(1,1).region==art.walk(3,1).region,"West mirrors the same east identity")

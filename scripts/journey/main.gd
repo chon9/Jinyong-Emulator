@@ -369,6 +369,7 @@ func render_dock() -> void:
 func update_browser_status() -> void:
 	if not OS.has_feature("web"): return
 	var status := {"page":page,"place":campaign.state.place,"stage":int(campaign.state.stage),"party":campaign.state.party.size(),"battle":"" if battle == null else (battle.result if battle.result != "" else "active"),"round":0 if battle == null else battle.round_no,"notice":notice,"region":Atlas.ensure(campaign).region,"navigating":navigating,"daily":Daily.ensure(campaign).counts,"ready":boot_ready,"scene":Open.current_scene(campaign),"roster":campaign.state.roster,"quests":Open.ensure(campaign).quests,"dialogue":selected_npc if dialogue_open else ""}
+	status.people=Open.people(campaign).map(func(id):return {"id":id,"name":OW.PEOPLE[id].name,"role":OW.PEOPLE[id].role,"art":OW.PEOPLE[id].art})
 	JavaScriptBridge.eval("window.youxiaChapterStatus = Object.freeze("+JSON.stringify(status)+");",true)
 	var buttons := []
 	collect_buttons(layer,buttons)
