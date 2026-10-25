@@ -92,14 +92,38 @@ func run() -> void:
 	check(ui.campaign.state.silver==silver-10,"Selling updates actual inventory and money")
 	ui.enter_scene("嘉興鎮","演武坪")
 	ui.set_page("武學")
+	await press("前往師父")
+	check(Open.current_region(ui.campaign)=="嘉興鎮" and Open.current_scene(ui.campaign)=="演武坪" and ui.page=="武學","Unjoined characters reach the introductory teacher with learning controls ready")
 	await press("拜入華山")
 	check(ui.campaign.state.sect=="華山","Visible master action joins a sect")
+	await press("前往師父")
+	check(Open.current_region(ui.campaign)=="華山派" and Open.current_scene(ui.campaign)=="正氣堂" and ui.page=="武學","Joining Huashan changes the teacher shortcut to the sect, keeping learning open")
 	var level: int=ui.campaign.state.levels.hero
 	await press("消點進修")
 	check(ui.campaign.state.levels.hero==level+1,"Spend-point training changes combat progression")
 	await press("自修 ·")
 	ui._process(5.1)
 	check(ui.campaign.state.levels.hero==level+2,"Self-study completes only after its timed cycle")
+	ui.campaign.state.potential=1000
+	for teacher in [["華山","華山派","正氣堂"],["武當","武當派","演武場"],["少林","少林派","羅漢堂"],["全真","全真教","重陽宮"],["古墓","全真教","古墓"]]:
+		ui.enter_scene("嘉興鎮","演武坪")
+		ui.campaign.state.sect="未入門"
+		ui.set_page("武學")
+		await press("拜入"+teacher[0])
+		ui.enter_scene("牛家村","村口")
+		ui.set_page("武學")
+		await press("前往師父")
+		check(ui.campaign.state.sect==teacher[0] and Open.current_region(ui.campaign)==teacher[1] and Open.current_scene(ui.campaign)==teacher[2],"Teacher shortcut reaches the current sect from a distant village: "+teacher[0])
+		check(ui.page=="武學" and ui.current_training_place() and ui.campaign.training_place(),"Displayed and actual learning access agree at the destination: "+teacher[0])
+		level=ui.campaign.state.levels.hero
+		var points: int=ui.campaign.state.potential
+		await press("消點進修")
+		check(ui.campaign.state.levels.hero==level+1 and ui.campaign.state.potential==points-(12+level*3),"Arriving at the sect teacher permits real spend-point training: "+teacher[0])
+		ui.enter_scene("嘉興鎮","藥廬")
+		ui.campaign.state.place="演武坪"
+		level=ui.campaign.state.levels.hero
+		ui.campaign.train("hero")
+		check(not ui.current_training_place() and ui.campaign.state.levels.hero==level,"A stale legacy stop cannot enable training after leaving the teacher: "+teacher[0])
 	ui.enter_scene("龍門","關隘")
 	check(ui.campaign.state.study=="" and ui.battle==null,"Distant scene entry stops study and never starts combat automatically")
 	ui.enter_scene(Content.ENEMIES.enemy_001.region,Content.ENEMIES.enemy_001.scene)

@@ -208,9 +208,20 @@ func position_hero(id: String, lane: int, front: bool) -> void:
 			break
 	state.formation[id] = {"lane":lane,"front":front}
 
+static func teacher_destination(sect: String) -> Dictionary:
+	match sect:
+		"華山":return {"region":"華山派","scene":"正氣堂"}
+		"武當":return {"region":"武當派","scene":"演武場"}
+		"少林":return {"region":"少林派","scene":"羅漢堂"}
+		"全真":return {"region":"全真教","scene":"重陽宮"}
+		"古墓":return {"region":"全真教","scene":"古墓"}
+	return {"region":"嘉興鎮","scene":"演武坪"}
+
 func training_place() -> bool:
 	var region: String=state.get("atlas",{}).get("region","嘉興鎮")
-	return region in ["華山派","武當派","少林派","全真教","峨嵋派"] or (region=="嘉興鎮" and state.place=="演武坪")
+	# In the open world, place can still contain a previously visited legacy stop.
+	var scene: String=state.get("open_world",{}).get("scene",state.place)
+	return region in ["華山派","武當派","少林派","全真教","峨嵋派"] or (region=="嘉興鎮" and scene=="演武坪")
 
 func join_sect(sect: String) -> String:
 	if not sect in ["華山","武當","少林","全真","古墓"] or not training_place():return "請先到門派師父或演武坪拜師。"

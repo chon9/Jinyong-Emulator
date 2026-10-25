@@ -690,11 +690,15 @@ func render_party() -> void:
 		for i in 5:
 			var sect: String=["華山","武當","少林","全真","古墓"][i]
 			button("拜入"+sect,Rect2(498+i*179,647,169,38),func():notice=campaign.join_sect(sect);persist();render(),false,not current_training_place())
-	else:label("師承 · "+campaign.state.sect+"　同行傳承可在外功選單激發",Rect2(498,647,860,30),18)
+	else:
+		var teacher: Dictionary=Chapter.teacher_destination(campaign.state.sect)
+		label("師承 · %s　傳功處：%s／%s" % [campaign.state.sect,teacher.region,teacher.scene],Rect2(498,647,890,30),18)
 	var cost := 12+int(campaign.state.levels[hero_id])*3
 	button("消點進修 · %d 學點" % cost,Rect2(498,698,290,43),func(): notice=campaign.train(hero_id); persist(); render(),false,not current_training_place())
 	button("停止自修" if campaign.state.study != "" else "自修 · 每 5 秒一重",Rect2(803,698,290,43),toggle_study,true)
-	button("前往師父",Rect2(1108,698,280,43),func(): travel("演武坪"))
+	var destination: Dictionary=Chapter.teacher_destination(campaign.state.sect)
+	var master_button := button("前往師父",Rect2(1108,698,280,43),visit_teacher)
+	master_button.tooltip_text="前往%s／%s，抵達後可直接消點進修。" % [destination.region,destination.scene]
 	label("自修耗 8＋重數×3 學點，消點耗 12＋重數×3；兩者均提升戰鬥屬性，上限三十重。",Rect2(498,752,887,25),16,MUTED)
 
 func render_formation(u: Dictionary) -> void:
@@ -1172,7 +1176,15 @@ func open_person(id: String) -> void:
 	render()
 
 func current_training_place() -> bool:
-	return Open.current_region(campaign) in ["華山派","武當派","少林派","全真教","峨嵋派"] or Open.current_scene(campaign) in ["演武坪","古墓"]
+	return campaign.training_place()
+
+func visit_teacher() -> void:
+	if battle!=null:return
+	var destination: Dictionary=Chapter.teacher_destination(campaign.state.sect)
+	enter_scene(destination.region,destination.scene)
+	page="武學"
+	notice="已抵達%s／%s。%s" % [destination.region,destination.scene,"可先選擇師門，再消點進修。" if campaign.state.sect=="未入門" else "可在此向本門師父消點進修；自修無須留在門派。"]
+	render()
 
 func quest_progress(id: String,choice: int=-1) -> void:
 	var result: Dictionary=Open.action(campaign,id,selected_npc,choice)
