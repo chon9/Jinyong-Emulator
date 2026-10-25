@@ -25,10 +25,11 @@ def seek_hero(page,hid):
     press(page,'進入 · '+h['region'])
     press(page,h['scene'],prefix=False);press(page,'交談 · '+h['name'])
 
-def earn_companion(page,hid,check=lambda ok,text:None,observe=None):
+def earn_companion(page,hid,check=lambda ok,text:None,observe=None,choice=0,invite=True):
     h=CONTENT['heroes'][hid];qid='friend_'+hid;q=CONTENT['quests'][qid]
     seek_hero(page,hid)
     opening=read_lines(page)
+    if observe:observe('opening',hid,q,opening)
     check(len(opening)>=3,'Opening is a real exchange with the protagonist: '+h['name'])
     check(hid not in status(page)['roster'],'Meeting a hero does not grant recruitment')
     press(page,'結交條件');conditions=read_lines(page)
@@ -43,7 +44,7 @@ def earn_companion(page,hid,check=lambda ok,text:None,observe=None):
         check(status(page)['scene']==step['scene'],'Journal leads to the actual witness or object location')
         lines=read_lines(page)
         if observe:observe('dialogue',hid,step,lines)
-        press(page,step['options'][0] if step['kind']=='choice' else step['action'],prefix=False)
+        press(page,step['options'][choice] if step['kind']=='choice' else step['action'],prefix=False)
         if step['kind']=='search':
             check(status(page)['evidence'][step['evidence']]['name']==step['item'],'Searching puts the named physical clue in the protected evidence bag')
             if observe:observe('evidence',hid,step,lines)
@@ -57,8 +58,14 @@ def earn_companion(page,hid,check=lambda ok,text:None,observe=None):
     check(status(page)['quests'][qid]['status']=='done','Story has an explicit awarded resolution: '+q['name'])
     check(not status(page)['evidence'],'Evidence is handed back at the resolution')
     if observe:observe('ending',hid,q,[])
-    press(page,'邀請同行',prefix=False)
-    check(hid in status(page)['roster'],'Recruitment becomes available after that hero’s own story')
+    if invite:
+        press(page,'邀請同行',prefix=False)
+        check(hid in status(page)['roster'],'Recruitment becomes available after that hero’s own story')
+    else:
+        if any(b['text']=='回到交談' for b in page.evaluate('youxiaUI.buttons')):
+            press(page,'回到交談');read_lines(page)
+        press(page,'結交條件');requirements=read_lines(page)
+        check('修為' in requirements[-1] and hid not in status(page)['roster'],'A completed story still respects this companion’s cultivation requirement')
     press(page,'×',prefix=False)
 
 def run():

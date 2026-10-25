@@ -38,7 +38,7 @@ func _init() -> void:
 		check(c.state.roster.size()==n and c.state.party.size()<=4,"Repeated invitations cannot duplicate a companion")
 		var u: Dictionary=c.unit(id)
 		check(u.outer==h.outer and u.weapon==Data.ARTS[h.outer].weapon,"Companion weapon and own martial art are consistent")
-	# Finish every real quest through its live rules and actual battle resolution.
+	# Finish both sets of choices through the live rules and real battle resolution.
 	for id in c.state.party:c.state.levels[id]=30
 	c.state.sect="華山"
 	c.state.inventory["草藥"]=500
@@ -69,6 +69,28 @@ func _init() -> void:
 		var silver: int=c.state.silver
 		Open.action(c,id,quest.giver,0)
 		check(c.state.silver==silver,"Completed quest cannot pay twice: "+id)
+	var alternate=campaign()
+	alternate.state.levels.hero=30
+	alternate.state.inventory["草藥"]=500
+	alternate.state.inventory["金創藥"]=500
+	for id in Data.QUESTS:
+		var q: Dictionary=Data.QUESTS[id]
+		Open.enter(alternate,q.region,q.scene);Open.accept(alternate,id,q.giver)
+		for turn in 20:
+			if alternate.state.open_world.quests[id].status=="done":break
+			var step: Dictionary=q.steps[int(alternate.state.open_world.quests[id].step)]
+			Open.enter(alternate,step.region,step.scene)
+			var result: Dictionary=Open.action(alternate,id,step.get("npc",""),1)
+			if result.has("battle"):
+				var b=Battle.new(alternate,result.battle,321)
+				for round_number in 120:
+					if b.result!="":break
+					b.auto_orders();b.begin_round()
+					while not b.queue.is_empty() and b.result=="":b.next_action()
+				check(b.result=="victory","Alternate route includes a winnable actual fight: "+id)
+				if b.result!="victory":break
+				Open.battle_won(alternate,result.battle)
+		check(alternate.state.open_world.quests[id].status=="done","Alternative choices reach a real ending: "+id)
 	for id in Data.HEROES:
 		var h: Dictionary=Data.HEROES[id]
 		Open.enter(c,h.region,h.scene)

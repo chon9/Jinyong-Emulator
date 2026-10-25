@@ -21,7 +21,7 @@ func prepare() -> void:
 	for group in 10:paths.append("res://assets/open_world/foes-%02d.png"%(group+1))
 	for group in 5:paths.append("res://assets/open_world/heroes-%d.png"%(group+1))
 	for name in ["residents","mu-nianci","scene-inn","scene-temple","scene-mountain","scene-market"]:paths.append("res://assets/open_world/"+name+".png")
-	for manifest in ["visual_art","companion_art"]:
+	for manifest in ["visual_art","companion_art","support_art"]:
 		if FileAccess.file_exists("res://data/"+manifest+".json"):
 			var visual: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://data/"+manifest+".json"))
 			for actor in visual.values():paths.append(("res://assets/characters/"+actor.texture).simplify_path())

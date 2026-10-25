@@ -1,0 +1,32 @@
+[
+  {
+    "key": "story-cast-a",
+    "people": [
+      "韋一笑",
+      "苗人鳳",
+      "任我行",
+      "蘇星河",
+      "瑛姑",
+      "阮清商",
+      "沈遠舟",
+      "慧定"
+    ],
+    "prompt": "Create a production 2D wuxia RPG dialogue portrait atlas. Transparent background with genuine alpha. Landscape wide canvas. Exactly EIGHT independent waist-up illustrated character cutouts, arranged 4 columns by 2 rows. Every complete bust including hair, hats, sleeves, hands stays inside its own cell, with wide transparent gutters separating every figure, no touching or overlap. Classical Chinese painted game art, fine controlled ink outlines, softly shaded realistic faces, muted teal, brown, ivory fabrics, hand painted, consistent late Ming wuxia game style. Three-quarter portraits looking slightly towards center. Neutral readable acting, no dramatic combat stance, no floating weapons, no labels, no letters, no frame, no scenery, no contact sheet background. Same anatomy and head scale across cells. TOP ROW LEFT TO RIGHT: 1 Wei Yixiao, thin wiry Chinese male around 50, slightly sallow complexion, dark green high collar travelling robe, piercing eyes, sardonic smile, short mustache, no bat wings. 2 Miao Renfeng, stern square-faced Chinese swordsman around 45, plain ochre-grey robes, thick brows, black cloth covering one wounded eye, broad shoulders, hands resting calmly, sword scabbard at hip mostly outside bust. 3 Ren Woxing, formidable older Chinese man around 60 with loose long silver-grey hair, long beard, worn black robe with dark red inner garment, proud calculating gaze, formerly imprisoned, no shackles. 4 Su Xinghe, elderly scholarly Chinese gentleman with narrow grey beard, faded green scholar robe and soft cloth cap, holding a single black go stone between fingers, patient observant expression. BOTTOM ROW LEFT TO RIGHT: 5 Yinggu, elderly Chinese woman with long white hair tied simply, plain faded dark robe, aged face, grieving but resolute gaze, holding old embroidered handkerchief. 6 Ruan Qingshang, elderly civilian musician, sparse grey beard, plain brown travelling coat, carrying small wrapped erhu in one hand, kindly tired eyes. 7 Shen Yuanzhou, inexperienced Chinese male sword student age 17, clearly youthful face, short blue-grey training robe, tied hair, simple sheathed practice sword at waist, eager embarrassed expression. 8 Huiding, novice Buddhist monk age 13, youthful round face, shaved head, loose tan robe, holding a sealed letter carefully in both hands, worried sincere expression. Output only original atlas with transparent spaces; all eight remain separate.",
+    "target": "assets/supporting/story-cast-a.png"
+  },
+  {
+    "key": "story-cast-b",
+    "people": [
+      "阿順",
+      "何小枝",
+      "阮秋娘",
+      "淨塵",
+      "黃鐘公",
+      "黑白子",
+      "禿筆翁",
+      "丹青生"
+    ],
+    "prompt": "Create a production 2D wuxia RPG dialogue portrait atlas. Transparent background with genuine alpha. Landscape wide canvas. Exactly EIGHT independent waist-up illustrated character cutouts, arranged 4 columns by 2 rows. Every complete bust including hair, hats, sleeves, hands stays inside its own cell, with wide transparent gutters separating every figure, no touching or overlap. Classical Chinese painted game art, fine controlled ink outlines, softly shaded realistic faces, muted teal, brown, ivory fabrics, hand painted, consistent late Ming wuxia game style. Three-quarter portraits looking slightly towards center. Neutral readable acting, no dramatic combat stance, no floating weapons, no labels, no letters, no frame, no scenery, no contact sheet background. Same head scale and coherent proportions across cells, child naturally smaller shoulders. TOP ROW LEFT TO RIGHT: 1 Ashun, Chinese village boy age 9, clearly child face, patched ochre shirt, messy tied hair, holding a tiny fishing float and folded cloth, sheepish expression. 2 He Xiaozhi, blind Chinese village woman age 22, modest plain blue-white dress, hair neatly tied with cloth, unfocused cloudy eyes without gore, one hand resting on walking cane held vertically, self-possessed practical expression. 3 Ruan Qiuniang, Chinese woman around 35, ordinary grey-blue civilian clothing, simple hairpin, mourning white cloth at wrist, holding a small family register close, composed but saddened face. 4 Jingchen, Chinese female Wudang messenger age 25, plain slate blue Taoist travelling robe, simple tied hair, bandage on forehead and blood-free cloth on arm, holding sealed envelope, exhausted determined expression. BOTTOM ROW LEFT TO RIGHT: 5 Huang Zhonggong, elderly refined Chinese male musician age 65, long white beard and pale cream robe with green edging, holding a partly wrapped guqin at hip, gentle serious face. 6 Heibaizi, middle-aged Chinese male scholar age 50, narrow mustache, black scholar cap, black-white robe, holding small go-stone box, wary calculating eyes. 7 Tubiweng, Chinese male calligrapher age 55, bald crown with grey hair at sides, short pointed beard, loose brown ink-stained robe, holding a large calligraphy brush, exuberant raised brows. 8 Danqingsheng, Chinese male painter age 50, unruly dark hair streaked grey, broad beard, faded maroon coat, holding rolled painting and small wine gourd, hearty amused expression. Output only original atlas with transparent spaces; all eight remain separate.",
+    "target": "assets/supporting/story-cast-b.png"
+  }
+]

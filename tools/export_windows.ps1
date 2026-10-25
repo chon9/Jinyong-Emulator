@@ -51,6 +51,7 @@ Classic presentation assets adapted with permission from the user's JY-Mini OL p
 - 100 enemy designs, 40 hero designs, 8 peaceful residents, 4 scenes and a replacement Mu Nianci sprite generated with built-in imagegen; prompts in art/open-world-jobs.json.
 - 32 civilian portraits and 15 four-pose combat sheets generated with built-in imagegen; prompts in art/visuals/prompts.json.
 - 41 companion four-pose sets generated with built-in imagegen; prompts in art/companions/prompts.json.
+- 16 supporting story portraits generated with built-in imagegen; prompts in art/story-cast/prompts.json.
 - Additional 19 animation sheets and 23 audio cues copied unchanged from owner-provided resources; exact sources and hashes in art/combat-fx.json.
 - Selected town tiles/panorama, world map, character animation sheets, effects and SFX from the owner-supplied Jinyong Heroes 5 installation; see source repository assets/town/SOURCE.txt. No source scripts, event commands, saves or dialogue were imported.
 - ui_frame.gd, ui_theme.gd and jy_button.gd, adapted into scripts/classic.
@@ -66,10 +67,10 @@ $youxiaReadme = @'
 請把同資料夾的 DLL 與 steam_appid.txt 留在原位，給朋友時傳送整個 ZIP。
 
 單機：直接啟動即可。Steam 未開啟時仍可玩單機。
-預設進入自由江湖：100處命名場景、121份可選委託、41位新增可招募人物、100種獨立繪製對手。
+預設進入自由江湖：100處命名場景、129份可選委託、41位新增可招募人物、100種獨立繪製對手。
 新角色從牛家村開始，點頭像逐句交談，查看結交條件或個人往事。所有道路開放，不需要先清第一章。
-新群俠須先完成自己的故事、累積交情並達到個別修為才可招募；舊版已招募者保留。
-任務有具名證人、可拾取的物證、實際交付／戰鬥及結局；物證放在線索袋，不能出售。
+新群俠須先完成自己的故事、累積交情並達到個別修為才可招募。
+每位人物有獨立起因、行動和結局；借物、還債、護送、音律與棋局的流程各不相同，並非全部要求戰鬥。
 41位新增群俠各有4格戰鬥姿勢；招式依武學區分特效與音效，蓄力有氣場，狀態標記顯示餘下回合。
 委託接下後在「進行中」查看；前往目標直接帶到場景，交談、交付、切磋與回報都有實際效果。
 到其他場景先見人物與故事，不會自動開戰；「附近挑戰」或「江湖群雄」可尋找對手，再自行接受挑戰。
@@ -80,7 +81,7 @@ $youxiaReadme = @'
 本作對話、任務步驟與平衡重新編寫，參照Flash金庸群俠傳3題材，並非原作逐字劇本或官方公式。
 各地商店、客棧與指定醫館可買賣。選單可刪除存檔／重新開始；會再次確認，取消保留進度。
 C 同伴、K 武學、I 行囊、J 委託、M 地圖、D 每日、F8 選單、Esc 返回。
-進度自動保存，新舊角色分開記錄在同一備份；新系統不繼承經典角色等級與裝備。
+進度自動保存。v0.12.0首次載入舊自由江湖會先完整備份，再從牛家村重開；備份失敗保留原進度。選單可匯出重寫前舊檔，Windows會打開備份資料夾。新版其後讀檔不會重置，經典角色和聲音設定保留。
 設定 → 進入舊版江湖／F9：開啟原有任務、副本、生活、Steam、區網與 WebSocket 聯機。
 舊版左上「青溪新章」可返回新版；以下聯機和經典玩法說明適用於舊版江湖。
 Steam：雙方先開 Steam 與遊戲，進「系統」頁開房／加入。開發測試 App ID 為 480。

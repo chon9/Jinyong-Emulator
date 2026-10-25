@@ -25,6 +25,8 @@ var saved_clock := false
 var save_import_callback: JavaScriptObject
 var save_export_callback: JavaScriptObject
 var reset_generation := ""
+var story_migration_notice := ""
+var save_revision := 0
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -54,6 +56,7 @@ func _ready() -> void:
 		var marker: Variant=JavaScriptBridge.eval("(()=>{try{return localStorage.getItem('youxia-reset-generation-v1')||'';}catch{return '';}})()",true)
 		if marker is String:reset_generation=marker
 	_load()
+	migrate_story()
 	start_offline()
 	if OS.has_feature("web"):
 		save_import_callback = JavaScriptBridge.create_callback(_browser_import)
@@ -79,21 +82,35 @@ func _installation_id() -> String:
 	return value
 
 func _load() -> void:
+	var newest: Dictionary={}
 	for path in [save_path, save_path + ".bak"]:
 		var data := _read_save(path)
 		if data.is_empty(): continue
-		local_character = data.character
-		chapter_data = data.get("chapter", {}) if data.get("chapter", {}) is Dictionary else {}
-		local_tick = maxi(0, int(data.get("world_tick", 0)))
-		saved_clock = data.has("world_tick")
-		guest_saves = data.get("guests", {})
+		newest=data
 		if path.ends_with(".bak"): message.emit.call_deferred("系統", "主存檔損壞，已從上一份備份恢復。")
-		return
+		break
+	# IDBFS commits asynchronously. A small synchronous checkpoint closes the gap
+	# when a player reloads immediately after a choice or quest reward.
+	if OS.has_feature("web"):
+		var quick: Variant=JavaScriptBridge.eval("(()=>{try{return localStorage.getItem('youxia-fast-save-v1')||'';}catch{return '';}})()",true)
+		if quick is String:
+			var data:=_decode_save(quick)
+			if not data.is_empty() and int(data.get("save_revision",0))>int(newest.get("save_revision",-1)):newest=data
+	if newest.is_empty():return
+	save_revision=int(newest.get("save_revision",0))
+	local_character=newest.character
+	chapter_data=newest.get("chapter",{}) if newest.get("chapter",{}) is Dictionary else {}
+	local_tick=maxi(0,int(newest.get("world_tick",0)))
+	saved_clock=newest.has("world_tick")
+	guest_saves=newest.get("guests",{})
 
 func _read_save(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path): return {}
+	return _decode_save(FileAccess.get_file_as_string(path))
+
+func _decode_save(text: String) -> Dictionary:
 	var parser := JSON.new()
-	if parser.parse(FileAccess.get_file_as_string(path)) != OK: return {}
+	if parser.parse(text) != OK: return {}
 	var data: Variant = parser.data
 	if not data is Dictionary or int(data.get("version", 0)) != 1 or not data.get("character") is Dictionary: return {}
 	# A synchronous reset marker prevents an older IndexedDB snapshot from reappearing
@@ -142,13 +159,69 @@ func save_game() -> bool:
 	var temp := save_path + ".tmp"
 	var file := FileAccess.open(temp, FileAccess.WRITE)
 	if file == null: return false
-	file.store_string(JSON.stringify({"version": 1, "character": local_character, "guests": guest_saves, "world_tick": local_tick, "chapter": chapter_data, "reset_generation":reset_generation}))
+	var payload: String=JSON.stringify({"version":1,"character":local_character,"guests":guest_saves,"world_tick":local_tick,"chapter":chapter_data,"reset_generation":reset_generation,"save_revision":save_revision+1})
+	file.store_string(payload)
 	file.close()
 	# Windows 上以 replace 的方式寫入：保留前一份存檔以利恢復。
 	if not _read_save(save_path).is_empty():
 		var backup_error := DirAccess.copy_absolute(save_path, save_path + ".bak")
 		if backup_error != OK: return false
-	return DirAccess.rename_absolute(temp, save_path) == OK
+	var replaced: bool=DirAccess.rename_absolute(temp, save_path)==OK
+	if replaced:
+		save_revision+=1
+		if OS.has_feature("web"):
+			JavaScriptBridge.eval("(()=>{try{localStorage.setItem('youxia-fast-save-v1',"+JSON.stringify(payload)+");}catch{}})()",true)
+			JavaScriptBridge.force_fs_sync()
+	return replaced
+
+# The narrative rewrite deliberately starts a fresh campaign. Keep the complete
+# previous save in a separate, content-addressed file before changing any state.
+func migrate_story(original_text: String="") -> bool:
+	story_migration_notice=""
+	if chapter_data.is_empty():return false
+	var old_world: Variant=chapter_data.get("open_world",{})
+	if old_world is Dictionary and old_world.get("story_edition",0)==3:return false
+	var payload: String=original_text if original_text!="" else JSON.stringify({"version":1,"character":local_character,"guests":guest_saves,"world_tick":local_tick,"chapter":chapter_data,"reset_generation":reset_generation})
+	var path: String=save_path+".before-story-3-"+payload.sha256_text().substr(0,16)+".json"
+	if not FileAccess.file_exists(path):
+		var file:=FileAccess.open(path,FileAccess.WRITE)
+		if file==null:
+			story_migration_notice="舊檔無法備份，已保留原進度。請先匯出存檔，再重新開始。"
+			return false
+		file.store_string(payload)
+		file.flush()
+		var error: Error=file.get_error()
+		file.close()
+		if error!=OK:
+			story_migration_notice="舊檔備份未完成，已保留原進度。"
+			return false
+	if FileAccess.get_file_as_string(path)!=payload:
+		story_migration_notice="舊檔備份驗證失敗，已保留原進度。"
+		return false
+	if OS.has_feature("web"):JavaScriptBridge.force_fs_sync()
+	chapter_data={}
+	story_migration_notice="故事已重寫，從牛家村重新出發。舊進度已完整備份，可在選項匯出。"
+	return true
+
+func story_backups() -> Array[String]:
+	var result: Array[String]=[]
+	var directory:=DirAccess.open(save_path.get_base_dir())
+	if directory==null:return result
+	var prefix: String=save_path.get_file()+".before-story-3-"
+	for filename in directory.get_files():
+		if filename.begins_with(prefix) and filename.ends_with(".json"):
+			result.append(save_path.get_base_dir().path_join(filename))
+	result.sort_custom(func(a,b):return FileAccess.get_modified_time(a)>FileAccess.get_modified_time(b))
+	return result
+
+func export_story_backup() -> void:
+	var backups:=story_backups()
+	if backups.is_empty():return
+	if OS.has_feature("web"):
+		JavaScriptBridge.get_interface("window").youxiaDownloadSave(FileAccess.get_file_as_string(backups[0]))
+	else:
+		message.emit("系統","重寫前完整存檔："+ProjectSettings.globalize_path(backups[0]))
+		OS.shell_open(ProjectSettings.globalize_path(backups[0].get_base_dir()))
 
 func _disconnect() -> void:
 	if not mode.ends_with("客戶端") and world.players.has(1): save_game()
@@ -170,14 +243,14 @@ func reset_local_progress() -> bool:
 		return false
 	if OS.has_feature("web"):
 		var generation: String=Crypto.new().generate_random_bytes(16).hex_encode()
-		var marked: Variant=JavaScriptBridge.eval("(()=>{try{localStorage.setItem('youxia-reset-generation-v1',"+JSON.stringify(generation)+");return true;}catch{return false;}})()",true)
+		var marked: Variant=JavaScriptBridge.eval("(()=>{try{localStorage.setItem('youxia-reset-generation-v1',"+JSON.stringify(generation)+");localStorage.removeItem('youxia-fast-save-v1');return true;}catch{return false;}})()",true)
 		# The Web bridge can marshal JavaScript booleans as integer 0/1.
 		if not bool(marked):
 			status="瀏覽器未允許儲存刪檔標記，進度已保留。"
 			return false
 		reset_generation=generation
 	# Remove recovery files too; otherwise a later load can resurrect deleted progress.
-	for path in [save_path,save_path+".bak",save_path+".tmp"]:
+	for path in [save_path,save_path+".bak",save_path+".tmp"]+story_backups():
 		if not FileAccess.file_exists(path):continue
 		if OS.has_feature("web"):
 			# FileAccess also marks IDBFS dirty. DirAccess deletion alone can miss
@@ -327,6 +400,7 @@ func import_save_text(text: String) -> bool:
 	local_character = character
 	chapter_data = data.get("chapter", {})
 	local_tick = maxi(0, int(data.get("world_tick", 0)))
+	migrate_story(text)
 	saved_clock = data.has("world_tick")
 	world.tick = local_tick
 	_restore(1, character)

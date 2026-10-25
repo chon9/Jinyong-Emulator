@@ -10,6 +10,8 @@ func _init() -> void:
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/visual_art.json")),true)
 	if FileAccess.file_exists("res://data/companion_art.json"):
 		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/companion_art.json")),true)
+	if FileAccess.file_exists("res://data/support_art.json"):
+		data.characters.merge(JSON.parse_string(FileAccess.get_file_as_string("res://data/support_art.json")),true)
 	if FileAccess.file_exists("res://data/character_masks.json"):
 		var masks: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/character_masks.json"))
 		for key in masks:

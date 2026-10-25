@@ -36,7 +36,7 @@ def quads(forbidden):
 
 def main():
     data = json.loads((ROOT/'data/character_art.json').read_text())['characters']
-    for name in ['open_art', 'visual_art', 'companion_art']:
+    for name in ['open_art', 'visual_art', 'companion_art', 'support_art']:
         data.update(json.loads((ROOT/f'data/{name}.json').read_text()))
     sheets = {}
     for key, entry in data.items():
